@@ -1,16 +1,4 @@
-//РУС: Здесь описываем "контракты" — какую форму имеют данные.
-//      TypeScript проверяет, что мы не ошибаемся в названиях полей.
-// ESP: Aquí definimos la "forma" de nuestros datos.
-//      TypeScript nos avisa si escribimos mal un campo.
-//
-// ВАЖНО: Эти типы — ЗЕРКАЛО бэкенда.
-//   user.model.js → User interface
-//   booking.model.js → Booking interface
-// ============================================================
 
-// ── USER ────────────────────────────────────────────────────
-// Копирует поля из backend/src/models/user.model.js
-// Это объект пользователя, который возвращает наш бэк
 export interface User {
   id: string;           // MongoDB _id (бэк переименовывает в id при возврате)
   name: string;         // имя пользователя
