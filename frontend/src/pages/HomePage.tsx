@@ -1,24 +1,24 @@
 // ============================================================
 // pages/HomePage.tsx
 // ============================================================
-// РУС: Главная страница — лендинг.
-//      Все секции из v0 проекта: Hero, Beneficios, Tratamientos,
-//      Precios (калькулятор), Homecare, Formaciones, Testimonios.
-// ESP: Página principal con todas las secciones del landing.
-// ============================================================
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
+import {
+  HomecareSection,
+  PreciosBanner,
+  AntesDespuesSection,
+  ReviewsSection,
+  BeautyScriptsSection,
+} from '../components/HomePageSections';
 
-// Иконка для TikTok (нет в стандартных иконках)
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
   </svg>
 );
 
-// ── ДАННЫЕ ТАБЛИЦЫ ЦЕН ───────────────────────────────────────
 const PRECIOS = {
   keratina: [
     { length: '20-30 cm', price: '180€' },
@@ -33,7 +33,7 @@ const PRECIOS = {
     { length: '30-40 cm', price: '120€' },
     { length: '40-50 cm', price: '140€' },
     { length: '50-60 cm', price: '160€' },
-    { length: '60+ cm', price: '200€' },
+    { length: '60+ cm',   price: '200€' },
   ],
 };
 
@@ -41,7 +41,6 @@ export default function HomePage() {
   const [pricingTab, setPricingTab] = useState<'keratina' | 'reconstruccion'>('keratina');
   const user = useAppSelector((state) => state.auth.user);
 
-  // Скролл к секции
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -50,17 +49,14 @@ export default function HomePage() {
     <div className="min-h-screen">
 
       {/* ════════════════════════════════════════════════════
-          HERO SECTION
+          HERO
           ════════════════════════════════════════════════════ */}
       <section className="relative min-h-screen flex flex-col overflow-hidden">
-        {/* Фото фон */}
         <div className="absolute inset-0">
-          {/* Градиент-заглушка (в реальном проекте — твоё фото) */}
           <div className="w-full h-full bg-gradient-to-br from-[#4a3b32] via-[#6b5344] to-[#8B7355]" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/80" />
         </div>
 
-        {/* Контент Hero */}
         <div className="relative z-10 flex flex-col justify-end flex-1 px-6 pb-16 lg:px-16 lg:pb-24">
           <div className="max-w-2xl">
             <p className="text-[#D4C5B5] text-xs tracking-[0.5em] uppercase mb-4 font-light">
@@ -78,7 +74,6 @@ export default function HomePage() {
               Diagnóstico y protocolo 100% personalizados.
             </p>
 
-            {/* CTA кнопки */}
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => scrollTo('servicios')}
@@ -86,7 +81,6 @@ export default function HomePage() {
               >
                 SERVICIOS & PRECIOS
               </button>
-              {/* Кнопка зависит от авторизации */}
               {user ? (
                 <Link
                   to="/booking"
@@ -108,7 +102,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Иконки соцсетей */}
         <div className="absolute bottom-8 right-6 lg:right-12 z-10 flex gap-4">
           <a href="https://www.instagram.com/keratin_madrid" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
@@ -119,7 +112,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Золотой разделитель */}
       <div className="gold-divider" />
 
       {/* ════════════════════════════════════════════════════
@@ -209,7 +201,6 @@ export default function HomePage() {
               },
             ].map((service, i) => (
               <div key={i} className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group">
-                {/* Градиент вместо фото */}
                 <div className={`h-48 bg-gradient-to-br ${service.gradient} relative`}>
                   <div className="absolute inset-0 bg-black/30" />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
@@ -245,11 +236,15 @@ export default function HomePage() {
       <div className="gold-divider" />
 
       {/* ════════════════════════════════════════════════════
-          PRECIOS CON CALCULADORA (id="precios")
+          PRECIOS (id="precios")
           ════════════════════════════════════════════════════ */}
       <section id="precios" className="py-16 lg:py-24 bg-[#FAF8F6]">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
+
+          {/* ── НОВЫЙ БАННЕР над таблицей цен ── */}
+          <PreciosBanner />
+
+          <div className="text-center mb-12 mt-10">
             <div className="inline-block px-6 py-2 mb-4 bg-[#B8A99A]/10 rounded-full">
               <span className="text-[#B8A99A] text-xs tracking-[0.3em] uppercase font-medium">Precios</span>
             </div>
@@ -274,7 +269,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Таблица цен */}
+          {/* Таблица */}
           <div className="card">
             <div className="divide-y divide-[#E8E4E0]">
               {PRECIOS[pricingTab].map((item, i) => (
@@ -302,62 +297,23 @@ export default function HomePage() {
       <div className="gold-divider" />
 
       {/* ════════════════════════════════════════════════════
-          HOMECARE (id="homecare")
+          HOMECARE (id="homecare") — НОВЫЙ КОМПОНЕНТ
           ════════════════════════════════════════════════════ */}
-      <section id="homecare" className="py-16 lg:py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <div className="inline-block px-6 py-2 mb-4 bg-[#B8A99A]/10 rounded-full">
-              <span className="text-[#B8A99A] text-xs tracking-[0.3em] uppercase font-medium">Homecare</span>
-            </div>
-            <h2 className="font-serif text-3xl lg:text-4xl font-medium text-[#3D3D3D] mb-3">Cuidado en casa</h2>
-            <p className="text-[#666666] font-light">Prolonga los resultados de tu tratamiento profesional</p>
-          </div>
+      <HomecareSection user={user} />
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            {[
-              { icon: '💧', tip: 'Lavar según necesidad con champú adaptado' },
-              { icon: '✨', tip: 'Mascarilla 1–2 veces por semana (20-30 min)' },
-              { icon: '🌊', tip: 'Acondicionador en días sin mascarilla' },
-              { icon: '🌡️', tip: 'Termoprotector siempre antes de secar' },
-              { icon: '💨', tip: 'Secar con secador (aire tibio/frío)' },
-              { icon: '🖌️', tip: 'Cepillo con púas suaves' },
-              { icon: '🚫', tip: 'No frotar con toalla; no dormir mojado' },
-              { icon: '🌙', tip: 'Evitar agua muy caliente' },
-            ].map((tip, i) => (
-              <div key={i} className="text-center p-4 border border-[#E8E4E0] rounded-xl hover:border-[#B8A99A]/50 transition-colors">
-                <div className="text-2xl mb-2">{tip.icon}</div>
-                <p className="text-sm text-[#666666] font-light leading-relaxed">{tip.tip}</p>
-              </div>
-            ))}
-          </div>
+      <div className="gold-divider" />
 
-          {/* Kit */}
-          <div className="card border-2 border-[#B8A99A]/30">
-            <div className="flex flex-col lg:flex-row gap-6 items-center">
-              <div className="w-full lg:w-1/3 h-48 bg-gradient-to-br from-[#D4C5B5] to-[#B8A99A] rounded-xl flex items-center justify-center">
-                <span className="text-5xl">🌿</span>
-              </div>
-              <div className="flex-1">
-                <span className="inline-block px-3 py-1 bg-[#B8A99A]/20 text-[#9A8B7A] text-xs rounded-full mb-3 font-medium">Producto destacado</span>
-                <h3 className="font-serif text-xl font-medium text-[#3D3D3D] mb-2">Kit personalizado de cuidado en casa</h3>
-                <p className="text-[#666666] font-light text-sm mb-4">
-                  Cada kit se personaliza según tu tipo de cabello para mantener el resultado del tratamiento.
-                </p>
-                <ul className="space-y-1 mb-4">
-                  {['Champú profesional adaptado', 'Acondicionador nutritivo', 'Mascarilla intensiva', 'Protector térmico'].map((item, i) => (
-                    <li key={i} className="flex items-center text-sm text-[#666666]">
-                      <span className="text-[#B8A99A] mr-2">✓</span> {item}
-                    </li>
-                  ))}
-                </ul>
-                <p className="font-serif text-2xl text-[#9A8B7A] mb-3">90€</p>
-                <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="btn-primary text-xs">RESERVAR KIT</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ════════════════════════════════════════════════════
+          ANTES / DESPUÉS — НОВЫЙ КОМПОНЕНТ (id="resultados")
+          ════════════════════════════════════════════════════ */}
+      <AntesDespuesSection />
+
+      <div className="gold-divider" />
+
+      {/* ════════════════════════════════════════════════════
+          OPINIONES — НОВЫЙ КОМПОНЕНТ (id="opiniones")
+          ════════════════════════════════════════════════════ */}
+      <ReviewsSection />
 
       <div className="gold-divider" />
 
@@ -375,12 +331,10 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Curso intensivo */}
             <div className="card border-2 border-[#B8A99A]/30">
               <span className="inline-block px-3 py-1 bg-[#B8A99A] text-white text-xs rounded-full mb-4 font-medium">Curso destacado</span>
               <h3 className="font-serif text-xl font-medium text-[#3D3D3D] mb-1">Curso intensivo de keratina</h3>
               <p className="text-[#666666] font-light text-sm mb-4">Formación completa para profesionales · 2 días</p>
-
               <ul className="space-y-2 mb-5">
                 {['Diagnóstico tricoscópico', 'Técnicas de aplicación', 'Práctica con modelos', 'Manual PDF completo', 'Certificado de asistencia', 'Soporte 2 semanas'].map((item, i) => (
                   <li key={i} className="flex items-center text-sm text-[#666666]">
@@ -388,17 +342,14 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-
               <p className="font-serif text-3xl text-[#9A8B7A] mb-4">1.400€</p>
               <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="btn-primary w-full block text-center text-xs">RESERVAR PLAZA</a>
             </div>
 
-            {/* Masterclass */}
             <div className="card">
               <span className="inline-block px-3 py-1 bg-[#9A8B7A] text-white text-xs rounded-full mb-4 font-medium">Masterclass</span>
               <h3 className="font-serif text-xl font-medium text-[#3D3D3D] mb-1">Reconstrucción en Frío</h3>
               <p className="text-[#666666] font-light text-sm mb-4">Para profesionales que buscan especialización</p>
-
               <ul className="space-y-2 mb-5">
                 {['Técnicas avanzadas', 'Grupos reducidos (máx. 6)', 'Material incluido', 'Guía completa PDF', 'Certificado de asistencia'].map((item, i) => (
                   <li key={i} className="flex items-center text-sm text-[#666666]">
@@ -406,7 +357,6 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-
               <p className="font-serif text-3xl text-[#9A8B7A] mb-1">350€</p>
               <p className="text-xs text-[#666666] mb-4">Grupo mínimo de 3 personas · por persona</p>
               <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="btn-primary w-full block text-center text-xs">HABLAR POR WHATSAPP</a>
@@ -414,6 +364,13 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <div className="gold-divider" />
+
+      {/* ════════════════════════════════════════════════════
+          BEAUTY SCRIPTS — НОВЫЙ КОМПОНЕНТ (id="scripts")
+          ════════════════════════════════════════════════════ */}
+      <BeautyScriptsSection />
 
       <div className="gold-divider" />
 
@@ -430,7 +387,6 @@ export default function HomePage() {
             Estamos en Madrid, España. Contáctanos por WhatsApp o{' '}
             {user ? 'reserva directamente desde tu cuenta.' : 'crea tu cuenta para reservar online.'}
           </p>
-
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://wa.me/34641261559"
@@ -467,10 +423,11 @@ export default function HomePage() {
             <div>
               <h3 className="font-serif text-lg font-medium text-[#3D3D3D] mb-4">Navegación</h3>
               {[
-                { label: 'Servicios', id: 'servicios' },
-                { label: 'Precios', id: 'precios' },
-                { label: 'Homecare', id: 'homecare' },
-                { label: 'Para Profesionales', id: 'formaciones' },
+                { label: 'Servicios',         id: 'servicios' },
+                { label: 'Precios',           id: 'precios' },
+                { label: 'Homecare',          id: 'homecare' },
+                { label: 'Para Profesionales',id: 'formaciones' },
+                { label: 'Resultados',        id: 'resultados' },
               ].map((item) => (
                 <button key={item.id} onClick={() => scrollTo(item.id)} className="block text-[#666666] hover:text-[#B8A99A] transition-colors mb-2 text-sm">
                   {item.label}
@@ -496,6 +453,7 @@ export default function HomePage() {
           <p className="text-center text-[#999] text-sm">© 2025 Keratin Madrid. Todos los derechos reservados.</p>
         </div>
       </footer>
+
     </div>
   );
 }

@@ -27,6 +27,7 @@ import { getMeThunk } from './store/authSlice';
 
 // Components
 import Navbar from './components/Navbar';
+import FloatingCTA from './components/FloatingCTA';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
@@ -40,54 +41,41 @@ function App() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.auth.token);
 
-  // ── ВОССТАНОВЛЕНИЕ СЕССИИ ─────────────────────────────────
-  // При загрузке страницы — если есть токен в localStorage,
-  // спрашиваем бэк "кто я?" и восстанавливаем данные пользователя
-  // Это нужно чтобы после F5 пользователь оставался залогиненным
   useEffect(() => {
     if (token) {
-      // getMeThunk → GET /api/auth/me → возвращает { id, name, email, role }
       dispatch(getMeThunk());
     }
-  }, []); // [] = запускаем ОДИН раз при монтировании компонента
+  }, []);
 
   return (
-    // BrowserRouter = включает react-router в приложении
     <BrowserRouter>
-      {/* Navbar всегда виден (не внутри Routes) */}
       <Navbar />
+      <FloatingCTA />  {/* ← ДОБАВЛЕНО: плавающая кнопка, видна на всех страницах */}
 
-      {/* pt-16 = padding-top чтобы контент не скрывался под fixed navbar */}
       <main className="pt-16 lg:pt-20">
-        {/* Routes = смотрит на URL и показывает первый совпадающий Route */}
         <Routes>
-          {/* ПУБЛИЧНЫЕ МАРШРУТЫ — доступны всем */}
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
-          {/* ЗАЩИЩЁННЫЙ МАРШРУТ — только для залогиненных */}
           <Route
             path="/booking"
             element={
-              <ProtectedRoute> {/* охранник проверяет токен */}
+              <ProtectedRoute>
                 <BookingPage />
               </ProtectedRoute>
             }
           />
 
-          {/* ADMIN МАРШРУТ — только для role: 'admin' */}
           <Route
             path="/admin"
             element={
-              <ProtectedRoute adminOnly> {/* adminOnly = только admin */}
+              <ProtectedRoute adminOnly>
                 <AdminPage />
               </ProtectedRoute>
             }
           />
 
-          {/* ВСЁОСТАЛЬНОЕ → главная страница */}
-          {/* path="*" = любой несуществующий URL */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

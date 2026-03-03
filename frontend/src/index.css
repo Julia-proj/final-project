@@ -1,154 +1,189 @@
 /* ============================================================
-   index.css
-   ============================================================
-   РУС: Tailwind v4 подключается через @import (новый синтаксис!)
-        В v4 НЕТ tailwind.config.js — конфигурация прямо в CSS через @theme
-   ESP: Tailwind v4 se importa con @import. Configuración en @theme.
+   INDEX.CSS — Keratin Madrid
+   Tailwind CSS v4 + Кастомные стили
+   
+   СТРУКТУРА:
+   1. Tailwind v4 import + @theme
+   2. Google Fonts (Playfair Display + Inter)
+   3. Базовые стили (html, body)
+   4. Компоненты: Glassmorphism Navbar
+   5. Анимации: fade-in-up, pulse-soft
+   6. Утилиты: gold-divider, scroll behavior
    ============================================================ */
 
+/* ─── 1. TAILWIND V4 ─── */
 @import "tailwindcss";
 
-/* ── КАСТОМНЫЕ ТОКЕНЫ ЦВЕТОВ ──────────────────────────────────
-   @theme = место для кастомных переменных Tailwind v4
-   Потом используем: bg-cream, text-charcoal, border-beige и т.д.
-   ──────────────────────────────────────────────────────────── */
+/* 
+   Tailwind v4 конфигурация через @theme
+   Здесь мы определяем кастомные шрифты,
+   которые будут доступны как font-serif и font-sans
+*/
 @theme {
-  /* Цветовая палитра Keratin Madrid (Cream / Premium) */
-  --color-cream: #FAF8F6;        /* очень светлый кремовый фон */
-  --color-cream-dark: #F2EDE9;   /* чуть темнее для секций */
-  --color-champagne: #B8A99A;    /* основной акцент (бежевый) */
-  --color-champagne-dark: #9A8B7A; /* hover состояние */
-  --color-charcoal: #3D3D3D;     /* основной цвет текста */
-  --color-charcoal-light: #666666; /* второстепенный текст */
-  --color-border: #E8E4E0;       /* граница элементов */
-
-  /* Шрифты */
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
 }
 
-/* ── БАЗОВЫЕ СТИЛИ ────────────────────────────────────────────
-   @layer base = стили для HTML тегов (применяются ко всему)
-   ──────────────────────────────────────────────────────────── */
-@layer base {
-  * {
-    box-sizing: border-box;
-  }
+/* ─── 2. GOOGLE FONTS ─── 
+   
+   Загружаем 2 шрифта:
+   - Playfair Display (300, 400, 500, 600) — для заголовков
+   - Inter (300, 400, 500, 600) — для текста
+   
+   display=swap — текст виден сразу, шрифт подгружается в фоне
+*/
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap");
 
-  body {
-    background-color: #FAF8F6;
-    color: #3D3D3D;
-    font-family: "Inter", system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    margin: 0;
-  }
+/* ─── 3. БАЗОВЫЕ СТИЛИ ─── */
 
-  h1, h2, h3, h4 {
-    font-family: "Playfair Display", Georgia, serif;
-  }
+/*
+   scroll-behavior: smooth — плавная прокрутка при клике на #ссылки
+   Это нужно для навигации: клик на "Servicios" → плавный скролл к секции
+*/
+html {
+  scroll-behavior: smooth;
+}
 
-  /* Плавный скролл */
-  html {
-    scroll-behavior: smooth;
+/*
+   Основной фон — cream (#FAF8F6)
+   Основной шрифт — Inter (font-sans через Tailwind)
+   Цвет текста — charcoal (#3D3D3D)
+   antialiased — сглаживание шрифтов (красивее на экранах)
+*/
+body {
+  background-color: #FAF8F6;
+  font-family: "Inter", sans-serif;
+  color: #3D3D3D;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── 4. КОМПОНЕНТЫ ─── */
+
+/*
+   Glassmorphism — эффект "матового стекла" для Navbar
+   
+   Как это работает:
+   - background: полупрозрачный белый (rgba 0.95)
+   - backdrop-filter: blur(12px) — размывает контент ПОД навбаром
+   - border-bottom — тонкая полупрозрачная линия снизу
+   
+   Результат: навбар выглядит как стекло,
+   сквозь которое видно размытый контент при скролле
+*/
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Safari */
+  border-bottom: 1px solid rgba(229, 229, 229, 0.5);
+}
+
+/* ─── 5. АНИМАЦИИ ─── */
+
+/*
+   fade-in-up — элемент появляется снизу вверх с прозрачностью
+   
+   from: невидимый, сдвинут на 20px вниз
+   to: видимый, на своём месте
+   
+   Используем на секциях и карточках при загрузке страницы
+*/
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* ── КАСТОМНЫЕ КОМПОНЕНТЫ ─────────────────────────────────────
-   @layer components = переиспользуемые CSS классы
-   ──────────────────────────────────────────────────────────── */
-@layer components {
-  /* Кнопка основная */
-  .btn-primary {
-    background-color: #B8A99A;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.375rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-size: 0.875rem;
-    transition: background-color 0.2s;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-primary:hover {
-    background-color: #9A8B7A;
-  }
-  .btn-primary:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
 
-  /* Input поле */
-  .input-field {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #E8E4E0;
-    border-radius: 0.375rem;
-    background: white;
-    color: #3D3D3D;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .input-field:focus {
-    border-color: #B8A99A;
-  }
+/* Задержки для каскадного появления карточек */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
 
-  /* Карточка */
-  .card {
-    background: white;
-    border: 1px solid #E8E4E0;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+/*
+   pulse-soft — мягкая пульсация для floating кнопки WhatsApp
+   Масштаб 1 → 1.05 → 1 с бесконечным повтором
+*/
+@keyframes pulse-soft {
+  0%, 100% {
+    transform: scale(1);
   }
+  50% {
+    transform: scale(1.05);
+  }
+}
 
-  /* Label */
-  .form-label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #3D3D3D;
-    margin-bottom: 0.375rem;
-  }
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
 
-  /* Badge de status */
-  .badge-pending {
-    background: #FEF3C7;
-    color: #92400E;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-  .badge-confirmed {
-    background: #D1FAE5;
-    color: #065F46;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-  .badge-cancelled {
-    background: #FEE2E2;
-    color: #991B1B;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
+/* ─── 6. УТИЛИТЫ ─── */
 
-  /* Glassmorphism navbar */
-  .navbar-glass {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(232, 228, 224, 0.5);
-  }
+/*
+   Gold Divider — золотой разделитель между секциями
+   
+   Используется как:
+   <div className="gold-divider" />
+   
+   Высота 1px (h-1 для более заметной),
+   Градиент: прозрачный → champagne (#B8A99A) → прозрачный
+   Это создаёт эффект "золотой линии" с мягкими краями
+*/
+.gold-divider {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #B8A99A,
+    transparent
+  );
+}
 
-  /* Divider dorado */
-  .gold-divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, #B8A99A, transparent);
-  }
+/*
+   Тонкий вариант разделителя (1px)
+   Для использования внутри секций
+*/
+.gold-divider-thin {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #B8A99A,
+    transparent
+  );
+}
+
+/*
+   Скрываем скроллбар на горизонтальных прокрутках
+   (для мобильных каруселей и табов)
+*/
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/*
+   Плавный hover для изображений внутри overflow-hidden контейнеров
+   Используем на карточках с фото
+*/
+.img-hover-zoom {
+  overflow: hidden;
+}
+.img-hover-zoom img {
+  transition: transform 0.5s ease;
+}
+.img-hover-zoom:hover img {
+  transform: scale(1.05);
 }
