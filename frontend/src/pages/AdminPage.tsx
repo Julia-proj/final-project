@@ -1,218 +1,279 @@
 // ============================================================
 // pages/AdminPage.tsx
 // ============================================================
-// РУС: Панель администратора. Видит ВСЕ бронирования,
-//      может менять их статус (pending → confirmed/cancelled).
-// ESP: Panel de administración. Ve todas las reservas y puede cambiar su estado.
+// РУС: Панель администратора с 3 вкладками:
+//   1. Reservas (bookings) — записи на услуги
+//   2. Solicitudes (reservations) — formaciones, kit, servicios
+//   3. Reseñas (reviews) — отзывы клиентов
+// ESP: Panel admin con 3 tabs: Reservas, Solicitudes, Reseñas.
 //
-// ПОТОК:
-//   монтирование → getAllBookingsAPI() → показываем список
-//   нажимаем кнопку → updateBookingStatusAPI(id, status) → обновляем список
+// ✅ ТОЧКА 12: Admin видит ВСЕ резервы и управляет ими.
+//
+// КАК ЗАЙТИ АДМИНОМ:
+//   1. Зарегистрироваться обычным пользователем
+//   2. В MongoDB Compass/Shell найти пользователя:
+//      db.users.updateOne({ email: "tu@email.com" }, { $set: { role: "admin" } })
+//   3. Перелогиниться → появится кнопка "Admin" в navbar
 // ============================================================
 
 import { useState, useEffect } from 'react';
-import { getAllBookingsAPI, updateBookingStatusAPI } from '../api/bookings.api';
-import type { Booking } from '../types';
+import {
+  getAllBookingsAPI, updateBookingStatusAPI,
+  getAllReservationsAPI, updateReservationStatusAPI,
+  getAllReviewsAPI, updateReviewStatusAPI
+} from '../api/bookings.api';
+import type { Booking, Reservation, Review } from '../types';
+
+type Tab = 'bookings' | 'reservations' | 'reviews';
 
 export default function AdminPage() {
+  const [tab, setTab] = useState<Tab>('bookings');
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [updating, setUpdating] = useState<string | null>(null); // ID бронирования в процессе обновления
 
-  // ── ЗАГРУЗКА ВСЕХ БРОНИРОВАНИЙ ────────────────────────────
-  const fetchBookings = async () => {
+  // ── Загрузка данных ────────────────────────────────────────
+  const fetchAll = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const res = await getAllBookingsAPI(); // GET /api/admin/bookings
-      setBookings(res.data);
-    } catch {
-      setError('Error al cargar reservas. Verifica que eres admin.');
+      const [bRes, rRes, revRes] = await Promise.all([
+        getAllBookingsAPI(),
+        getAllReservationsAPI(),
+        getAllReviewsAPI()
+      ]);
+      setBookings(bRes.data);
+      setReservations(rRes.data);
+      setReviews(revRes.data);
+    } catch (err) {
+      console.error('Error loading admin data:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  // useEffect = запускаем при первой загрузке компонента
-  useEffect(() => {
-    fetchBookings();
-  }, []);
+  useEffect(() => { fetchAll(); }, []);
 
-  // ── ИЗМЕНЕНИЕ СТАТУСА ─────────────────────────────────────
-  const handleStatusChange = async (bookingId: string, newStatus: string) => {
-    setUpdating(bookingId); // показываем "загрузка" для этой строки
-    try {
-      // PATCH /api/admin/bookings/:id/status
-      await updateBookingStatusAPI(bookingId, newStatus);
-      // Обновляем список локально (без повторного запроса)
-      setBookings(bookings.map(b =>
-        // Для каждого бронирования: если ID совпадает — меняем статус
-        b._id === bookingId ? { ...b, status: newStatus as Booking['status'] } : b
-      ));
-    } catch {
-      alert('Error al actualizar el estado');
-    } finally {
-      setUpdating(null);
-    }
+  // ── Обновление статусов ────────────────────────────────────
+  const updateBooking = async (id: string, status: string) => {
+    await updateBookingStatusAPI(id, status);
+    setBookings(bs => bs.map(b => b._id === id ? { ...b, status: status as Booking['status'] } : b));
   };
 
-  // ── ФИЛЬТРАЦИЯ ────────────────────────────────────────────
-  const [filter, setFilter] = useState<string>('all');
-  const filteredBookings = filter === 'all'
-    ? bookings
-    : bookings.filter(b => b.status === filter);
-
-  // Счётчики по статусам
-  const counts = {
-    all: bookings.length,
-    pending: bookings.filter(b => b.status === 'pending').length,
-    confirmed: bookings.filter(b => b.status === 'confirmed').length,
-    cancelled: bookings.filter(b => b.status === 'cancelled').length,
+  const updateReservation = async (id: string, status: string) => {
+    await updateReservationStatusAPI(id, status);
+    setReservations(rs => rs.map(r => r._id === id ? { ...r, status: status as Reservation['status'] } : r));
   };
+
+  const updateReview = async (id: string, status: string) => {
+    await updateReviewStatusAPI(id, status);
+    setReviews(rs => rs.map(r => r._id === id ? { ...r, status: status as Review['status'] } : r));
+  };
+
+  // ── Рендер ─────────────────────────────────────────────────
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#FAF8F6] flex items-center justify-center">
-        <div className="text-[#B8A99A] text-center">
-          <div className="w-8 h-8 border-2 border-[#B8A99A] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="font-light text-[#666666]">Cargando reservas...</p>
-        </div>
+        <p className="text-[#8B7355] text-sm">Cargando panel admin...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F6] py-12 px-4">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-[#FAF8F6] py-8 px-4">
+      <div className="max-w-6xl mx-auto">
 
-        {/* ЗАГОЛОВОК */}
-        <div className="mb-8">
-          <div className="inline-block px-6 py-2 mb-4 bg-[#B8A99A]/10 rounded-full">
-            <span className="text-[#B8A99A] text-xs tracking-[0.3em] uppercase font-medium">
-              Panel Admin
-            </span>
-          </div>
-          <h1 className="font-serif text-3xl font-medium text-[#3D3D3D]">
-            Gestión de reservas
-          </h1>
-          <p className="text-[#666666] font-light mt-1">
-            {bookings.length} reservas en total
-          </p>
+        <div className="mb-6">
+          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-2">Panel Admin</p>
+          <h1 className="font-serif text-2xl md:text-3xl text-[#3D3D3D]">Gestión</h1>
         </div>
 
-        {/* ОШИБКА */}
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">{error}</div>
-        )}
-
-        {/* STATS CARDS */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {/* Счётчики */}
+        <div className="grid grid-cols-3 gap-3 mb-6">
           {[
-            { label: 'Total', count: counts.all, key: 'all', color: 'bg-[#B8A99A]' },
-            { label: 'Pendientes', count: counts.pending, key: 'pending', color: 'bg-yellow-400' },
-            { label: 'Confirmadas', count: counts.confirmed, key: 'confirmed', color: 'bg-green-400' },
-            { label: 'Canceladas', count: counts.cancelled, key: 'cancelled', color: 'bg-red-400' },
-          ].map(({ label, count, key, color }) => (
-            <button
-              key={key}
-              onClick={() => setFilter(key)}
-              className={`card text-center cursor-pointer transition-all ${filter === key ? 'ring-2 ring-[#B8A99A]' : 'hover:shadow-md'}`}
-            >
-              <div className={`${color} text-white text-2xl font-serif font-bold rounded-lg p-2 mb-2`}>
-                {count}
-              </div>
-              <p className="text-sm text-[#666666] font-light">{label}</p>
+            { key: 'bookings' as Tab, label: 'Reservas', count: bookings.length },
+            { key: 'reservations' as Tab, label: 'Solicitudes', count: reservations.length },
+            { key: 'reviews' as Tab, label: 'Reseñas', count: reviews.length },
+          ].map(t => (
+            <button key={t.key} onClick={() => setTab(t.key)}
+              className={`p-3 text-center border transition-all ${tab === t.key ? 'border-[#B8A99A] bg-white' : 'border-[#e8e2da] bg-[#FAF8F6] hover:bg-white'}`}>
+              <p className="font-serif text-2xl text-[#3d3530]">{t.count}</p>
+              <p className="text-[10px] tracking-widest uppercase text-[#8B7355]">{t.label}</p>
             </button>
           ))}
         </div>
 
-        {/* TABLA БРОНИРОВАНИЙ */}
-        <div className="card overflow-hidden p-0">
-          <div className="p-4 border-b border-[#E8E4E0] flex items-center justify-between">
-            <h2 className="font-serif text-lg font-medium text-[#3D3D3D]">
-              {filter === 'all' ? 'Todas las reservas' : `Reservas: ${filter}`}
-            </h2>
-            <button
-              onClick={fetchBookings}
-              className="text-sm text-[#B8A99A] hover:text-[#9A8B7A] transition-colors"
-            >
-              ↻ Actualizar
-            </button>
-          </div>
-
-          {filteredBookings.length === 0 ? (
-            <div className="p-8 text-center text-[#666666] font-light">
-              No hay reservas en esta categoría.
+        {/* ── TAB: BOOKINGS ── */}
+        {tab === 'bookings' && (
+          <div className="bg-white border border-[#e8e2da] overflow-hidden">
+            <div className="p-4 border-b border-[#e8e2da] flex justify-between items-center">
+              <h2 className="font-serif text-lg text-[#3d3530]">Reservas de servicios</h2>
+              <button onClick={fetchAll} className="text-xs text-[#B8A99A]">↻ Actualizar</button>
             </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-[#FAF8F6] border-b border-[#E8E4E0]">
-                  <tr>
-                    <th className="text-left p-4 text-[#666666] font-medium">Cliente</th>
-                    <th className="text-left p-4 text-[#666666] font-medium">Servicio</th>
-                    <th className="text-left p-4 text-[#666666] font-medium">Fecha</th>
-                    <th className="text-left p-4 text-[#666666] font-medium">Estado</th>
-                    <th className="text-left p-4 text-[#666666] font-medium">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredBookings.map((booking) => {
-                    // Пользователь может быть объектом (если бэк populate) или строкой (ID)
-                    const userInfo = typeof booking.user === 'object' ? booking.user : null;
+            {bookings.length === 0 ? (
+              <p className="p-6 text-center text-sm text-[#a09890]">No hay reservas.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-[#FAF8F6] border-b border-[#e8e2da]">
+                    <tr>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Cliente</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Servicio</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Fecha</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Estado</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {bookings.map(b => {
+                      const u = typeof b.user === 'object' ? b.user : null;
+                      return (
+                        <tr key={b._id} className="border-b border-[#f0ebe4]">
+                          <td className="p-3">
+                            <p className="font-medium text-[#3d3530] text-xs">{u?.name || '-'}</p>
+                            <p className="text-[#a09890] text-[10px]">{u?.email || ''}</p>
+                          </td>
+                          <td className="p-3 text-xs capitalize">{b.service}</td>
+                          <td className="p-3 text-xs text-[#7a6f68]">
+                            {new Date(b.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
+                          </td>
+                          <td className="p-3 text-xs">
+                            {b.status === 'pending' && '⏳ Pendiente'}
+                            {b.status === 'confirmed' && '✅ Confirmada'}
+                            {b.status === 'cancelled' && '❌ Cancelada'}
+                          </td>
+                          <td className="p-3">
+                            <div className="flex gap-1">
+                              {b.status !== 'confirmed' && (
+                                <button onClick={() => updateBooking(b._id, 'confirmed')}
+                                  className="text-[10px] px-2 py-1 bg-green-50 text-green-700 border border-green-200 hover:bg-green-100">
+                                  ✓
+                                </button>
+                              )}
+                              {b.status !== 'cancelled' && (
+                                <button onClick={() => updateBooking(b._id, 'cancelled')}
+                                  className="text-[10px] px-2 py-1 bg-red-50 text-red-700 border border-red-200 hover:bg-red-100">
+                                  ✕
+                                </button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
 
-                    return (
-                      <tr key={booking._id} className="border-b border-[#E8E4E0] hover:bg-[#FAF8F6] transition-colors">
-                        <td className="p-4">
-                          <p className="font-medium text-[#3D3D3D]">{userInfo?.name || 'Usuario'}</p>
-                          <p className="text-[#666666] text-xs">{userInfo?.email || ''}</p>
+        {/* ── TAB: RESERVATIONS ── */}
+        {tab === 'reservations' && (
+          <div className="bg-white border border-[#e8e2da] overflow-hidden">
+            <div className="p-4 border-b border-[#e8e2da]">
+              <h2 className="font-serif text-lg text-[#3d3530]">Solicitudes (formaciones, kit, servicios)</h2>
+            </div>
+            {reservations.length === 0 ? (
+              <p className="p-6 text-center text-sm text-[#a09890]">No hay solicitudes.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-[#FAF8F6] border-b border-[#e8e2da]">
+                    <tr>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Nombre</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Tipo</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Teléfono</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Detalle</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Estado</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {reservations.map(r => (
+                      <tr key={r._id} className="border-b border-[#f0ebe4]">
+                        <td className="p-3 text-xs font-medium text-[#3d3530]">{r.nombre}</td>
+                        <td className="p-3">
+                          <span className={`text-[10px] uppercase tracking-wider px-2 py-0.5 ${
+                            r.type === 'formacion' ? 'bg-blue-50 text-blue-700' :
+                            r.type === 'kit' ? 'bg-purple-50 text-purple-700' :
+                            'bg-amber-50 text-amber-700'
+                          }`}>{r.type}</span>
                         </td>
-                        <td className="p-4 text-[#3D3D3D] capitalize">{booking.service}</td>
-                        <td className="p-4 text-[#666666]">
-                          {new Date(booking.date).toLocaleDateString('es-ES', {
-                            day: 'numeric', month: 'short', year: 'numeric'
-                          })}
+                        <td className="p-3 text-xs">{r.telefono}</td>
+                        <td className="p-3 text-xs text-[#7a6f68] max-w-[150px] truncate">{r.detalle}</td>
+                        <td className="p-3 text-xs">
+                          {r.status === 'pending' && '⏳'}
+                          {r.status === 'contacted' && '📞'}
+                          {r.status === 'confirmed' && '✅'}
+                          {r.status === 'cancelled' && '❌'}
+                          {' '}{r.status}
                         </td>
-                        <td className="p-4">
-                          <span className={`badge-${booking.status}`}>
-                            {booking.status === 'pending' && '⏳ Pendiente'}
-                            {booking.status === 'confirmed' && '✅ Confirmada'}
-                            {booking.status === 'cancelled' && '❌ Cancelada'}
-                          </span>
-                        </td>
-                        <td className="p-4">
-                          {/* Кнопки только если не в этом статусе */}
-                          <div className="flex gap-2">
-                            {booking.status !== 'confirmed' && (
-                              <button
-                                onClick={() => handleStatusChange(booking._id, 'confirmed')}
-                                disabled={updating === booking._id}
-                                className="text-xs px-3 py-1 bg-green-50 text-green-700 border border-green-200 rounded hover:bg-green-100 transition-colors disabled:opacity-50"
-                              >
-                                {updating === booking._id ? '...' : 'Confirmar'}
-                              </button>
-                            )}
-                            {booking.status !== 'cancelled' && (
-                              <button
-                                onClick={() => handleStatusChange(booking._id, 'cancelled')}
-                                disabled={updating === booking._id}
-                                className="text-xs px-3 py-1 bg-red-50 text-red-700 border border-red-200 rounded hover:bg-red-100 transition-colors disabled:opacity-50"
-                              >
-                                {updating === booking._id ? '...' : 'Cancelar'}
-                              </button>
-                            )}
-                          </div>
+                        <td className="p-3">
+                          <select
+                            value={r.status}
+                            onChange={(e) => updateReservation(r._id, e.target.value)}
+                            className="text-[10px] border border-[#e8e2da] px-1 py-0.5 bg-white">
+                            <option value="pending">Pendiente</option>
+                            <option value="contacted">Contactado</option>
+                            <option value="confirmed">Confirmado</option>
+                            <option value="cancelled">Cancelado</option>
+                          </select>
                         </td>
                       </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
 
-        <div className="gold-divider mt-8" />
+        {/* ── TAB: REVIEWS ── */}
+        {tab === 'reviews' && (
+          <div className="bg-white border border-[#e8e2da] overflow-hidden">
+            <div className="p-4 border-b border-[#e8e2da]">
+              <h2 className="font-serif text-lg text-[#3d3530]">Reseñas de clientes</h2>
+            </div>
+            {reviews.length === 0 ? (
+              <p className="p-6 text-center text-sm text-[#a09890]">No hay reseñas.</p>
+            ) : (
+              <div className="divide-y divide-[#f0ebe4]">
+                {reviews.map(r => (
+                  <div key={r._id} className="p-4 flex gap-4 items-start">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-medium text-sm text-[#3d3530]">{r.nombre}</span>
+                        <span className="text-[#B8A99A] text-xs">{'★'.repeat(r.estrellas)}</span>
+                        <span className={`text-[10px] uppercase tracking-wider px-2 py-0.5 ${
+                          r.status === 'approved' ? 'bg-green-50 text-green-700' :
+                          r.status === 'hidden' ? 'bg-red-50 text-red-700' :
+                          'bg-yellow-50 text-yellow-700'
+                        }`}>{r.status}</span>
+                      </div>
+                      <p className="text-sm text-[#7a6f68] italic">"{r.texto}"</p>
+                    </div>
+                    <div className="flex gap-1 flex-shrink-0">
+                      {r.status !== 'approved' && (
+                        <button onClick={() => updateReview(r._id, 'approved')}
+                          className="text-[10px] px-2 py-1 bg-green-50 text-green-700 border border-green-200">
+                          Aprobar
+                        </button>
+                      )}
+                      {r.status !== 'hidden' && (
+                        <button onClick={() => updateReview(r._id, 'hidden')}
+                          className="text-[10px] px-2 py-1 bg-red-50 text-red-700 border border-red-200">
+                          Ocultar
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
