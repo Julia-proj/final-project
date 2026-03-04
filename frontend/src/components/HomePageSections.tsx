@@ -1,9 +1,9 @@
-// - Imágenes más pequeñas en tratamientos, kit, beauty scripts
-// - Reviews: texto en tarjetas + mini formulario discreto
-// - Nota especialista: texto mejorado
-// - PorQueElegirSection: botón "Ver tratamientos" → #servicios
-// - Homecare: texto sutil de reserva de productos
-import { useState } from 'react';
+// frontend/src/components/HomePageSections.tsx — v4
+// CAMBIOS v4:
+//   - "Consultar precio" → scrollTo #precios (no WhatsApp)
+//   - KitCarousel: 3 fotos rotando cada 3 segundos, pequeño en mobile
+//   - Nota especialista: texto mejorado sobre importancia del homecare
+import { useState, useEffect } from 'react';
 
 const WA_URL = 'https://wa.me/34641261559?text=Hola!%20Quiero%20reservar%20una%20cita';
 const WA_KIT  = 'https://wa.me/34641261559?text=Hola!%20Me%20interesa%20el%20kit%20de%20homecare';
@@ -56,11 +56,9 @@ export function PorQueElegirSection() {
           <p className="text-[#8B7355] text-base md:text-lg max-w-lg mx-auto mb-8">
             Nos diferenciamos por nuestro enfoque en la salud capilar y resultados duraderos.
           </p>
-          {/* Enlace a servicios */}
           <button
             onClick={() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })}
-            className="inline-flex items-center gap-2 text-[12px] tracking-[0.2em] uppercase text-[#B8A99A] border-b border-[#B8A99A] pb-0.5 hover:text-[#9A8B7A] transition-colors"
-          >
+            className="inline-flex items-center gap-2 text-[12px] tracking-[0.2em] uppercase text-[#B8A99A] border-b border-[#B8A99A] pb-0.5 hover:text-[#9A8B7A] transition-colors">
             Ver tratamientos
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/>
@@ -85,7 +83,6 @@ export function PorQueElegirSection() {
 // ─────────────────────────────────────────────
 // 2. TRATAMIENTOS
 // ─────────────────────────────────────────────
-// 📁 Pon las fotos en: frontend/public/images/
 const tratamientos = [
   { img: '/images/image1.jpg', tag: 'Bestseller', nombre: 'Alisado de Keratina', duracion: '3–6 meses', desc: 'Alisado seguro, sin formol. Adaptado al diagnóstico previo de cada tipo de cabello.', ben: ['Reduce frizz', 'Brillo espejo duradero', 'Más disciplina', 'Ahorra tiempo al peinar'], indicado: 'Cabellos rizados, encrespados, rebeldes', efecto: 'Liso, brillante y manejable 3–6 meses.' },
   { img: '/images/image2.jpg', tag: 'Reparador', nombre: 'Reconstrucción en frío', duracion: 'Resultado acumulativo', desc: 'Recuperación profunda sin alisar. Restaura fuerza, densidad y elasticidad.', ben: ['Reposición de proteínas', 'Reduce rotura', 'Mejora brillo', 'Compatible con decoloraciones'], indicado: 'Cabello seco, dañado o decolorado', efecto: 'Más fuerte y nutrido, resultado acumulativo.' },
@@ -93,7 +90,6 @@ const tratamientos = [
   { img: '/images/image4.jpg', tag: 'Relax', nombre: 'Head Spa', duracion: 'Ritual de bienestar', desc: 'Ritual de salud y relax con masaje y productos profesionales.', ben: ['Activa la microcirculación', 'Nutre el folículo', 'Reduce estrés', 'Favorece el crecimiento'], indicado: 'Caída, estrés, bienestar general', efecto: 'Ligereza, brillo y equilibrio total.' },
 ];
 
-// Placeholder visual para imágenes no cargadas
 function ImgPlaceholder({ label }: { label: string }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#f0ebe4]">
@@ -106,6 +102,11 @@ function ImgPlaceholder({ label }: { label: string }) {
 }
 
 export function TratamientosSection() {
+  // ✅ FIX: "Consultar precio" → scrollTo #precios (no WhatsApp)
+  const scrollToPrecios = () => {
+    document.getElementById('precios')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="servicios" className="bg-[#FAF8F5] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,8 +119,8 @@ export function TratamientosSection() {
         <div className="flex flex-col gap-14">
           {tratamientos.map((t, i) => (
             <div key={i} className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-12 items-center`}>
-              {/* Imagen — más pequeña: aspect-[3/4] con max-width */}
-              <div className="w-full md:w-[280px] lg:w-[320px] flex-shrink-0">
+              {/* Imagen */}
+              <div className="w-full md:w-[260px] lg:w-[300px] flex-shrink-0">
                 <div className="relative aspect-[3/4] bg-[#e8e2da] overflow-hidden">
                   <img src={t.img} alt={t.nombre} className="w-full h-full object-cover relative z-10"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}/>
@@ -155,10 +156,12 @@ export function TratamientosSection() {
                     <p className="text-[#3d3530]">{t.efecto}</p>
                   </div>
                 </div>
-                <a href={WA_URL} target="_blank" rel="noopener noreferrer"
-                  className="self-start px-7 py-2.5 border border-[#B8A99A] text-[#B8A99A] text-[11px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white transition-all duration-300">
-                  Consultar precio
-                </a>
+                {/* ✅ FIX: scrollTo #precios */}
+                <button
+                  onClick={scrollToPrecios}
+                  className="self-start px-7 py-2.5 border border-[#B8A99A] text-[#B8A99A] text-[11px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white transition-all duration-300 cursor-pointer">
+                  Ver precio
+                </button>
               </div>
             </div>
           ))}
@@ -171,7 +174,6 @@ export function TratamientosSection() {
 // ─────────────────────────────────────────────
 // 3. TABLA DE PRECIOS
 // ─────────────────────────────────────────────
-// 📁 Imagen: frontend/public/images/image8.jpg
 const precios = [
   { l: '20–30 cm', k: '180€', r: '150€' },
   { l: '30–40 cm', k: '200€', r: '165€' },
@@ -194,7 +196,7 @@ export function TablaDePreciosSection() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
           <div className="flex-1 w-full">
             <div className="flex border-b border-[#e8e2da] mb-8">
-              {[['k', 'Keratina / Botox'], ['r', 'Reconstrucción']] .map(([v, label]) => (
+              {[['k', 'Keratina / Botox'], ['r', 'Reconstrucción']].map(([v, label]) => (
                 <button key={v} onClick={() => setTab(v as 'k' | 'r')}
                   className={`pb-3 px-6 text-[12px] tracking-[0.12em] uppercase transition-all ${tab === v ? 'border-b-2 border-[#B8A99A] text-[#3d3530]' : 'text-[#a09890] hover:text-[#3d3530]'}`}>
                   {label}
@@ -219,7 +221,7 @@ export function TablaDePreciosSection() {
             </a>
           </div>
 
-          {/* Guía longitud — image8 */}
+          {/* Guía longitud */}
           <div className="w-full lg:w-72 flex-shrink-0">
             <p className="text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-4 text-center">Guía de longitud</p>
             <div className="relative bg-[#f0ebe4] overflow-hidden">
@@ -247,7 +249,6 @@ export function TablaDePreciosSection() {
 // ─────────────────────────────────────────────
 // 4. ANTES & DESPUÉS
 // ─────────────────────────────────────────────
-// 📁 Fotos: photo-output.jpeg, image7.jpg, image6.jpeg, image5.jpg
 const adFotos = [
   { img: '/images/photo-output.jpeg', link: 'https://www.instagram.com/reel/DCJ-1UTNQ1_/' },
   { img: '/images/image7.jpg',        link: 'https://www.instagram.com/reel/DCDVx8RNsVt/' },
@@ -291,27 +292,24 @@ export function AntesDespuesSection() {
 }
 
 // ─────────────────────────────────────────────
-// 5. OPINIONES — texto + mini formulario discreto
+// 5. OPINIONES
 // ─────────────────────────────────────────────
-// Las reseñas de texto quedan bien para mobile y desktop.
-// Mini form debajo — no muy visible, solo una oportunidad.
-
 const resenasEstaticas = [
   { nombre: 'Ana M.', estrellas: 5, texto: 'El resultado fue increíble desde la primera sesión. El cabello quedó brillante, suave y sin frizz. El diagnóstico previo me pareció muy profesional.' },
   { nombre: 'Laura P.', estrellas: 5, texto: 'Llevo dos años yendo y cada vez mejor. La keratina dura muchísimo y el trato es excelente. Sin duda el mejor estudio de Madrid.' },
   { nombre: 'Sofía R.', estrellas: 5, texto: 'Tenía el pelo muy dañado por decoloraciones y después de la reconstrucción en frío cambió completamente. Muy profesional y detallista.' },
   { nombre: 'María G.', estrellas: 5, texto: 'El Head Spa fue una experiencia maravillosa. Me fui con el cuero cabelludo limpio, el pelo brillante y completamente relajada.' },
-  { nombre: 'Elena T.', estrellas: 5, texto: 'Vinme por recomendación y no me arrepiento. El diagnóstico con tricóscopo fue lo que me convenció. Todo muy personalizado.' },
+  { nombre: 'Elena T.', estrellas: 5, texto: 'Vine por recomendación y no me arrepiento. El diagnóstico con tricóscopo fue lo que me convenció. Todo muy personalizado.' },
   { nombre: 'Carmen V.', estrellas: 5, texto: 'El kit de homecare que me recomendaron alargó el resultado del alisado mucho más de lo esperado. Los productos son increíbles.' },
 ];
 
 interface ReviewForm { nombre: string; texto: string; estrellas: number; }
 
 export function ReviewsSection() {
-  const [form, setForm] = useState<ReviewForm>({ nombre: '', texto: '', estrellas: 5 });
-  const [sent, setSent]   = useState(false);
+  const [form, setForm]     = useState<ReviewForm>({ nombre: '', texto: '', estrellas: 5 });
+  const [sent, setSent]     = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError]   = useState('');
 
   const handleSubmit = async () => {
     if (!form.nombre.trim() || !form.texto.trim()) {
@@ -342,7 +340,6 @@ export function ReviewsSection() {
           <p className="text-[#8B7355] text-base md:text-lg">Experiencias reales de quienes confían en nosotras</p>
         </div>
 
-        {/* Tarjetas de texto — grid limpio */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 mb-14">
           {resenasEstaticas.map((r, i) => (
             <div key={i} className="flex flex-col gap-3 p-6 bg-[#FAF8F5] border border-[#f0ebe4]">
@@ -359,7 +356,7 @@ export function ReviewsSection() {
           ))}
         </div>
 
-        {/* Mini formulario — discreto, al final */}
+        {/* Mini formulario */}
         <div className="max-w-md mx-auto">
           <p className="text-[11px] tracking-[0.2em] uppercase text-[#a09890] text-center mb-6">
             ¿Fuiste clienta? Comparte tu experiencia
@@ -396,10 +393,59 @@ export function ReviewsSection() {
 }
 
 // ─────────────────────────────────────────────
-// 6. HOMECARE
+// 6. HOMECARE — con KitCarousel
 // ─────────────────────────────────────────────
-// 📁 Imagen: frontend/public/images/image9.jpg
-interface HomecareProps { user?: { name?: string } | null; }
+
+// ✅ NUEVO: Carousel pequeño de kit productos
+// 📁 Añadir imágenes: frontend/public/images/kit1.jpg, kit2.jpg, kit3.jpg
+const KIT_FOTOS = ['/images/kit1.jpg', '/images/kit2.jpg', '/images/kit3.jpg'];
+
+function KitCarousel() {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIdx(i => (i + 1) % KIT_FOTOS.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    // Mobile: max-w-[180px] centrado y pequeño
+    // Desktop: ancho completo del contenedor padre (w-full)
+    <div className="relative w-full max-w-[180px] mx-auto lg:max-w-full aspect-square overflow-hidden bg-[#e8e2da]">
+      {KIT_FOTOS.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={`Kit homecare ${i + 1}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === idx ? 'opacity-100' : 'opacity-0'}`}
+          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+        />
+      ))}
+
+      {/* Placeholder si no hay fotos */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <svg className="w-6 h-6 text-[#c9bfb5] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+        </svg>
+        <span className="text-[9px] tracking-widest uppercase text-[#c9bfb5]">kit{idx + 1}.jpg</span>
+      </div>
+
+      {/* Indicadores / dots */}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {KIT_FOTOS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIdx(i)}
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === idx ? 'bg-white scale-125' : 'bg-white/50'}`}
+            aria-label={`Foto ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const pasos = [
   'Lavar según necesidad con champú adaptado',
@@ -411,6 +457,8 @@ const pasos = [
   'No dormir con el pelo mojado',
   'Evitar agua muy caliente en la ducha',
 ];
+
+interface HomecareProps { user?: { name?: string } | null; }
 
 export function HomecareSection({ user }: HomecareProps) {
   return (
@@ -438,30 +486,27 @@ export function HomecareSection({ user }: HomecareProps) {
               ))}
             </ul>
 
-            {/* Nota especialista — estilo cita limpia */}
+            {/* ✅ Nota especialista mejorada */}
             <div className="mt-10 border-l-2 border-[#B8A99A] pl-6 py-1">
               <p className="text-[10px] tracking-[0.2em] uppercase text-[#B8A99A] mb-3">Nota de la especialista</p>
-              <p className="font-serif text-lg md:text-xl text-[#3d3530] leading-relaxed italic mb-2">
-                "Los primeros tres días son los más importantes: sin lavar, sin gomas, sin clips metálicos."
+              <p className="font-serif text-lg md:text-xl text-[#3d3530] leading-relaxed italic mb-3">
+                "El salón hace el 50% del trabajo. El otro 50% lo haces tú en casa."
               </p>
               <p className="text-sm md:text-base text-[#8B7355] leading-relaxed">
-                Cuanto más cuides el cabello en casa, más dura el resultado del salón.
-                El homecare correcto puede alargar el efecto de 3 meses a 5–6.
+                Un buen tratamiento puede durar 3 meses — o convertirse en 5 o 6 con el cuidado correcto.
+                El homecare no es opcional: es la segunda parte del protocolo.
+                Los primeros tres días son los más críticos: sin lavar, sin gomas, sin clips metálicos.
+                Lo que hagas esos días determina cuánto dura el resultado.
               </p>
             </div>
           </div>
 
-          {/* Producto + imagen — más compacto */}
-          <div className="w-full lg:w-80 flex-shrink-0">
-            {/* Imagen más pequeña */}
-            <div className="relative aspect-square bg-[#e8e2da] overflow-hidden mb-5">
-              <img src="/images/image9.jpg" alt="Kit homecare"
-                className="w-full h-full object-cover relative z-10"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}/>
-              <ImgPlaceholder label="image9.jpg"/>
-            </div>
+          {/* ✅ Producto + KitCarousel pequeño */}
+          <div className="w-full lg:w-72 flex-shrink-0">
+            {/* Carousel — pequeño en mobile, normal en desktop */}
+            <KitCarousel />
 
-            <div className="bg-white p-6 border border-[#e8e2da]">
+            <div className="bg-white p-6 border border-[#e8e2da] mt-0">
               <p className="text-[10px] tracking-widest uppercase text-[#B8A99A] mb-2">Producto destacado</p>
               <h3 className="font-serif text-xl text-[#3d3530] mb-2">Kit personalizado</h3>
               <p className="text-sm text-[#7a6f68] mb-4 leading-relaxed">
@@ -473,9 +518,8 @@ export function HomecareSection({ user }: HomecareProps) {
                 className="block text-center py-3 bg-[#B8A99A] text-white text-[11px] tracking-widest uppercase hover:bg-[#9A8B7A] transition-colors">
                 Reservar productos
               </a>
-              {/* Nota discreta sobre reserva */}
               <p className="text-[10px] text-[#a09890] text-center mt-3 leading-relaxed">
-                Te preparamos el kit en el salón o lo enviamos por mensajería.
+                Recogida en salón o envío a domicilio.
               </p>
             </div>
           </div>
@@ -488,7 +532,6 @@ export function HomecareSection({ user }: HomecareProps) {
 // ─────────────────────────────────────────────
 // 7. FORMACIONES
 // ─────────────────────────────────────────────
-// 📁 Fotos: img-9502.jpeg, img-9505.jpeg, img-9506.jpeg
 export function FormacionesSection() {
   return (
     <section id="formaciones" className="bg-white py-20 lg:py-28">
@@ -499,7 +542,6 @@ export function FormacionesSection() {
           <p className="text-[#8B7355] text-base md:text-lg">Aprende técnicas profesionales de tratamiento capilar</p>
         </div>
 
-        {/* Fotos — más compactas */}
         <div className="grid grid-cols-3 gap-3 mb-14">
           {['/images/img-9502.jpeg', '/images/img-9505.jpeg', '/images/img-9506.jpeg'].map((src, i) => (
             <div key={i} className="relative aspect-square bg-[#f0ebe4] overflow-hidden">
@@ -526,7 +568,7 @@ export function FormacionesSection() {
               ))}
             </div>
             <p className="text-sm text-[#7a6f68]">
-              <span className="text-[#3d3530]">Incluye:</span> Materiales · Manual PDF · Fotos portfolio · Certificado · Garantía práctica
+              <span className="text-[#3d3530]">Incluye:</span> Materiales · Manual PDF · Fotos portfolio · Certificado
             </p>
             <div className="flex items-center justify-between pt-4 border-t border-[#f0ebe4]">
               <span className="font-serif text-3xl text-[#3d3530]">1.400€</span>
@@ -574,13 +616,11 @@ export function FormacionesSection() {
 // ─────────────────────────────────────────────
 // 8. BEAUTY SCRIPTS
 // ─────────────────────────────────────────────
-// 📁 Imagen: frontend/public/images/img-9476.jpeg
 export function BeautyScriptsSection() {
   return (
     <section id="scripts" className="bg-[#FAF8F5] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-          {/* Imagen — más compacta */}
           <div className="w-full sm:w-72 lg:w-80 flex-shrink-0 mx-auto lg:mx-0">
             <div className="relative aspect-[4/5] bg-[#f0ebe4] overflow-hidden">
               <img src="/images/img-9476.jpeg" alt="Beauty Scripts"
@@ -590,7 +630,6 @@ export function BeautyScriptsSection() {
             </div>
           </div>
 
-          {/* Texto */}
           <div className="flex flex-col gap-6">
             <div>
               <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Scripts</p>

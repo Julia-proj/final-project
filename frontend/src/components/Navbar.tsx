@@ -1,4 +1,4 @@
-// frontend/src/components/Navbar.tsx — v3
+// frontend/src/components/Navbar.tsx — v4
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../hooks/useAppHooks';
@@ -7,6 +7,20 @@ import { logout } from '../store/authSlice';
 const WA_URL = 'https://wa.me/34641261559?text=Hola!%20Quiero%20reservar%20una%20cita';
 const IG_URL = 'https://www.instagram.com/keratin_madrid';
 const TK_URL = 'https://www.tiktok.com/@keratin_madrid';
+
+const TikTokIcon = ({ size = 4 }: { size?: number }) => (
+  <svg className={`w-${size} h-${size}`} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.79a4.85 4.85 0 01-1.01-.1z"/>
+  </svg>
+);
+
+const InstagramIcon = ({ size = 4 }: { size?: number }) => (
+  <svg className={`w-${size} h-${size}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <rect x="2" y="2" width="20" height="20" rx="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+  </svg>
+);
 
 export default function Navbar() {
   const [open, setOpen]         = useState(false);
@@ -17,7 +31,9 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const user     = useAppSelector((s) => s.auth.user);
-  const isAdmin  = (user as any)?.isAdmin === true;
+
+  // ✅ CORRECTO: user.role viene del JWT y del backend user.model.js
+  const isAdmin = user?.role === 'admin';
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -57,7 +73,7 @@ export default function Navbar() {
             Keratin <span className="font-light">Madrid</span>
           </Link>
 
-          {/* LINKS DESKTOP */}
+          {/* ─── DESKTOP: LINKS ─── */}
           <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             <button onClick={() => scrollTo('inicio')} className={lnk}>Inicio</button>
             <button onClick={() => scrollTo('precios')} className={lnk}>Precios</button>
@@ -84,29 +100,29 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* ACCIONES DESKTOP */}
+          {/* ─── DESKTOP: ACCIONES ─── */}
           <div className="hidden lg:flex items-center gap-3">
-            <a href={TK_URL} target="_blank" rel="noopener noreferrer" className="text-[#3d3530] hover:text-[#8B7355] transition-colors p-1" aria-label="TikTok">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.79a4.85 4.85 0 01-1.01-.1z"/>
-              </svg>
+            <a href={TK_URL} target="_blank" rel="noopener noreferrer"
+              className="text-[#3d3530] hover:text-[#8B7355] transition-colors p-1" aria-label="TikTok">
+              <TikTokIcon />
             </a>
-            <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-[#3d3530] hover:text-[#8B7355] transition-colors p-1" aria-label="Instagram">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <rect x="2" y="2" width="20" height="20" rx="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-              </svg>
+            <a href={IG_URL} target="_blank" rel="noopener noreferrer"
+              className="text-[#3d3530] hover:text-[#8B7355] transition-colors p-1" aria-label="Instagram">
+              <InstagramIcon />
             </a>
             <div className="w-px h-4 bg-[#d4cfc9]"/>
+
             {user ? (
               <>
                 {isAdmin && (
-                  <Link to="/admin" className="text-[11px] tracking-widest uppercase text-white bg-[#8B7355] px-3 py-1.5 hover:bg-[#7a6348] transition-colors">
+                  <Link to="/admin"
+                    className="text-[11px] tracking-widest uppercase text-white bg-[#8B7355] px-3 py-1.5 hover:bg-[#7a6348] transition-colors">
                     Admin
                   </Link>
                 )}
-                <span className="text-[12px] tracking-widest uppercase text-[#8B7355] max-w-[90px] truncate">{user.name}</span>
+                <span className="text-[12px] tracking-widest uppercase text-[#8B7355] max-w-[90px] truncate">
+                  {user.name}
+                </span>
                 <button onClick={() => { dispatch(logout()); navigate('/'); }}
                   className="text-[11px] tracking-widest uppercase text-[#a09890] hover:text-[#3d3530] transition-colors">
                   Salir
@@ -114,17 +130,20 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link to="/login" className="text-[12px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors">
+                <Link to="/login"
+                  className="text-[12px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors">
                   Entrar
                 </Link>
-                <Link to="/register" className="text-[12px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors">
+                <Link to="/register"
+                  className="text-[12px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors">
                   Registrarse
                 </Link>
               </>
             )}
             <div className="w-px h-4 bg-[#d4cfc9]"/>
             {user ? (
-              <Link to="/booking" className="px-5 py-2.5 bg-[#B8A99A] text-white text-[11px] tracking-[0.15em] uppercase hover:bg-[#9A8B7A] transition-colors whitespace-nowrap">
+              <Link to="/booking"
+                className="px-5 py-2.5 bg-[#B8A99A] text-white text-[11px] tracking-[0.15em] uppercase hover:bg-[#9A8B7A] transition-colors whitespace-nowrap">
                 Reservar Cita
               </Link>
             ) : (
@@ -135,62 +154,108 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* MOBILE: "Entrar" visible + hamburger */}
-          <div className="flex items-center gap-3 lg:hidden">
+          {/* ─── MOBILE HEADER ───
+              Siempre visible sin abrir menú:
+              [TikTok] [Instagram] | [Entrar · Registro] o [nombre] | [☰]
+          ─── */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <a href={TK_URL} target="_blank" rel="noopener noreferrer"
+              className="text-[#3d3530] hover:text-[#8B7355] transition-colors" aria-label="TikTok">
+              <TikTokIcon />
+            </a>
+            <a href={IG_URL} target="_blank" rel="noopener noreferrer"
+              className="text-[#3d3530] hover:text-[#8B7355] transition-colors" aria-label="Instagram">
+              <InstagramIcon />
+            </a>
+
+            <div className="w-px h-4 bg-[#d4cfc9]"/>
+
             {user ? (
-              <span className="text-[11px] tracking-widest uppercase text-[#8B7355] truncate max-w-[70px]">{user.name}</span>
+              <span className="text-[11px] tracking-widest uppercase text-[#8B7355] truncate max-w-[60px]">
+                {user.name}
+              </span>
             ) : (
-              <Link to="/login" className="text-[12px] tracking-[0.1em] uppercase text-[#3d3530] hover:text-[#8B7355]">
-                Entrar
-              </Link>
+              <div className="flex items-center gap-1">
+                <Link to="/login"
+                  className="text-[11px] tracking-[0.08em] uppercase text-[#3d3530] hover:text-[#8B7355] whitespace-nowrap">
+                  Entrar
+                </Link>
+                <span className="text-[#d4cfc9]">·</span>
+                <Link to="/register"
+                  className="text-[11px] tracking-[0.08em] uppercase text-[#3d3530] hover:text-[#8B7355] whitespace-nowrap">
+                  Registro
+                </Link>
+              </div>
             )}
-            <button onClick={() => setOpen(!open)} className="flex flex-col justify-center w-8 h-8 gap-[5px]" aria-label="Menú">
-              <span className={`block w-6 h-px bg-[#3d3530] transition-all duration-300 ${open ? 'rotate-45 translate-y-[6px]' : ''}`}/>
-              <span className={`block w-6 h-px bg-[#3d3530] transition-all duration-300 ${open ? 'opacity-0' : ''}`}/>
-              <span className={`block w-6 h-px bg-[#3d3530] transition-all duration-300 ${open ? '-rotate-45 -translate-y-[6px]' : ''}`}/>
+
+            {/* Hamburger */}
+            <button
+              onClick={() => setOpen(!open)}
+              className="flex flex-col justify-center w-7 h-7 gap-[5px] ml-1 flex-shrink-0"
+              aria-label="Menú">
+              <span className={`block w-5 h-px bg-[#3d3530] transition-all duration-300 ${open ? 'rotate-45 translate-y-[6px]' : ''}`}/>
+              <span className={`block w-5 h-px bg-[#3d3530] transition-all duration-300 ${open ? 'opacity-0' : ''}`}/>
+              <span className={`block w-5 h-px bg-[#3d3530] transition-all duration-300 ${open ? '-rotate-45 -translate-y-[6px]' : ''}`}/>
             </button>
           </div>
         </div>
       </div>
 
-      {/* MENÚ MOBILE — animado */}
-      <div className={`lg:hidden bg-[#FAF8F5] border-t border-[#e8e2da] overflow-hidden transition-all duration-300 ${open ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="px-6 py-6 flex flex-col gap-1">
-          <button onClick={() => scrollTo('inicio')} className="text-left text-[14px] tracking-[0.12em] uppercase text-[#3d3530] py-3 border-b border-[#f5f0eb]">Inicio</button>
-          <button onClick={() => scrollTo('precios')} className="text-left text-[14px] tracking-[0.12em] uppercase text-[#3d3530] py-3 border-b border-[#f5f0eb]">Precios</button>
-          <button onClick={() => scrollTo('homecare')} className="text-left text-[14px] tracking-[0.12em] uppercase text-[#3d3530] py-3 border-b border-[#f5f0eb]">Homecare</button>
+      {/* ─── MENÚ MOBILE (desplegable) ─── */}
+      <div className={`lg:hidden bg-[#FAF8F5] border-t border-[#e8e2da] overflow-hidden transition-all duration-300 ${open ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="px-6 py-5 flex flex-col gap-0.5">
+
+          <button onClick={() => scrollTo('inicio')}
+            className="text-left text-[14px] tracking-[0.12em] uppercase text-[#3d3530] py-3 border-b border-[#f5f0eb]">
+            Inicio
+          </button>
+          <button onClick={() => scrollTo('precios')}
+            className="text-left text-[14px] tracking-[0.12em] uppercase text-[#3d3530] py-3 border-b border-[#f5f0eb]">
+            Precios
+          </button>
+          <button onClick={() => scrollTo('homecare')}
+            className="text-left text-[14px] tracking-[0.12em] uppercase text-[#3d3530] py-3 border-b border-[#f5f0eb]">
+            Homecare
+          </button>
+
           <div className="py-3 border-b border-[#f5f0eb]">
-            <p className="text-[14px] tracking-[0.12em] uppercase text-[#3d3530] mb-3">Para Profesionales</p>
-            <div className="pl-4 flex flex-col gap-3">
-              <button onClick={() => scrollTo('formaciones')} className="text-left text-[13px] tracking-widest uppercase text-[#8B7355]">Formaciones</button>
-              <button onClick={() => scrollTo('scripts')} className="text-left text-[13px] tracking-widest uppercase text-[#8B7355]">Beauty Scripts</button>
+            <p className="text-[14px] tracking-[0.12em] uppercase text-[#3d3530] mb-2">Para Profesionales</p>
+            <div className="pl-4 flex flex-col gap-2.5">
+              <button onClick={() => scrollTo('formaciones')}
+                className="text-left text-[13px] tracking-widest uppercase text-[#8B7355]">
+                Formaciones
+              </button>
+              <button onClick={() => scrollTo('scripts')}
+                className="text-left text-[13px] tracking-widest uppercase text-[#8B7355]">
+                Beauty Scripts
+              </button>
             </div>
           </div>
 
-          <div className="pt-5 flex flex-col gap-4">
-            <div className="flex gap-5">
-              <a href={TK_URL} target="_blank" rel="noopener noreferrer" className="text-[#3d3530] hover:text-[#8B7355]">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.79a4.85 4.85 0 01-1.01-.1z"/></svg>
-              </a>
-              <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-[#3d3530] hover:text-[#8B7355]">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
-              </a>
-            </div>
-
+          <div className="pt-4 flex flex-col gap-3">
             {user ? (
               <>
-                {isAdmin && <Link to="/admin" className="text-[13px] tracking-widest uppercase text-[#8B7355]">Panel Admin</Link>}
-                <Link to="/booking" className="text-center py-3.5 bg-[#B8A99A] text-white text-[12px] tracking-widest uppercase block">Reservar Cita</Link>
-                <button onClick={() => { dispatch(logout()); navigate('/'); }} className="text-left text-[12px] tracking-widest uppercase text-[#a09890]">Cerrar sesión</button>
-              </>
-            ) : (
-              <>
-                <Link to="/register" className="text-[13px] tracking-widest uppercase text-[#3d3530]">Registrarse</Link>
-                <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+                {isAdmin && (
+                  <Link to="/admin"
+                    className="self-start text-[13px] tracking-widest uppercase text-white bg-[#8B7355] px-4 py-2">
+                    Panel Admin
+                  </Link>
+                )}
+                <Link to="/booking"
                   className="text-center py-3.5 bg-[#B8A99A] text-white text-[12px] tracking-widest uppercase block">
                   Reservar Cita
-                </a>
+                </Link>
+                <button
+                  onClick={() => { dispatch(logout()); navigate('/'); setOpen(false); }}
+                  className="text-left text-[12px] tracking-widest uppercase text-[#a09890] hover:text-[#3d3530] transition-colors">
+                  Cerrar sesión
+                </button>
               </>
+            ) : (
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+                className="text-center py-3.5 bg-[#B8A99A] text-white text-[12px] tracking-widest uppercase block">
+                Reservar Cita
+              </a>
             )}
           </div>
         </div>
@@ -198,3 +263,4 @@ export default function Navbar() {
     </nav>
   );
 }
+
