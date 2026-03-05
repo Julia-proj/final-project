@@ -40,10 +40,10 @@ export default function HomePage() {
       <section className="relative min-h-screen overflow-hidden flex flex-col">
 
         {/* Фото бэкграунда */}
-        {/* 📁 → public/images/image0.jpg (Hero background) */}
+        {/* 📁 → public/images/hero.jpg (Hero background) */}
         <div className="absolute inset-0">
           <img
-            src="/images/image0.jpg"
+            src="/images/hero.jpg"
             alt="Keratin Madrid"
             className="w-full h-full object-cover object-[center_20%] lg:object-center"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
