@@ -1,9 +1,3 @@
-// РУС: Главная страница. Hero + все секции + footer.
-// ESP: Página principal. Hero + todas las secciones + footer.
-//
-// ✅ ТОЧКА 1: Hero текст адаптирован под размер бэкграунда (как v0)
-// ============================================================
-
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
@@ -33,13 +27,8 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
 
-      {/* ═══════════════════════════════════════
-          HERO — ✅ ТОЧКА 1: Текст адаптирован под размер бэкграунда
-          Как в v0: большой текст поверх фото
-      ═══════════════════════════════════════ */}
       <section className="relative min-h-screen overflow-hidden flex flex-col">
 
-        {/* Фото бэкграунда */}
         {/* 📁 → public/images/hero.jpg (Hero background) */}
         <div className="absolute inset-0">
           <img
@@ -57,7 +46,6 @@ export default function HomePage() {
           {/* Верхняя часть: логотип + подзаголовок */}
           <div className="pt-24 px-6 text-center">
             <p className="text-[#D4C5B5] text-[11px] tracking-[0.5em] uppercase mb-4 font-light">Madrid · España</p>
-            {/* ✅ Большой текст как в v0: text-5xl */}
             <h1 className="font-serif text-5xl font-light tracking-wider text-white mb-3">
               Keratin Madrid
             </h1>
@@ -118,7 +106,6 @@ export default function HomePage() {
         {/* ── DESKTOP Hero Layout ── */}
         <div className="hidden lg:flex relative z-10 container mx-auto px-8 pb-24 items-end flex-1">
           <div className="max-w-3xl">
-            {/* ✅ Большой текст как в v0: text-7xl */}
             <h1 className="font-serif text-6xl lg:text-7xl font-light mb-4 tracking-wide text-white">
               Keratin Madrid
             </h1>

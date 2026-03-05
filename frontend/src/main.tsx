@@ -1,14 +1,3 @@
-// ============================================================
-// main.tsx
-// ============================================================
-// РУС: Точка входа в приложение. React начинает работу здесь.
-//      Provider = "оборачивает" всё приложение в Redux контекст.
-// ESP: Punto de entrada de React. Provider hace Redux disponible en toda la app.
-//
-// АНАЛОГИЯ: Provider = электросеть в доме.
-//   Без Provider компоненты не могут "подключиться" к Redux.
-// ============================================================
-
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux'; // 📦 ФОРМУЛА: оборачиваем в Provider

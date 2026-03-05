@@ -1,33 +1,6 @@
-// components/FloatingCTA.tsx
-// Плавающая кнопка внизу справа экрана:
-//   - если user залогинен → кнопка "RESERVAR" → /booking
-//   - если НЕ залогинен → кнопка WhatsApp
-
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '../hooks/useAppHooks';
-
 const WA_URL = 'https://wa.me/34641261559?text=Hola!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20Keratin%20Madrid';
 
 export default function FloatingCTA() {
-  const user = useAppSelector((s) => s.auth.user);
-
-  if (user) {
-    return (
-      <Link
-        to="/booking"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3
-          bg-[#B8A99A] text-white text-sm tracking-widest uppercase shadow-xl
-          hover:bg-[#9A8B7A] hover:scale-105 transition-all duration-300"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <rect x="3" y="4" width="18" height="18" rx="2" />
-          <path d="M16 2v4M8 2v4M3 10h18" />
-        </svg>
-        Reservar Cita
-      </Link>
-    );
-  }
-
   return (
     <a
       href={WA_URL}

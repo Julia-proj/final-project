@@ -1,25 +1,3 @@
-// ============================================================
-// App.tsx
-// ============================================================
-// РУС: Главный компонент — маршрутизатор.
-//      Определяет какой компонент показывать по какому URL.
-// ESP: Componente principal con el router. Define qué página mostrar por URL.
-//
-// МАРШРУТЫ:
-//   /           → HomePage (публичная)
-//   /login      → LoginPage (публичная)
-//   /register   → RegisterPage (публичная)
-//   /booking    → BookingPage (только залогиненные)
-//   /admin      → AdminPage (только admin)
-//   *           → redirect на /
-//
-// 📦 ФОРМУЛЫ:
-//   BrowserRouter — оборачиваем приложение в роутер
-//   Routes        — контейнер для Route
-//   Route         — один маршрут (path + element)
-//   Navigate      — перенаправление
-// ============================================================
-
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks/useAppHooks';
@@ -50,7 +28,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <FloatingCTA />  {/* ← ДОБАВЛЕНО: плавающая кнопка, видна на всех страницах */}
+      <FloatingCTA />  
 
       <main className="pt-16 lg:pt-20">
         <Routes>

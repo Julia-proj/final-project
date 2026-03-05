@@ -1,12 +1,5 @@
-// ============================================================
-// types/index.ts
-// ============================================================
-// РУС: Все TypeScript типы проекта в одном месте.
-//      Каждый interface = "форма" данных.
-// ESP: Todos los tipos TypeScript del proyecto.
-// ============================================================
 
-// ── USER (пользователь) ──────────────────────────────────────
+// USER 
 export interface User {
   id: string;
   name: string;
@@ -14,7 +7,7 @@ export interface User {
   role: 'user' | 'admin';
 }
 
-// ── BOOKING (запись на процедуру — старая модель) ────────────
+//  BOOKING 
 export interface Booking {
   _id: string;
   user: string | User;
@@ -26,8 +19,8 @@ export interface Booking {
   createdAt: string;
 }
 
-// ── RESERVATION (универсальная резервация) ───────────────────
-// Используется для: formaciones, kit, servicios
+// RESERVATION 
+// formaciones, kit, servicios
 export interface Reservation {
   _id: string;
   user: string | User;
@@ -40,7 +33,7 @@ export interface Reservation {
   createdAt: string;
 }
 
-// ── REVIEW (отзыв) ──────────────────────────────────────────
+// REVIEW 
 export interface Review {
   _id: string;
   user: string | User | null;
@@ -51,7 +44,7 @@ export interface Review {
   createdAt: string;
 }
 
-// ── FORMS (данные из HTML форм) ──────────────────────────────
+// FORMS 
 
 export interface LoginForm {
   email: string;
@@ -85,7 +78,7 @@ export interface ReviewForm {
   estrellas: number;
 }
 
-// ── API RESPONSES ────────────────────────────────────────────
+// API RESPONSES 
 
 export interface AuthResponse {
   token: string;

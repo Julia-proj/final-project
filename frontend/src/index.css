@@ -1,7 +1,6 @@
-/* ============================================================
-   INDEX.CSS — Keratin Madrid
+/* INDEX.CSS — Keratin Madrid
    Tailwind CSS v4 + Кастомные стили
-   
+
    СТРУКТУРА:
    1. Tailwind v4 import + @theme
    2. Google Fonts (Playfair Display + Inter)
@@ -9,40 +8,19 @@
    4. Компоненты: Glassmorphism Navbar
    5. Анимации: fade-in-up, pulse-soft
    6. Утилиты: gold-divider, scroll behavior
-   ============================================================ */
 
 /* ─── 1. TAILWIND V4 ─── */
 @import "tailwindcss";
 
-/* 
-   Tailwind v4 конфигурация через @theme
-   Здесь мы определяем кастомные шрифты,
-   которые будут доступны как font-serif и font-sans
-*/
 @theme {
   --font-sans: "Inter", sans-serif;
-  --font-serif: "Playfair Display", serif;
+  --font-serif: "Manrope", sans-serif;
 }
 
-/* ─── 2. GOOGLE FONTS ─── 
-   
-   Загружаем 2 шрифта:
-   - Playfair Display (300, 400, 500, 600) — для заголовков
-   - Inter (300, 400, 500, 600) — для текста
-   
-   display=swap — текст виден сразу, шрифт подгружается в фоне
-*/
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap");
-
-/* ─── 3. БАЗОВЫЕ СТИЛИ ─── */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 /*
    scroll-behavior: smooth — плавная прокрутка при клике на #ссылки
-   Это нужно для навигации: клик на "Servicios" → плавный скролл к секции
-*/
-html {
-  scroll-behavior: smooth;
-}
 
 /*
    Основной фон — cream (#FAF8F6)

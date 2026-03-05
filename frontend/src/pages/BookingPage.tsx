@@ -1,11 +1,4 @@
-// ============================================================
-// pages/BookingPage.tsx
-// ============================================================
-// РУС: Страница создания записи. Защищённая (ProtectedRoute).
-//      Пользователь выбирает услугу, длину волос, дату.
-//      Отправляем на POST /api/bookings → бэк сохраняет в MongoDB.
-// ESP: Página de reserva protegida. Envía datos al backend para crear una reserva.
-// ============================================================
+// Página de reserva protegida. Envía datos al backend para crear una reserva.
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
