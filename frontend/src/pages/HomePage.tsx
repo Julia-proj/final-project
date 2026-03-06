@@ -27,9 +27,24 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#FAF8F6]">
 
-      {/* Hero Section */}
+      {/* Hero Section - Video Ready */}
       <section className="relative min-h-screen overflow-hidden flex flex-col">
         <div className="absolute inset-0">
+          {/* Video Hero (uncomment when video is ready) */}
+          {/* 
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            poster="/images/hero.jpg"
+          >
+            <source src="/videos/hero.mp4" type="video/mp4" />
+          </video>
+          */}
+          
+          {/* Image Hero (current) */}
           <img
             src="/images/hero.jpg"
             alt="Keratin Madrid"

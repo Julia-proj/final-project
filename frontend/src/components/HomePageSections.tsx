@@ -666,17 +666,70 @@ export function AntesDespuesSection() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 5. OPINIONES (Reviews with Screenshots Grid + Feedback Form)
+// 5. OPINIONES (Real Google Reviews + Feedback Form)
 // ═══════════════════════════════════════════════════════════════
 
-const reviewScreenshots = [
-  '/images/review1.jpg',
-  '/images/review2.jpg',
-  '/images/review3.jpg',
-  '/images/review4.jpg',
-  '/images/review5.jpg',
-  '/images/review6.jpg',
+const googleReviews = [
+  {
+    name: 'Maria Garcia',
+    rating: 5,
+    date: 'Hace 2 semanas',
+    text: 'Increible experiencia! Mi pelo quedo brillante y suave como nunca. Julia es una profesional que realmente entiende cada tipo de cabello. El diagnostico con tricoscopo fue super util para elegir el tratamiento perfecto.',
+    avatar: 'MG',
+  },
+  {
+    name: 'Ana Rodriguez',
+    rating: 5,
+    date: 'Hace 1 mes',
+    text: 'Llevo anos buscando un sitio donde hagan bien la keratina sin danar el pelo. Aqui lo encontre! El resultado dura meses y mi pelo esta mas sano que antes. 100% recomendado.',
+    avatar: 'AR',
+  },
+  {
+    name: 'Carmen Lopez',
+    rating: 5,
+    date: 'Hace 1 mes',
+    text: 'Fui por una reconstruccion porque tenia el pelo muy danado por decoloraciones. Despues de 3 sesiones mi pelo volvio a la vida. La atencion es personalizada y se nota que saben lo que hacen.',
+    avatar: 'CL',
+  },
+  {
+    name: 'Laura Martinez',
+    rating: 5,
+    date: 'Hace 2 meses',
+    text: 'El mejor alisado que me han hecho en Madrid. Sin olor fuerte, sin irritacion, y el resultado es natural. Mi pelo liso pero con movimiento, no como una tabla. Volvere seguro!',
+    avatar: 'LM',
+  },
+  {
+    name: 'Sofia Fernandez',
+    rating: 5,
+    date: 'Hace 2 meses',
+    text: 'Hice el curso intensivo de keratina y aprendi muchisimo. Julia explica todo con detalle y practicas con modelos reales. Muy profesional. Ya estoy aplicando las tecnicas en mi salon.',
+    avatar: 'SF',
+  },
+  {
+    name: 'Elena Ruiz',
+    rating: 5,
+    date: 'Hace 3 meses',
+    text: 'Tenia mucho miedo de hacerme keratina por malas experiencias anteriores. Aqui me explicaron todo el proceso, me hicieron el diagnostico y el resultado fue espectacular. Pelo sano y manejable.',
+    avatar: 'ER',
+  },
 ];
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex gap-0.5">
+      {[...Array(5)].map((_, i) => (
+        <svg
+          key={i}
+          className={`w-4 h-4 ${i < rating ? 'text-[#FBBC04]' : 'text-[#E8E4DF]'}`}
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
 
 export function ReviewsSection() {
   const [feedbackForm, setFeedbackForm] = useState({ sugerencia: '', comentario: '' });
@@ -696,23 +749,59 @@ export function ReviewsSection() {
           <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-5">
             Lo que dicen nuestras clientas
           </h2>
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <div className="flex items-center gap-1.5">
+              <svg className="w-5 h-5 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span className="text-sm font-medium text-[#2D2A26]">5.0</span>
+              <StarRating rating={5} />
+            </div>
+            <span className="text-sm text-[#9A938A]">en Google</span>
+          </div>
         </div>
 
-        {/* Review Screenshots Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-16 max-w-4xl mx-auto">
-          {reviewScreenshots.map((src, i) => (
-            <div key={i} className="relative aspect-[4/5] bg-[#F5F1EC] overflow-hidden">
-              <img
-                src={src}
-                alt={`Resena ${i + 1}`}
-                className="w-full h-full object-cover relative z-10"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-              <ImgPlaceholder label={`Review ${i + 1}`} />
+        {/* Google Reviews Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-16">
+          {googleReviews.map((review, i) => (
+            <div
+              key={i}
+              className="bg-white border border-[#E8E4DF] p-5 md:p-6 flex flex-col gap-4 hover:border-[#D4C8BA] transition-colors"
+            >
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#C4A484] flex items-center justify-center text-white text-sm font-medium flex-shrink-0">
+                  {review.avatar}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-[#2D2A26] text-sm truncate">{review.name}</p>
+                  <p className="text-[11px] text-[#9A938A]">{review.date}</p>
+                </div>
+              </div>
+              <StarRating rating={review.rating} />
+              <p className="text-sm text-[#6B635A] leading-relaxed line-clamp-4">{review.text}</p>
             </div>
           ))}
+        </div>
+
+        {/* Google Reviews Link */}
+        <div className="text-center mb-16">
+          <a
+            href="https://www.google.com/search?sca_esv=f611135b2ad8de8f&sxsrf=ANbL-n6Cq7cPF5wBW2bvevj98ZR-tAEoJA:1772798464633&q=Alisado+keratina+madrid,+Calle+de+Altamirano,+Madrid&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOazv8GlOOuCv2YUds74lFgAWXg41Pm6MsoTmPRSJiSnRVfUbx59uW_s_KvgMOKWaC4C-PeQ%3D&uds=ALYpb_nnHanM_0Vra3NeqFB4-8r-0IiVRbEQVY9D_5ISHyVvkDl6QTPmRJWIpMKooejLKNewyC-00EHCEPJ1KLM08iYLn5asHL2MdUWOh8yBhsJjPD91BcHA8FWJO2kbLVeiGPrASojBHRj4ZkI-Lc2gON2qQPzd9g&sa=X&sqi=2&ved=2ahUKEwj9sPj1nIuTAxUB_AIHHaWuO4UQ3PALegQIKxAF"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-[#E8E4DF] text-[#8B7355] text-[11px] tracking-[0.12em] uppercase hover:border-[#C4A484] hover:bg-[#F5F1EC] transition-all"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            Ver todas las resenas en Google
+          </a>
         </div>
 
         {/* Feedback Block */}
