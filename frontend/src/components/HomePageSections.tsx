@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
-import { createReviewAPI } from '../api/reviews.api';
 import { createReservationAPI } from '../api/reservations.api';
 
 // ── Placeholder ──────────────────────────────────────────────
 function ImgPlaceholder({ label }: { label: string }) {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#f0ebe4]">
-      <svg className="w-6 h-6 text-[#c9bfb5] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#F5F1EC]">
+      <svg className="w-6 h-6 text-[#D4C8BA] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <rect x="3" y="3" width="18" height="18" rx="2" />
         <circle cx="8.5" cy="8.5" r="1.5" />
         <path d="m21 15-5-5L5 21" />
       </svg>
-      <span className="text-[9px] tracking-widest uppercase text-[#c9bfb5]">{label}</span>
+      <span className="text-[9px] tracking-widest uppercase text-[#D4C8BA]">{label}</span>
     </div>
   );
 }
@@ -52,7 +51,7 @@ function ReservationModal({
 
   const handleSubmit = async () => {
     if (!form.nombre.trim() || !form.telefono.trim()) {
-      setError('Nombre y teléfono son obligatorios.');
+      setError('Nombre y telefono son obligatorios.');
       return;
     }
     setLoading(true);
@@ -75,49 +74,56 @@ function ReservationModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="fixed inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-white max-w-md w-full p-6 shadow-xl z-10 max-h-[90vh] overflow-y-auto">
-        <button onClick={onClose} className="absolute top-3 right-3 text-[#a09890] hover:text-[#3d3530]">
-          ✕
+      <div className="fixed inset-0 bg-[#2D2A26]/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-white max-w-md w-full p-8 shadow-xl z-10 max-h-[90vh] overflow-y-auto">
+        <button onClick={onClose} className="absolute top-4 right-4 text-[#9A938A] hover:text-[#2D2A26] transition-colors">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
-        <h3 className="font-serif text-xl text-[#3d3530] mb-4">{title}</h3>
+        <h3 className="font-serif text-2xl text-[#2D2A26] mb-6">{title}</h3>
 
         {sent ? (
-          <div className="text-center py-6">
-            <p className="text-[#8B7355] mb-2">✅ {successMessage}</p>
-            <p className="text-sm text-[#a09890]">Te contactaremos pronto.</p>
+          <div className="text-center py-8">
+            <div className="w-12 h-12 mx-auto mb-4 border border-[#C4A484] flex items-center justify-center">
+              <svg className="w-6 h-6 text-[#C4A484]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <p className="text-[#8B7355] mb-2 font-serif text-lg">{successMessage}</p>
+            <p className="text-sm text-[#9A938A]">Te contactaremos pronto.</p>
             <button
               onClick={onClose}
-              className="mt-4 px-6 py-2 bg-[#B8A99A] text-white text-[11px] tracking-widest uppercase"
+              className="mt-6 px-8 py-3 bg-[#C4A484] text-white text-[10px] tracking-[0.15em] uppercase hover:bg-[#8B7355] transition-colors"
             >
               Cerrar
             </button>
           </div>
         ) : (
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             <div>
-              <label className="text-[11px] tracking-widest uppercase text-[#8B7355] mb-1 block">Nombre</label>
+              <label className="text-[10px] tracking-[0.15em] uppercase text-[#8B7355] mb-2 block">Nombre</label>
               <input
                 type="text"
                 value={form.nombre}
                 onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[#B8A99A]"
+                className="input-elegant"
               />
             </div>
 
             <div>
-              <label className="text-[11px] tracking-widest uppercase text-[#8B7355] mb-1 block">Teléfono *</label>
+              <label className="text-[10px] tracking-[0.15em] uppercase text-[#8B7355] mb-2 block">Telefono *</label>
               <input
                 type="tel"
                 value={form.telefono}
                 placeholder="+34 6XX XXX XXX"
                 onChange={(e) => setForm((f) => ({ ...f, telefono: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[#B8A99A]"
+                className="input-elegant"
               />
             </div>
 
             <div>
-              <label className="text-[11px] tracking-widest uppercase text-[#8B7355] mb-1 block">
+              <label className="text-[10px] tracking-[0.15em] uppercase text-[#8B7355] mb-2 block">
                 {detalleLabel}
               </label>
               <input
@@ -125,12 +131,12 @@ function ReservationModal({
                 value={form.detalle}
                 placeholder={detallePlaceholder}
                 onChange={(e) => setForm((f) => ({ ...f, detalle: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[#B8A99A]"
+                className="input-elegant"
               />
             </div>
 
             <div>
-              <label className="text-[11px] tracking-widest uppercase text-[#8B7355] mb-1 block">
+              <label className="text-[10px] tracking-[0.15em] uppercase text-[#8B7355] mb-2 block">
                 Notas (opcional)
               </label>
               <textarea
@@ -138,7 +144,7 @@ function ReservationModal({
                 value={form.notas}
                 placeholder="Comentarios..."
                 onChange={(e) => setForm((f) => ({ ...f, notas: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[#B8A99A] resize-none"
+                className="input-elegant resize-none"
               />
             </div>
 
@@ -147,7 +153,7 @@ function ReservationModal({
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="w-full py-3 bg-[#B8A99A] text-white text-[11px] tracking-widest uppercase hover:bg-[#9A8B7A] disabled:opacity-50"
+              className="w-full py-3.5 bg-[#C4A484] text-white text-[10px] tracking-[0.15em] uppercase hover:bg-[#8B7355] disabled:opacity-50 transition-colors mt-2"
             >
               {loading ? 'Enviando...' : 'Enviar solicitud'}
             </button>
@@ -173,23 +179,24 @@ function useRequireAuth() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 1. ¿POR QUÉ ELEGIR?
+// 1. POR QUE ELEGIR
 // ═══════════════════════════════════════════════════════════════
 
 const beneficios = [
   {
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         <circle cx="11" cy="11" r="8" />
         <path strokeLinecap="round" d="m21 21-4.35-4.35" />
       </svg>
     ),
-    titulo: 'Diagnóstico con tricóscopo',
+    titulo: 'Diagnostico con tricoscopo',
     texto: 'Analizamos cabello y cuero cabelludo antes de elegir protocolo.',
+    accent: '#C4A484',
   },
   {
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -198,11 +205,12 @@ const beneficios = [
       </svg>
     ),
     titulo: 'Protocolos exclusivos',
-    texto: 'Tecnología premium anti-daño. Fórmulas seguras.',
+    texto: 'Tecnologia premium anti-dano. Formulas seguras.',
+    accent: '#8B7355',
   },
   {
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -211,11 +219,12 @@ const beneficios = [
       </svg>
     ),
     titulo: 'Servicio de alto nivel',
-    texto: 'Atención personalizada y cuidado en cada detalle.',
+    texto: 'Atencion personalizada y cuidado en cada detalle.',
+    accent: '#C4A484',
   },
   {
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -224,11 +233,12 @@ const beneficios = [
       </svg>
     ),
     titulo: 'Seguimiento y cuidado',
-    texto: 'Plan claro para prolongar resultados al máximo.',
+    texto: 'Plan claro para prolongar resultados al maximo.',
+    accent: '#8B7355',
   },
   {
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -236,12 +246,13 @@ const beneficios = [
         />
       </svg>
     ),
-    titulo: 'Corrección de hábitos',
-    texto: 'Ajustamos hábitos sencillos que marcan la diferencia.',
+    titulo: 'Correccion de habitos',
+    texto: 'Ajustamos habitos sencillos que marcan la diferencia.',
+    accent: '#C4A484',
   },
   {
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -250,33 +261,39 @@ const beneficios = [
       </svg>
     ),
     titulo: 'Resultados duraderos',
-    texto: 'Trabajamos para meses, no para un día.',
+    texto: 'Trabajamos para meses, no para un dia.',
+    accent: '#8B7355',
   },
 ];
 
 export function PorQueElegirSection() {
   return (
-    <section id="inicio" className="bg-[#FDFCFA] py-16 lg:py-28">
+    <section id="inicio" className="bg-[#FAF8F6] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 lg:mb-16">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Beneficios</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5">
-            ¿Por qué elegir Keratin Madrid?
+        <div className="text-center mb-14 lg:mb-18">
+          <p className="section-label">Beneficios</p>
+          <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-5">
+            Por que elegir Keratin Madrid
           </h2>
-          <p className="text-[#8B7355] text-base md:text-lg max-w-lg mx-auto">
+          <p className="section-subtitle text-base md:text-lg max-w-lg mx-auto">
             Nos diferenciamos por la salud capilar y resultados duraderos.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {beneficios.map((b, i) => (
             <div
               key={i}
-              className="flex flex-col gap-3 p-4 md:p-6 border border-[#f0ebe4] hover:border-[#B8A99A] transition-all"
+              className="flex flex-col gap-4 p-6 bg-white border border-[#E8E4DF] hover:border-[#D4C8BA] transition-all duration-300"
             >
-              <div className="w-10 h-10 flex items-center justify-center text-[#8B7355]">{b.icon}</div>
-              <h3 className="font-serif text-base md:text-xl text-[#3d3530]">{b.titulo}</h3>
-              <p className="text-[#7a6f68] text-xs md:text-sm leading-relaxed">{b.texto}</p>
+              <div 
+                className="w-10 h-10 flex items-center justify-center"
+                style={{ color: b.accent }}
+              >
+                {b.icon}
+              </div>
+              <h3 className="font-serif text-lg text-[#2D2A26]">{b.titulo}</h3>
+              <p className="text-[#6B635A] text-sm leading-relaxed">{b.texto}</p>
             </div>
           ))}
         </div>
@@ -294,30 +311,30 @@ const tratamientos = [
     img: '/images/keratina.jpg',
     tag: 'Bestseller',
     nombre: 'Alisado de Keratina',
-    duracion: '3–6 meses',
-    desc: 'Alisado seguro, sin formol. Adaptado al diagnóstico previo.',
-    ben: ['Reduce frizz', 'Brillo espejo', 'Más disciplina', 'Ahorra tiempo'],
+    duracion: '3-6 meses',
+    desc: 'Alisado seguro, sin formol. Adaptado al diagnostico previo.',
+    ben: ['Reduce frizz', 'Brillo espejo', 'Mas disciplina', 'Ahorra tiempo'],
     indicado: 'Rizados, encrespados, rebeldes',
-    efecto: 'Liso y manejable 3–6 meses.',
+    efecto: 'Liso y manejable 3-6 meses.',
   },
   {
     img: '/images/reconstruccion.jpg',
     tag: 'Reparador',
-    nombre: 'Reconstrucción en frío',
+    nombre: 'Reconstruccion en frio',
     duracion: 'Acumulativo',
-    desc: 'Recuperación profunda sin alisar. Restaura fuerza y elasticidad.',
-    ben: ['Proteínas', 'Reduce rotura', 'Mejora brillo', 'Compatible decoloraciones'],
-    indicado: 'Seco, dañado, decolorado',
-    efecto: 'Más fuerte, resultado acumulativo.',
+    desc: 'Recuperacion profunda sin alisar. Restaura fuerza y elasticidad.',
+    ben: ['Proteinas', 'Reduce rotura', 'Mejora brillo', 'Compatible decoloraciones'],
+    indicado: 'Seco, danado, decolorado',
+    efecto: 'Mas fuerte, resultado acumulativo.',
   },
   {
     img: '/images/peeling.jpg',
     tag: 'Detox',
     nombre: 'Peeling Capilar',
-    duracion: 'Limpieza + diagnóstico',
-    desc: 'Limpieza profunda con diagnóstico tricoscópico.',
-    ben: ['Elimina grasa', 'Circulación', 'Anti-caspa', 'Oxigenación'],
-    indicado: 'Graso, caída, pesadez',
+    duracion: 'Limpieza + diagnostico',
+    desc: 'Limpieza profunda con diagnostico tricoscopico.',
+    ben: ['Elimina grasa', 'Circulacion', 'Anti-caspa', 'Oxigenacion'],
+    indicado: 'Graso, caida, pesadez',
     efecto: 'Frescor y volumen.',
   },
   {
@@ -326,8 +343,8 @@ const tratamientos = [
     nombre: 'Head Spa',
     duracion: 'Ritual de bienestar',
     desc: 'Ritual de salud y relax con masaje profesional.',
-    ben: ['Microcirculación', 'Nutre folículo', 'Anti-estrés', 'Crecimiento'],
-    indicado: 'Caída, estrés, bienestar',
+    ben: ['Microcirculacion', 'Nutre foliculo', 'Anti-estres', 'Crecimiento'],
+    indicado: 'Caida, estres, bienestar',
     efecto: 'Ligereza y equilibrio.',
   },
 ];
@@ -336,22 +353,22 @@ export function TratamientosSection() {
   const scrollToPrecios = () => document.getElementById('precios')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="servicios" className="bg-[#F7F4F0] py-16 lg:py-28">
+    <section id="servicios" className="bg-[#F5F1EC] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 lg:mb-16">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Servicios</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5">Tratamientos</h2>
-          <p className="text-[#8B7355] text-base md:text-lg">Adaptados a tu tipo de cabello</p>
+        <div className="text-center mb-14 lg:mb-18">
+          <p className="section-label">Servicios</p>
+          <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-5">Tratamientos</h2>
+          <p className="section-subtitle text-base md:text-lg">Adaptados a tu tipo de cabello</p>
         </div>
 
-        <div className="flex flex-col gap-10 lg:gap-14">
+        <div className="flex flex-col gap-12 lg:gap-16">
           {tratamientos.map((t, i) => (
             <div
               key={i}
-              className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-5 md:gap-10 items-center`}
+              className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 md:gap-10 items-center`}
             >
-              <div className="w-full md:w-[200px] lg:w-[240px] flex-shrink-0">
-                <div className="relative h-[240px] md:h-[250px] lg:h-[240px] bg-[#e8e2da] overflow-hidden">
+              <div className="w-full md:w-[220px] lg:w-[260px] flex-shrink-0">
+                <div className="relative aspect-[4/5] max-w-[220px] md:max-w-none mx-auto bg-[#EDE8E2] overflow-hidden">
                   <img
                     src={t.img}
                     alt={t.nombre}
@@ -361,42 +378,42 @@ export function TratamientosSection() {
                     }}
                   />
                   <ImgPlaceholder label={t.img.split('/').pop() || ''} />
-                  <div className="absolute top-2 left-2 bg-[#3d3530] text-white text-[8px] tracking-[0.15em] uppercase px-2 py-0.5 z-20">
+                  <div className="absolute top-3 left-3 bg-[#2D2A26] text-white text-[9px] tracking-[0.12em] uppercase px-2.5 py-1 z-20">
                     {t.tag}
                   </div>
                 </div>
               </div>
 
-              <div className="flex-1 flex flex-col gap-3">
+              <div className="flex-1 flex flex-col gap-4">
                 <div>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-1">{t.duracion}</p>
-                  <h3 className="font-serif text-xl md:text-2xl lg:text-3xl text-[#3d3530] mb-1">{t.nombre}</h3>
-                  <p className="text-[#7a6f68] text-sm md:text-base">{t.desc}</p>
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-[#C4A484] mb-2">{t.duracion}</p>
+                  <h3 className="font-serif text-2xl md:text-3xl text-[#2D2A26] mb-2">{t.nombre}</h3>
+                  <p className="text-[#6B635A] text-sm md:text-base">{t.desc}</p>
                 </div>
 
-                <ul className="grid grid-cols-2 gap-1.5">
+                <ul className="grid grid-cols-2 gap-2">
                   {t.ben.map((b, j) => (
-                    <li key={j} className="flex items-start gap-1.5 text-xs md:text-sm text-[#7a6f68]">
-                      <span className="mt-1.5 w-1 h-1 rounded-full bg-[#B8A99A] flex-shrink-0" />
+                    <li key={j} className="flex items-start gap-2 text-sm text-[#6B635A]">
+                      <span className="mt-2 w-1 h-1 rounded-full bg-[#C4A484] flex-shrink-0" />
                       {b}
                     </li>
                   ))}
                 </ul>
 
-                <div className="flex gap-2 text-xs md:text-sm">
-                  <div className="flex-1 bg-white px-3 py-2">
-                    <p className="text-[9px] tracking-widest uppercase text-[#B8A99A] mb-0.5">Indicado</p>
-                    <p className="text-[#3d3530]">{t.indicado}</p>
+                <div className="flex gap-3 text-sm">
+                  <div className="flex-1 bg-white px-4 py-3 border border-[#E8E4DF]">
+                    <p className="text-[9px] tracking-[0.15em] uppercase text-[#C4A484] mb-1">Indicado</p>
+                    <p className="text-[#2D2A26] text-sm">{t.indicado}</p>
                   </div>
-                  <div className="flex-1 bg-white px-3 py-2">
-                    <p className="text-[9px] tracking-widest uppercase text-[#B8A99A] mb-0.5">Efecto</p>
-                    <p className="text-[#3d3530]">{t.efecto}</p>
+                  <div className="flex-1 bg-white px-4 py-3 border border-[#E8E4DF]">
+                    <p className="text-[9px] tracking-[0.15em] uppercase text-[#C4A484] mb-1">Efecto</p>
+                    <p className="text-[#2D2A26] text-sm">{t.efecto}</p>
                   </div>
                 </div>
 
                 <button
                   onClick={scrollToPrecios}
-                  className="self-start px-6 py-2 border border-[#B8A99A] text-[#B8A99A] text-[11px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white transition-all cursor-pointer"
+                  className="self-start px-6 py-2.5 border border-[#C4A484] text-[#C4A484] text-[10px] tracking-[0.15em] uppercase hover:bg-[#C4A484] hover:text-white transition-all cursor-pointer"
                 >
                   Ver precio
                 </button>
@@ -414,12 +431,12 @@ export function TratamientosSection() {
 // ═══════════════════════════════════════════════════════════════
 
 const precios = [
-  { l: '20–30 cm', k: '180€', r: '150€', desc: 'Debajo de la oreja' },
-  { l: '30–40 cm', k: '200€', r: '165€', desc: 'Hombros' },
-  { l: '40–50 cm', k: '220€', r: '180€', desc: 'Mitad espalda' },
-  { l: '50–60 cm', k: '240€', r: '200€', desc: 'Cintura' },
-  { l: '60–70 cm', k: '260€', r: '220€', desc: 'Bajo cintura' },
-  { l: '70–80 cm', k: '280€', r: '240€', desc: 'Cadera' },
+  { l: '20-30 cm', k: '180 EUR', r: '150 EUR', desc: 'Debajo de la oreja' },
+  { l: '30-40 cm', k: '200 EUR', r: '165 EUR', desc: 'Hombros' },
+  { l: '40-50 cm', k: '220 EUR', r: '180 EUR', desc: 'Mitad espalda' },
+  { l: '50-60 cm', k: '240 EUR', r: '200 EUR', desc: 'Cintura' },
+  { l: '60-70 cm', k: '260 EUR', r: '220 EUR', desc: 'Bajo cintura' },
+  { l: '70-80 cm', k: '280 EUR', r: '240 EUR', desc: 'Cadera' },
 ];
 
 export function TablaDePreciosSection() {
@@ -430,26 +447,26 @@ export function TablaDePreciosSection() {
   const navigate = useNavigate();
 
   return (
-    <section id="precios" className="bg-[#FEFEFE] py-16 lg:py-28">
+    <section id="precios" className="bg-[#FAF8F6] py-20 lg:py-28">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Precios</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5">Tabla de Precios</h2>
-          <p className="text-[#8B7355] text-base md:text-lg">Toca una longitud para destacar el precio</p>
+          <p className="section-label">Precios</p>
+          <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-5">Tabla de Precios</h2>
+          <p className="section-subtitle text-base md:text-lg">Toca una longitud para destacar el precio</p>
         </div>
 
-        <div className="flex border-b border-[#e8e2da] mb-6">
-          {[['k', 'Keratina / Botox'], ['r', 'Reconstrucción']].map(([v, label]) => (
+        <div className="flex border-b border-[#E8E4DF] mb-8">
+          {[['k', 'Keratina / Botox'], ['r', 'Reconstruccion']].map(([v, label]) => (
             <button
               key={v}
               onClick={() => {
                 setTab(v as 'k' | 'r');
                 setSelected(null);
               }}
-              className={`pb-3 px-4 md:px-6 text-[12px] tracking-[0.12em] uppercase transition-all ${
+              className={`pb-4 px-5 md:px-8 text-[11px] tracking-[0.12em] uppercase transition-all ${
                 tab === v
-                  ? 'border-b-2 border-[#B8A99A] text-[#3d3530] font-medium'
-                  : 'text-[#a09890]'
+                  ? 'border-b-2 border-[#C4A484] text-[#2D2A26] font-medium'
+                  : 'text-[#9A938A]'
               }`}
             >
               {label}
@@ -457,22 +474,22 @@ export function TablaDePreciosSection() {
           ))}
         </div>
 
-        <div className="flex flex-col divide-y divide-[#f0ebe4]">
+        <div className="flex flex-col divide-y divide-[#F5F1EC]">
           {precios.map((p, i) => (
             <button
               key={i}
               onClick={() => setSelected(i === selected ? null : i)}
-              className={`flex justify-between items-center py-3.5 px-3 text-left transition-all cursor-pointer ${
-                selected === i ? 'bg-[#B8A99A]/10 border-l-2 border-[#B8A99A]' : 'hover:bg-[#FAF8F5]'
+              className={`flex justify-between items-center py-4 px-4 text-left transition-all cursor-pointer ${
+                selected === i ? 'bg-[#C4A484]/8 border-l-2 border-[#C4A484]' : 'hover:bg-[#F5F1EC]'
               }`}
             >
               <div>
-                <span className="text-sm md:text-base text-[#3d3530] font-medium">{p.l}</span>
-                <span className="text-[10px] text-[#a09890] ml-2">{p.desc}</span>
+                <span className="text-sm md:text-base text-[#2D2A26] font-medium">{p.l}</span>
+                <span className="text-[10px] text-[#9A938A] ml-3">{p.desc}</span>
               </div>
               <span
                 className={`font-serif text-lg md:text-xl transition-all ${
-                  selected === i ? 'text-[#B8A99A] scale-110' : 'text-[#3d3530]'
+                  selected === i ? 'text-[#C4A484] scale-105' : 'text-[#2D2A26]'
                 }`}
               >
                 {tab === 'k' ? p.k : p.r}
@@ -481,26 +498,26 @@ export function TablaDePreciosSection() {
           ))}
         </div>
 
-        <div className="mt-5 bg-[#FAF8F5] px-4 py-3 text-xs md:text-sm text-[#7a6f68] space-y-1">
+        <div className="mt-6 bg-[#F5F1EC] px-5 py-4 text-sm text-[#6B635A] space-y-2">
           <p>
-            <span className="text-[#3d3530] font-medium">Abundante:</span> +20€ (7cm) · +40€ (9cm) · +60€ (10+cm)
+            <span className="text-[#2D2A26] font-medium">Abundante:</span> +20 EUR (7cm) / +40 EUR (9cm) / +60 EUR (10+cm)
           </p>
           <p>
-            <span className="text-[#3d3530] font-medium">Extras:</span> Peeling +65€ · Nano Gold +50€ · Corte +20€
+            <span className="text-[#2D2A26] font-medium">Extras:</span> Peeling +65 EUR / Nano Gold +50 EUR / Corte +20 EUR
           </p>
         </div>
 
-        <div className="mt-5 flex flex-col sm:flex-row gap-3 items-start">
+        <div className="mt-6 flex flex-col sm:flex-row gap-3 items-start">
           <button
             onClick={() => requireAuth(() => navigate('/booking'))}
-            className="px-8 py-3 bg-[#B8A99A] text-white text-[11px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors cursor-pointer"
+            className="px-8 py-3.5 bg-[#C4A484] text-white text-[10px] tracking-[0.15em] uppercase hover:bg-[#8B7355] transition-colors cursor-pointer"
           >
             Reservar cita
           </button>
 
           <button
             onClick={() => setShowGuide(!showGuide)}
-            className="px-6 py-3 border border-[#e8e2da] text-[#8B7355] text-[11px] tracking-[0.15em] uppercase hover:border-[#B8A99A] transition-colors cursor-pointer flex items-center gap-2"
+            className="px-6 py-3.5 border border-[#E8E4DF] text-[#8B7355] text-[10px] tracking-[0.12em] uppercase hover:border-[#C4A484] transition-colors cursor-pointer flex items-center gap-2"
           >
             <svg
               className={`w-3 h-3 transition-transform ${showGuide ? 'rotate-180' : ''}`}
@@ -510,16 +527,16 @@ export function TablaDePreciosSection() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
-            {showGuide ? 'Ocultar guía' : 'Ver guía de longitud'}
+            {showGuide ? 'Ocultar guia' : 'Ver guia de longitud'}
           </button>
         </div>
 
         {showGuide && (
-          <div className="mt-4 flex justify-center animate-fade-in-up">
-            <div className="relative bg-[#f0ebe4] overflow-hidden max-w-[200px]">
+          <div className="mt-6 flex justify-center animate-fade-in-up">
+            <div className="relative bg-[#F5F1EC] overflow-hidden max-w-[180px]">
               <img
                 src="/images/precios.jpg"
-                alt="Guía de longitud"
+                alt="Guia de longitud"
                 className="w-full object-contain relative z-10"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
@@ -535,54 +552,112 @@ export function TablaDePreciosSection() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 4. ANTES & DESPUÉS
+// 4. ANTES Y DESPUES (Video Carousel)
 // ═══════════════════════════════════════════════════════════════
 
-const adFotos = [
-  { img: '/images/beforeafter1.jpg', link: 'https://www.instagram.com/keratin_madrid' },
-  { img: '/images/beforeafter2.jpg', link: 'https://www.instagram.com/keratin_madrid' },
-  { img: '/images/beforeafter3.jpeg', link: 'https://www.instagram.com/keratin_madrid' },
+const reelsVideos = [
+  { id: 1, thumb: '/images/beforeafter1.jpg', link: 'https://www.instagram.com/keratin_madrid' },
+  { id: 2, thumb: '/images/beforeafter2.jpg', link: 'https://www.instagram.com/keratin_madrid' },
+  { id: 3, thumb: '/images/beforeafter3.jpeg', link: 'https://www.instagram.com/keratin_madrid' },
+  { id: 4, thumb: '/images/beforeafter1.jpg', link: 'https://www.instagram.com/keratin_madrid' },
 ];
 
 export function AntesDespuesSection() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const scrollToIndex = (index: number) => {
+    if (carouselRef.current) {
+      const itemWidth = carouselRef.current.children[0]?.clientWidth || 280;
+      carouselRef.current.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+      setActiveIndex(index);
+    }
+  };
+
+  const handleScroll = () => {
+    if (carouselRef.current) {
+      const itemWidth = carouselRef.current.children[0]?.clientWidth || 280;
+      const newIndex = Math.round(carouselRef.current.scrollLeft / itemWidth);
+      setActiveIndex(newIndex);
+    }
+  };
+
   return (
-    <section id="resultados" className="bg-[#F5F1EC] py-16 lg:py-28">
+    <section id="resultados" className="bg-[#EDE8E2] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Resultados</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5">Antes / Después</h2>
+        <div className="text-center mb-12">
+          <p className="section-label">Resultados</p>
+          <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-5">Antes / Despues</h2>
+          <p className="section-subtitle text-base md:text-lg">Mira nuestras transformaciones en Instagram</p>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 md:gap-3 max-w-4xl mx-auto">
-          {adFotos.map((item, i) => (
+        {/* Video Carousel */}
+        <div 
+          ref={carouselRef}
+          onScroll={handleScroll}
+          className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-4"
+        >
+          {reelsVideos.map((video, i) => (
             <a
-              key={i}
-              href={item.link}
+              key={video.id}
+              href={video.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative aspect-[4/3] bg-[#e8e2da] overflow-hidden group block"
+              className="relative flex-shrink-0 w-[200px] sm:w-[220px] md:w-[240px] aspect-[9/16] bg-[#F5F1EC] overflow-hidden group snap-center"
             >
               <img
-                src={item.img}
+                src={video.thumb}
                 alt={`Resultado ${i + 1}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
-              <ImgPlaceholder label={item.img.split('/').pop() || ''} />
+              <ImgPlaceholder label={`Reel ${i + 1}`} />
+              {/* Play icon overlay */}
+              <div className="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-[#2D2A26] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+              {/* Instagram icon */}
+              <div className="absolute bottom-3 right-3 z-20">
+                <svg className="w-5 h-5 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="2" y="2" width="20" height="20" rx="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                </svg>
+              </div>
             </a>
           ))}
         </div>
 
-        <div className="text-center mt-6">
+        {/* Carousel dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {reelsVideos.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => scrollToIndex(i)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                activeIndex === i ? 'bg-[#C4A484] w-6' : 'bg-[#D4C8BA]'
+              }`}
+            />
+          ))}
+        </div>
+
+        <div className="text-center mt-8">
           <a
             href="https://www.instagram.com/keratin_madrid"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] border-b border-[#B8A99A] pb-1 hover:text-[#3d3530]"
+            className="inline-flex items-center gap-2 text-[11px] tracking-[0.15em] uppercase text-[#8B7355] hover:text-[#2D2A26] transition-colors"
           >
-            Ver más en Instagram
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+            Ver mas en Instagram
           </a>
         </div>
       </div>
@@ -591,125 +666,106 @@ export function AntesDespuesSection() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 5. OPINIONES
+// 5. OPINIONES (Reviews with Screenshots Grid + Feedback Form)
 // ═══════════════════════════════════════════════════════════════
 
-const resenasEstaticas = [
-  { nombre: 'Ana M.', estrellas: 5, texto: 'Resultado increíble desde la primera sesión. Brillante y sin frizz.' },
-  { nombre: 'Laura P.', estrellas: 5, texto: 'Llevo dos años y cada vez mejor. El trato es excelente.' },
-  { nombre: 'Sofía R.', estrellas: 5, texto: 'Pelo muy dañado — la reconstrucción lo cambió completamente.' },
-  { nombre: 'María G.', estrellas: 5, texto: 'El Head Spa fue maravilloso. Completamente relajada.' },
-  { nombre: 'Elena T.', estrellas: 5, texto: 'Vine por recomendación. Todo muy profesional.' },
-  { nombre: 'Carmen V.', estrellas: 5, texto: 'El kit de homecare alargó el resultado mucho más.' },
+const reviewScreenshots = [
+  '/images/review1.jpg',
+  '/images/review2.jpg',
+  '/images/review3.jpg',
+  '/images/review4.jpg',
+  '/images/review5.jpg',
+  '/images/review6.jpg',
 ];
 
 export function ReviewsSection() {
-  const { user, requireAuth } = useRequireAuth();
-  const [form, setForm] = useState({ nombre: '', texto: '', estrellas: 5 });
-  const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [feedbackForm, setFeedbackForm] = useState({ sugerencia: '', comentario: '' });
+  const [feedbackSent, setFeedbackSent] = useState(false);
 
-  useEffect(() => {
-    if (user?.name) setForm((f) => ({ ...f, nombre: user.name }));
-  }, [user]);
-
-  const handleSubmit = () => {
-    requireAuth(async () => {
-      if (!form.nombre.trim() || !form.texto.trim()) {
-        setError('Completa nombre y experiencia.');
-        return;
-      }
-      setLoading(true);
-      setError('');
-      try {
-        await createReviewAPI(form);
-        setSent(true);
-      } catch {
-        setError('Error al enviar.');
-      } finally {
-        setLoading(false);
-      }
-    });
+  const handleFeedbackSubmit = () => {
+    if (feedbackForm.sugerencia.trim() || feedbackForm.comentario.trim()) {
+      setFeedbackSent(true);
+    }
   };
 
   return (
-    <section id="opiniones" className="bg-[#FAF9F7] py-16 lg:py-28">
+    <section id="opiniones" className="bg-[#FAF8F6] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Testimonios</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5">
+        <div className="text-center mb-12">
+          <p className="section-label">Testimonios</p>
+          <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-5">
             Lo que dicen nuestras clientas
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {resenasEstaticas.map((r, i) => (
-            <div key={i} className="flex flex-col gap-2 p-5 bg-[#FAF8F5] border border-[#f0ebe4]">
-              <div className="flex gap-0.5">
-                {[...Array(r.estrellas)].map((_, j) => (
-                  <span key={j} className="text-[#B8A99A] text-sm">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <p className="text-[#3d3530] text-sm leading-relaxed flex-1 italic font-serif">"{r.texto}"</p>
-              <p className="text-[11px] tracking-[0.15em] uppercase text-[#8B7355]">{r.nombre}</p>
+        {/* Review Screenshots Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-16 max-w-4xl mx-auto">
+          {reviewScreenshots.map((src, i) => (
+            <div key={i} className="relative aspect-[4/5] bg-[#F5F1EC] overflow-hidden">
+              <img
+                src={src}
+                alt={`Resena ${i + 1}`}
+                className="w-full h-full object-cover relative z-10"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+              <ImgPlaceholder label={`Review ${i + 1}`} />
             </div>
           ))}
         </div>
 
-        <div className="max-w-md mx-auto">
-          <p className="text-[11px] tracking-[0.2em] uppercase text-[#a09890] text-center mb-5">
-            Comparte tu experiencia
-          </p>
+        {/* Feedback Block */}
+        <div className="max-w-lg mx-auto">
+          <div className="text-center mb-6">
+            <p className="font-serif text-xl text-[#2D2A26] mb-2">Tu opinion nos importa</p>
+            <p className="text-sm text-[#6B635A]">Comparte tus sugerencias o comentarios para mejorar</p>
+          </div>
 
-          {sent ? (
-            <div className="text-center py-6 bg-[#FAF8F5] border border-[#f0ebe4]">
-              <p className="text-[#8B7355] font-serif text-lg mb-1">¡Gracias por tu reseña!</p>
-              <p className="text-sm text-[#a09890]">Será revisada y publicada pronto.</p>
+          {feedbackSent ? (
+            <div className="text-center py-10 bg-[#F5F1EC] border border-[#E8E4DF]">
+              <div className="w-12 h-12 mx-auto mb-4 border border-[#C4A484] flex items-center justify-center">
+                <svg className="w-6 h-6 text-[#C4A484]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p className="font-serif text-lg text-[#8B7355] mb-1">Gracias por tu opinion</p>
+              <p className="text-sm text-[#9A938A]">Tu comentario nos ayuda a mejorar.</p>
             </div>
           ) : (
-            <div className="flex flex-col gap-3">
-              <div className="flex gap-1 justify-center">
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <button
-                    key={n}
-                    onClick={() => setForm((f) => ({ ...f, estrellas: n }))}
-                    className={`text-xl ${n <= form.estrellas ? 'text-[#B8A99A]' : 'text-[#e8e2da]'}`}
-                  >
-                    ★
-                  </button>
-                ))}
+            <div className="flex flex-col gap-4 bg-[#F5F1EC] p-6 border border-[#E8E4DF]">
+              <div>
+                <label className="text-[10px] tracking-[0.15em] uppercase text-[#8B7355] mb-2 block">
+                  Sugerencia
+                </label>
+                <input
+                  type="text"
+                  placeholder="Como podemos mejorar?"
+                  value={feedbackForm.sugerencia}
+                  onChange={(e) => setFeedbackForm((f) => ({ ...f, sugerencia: e.target.value }))}
+                  className="input-elegant"
+                />
               </div>
 
-              <input
-                type="text"
-                placeholder="Tu nombre"
-                value={form.nombre}
-                onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-4 py-2.5 text-sm focus:outline-none focus:border-[#B8A99A]"
-              />
-
-              <textarea
-                rows={3}
-                placeholder="Tu experiencia..."
-                value={form.texto}
-                onChange={(e) => setForm((f) => ({ ...f, texto: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-4 py-2.5 text-sm focus:outline-none focus:border-[#B8A99A] resize-none"
-              />
-
-              {error && <p className="text-red-400 text-xs">{error}</p>}
+              <div>
+                <label className="text-[10px] tracking-[0.15em] uppercase text-[#8B7355] mb-2 block">
+                  Comentario
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder="Tu experiencia o mensaje..."
+                  value={feedbackForm.comentario}
+                  onChange={(e) => setFeedbackForm((f) => ({ ...f, comentario: e.target.value }))}
+                  className="input-elegant resize-none"
+                />
+              </div>
 
               <button
-                onClick={handleSubmit}
-                disabled={loading}
-                className="w-full py-2.5 bg-[#B8A99A] text-white text-[11px] tracking-widest uppercase hover:bg-[#9A8B7A] disabled:opacity-50"
+                onClick={handleFeedbackSubmit}
+                className="w-full py-3 bg-[#C4A484] text-white text-[10px] tracking-[0.15em] uppercase hover:bg-[#8B7355] transition-colors"
               >
-                {loading ? 'Enviando...' : 'Enviar reseña'}
+                Enviar opinion
               </button>
-
-              {!user && <p className="text-[10px] text-[#a09890] text-center">Necesitas iniciar sesión para enviar.</p>}
             </div>
           )}
         </div>
@@ -719,16 +775,16 @@ export function ReviewsSection() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 6. HOMECARE + PRODUCTOS
+// 6. HOMECARE + PRODUCTOS (with Personalized Care Block)
 // ═══════════════════════════════════════════════════════════════
 
 const pasos = [
-  'Champú adaptado según necesidad',
-  'Mascarilla 1–2×/sem (20–30 min)',
-  'Acondicionador en días sin mascarilla',
+  'Champu adaptado segun necesidad',
+  'Mascarilla 1-2x/sem (20-30 min)',
+  'Acondicionador en dias sin mascarilla',
   'Termoprotector antes de secar',
-  'Secador en aire tibio o frío',
-  'Cepillo con púas suaves',
+  'Secador en aire tibio o frio',
+  'Cepillo con puas suaves',
   'No dormir con pelo mojado',
   'Evitar agua muy caliente',
 ];
@@ -738,59 +794,79 @@ export function HomecareSection() {
   const [showKitModal, setShowKitModal] = useState(false);
 
   return (
-    <section id="homecare" className="bg-[#F3EFE9] py-16 lg:py-28">
+    <section id="homecare" className="bg-[#F5F1EC] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 lg:mb-16">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Homecare</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5">Cuidado en casa</h2>
+        <div className="text-center mb-14">
+          <p className="section-label">Homecare</p>
+          <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-5">Cuidado en casa</h2>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 items-start">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+          {/* Left: Tips */}
           <div className="flex-1">
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
               {pasos.map((paso, i) => (
-                <li key={i} className="flex items-start gap-2 py-1.5 border-b border-[#ede8e2]">
-                  <span className="flex-shrink-0 w-5 h-5 border border-[#d4cfc9] flex items-center justify-center text-[9px] text-[#B8A99A] mt-0.5">
+                <li key={i} className="flex items-start gap-3 py-2.5 border-b border-[#E8E4DF]">
+                  <span className="flex-shrink-0 w-6 h-6 border border-[#D4C8BA] flex items-center justify-center text-[10px] text-[#C4A484] mt-0.5">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="text-sm md:text-base text-[#3d3530]">{paso}</span>
+                  <span className="text-sm text-[#2D2A26]">{paso}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="mt-6 border-l-2 border-[#B8A99A] pl-4">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2">Nota de la especialista</p>
-              <p className="font-serif text-base md:text-lg text-[#3d3530] italic">
-                "El salón hace el 50%. El otro 50% lo haces tú en casa."
+            <div className="mt-8 border-l-2 border-[#C4A484] pl-5">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#C4A484] mb-2">Nota de la especialista</p>
+              <p className="font-serif text-lg text-[#2D2A26] italic">
+                "El salon hace el 50%. El otro 50% lo haces tu en casa."
               </p>
             </div>
           </div>
 
-          <div className="w-full lg:w-80 flex-shrink-0" id="productos">
-            <div className="relative h-[300px] md:h-[250px] bg-[#e8e2da] overflow-hidden">
-              <img
-                src="/images/kit.jpg"
-                alt="Kit"
-                className="w-full h-full object-contain relative z-10"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-              <ImgPlaceholder label="kit.jpg" />
+          {/* Right: Kit + Personalized Care */}
+          <div className="w-full lg:w-[340px] flex-shrink-0 flex flex-col gap-6" id="productos">
+            {/* Kit Card */}
+            <div className="bg-white border border-[#E8E4DF]">
+              <div className="relative h-[200px] bg-[#EDE8E2] overflow-hidden">
+                <img
+                  src="/images/kit.jpg"
+                  alt="Kit"
+                  className="w-full h-full object-contain relative z-10"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
+                />
+                <ImgPlaceholder label="kit.jpg" />
+              </div>
+
+              <div className="p-5">
+                <p className="text-[9px] tracking-[0.15em] uppercase text-[#C4A484] mb-1">Productos</p>
+                <h3 className="font-serif text-lg text-[#2D2A26] mb-2">Kit personalizado</h3>
+                <p className="text-xs text-[#6B635A] mb-4">Champu / Acondicionador / Mascarilla / Protector termico.</p>
+                <p className="font-serif text-xl text-[#2D2A26] mb-4">90 EUR</p>
+
+                <button
+                  onClick={() => requireAuth(() => setShowKitModal(true))}
+                  className="block w-full text-center py-3 bg-[#C4A484] text-white text-[10px] tracking-[0.15em] uppercase hover:bg-[#8B7355] transition-colors cursor-pointer"
+                >
+                  Reservar kit
+                </button>
+              </div>
             </div>
 
-            <div className="bg-white p-5 border border-[#e8e2da]">
-              <p className="text-[10px] tracking-widest uppercase text-[#B8A99A] mb-1">Productos</p>
-              <h3 className="font-serif text-lg text-[#3d3530] mb-2">Kit personalizado</h3>
-              <p className="text-xs text-[#7a6f68] mb-3">Champú · Acondicionador · Mascarilla · Protector térmico.</p>
-              <p className="font-serif text-xl text-[#3d3530] mb-3">90€</p>
-
-              <button
-                onClick={() => requireAuth(() => setShowKitModal(true))}
-                className="block w-full text-center py-2.5 bg-[#B8A99A] text-white text-[10px] tracking-widest uppercase hover:bg-[#9A8B7A] cursor-pointer"
-              >
-                Reservar kit
-              </button>
+            {/* Personalized Care Bonus */}
+            <div className="bg-[#2D2A26] p-5 text-center">
+              <div className="w-10 h-10 mx-auto mb-3 border border-[#C4A484] flex items-center justify-center">
+                <svg className="w-5 h-5 text-[#C4A484]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8" />
+                  <path strokeLinecap="round" d="m21 21-4.35-4.35" />
+                </svg>
+              </div>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#C4A484] mb-2">Bonus exclusivo</p>
+              <p className="font-serif text-white text-base mb-2">Diagnostico con tricoscopo gratis</p>
+              <p className="text-xs text-[#9A938A]">
+                Al reservar por la web, incluimos diagnostico personalizado del cuero cabelludo sin coste adicional.
+              </p>
             </div>
           </div>
         </div>
@@ -802,15 +878,15 @@ export function HomecareSection() {
         type="kit"
         title="Reservar Kit"
         detalleLabel="Tipo de cabello"
-        detallePlaceholder="Liso, rizado, dañado..."
-        successMessage="¡Kit reservado!"
+        detallePlaceholder="Liso, rizado, danado..."
+        successMessage="Kit reservado!"
       />
     </section>
   );
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 7. FORMACIONES
+// 7. FORMACIONES (with updated course info)
 // ═══════════════════════════════════════════════════════════════
 
 export function FormacionesSection() {
@@ -826,19 +902,20 @@ export function FormacionesSection() {
   };
 
   return (
-    <section id="formaciones" className="bg-[#FDFCFA] py-16 lg:py-28">
+    <section id="formaciones" className="bg-[#FAF8F6] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 lg:mb-14">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Para Profesionales</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5">Formaciones</h2>
+        <div className="text-center mb-14">
+          <p className="section-label">Para Profesionales</p>
+          <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-5">Formaciones</h2>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 mb-10 max-w-2xl mx-auto">
+        {/* Course Images */}
+        <div className="grid grid-cols-3 gap-2 md:gap-3 mb-12 max-w-2xl mx-auto">
           {['/images/formaciones.jpeg', '/images/formaciones2.jpeg', '/images/formaciones3.jpeg'].map((src, i) => (
-            <div key={i} className="relative aspect-[4/3] bg-[#f0ebe4] overflow-hidden">
+            <div key={i} className="relative aspect-[4/3] bg-[#F5F1EC] overflow-hidden">
               <img
                 src={src}
-                alt={`Formación ${i + 1}`}
+                alt={`Formacion ${i + 1}`}
                 className="w-full h-full object-cover relative z-10"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
@@ -849,44 +926,55 @@ export function FormacionesSection() {
           ))}
         </div>
 
+        {/* Course Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          <div className="border border-[#e8e2da] p-6 md:p-8 flex flex-col gap-4">
-            <span className="self-start text-[10px] tracking-[0.2em] uppercase text-white bg-[#3d3530] px-3 py-1">
+          {/* Intensive Keratin Course */}
+          <div className="bg-white border border-[#E8E4DF] p-6 md:p-8 flex flex-col gap-4">
+            <span className="self-start text-[9px] tracking-[0.15em] uppercase text-white bg-[#2D2A26] px-3 py-1">
               Curso destacado
             </span>
-            <h3 className="font-serif text-xl md:text-2xl text-[#3d3530]">Curso intensivo de keratina</h3>
-            <p className="text-sm text-[#8B7355]">2 días · Práctica con modelos</p>
-            <p className="text-xs text-[#7a6f68]">
-              <span className="text-[#3d3530]">Incluye:</span> Materiales · Manual · Fotos · Certificado
+            <h3 className="font-serif text-xl md:text-2xl text-[#2D2A26]">Curso intensivo de keratina</h3>
+            <div className="text-sm text-[#8B7355] space-y-1">
+              <p>2 dias / Practica con modelos</p>
+              <p>Incluye: Reconstruccion Inferiore</p>
+              <p>Duracion: aprox. 3 horas</p>
+            </div>
+            <p className="text-xs text-[#6B635A]">
+              <span className="text-[#2D2A26]">Incluye:</span> Materiales / Manual / Fotos / Certificado
             </p>
-            <div className="flex items-center justify-between pt-3 border-t border-[#f0ebe4]">
-              <span className="font-serif text-2xl text-[#3d3530]">1.400€</span>
+            <div className="flex items-center justify-between pt-4 border-t border-[#F5F1EC]">
+              <span className="font-serif text-2xl text-[#2D2A26]">1.400 EUR</span>
               <button
                 onClick={() => handleReservar('Curso intensivo de keratina')}
-                className="px-5 py-2.5 bg-[#B8A99A] text-white text-[11px] tracking-widest uppercase hover:bg-[#9A8B7A] cursor-pointer"
+                className="px-5 py-2.5 bg-[#C4A484] text-white text-[10px] tracking-[0.12em] uppercase hover:bg-[#8B7355] transition-colors cursor-pointer"
               >
                 Reservar plaza
               </button>
             </div>
           </div>
 
-          <div className="border border-[#e8e2da] p-6 md:p-8 flex flex-col gap-4">
-            <span className="self-start text-[10px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-3 py-1">
+          {/* Reconstruction Masterclass */}
+          <div className="bg-white border border-[#E8E4DF] p-6 md:p-8 flex flex-col gap-4">
+            <span className="self-start text-[9px] tracking-[0.15em] uppercase text-white bg-[#8B7355] px-3 py-1">
               Masterclass
             </span>
-            <h3 className="font-serif text-xl md:text-2xl text-[#3d3530]">Reconstrucción en Frío</h3>
-            <p className="text-sm text-[#8B7355]">Intensivo · Máx. 6 personas</p>
-            <p className="text-xs text-[#7a6f68]">
-              <span className="text-[#3d3530]">Incluye:</span> Materiales · Guía · Certificado
+            <h3 className="font-serif text-xl md:text-2xl text-[#2D2A26]">Reconstruccion en Frio</h3>
+            <div className="text-sm text-[#8B7355] space-y-1">
+              <p>Intensivo / Max. 6 personas</p>
+              <p>Duracion: aprox. 3 horas</p>
+            </div>
+            <p className="text-xs text-[#6B635A]">
+              <span className="text-[#2D2A26]">Incluye:</span> Materiales / Guia / Certificado
             </p>
-            <div className="flex items-center justify-between pt-3 border-t border-[#f0ebe4]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-4 border-t border-[#F5F1EC] gap-3">
               <div>
-                <span className="font-serif text-2xl text-[#3d3530]">350€</span>
-                <span className="text-xs text-[#8B7355] block">por persona · mín. 3</span>
+                <span className="font-serif text-2xl text-[#2D2A26]">350 EUR</span>
+                <span className="text-xs text-[#8B7355] block">por persona / min. 3 personas</span>
+                <span className="text-[10px] text-[#9A938A]">Fecha se coordina al formar grupo</span>
               </div>
               <button
-                onClick={() => handleReservar('Masterclass Reconstrucción')}
-                className="px-5 py-2.5 border border-[#B8A99A] text-[#B8A99A] text-[11px] tracking-widest uppercase hover:bg-[#B8A99A] hover:text-white cursor-pointer"
+                onClick={() => handleReservar('Masterclass Reconstruccion')}
+                className="px-5 py-2.5 border border-[#C4A484] text-[#C4A484] text-[10px] tracking-[0.12em] uppercase hover:bg-[#C4A484] hover:text-white transition-colors cursor-pointer"
               >
                 Reservar plaza
               </button>
@@ -900,9 +988,9 @@ export function FormacionesSection() {
         onClose={() => setShowModal(false)}
         type="formacion"
         title="Reservar plaza"
-        detalleLabel="Formación"
+        detalleLabel="Formacion"
         detallePlaceholder={selectedFormacion}
-        successMessage="¡Plaza reservada!"
+        successMessage="Plaza reservada!"
       />
     </section>
   );
@@ -916,19 +1004,20 @@ const STRIPE_SCRIPTS_URL = 'https://buy.stripe.com/TU_STRIPE_LINK_AQUI';
 
 export function BeautyScriptsSection() {
   return (
-    <section id="scripts" className="bg-[#F5F2ED] py-16 lg:py-28">
+    <section id="scripts" className="bg-[#EDE8E2] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 lg:mb-14 lg:text-left">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-4">Scripts</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4">Beauty Scripts</h2>
-          <p className="text-base md:text-lg text-[#7a6f68] max-w-2xl lg:mx-0 mx-auto">
-            Scripts listos para usar que aumentan tus ventas. Diálogos profesionales para especialistas capilares.
+        <div className="text-center lg:text-left mb-12">
+          <p className="section-label">Scripts</p>
+          <h2 className="section-title text-3xl md:text-4xl lg:text-[42px] mb-4">Beauty Scripts</h2>
+          <p className="section-subtitle text-base md:text-lg max-w-2xl lg:mx-0 mx-auto">
+            Scripts listos para usar que aumentan tus ventas. Dialogos profesionales para especialistas capilares.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 items-center">
-          <div className="w-full max-w-xs lg:w-[300px] flex-shrink-0 mx-auto lg:mx-0">
-            <div className="relative aspect-[4/5] bg-[#f0ebe4] overflow-hidden">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-14 items-center">
+          {/* Image */}
+          <div className="w-full max-w-[260px] lg:w-[280px] flex-shrink-0 mx-auto lg:mx-0">
+            <div className="relative aspect-[4/5] bg-[#F5F1EC] overflow-hidden">
               <img
                 src="/images/beautyscripts.jpeg"
                 alt="Beauty Scripts"
@@ -941,22 +1030,23 @@ export function BeautyScriptsSection() {
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col gap-5">
-            <div className="flex flex-col gap-4">
+          {/* Content */}
+          <div className="flex-1 flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               {[
                 ['Ahorra tiempo', 'Scripts probados y listos para usar.'],
-                ['Reduce estrés', 'Responde con confianza a cualquier pregunta.'],
-                ['Más conversiones', 'Optimizados para cerrar más ventas.'],
+                ['Reduce estres', 'Responde con confianza a cualquier pregunta.'],
+                ['Mas conversiones', 'Optimizados para cerrar mas ventas.'],
               ].map(([t, d]) => (
-                <div key={t} className="flex gap-3">
-                  <span className="w-5 h-5 border border-[#B8A99A] flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-2.5 h-2.5 text-[#B8A99A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="m4.5 12.75 6 6 9-13.5" />
+                <div key={t} className="flex gap-4">
+                  <span className="w-6 h-6 border border-[#C4A484] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-[#C4A484]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
                   </span>
                   <div>
-                    <p className="text-base md:text-lg font-medium text-[#3d3530]">{t}</p>
-                    <p className="text-sm md:text-base text-[#8B7355]">{d}</p>
+                    <p className="text-base md:text-lg font-medium text-[#2D2A26]">{t}</p>
+                    <p className="text-sm text-[#6B635A]">{d}</p>
                   </div>
                 </div>
               ))}
@@ -966,7 +1056,7 @@ export function BeautyScriptsSection() {
               href={STRIPE_SCRIPTS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="self-start px-8 py-3.5 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors"
+              className="self-start px-8 py-3.5 bg-[#C4A484] text-white text-[11px] tracking-[0.15em] uppercase hover:bg-[#8B7355] transition-colors"
             >
               Quiero los Scripts
             </a>

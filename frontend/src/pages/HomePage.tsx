@@ -25,11 +25,10 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-[#FAF8F6]">
 
+      {/* Hero Section */}
       <section className="relative min-h-screen overflow-hidden flex flex-col">
-
-        {/* 📁 → public/images/hero.jpg (Hero background) */}
         <div className="absolute inset-0">
           <img
             src="/images/hero.jpg"
@@ -37,52 +36,47 @@ export default function HomePage() {
             className="w-full h-full object-cover object-[center_20%] lg:object-center"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
           />
-          {/* ✅ Overlay: мобиль — тёмный сверху и снизу; десктоп — тёмный снизу */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 lg:bg-gradient-to-t lg:from-black/70 lg:via-black/20 lg:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#2D2A26]/50 via-transparent to-[#2D2A26]/70 lg:bg-gradient-to-t lg:from-[#2D2A26]/60 lg:via-[#2D2A26]/15 lg:to-transparent" />
         </div>
 
-        {/* ── MOBILE Hero Layout ── */}
+        {/* Mobile Hero */}
         <div className="lg:hidden relative z-10 flex flex-col h-screen">
-          {/* Верхняя часть: логотип + подзаголовок */}
           <div className="pt-24 px-6 text-center">
-            <p className="text-[#D4C5B5] text-[11px] tracking-[0.5em] uppercase mb-4 font-light">Madrid · España</p>
-            <h1 className="font-serif text-5xl font-light tracking-wider text-white mb-3">
+            <p className="text-[#D4C8BA] text-[10px] tracking-[0.4em] uppercase mb-4 font-light">Madrid</p>
+            <h1 className="font-serif text-4xl font-light tracking-wide text-white mb-4">
               Keratin Madrid
             </h1>
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#D4C5B5] to-transparent mx-auto" />
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#C4A484] to-transparent mx-auto" />
           </div>
 
-          {/* Пространство */}
           <div className="flex-1" />
 
-          {/* Нижняя часть: описание + кнопки */}
-          <div className="px-6 pb-10">
-            <p className="text-xl font-serif font-light tracking-wide text-white/95 text-center mb-2">
+          <div className="px-6 pb-12">
+            <p className="text-lg font-serif font-light tracking-wide text-white/95 text-center mb-2">
               Estudio de salud y belleza capilar
             </p>
-            <p className="text-sm font-light leading-relaxed text-white/70 text-center mb-6 max-w-[300px] mx-auto">
-              Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
+            <p className="text-sm font-light leading-relaxed text-white/70 text-center mb-8 max-w-[280px] mx-auto">
+              Alisado sin dano, reconstruccion real y brillo desde la primera sesion.
             </p>
 
-            <div className="flex flex-col gap-3 max-w-[300px] mx-auto mb-6">
+            <div className="flex flex-col gap-3 max-w-[280px] mx-auto mb-8">
               {user ? (
                 <Link to="/booking"
-                  className="w-full py-4 bg-white/95 text-[#3D3D3D] tracking-[0.2em] font-medium text-xs uppercase text-center shadow-lg">
+                  className="w-full py-4 bg-[#C4A484] text-white tracking-[0.2em] font-medium text-[10px] uppercase text-center">
                   Reservar Cita
                 </Link>
               ) : (
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer"
-                  className="w-full py-4 bg-white/95 text-[#3D3D3D] tracking-[0.2em] font-medium text-xs uppercase text-center shadow-lg block">
+                  className="w-full py-4 bg-[#C4A484] text-white tracking-[0.2em] font-medium text-[10px] uppercase text-center block">
                   Reservar Cita
                 </a>
               )}
               <button onClick={() => scrollTo('servicios')}
-                className="w-full py-3 border border-white/50 text-white/90 tracking-[0.15em] font-light text-[10px] uppercase">
+                className="w-full py-3 border border-white/40 text-white/90 tracking-[0.15em] font-light text-[10px] uppercase">
                 Ver Servicios
               </button>
             </div>
 
-            {/* Соцсети */}
             <div className="flex justify-center gap-6">
               <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -103,34 +97,35 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ── DESKTOP Hero Layout ── */}
-        <div className="hidden lg:flex relative z-10 container mx-auto px-8 pb-24 items-end flex-1">
-          <div className="max-w-3xl">
-            <h1 className="font-serif text-6xl lg:text-7xl font-light mb-4 tracking-wide text-white">
+        {/* Desktop Hero */}
+        <div className="hidden lg:flex relative z-10 container mx-auto px-8 pb-28 items-end flex-1">
+          <div className="max-w-2xl">
+            <p className="text-[#C4A484] text-[11px] tracking-[0.3em] uppercase mb-4 font-light">Madrid, Espana</p>
+            <h1 className="font-serif text-5xl xl:text-6xl font-light mb-5 tracking-wide text-white">
               Keratin Madrid
             </h1>
-            <p className="text-2xl font-light mb-3 tracking-wide text-white/90">
+            <p className="text-xl font-light mb-4 tracking-wide text-white/90">
               Estudio de salud y belleza capilar
             </p>
-            <p className="text-lg font-light mb-8 leading-relaxed text-white/80 max-w-2xl">
-              Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
-              Diagnóstico y protocolo 100% personalizados.
+            <p className="text-base font-light mb-10 leading-relaxed text-white/75 max-w-xl">
+              Alisado sin dano, reconstruccion real y brillo espejo desde la primera sesion.
+              Diagnostico y protocolo 100% personalizados.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               {user ? (
                 <Link to="/booking"
-                  className="px-8 py-3.5 bg-white/10 backdrop-blur-sm border border-white/30 text-white tracking-widest text-sm font-medium hover:bg-white hover:text-[#3D3D3D] transition-all">
-                  RESERVAR CITA
+                  className="px-8 py-3.5 bg-[#C4A484] text-white tracking-[0.15em] text-[11px] uppercase hover:bg-[#8B7355] transition-colors">
+                  Reservar Cita
                 </Link>
               ) : (
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer"
-                  className="px-8 py-3.5 bg-white/10 backdrop-blur-sm border border-white/30 text-white tracking-widest text-sm font-medium hover:bg-white hover:text-[#3D3D3D] transition-all">
-                  RESERVAR CITA
+                  className="px-8 py-3.5 bg-[#C4A484] text-white tracking-[0.15em] text-[11px] uppercase hover:bg-[#8B7355] transition-colors">
+                  Reservar Cita
                 </a>
               )}
               <button onClick={() => scrollTo('servicios')}
-                className="px-8 py-3.5 bg-white/10 backdrop-blur-sm border border-white/30 text-white tracking-widest text-sm font-medium hover:bg-white hover:text-[#3D3D3D] transition-all">
-                VER SERVICIOS
+                className="px-8 py-3.5 border border-white/40 text-white tracking-[0.15em] text-[11px] uppercase hover:bg-white/10 transition-colors">
+                Ver Servicios
               </button>
             </div>
           </div>
@@ -138,14 +133,14 @@ export default function HomePage() {
 
         {/* Scroll indicator */}
         <button onClick={() => scrollTo('inicio')}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white animate-bounce hidden lg:block">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 hover:text-white transition-colors hidden lg:block">
+          <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m19 9-7 7-7-7"/>
           </svg>
         </button>
       </section>
 
-      {/* ═══ СЕКЦИИ ═══ */}
+      {/* Sections */}
       <PorQueElegirSection />
       <TratamientosSection />
       <TablaDePreciosSection />
@@ -155,61 +150,90 @@ export default function HomePage() {
       <FormacionesSection />
       <BeautyScriptsSection />
 
-      {/* CTA final */}
-      <section className="bg-[#3d3530] py-16 lg:py-24">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <p className="text-[11px] tracking-[0.3em] uppercase text-[#B8A99A] mb-5">Contacto</p>
-          <h2 className="font-serif text-3xl md:text-4xl text-white mb-4">Reserva tu cita</h2>
-          <p className="text-base text-[#c0b8b0] mb-8">
-            Estamos en Madrid, España. Contáctanos para reservar.
-          </p>
-          {user ? (
-            <Link to="/booking"
-              className="inline-block px-10 py-3.5 border border-[#B8A99A] text-[#B8A99A] text-[12px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white transition-all">
-              Reservar Cita
-            </Link>
-          ) : (
-            <a href={WA_URL} target="_blank" rel="noopener noreferrer"
-              className="inline-block px-10 py-3.5 border border-[#B8A99A] text-[#B8A99A] text-[12px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white transition-all">
-              Contactar por WhatsApp
-            </a>
-          )}
+      {/* Contact CTA Section */}
+      <section className="bg-[#2D2A26] py-20 lg:py-28">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: Text */}
+            <div className="text-center lg:text-left">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[#C4A484] mb-4">Contacto</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-white mb-4">Reserva tu cita</h2>
+              <p className="text-[#9A938A] mb-6 leading-relaxed">
+                Estamos en Madrid, Espana. Contactanos para reservar tu cita y comenzar tu transformacion capilar.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-6">
+                {user ? (
+                  <Link to="/booking"
+                    className="px-8 py-3.5 bg-[#C4A484] text-white text-[11px] tracking-[0.15em] uppercase hover:bg-[#8B7355] transition-colors">
+                    Reservar Cita
+                  </Link>
+                ) : (
+                  <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+                    className="px-8 py-3.5 bg-[#C4A484] text-white text-[11px] tracking-[0.15em] uppercase hover:bg-[#8B7355] transition-colors text-center">
+                    Contactar por WhatsApp
+                  </a>
+                )}
+              </div>
+              <div className="flex flex-col gap-2 text-sm text-[#9A938A]">
+                <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="hover:text-[#C4A484] transition-colors">
+                  +34 641 26 15 59
+                </a>
+                <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#C4A484] transition-colors">
+                  @keratin_madrid
+                </a>
+              </div>
+            </div>
+            
+            {/* Right: Google Map */}
+            <div className="w-full h-[280px] lg:h-[320px] bg-[#1a1816] overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194347.38440883868!2d-3.8196207!3d40.4381311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sMadrid%2C%20Spain!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: 'grayscale(100%) contrast(1.1)' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Keratin Madrid Location"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ═══ FOOTER ═══ */}
-      <footer className="bg-[#2d2520] text-[#8a8078] py-10">
+      {/* Footer */}
+      <footer className="bg-[#1F1D1A] text-[#6B635A] py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
             <div>
-              <p className="font-serif text-white text-base mb-2">Keratin Madrid</p>
-              <p className="text-xs leading-relaxed">Estudio de salud y belleza capilar. Madrid, España.</p>
+              <p className="font-serif text-white text-base mb-3">Keratin Madrid</p>
+              <p className="text-xs leading-relaxed">Estudio de salud y belleza capilar. Madrid, Espana.</p>
             </div>
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-3">Navegación</p>
-              <div className="flex flex-col gap-1.5 text-xs">
-                <button onClick={() => scrollTo('inicio')} className="text-left hover:text-[#B8A99A] transition-colors">Inicio</button>
-                <button onClick={() => scrollTo('precios')} className="text-left hover:text-[#B8A99A] transition-colors">Precios</button>
-                <button onClick={() => scrollTo('homecare')} className="text-left hover:text-[#B8A99A] transition-colors">Homecare</button>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#9A938A] mb-4">Navegacion</p>
+              <div className="flex flex-col gap-2 text-xs">
+                <button onClick={() => scrollTo('inicio')} className="text-left hover:text-[#C4A484] transition-colors">Inicio</button>
+                <button onClick={() => scrollTo('precios')} className="text-left hover:text-[#C4A484] transition-colors">Precios</button>
+                <button onClick={() => scrollTo('homecare')} className="text-left hover:text-[#C4A484] transition-colors">Homecare</button>
               </div>
             </div>
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-3">Para Profesionales</p>
-              <div className="flex flex-col gap-1.5 text-xs">
-                <button onClick={() => scrollTo('formaciones')} className="text-left hover:text-[#B8A99A] transition-colors">Formaciones</button>
-                <button onClick={() => scrollTo('scripts')} className="text-left hover:text-[#B8A99A] transition-colors">Beauty Scripts</button>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#9A938A] mb-4">Profesionales</p>
+              <div className="flex flex-col gap-2 text-xs">
+                <button onClick={() => scrollTo('formaciones')} className="text-left hover:text-[#C4A484] transition-colors">Formaciones</button>
+                <button onClick={() => scrollTo('scripts')} className="text-left hover:text-[#C4A484] transition-colors">Beauty Scripts</button>
               </div>
             </div>
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-3">Contacto</p>
-              <div className="flex flex-col gap-1.5 text-xs">
-                <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">@keratin_madrid</a>
-                <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">+34 641 26 15 59</a>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#9A938A] mb-4">Contacto</p>
+              <div className="flex flex-col gap-2 text-xs">
+                <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#C4A484] transition-colors">@keratin_madrid</a>
+                <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="hover:text-[#C4A484] transition-colors">+34 641 26 15 59</a>
               </div>
             </div>
           </div>
-          <div className="border-t border-[#3d3530] pt-5 text-center text-[10px] text-[#6a6060]">
-            © 2025 Keratin Madrid. Todos los derechos reservados.
+          <div className="border-t border-[#2D2A26] pt-6 text-center text-[10px] text-[#4A453F]">
+            2025 Keratin Madrid. Todos los derechos reservados.
           </div>
         </div>
       </footer>
