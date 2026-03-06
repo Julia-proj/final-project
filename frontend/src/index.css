@@ -3,45 +3,33 @@
 
    СТРУКТУРА:
    1. Tailwind v4 import + @theme
-   2. Google Fonts (Playfair Display + Inter)
+   2. Google Fonts (Manrope + Inter)
    3. Базовые стили (html, body)
    4. Компоненты: Glassmorphism Navbar
    5. Анимации: fade-in-up, pulse-soft
-   6. Утилиты: dividers, scroll behavior
+   6. Утилиты: gold-divider, scroll behavior
+*/
 
 /* ─── 1. TAILWIND V4 ─── */
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", sans-serif;
-  --font-serif: "Playfair Display", serif;
+  --font-serif: "Manrope", sans-serif;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 /*
-   Основной фон — warm cream (#FAF8F6)
-   Цветовая палитра:
-   - Primary BG: #FAF8F6 (warm cream white)
-   - Secondary BG: #F5F1EC (soft powder beige)
-   - Accent BG: #EDE8E2 (light taupe)
-   - Text Primary: #2D2A26 (warm charcoal)
-   - Text Secondary: #6B635A (muted brown)
-   - Text Muted: #9A938A (soft grey-brown)
-   - Accent Primary: #C4A484 (warm camel/powder brown)
-   - Accent Dark: #8B7355 (rich brown)
-   - Border Light: #E8E4DF (subtle beige border)
-   - Border Accent: #D4C8BA (warm tan border)
+   Основной фон — cream (#FAF8F5)
+   Основной шрифт — Inter (font-sans через Tailwind)
+   Цвет текста — charcoal (#3D3D3D)
+   antialiased — сглаживание шрифтов (красивее на экранах)
 */
-
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  background-color: #FAF8F6;
+  background-color: #FAF8F5;
   font-family: "Inter", sans-serif;
-  color: #2D2A26;
+  color: #3D3D3D;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -52,10 +40,10 @@ body {
    Glassmorphism — эффект "матового стекла" для Navbar
 */
 .glassmorphism {
-  background: rgba(250, 248, 246, 0.97);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(212, 200, 186, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(229, 229, 229, 0.5);
 }
 
 /* ─── 5. АНИМАЦИИ ─── */
@@ -66,7 +54,7 @@ body {
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -75,75 +63,55 @@ body {
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.7s ease-out forwards;
+  animation: fade-in-up 0.8s ease-out forwards;
 }
 
-/* Задержки для каскадного появления */
+/* Задержки для каскадного появления карточек */
 .animate-delay-100 { animation-delay: 0.1s; }
 .animate-delay-200 { animation-delay: 0.2s; }
 .animate-delay-300 { animation-delay: 0.3s; }
 .animate-delay-400 { animation-delay: 0.4s; }
-.animate-delay-500 { animation-delay: 0.5s; }
 
 /*
-   fade-in — простое появление
-*/
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.5s ease-out forwards;
-}
-
-/*
-   pulse-soft — мягкая пульсация для floating кнопки
+   pulse-soft — мягкая пульсация для floating кнопки WhatsApp
 */
 @keyframes pulse-soft {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .animate-pulse-soft {
-  animation: pulse-soft 2.5s ease-in-out infinite;
-}
-
-/*
-   shimmer — для загрузки
-*/
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.animate-shimmer {
-  background: linear-gradient(90deg, #F5F1EC 25%, #EDE8E2 50%, #F5F1EC 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+  animation: pulse-soft 2s ease-in-out infinite;
 }
 
 /* ─── 6. УТИЛИТЫ ─── */
 
 /*
-   Elegant Divider — разделитель между секциями
+   Gold Divider — золотой разделитель между секциями
 */
-.elegant-divider {
-  height: 1px;
+.gold-divider {
+  height: 4px;
   background: linear-gradient(
     to right,
     transparent,
-    #D4C8BA,
+    #B8A99A,
     transparent
   );
 }
 
-.elegant-divider-thick {
-  height: 2px;
+/*
+   Тонкий вариант разделителя (1px)
+*/
+.gold-divider-thin {
+  height: 1px;
   background: linear-gradient(
     to right,
     transparent,
-    #C4A484,
+    #B8A99A,
     transparent
   );
 }
@@ -160,232 +128,56 @@ body {
 }
 
 /*
-   Hover zoom для изображений
+   Плавный hover для изображений внутри overflow-hidden контейнеров
 */
 .img-hover-zoom {
   overflow: hidden;
 }
 .img-hover-zoom img {
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.5s ease;
 }
 .img-hover-zoom:hover img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 /*
-   Карусель видео
+   Card стили
 */
-.video-carousel {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 1rem;
-}
-
-.video-carousel > * {
-  scroll-snap-align: center;
-  flex-shrink: 0;
-}
-
-/*
-   Responsive image container
-*/
-.responsive-img-container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0;
-}
-
-.responsive-img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/*
-   Button styles
-*/
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.875rem 2rem;
-  background-color: #C4A484;
-  color: white;
-  font-size: 0.6875rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: #8B7355;
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.875rem 2rem;
-  border: 1px solid #C4A484;
-  color: #C4A484;
-  font-size: 0.6875rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-
-.btn-outline:hover {
-  background-color: #C4A484;
-  color: white;
-}
-
-/*
-   Section styles
-*/
-.section-label {
-  font-size: 0.6875rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #8B7355;
-  margin-bottom: 1rem;
-}
-
-.section-title {
-  font-family: "Playfair Display", serif;
-  font-weight: 400;
-  color: #2D2A26;
-}
-
-.section-subtitle {
-  color: #6B635A;
-  font-weight: 400;
-}
-
-/*
-   Card styles
-*/
-.card-elegant {
+.card {
   background: white;
-  border: 1px solid #E8E4DF;
-  transition: all 0.3s ease;
-}
-
-.card-elegant:hover {
-  border-color: #D4C8BA;
-  box-shadow: 0 4px 20px rgba(139, 115, 85, 0.08);
+  border: 1px solid #e8e2da;
+  padding: 2rem;
 }
 
 /*
-   Form styles
+   Badge статусы
 */
-.input-elegant {
-  width: 100%;
-  border: 1px solid #E8E4DF;
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
-  background: white;
-  color: #2D2A26;
-  transition: border-color 0.2s ease;
-}
-
-.input-elegant:focus {
-  outline: none;
-  border-color: #C4A484;
-}
-
-.input-elegant::placeholder {
-  color: #9A938A;
-}
-
-/*
-   Text utilities
-*/
-.text-balance {
-  text-wrap: balance;
-}
-
-.text-pretty {
-  text-wrap: pretty;
-}
-
-/*
-   Accent line
-*/
-.accent-line {
-  width: 60px;
-  height: 1px;
-  background: #C4A484;
-}
-
-.accent-line-center {
-  width: 60px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #C4A484, transparent);
-  margin: 0 auto;
-}
-
-/*
-   Line clamp utilities
-*/
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-4 {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/*
-   Video Hero styles
-*/
-.video-hero {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/*
-   Google Review Card styles
-*/
-.review-card {
-  background: white;
-  border: 1px solid #E8E4DF;
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  transition: all 0.3s ease;
-}
-
-.review-card:hover {
-  border-color: #D4C8BA;
-}
-
-/*
-   Avatar styles
-*/
-.avatar {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background-color: #C4A484;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 0.875rem;
+.badge-pending {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  flex-shrink: 0;
+  background-color: #fef3c7;
+  color: #92400e;
+  border-radius: 9999px;
+}
+
+.badge-confirmed {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #d1fae5;
+  color: #065f46;
+  border-radius: 9999px;
+}
+
+.badge-cancelled {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-radius: 9999px;
 }
