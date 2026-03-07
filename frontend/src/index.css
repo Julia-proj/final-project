@@ -1,157 +1,41 @@
-/* INDEX.CSS — Keratin Madrid
-   Tailwind CSS v4 + Кастомные стили
-
-   СТРУКТУРА:
-   1. Tailwind v4 import + @theme
-   2. Google Fonts (Playfair Display + Inter)
-   3. Базовые стили (html, body)
-   4. Компоненты: Glassmorphism Navbar
-   5. Анимации: fade-in-up, pulse-soft
-   6. Утилиты: gold-divider, scroll behavior
-
-/* ─── 1. TAILWIND V4 ─── */
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", sans-serif;
-  --font-serif: "Manrope", sans-serif;
+  --font-sans: "Manrope", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap');
 
-/*
-   scroll-behavior: smooth — плавная прокрутка при клике на #ссылки
-
-/*
-   Основной фон — cream (#FAF8F6)
-   Основной шрифт — Inter (font-sans через Tailwind)
-   Цвет текста — charcoal (#3D3D3D)
-   antialiased — сглаживание шрифтов (красивее на экранах)
-*/
 body {
-  background-color: #FAF8F6;
-  font-family: "Inter", sans-serif;
-  color: #3D3D3D;
+  background-color: #FAF8F5;
+  font-family: "Manrope", sans-serif;
+  color: #3D3530;
+  font-size: 18px;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ─── 4. КОМПОНЕНТЫ ─── */
-
-/*
-   Glassmorphism — эффект "матового стекла" для Navbar
-   
-   Как это работает:
-   - background: полупрозрачный белый (rgba 0.95)
-   - backdrop-filter: blur(12px) — размывает контент ПОД навбаром
-   - border-bottom — тонкая полупрозрачная линия снизу
-   
-   Результат: навбар выглядит как стекло,
-   сквозь которое видно размытый контент при скролле
-*/
-.glassmorphism {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* Safari */
-  border-bottom: 1px solid rgba(229, 229, 229, 0.5);
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cormorant Garamond", serif;
 }
 
-/* ─── 5. АНИМАЦИИ ─── */
-
-/*
-   fade-in-up — элемент появляется снизу вверх с прозрачностью
-   
-   from: невидимый, сдвинут на 20px вниз
-   to: видимый, на своём месте
-   
-   Используем на секциях и карточках при загрузке страницы
-*/
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
-}
-
-/* Задержки для каскадного появления карточек */
-.animate-delay-100 { animation-delay: 0.1s; }
-.animate-delay-200 { animation-delay: 0.2s; }
-.animate-delay-300 { animation-delay: 0.3s; }
-.animate-delay-400 { animation-delay: 0.4s; }
-
-/*
-   pulse-soft — мягкая пульсация для floating кнопки WhatsApp
-   Масштаб 1 → 1.05 → 1 с бесконечным повтором
-*/
-@keyframes pulse-soft {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-.animate-pulse-soft {
-  animation: pulse-soft 2s ease-in-out infinite;
-}
-
-/* ─── 6. УТИЛИТЫ ─── */
-
-/*
-   Gold Divider — золотой разделитель между секциями
-   
-   Используется как:
-   <div className="gold-divider" />
-   
-   Высота 1px (h-1 для более заметной),
-   Градиент: прозрачный → champagne (#B8A99A) → прозрачный
-   Это создаёт эффект "золотой линии" с мягкими краями
-*/
+/* Золотой премиальный разделитель */
 .gold-divider {
-  height: 4px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    #B8A99A,
-    transparent
-  );
-}
-
-/*
-   Тонкий вариант разделителя (1px)
-   Для использования внутри секций
-*/
-.gold-divider-thin {
   height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    #B8A99A,
-    transparent
-  );
+  background: linear-gradient(to right, transparent, #D4C4B7, transparent);
 }
 
-/*
-   Скрываем скроллбар на горизонтальных прокрутках
-   (для мобильных каруселей и табов)
-*/
-.no-scrollbar::-webkit-scrollbar {
+/* Скрываем скроллбар для каруселей, но оставляем функционал */
+.hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.no-scrollbar {
+.hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 /*
    Плавный hover для изображений внутри overflow-hidden контейнеров
    Используем на карточках с фото
@@ -165,3 +49,66 @@ body {
 .img-hover-zoom:hover img {
   transform: scale(1.05);
 }
+
+/* Fade-in-up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Smooth pulse for interactive markers */
+@keyframes softPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.4); }
+}
+.animate-soft-pulse {
+  animation: softPulse 2s ease-in-out infinite;
+}
+
+/* ─── Scroll-triggered reveal animations ─── */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes revealFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes revealScale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.reveal {
+  opacity: 0;
+}
+.reveal.revealed {
+  animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-fade {
+  opacity: 0;
+}
+.reveal-fade.revealed {
+  animation: revealFade 0.8s ease-out forwards;
+}
+.reveal-scale {
+  opacity: 0;
+}
+.reveal-scale.revealed {
+  animation: revealScale 0.6s ease-out forwards;
+}
+
+/* Stagger children delays */
+.reveal-delay-1 { animation-delay: 0.1s !important; }
+.reveal-delay-2 { animation-delay: 0.2s !important; }
+.reveal-delay-3 { animation-delay: 0.3s !important; }
+.reveal-delay-4 { animation-delay: 0.4s !important; }

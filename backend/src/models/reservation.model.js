@@ -1,16 +1,4 @@
-// ============================================================
-// models/reservation.model.js
-// ============================================================
-// РУС: Универсальная модель резервации.
-//      Используется для: formaciones, kit personalizado, servicios.
-//      Тип определяется полем 'type'.
-// ESP: Modelo universal de reservación. Para formaciones, kit y servicios.
-//
-// ТИПЫ (type):
-//   'servicio'   → запись на процедуру (keratina, reconstrucción...)
-//   'formacion'  → запись на обучение
-//   'kit'        → заказ kit personalizado
-// ============================================================
+// Modelo universal de reservación. Para formaciones, kit y servicios.
 
 import mongoose from 'mongoose';
 

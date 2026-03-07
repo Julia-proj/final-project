@@ -30,7 +30,7 @@ function App() {
       <Navbar />
       <FloatingCTA />  
 
-      <main className="pt-16 lg:pt-20">
+      <main className="pt-[58px] lg:pt-[64px]">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />

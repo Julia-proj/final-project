@@ -91,27 +91,27 @@ export default function BookingPage() {
   const minDate = tomorrow.toISOString().split('T')[0]; // "2025-03-03"
 
   return (
-    <div className="min-h-screen bg-[#FAF8F6] py-12 px-4">
+    <div className="min-h-screen bg-[#FAF8F6] py-16 px-4">
       <div className="max-w-2xl mx-auto">
 
         {/* ЗАГОЛОВОК */}
-        <div className="text-center mb-10">
-          <div className="inline-block px-6 py-2 mb-4 bg-[#B8A99A]/10 rounded-full">
-            <span className="text-[#B8A99A] text-xs tracking-[0.3em] uppercase font-medium">
+        <div className="text-center mb-14">
+          <div className="inline-block px-6 py-2 mb-6 bg-[#B8A99A]/10 rounded-full">
+            <span className="text-[#B8A99A] text-[11px] tracking-[0.3em] uppercase font-light">
               Reservas
             </span>
           </div>
-          <h1 className="font-serif text-3xl font-medium text-[#3D3D3D] mb-2">
+          <h1 className="font-serif text-4xl md:text-5xl font-light text-[#3D3D3D] mb-3 tracking-wide">
             Reservar tu cita
           </h1>
-          <p className="text-[#666666] font-light">
+          <p className="text-[#666666] font-light text-lg">
             Hola {user?.name}, elige tu tratamiento y fecha
           </p>
         </div>
 
         {/* УСПЕШНОЕ СООБЩЕНИЕ */}
         {success && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-center">
+          <div className="mb-8 p-5 bg-green-50 border border-green-200 rounded-lg text-green-700 text-center font-light">
             ✅ ¡Reserva creada con éxito! Te contactaremos para confirmar.
             <button onClick={() => setSuccess(false)} className="ml-3 text-green-500 hover:text-green-700">✕</button>
           </div>
@@ -119,23 +119,23 @@ export default function BookingPage() {
 
         {/* ФОРМА БРОНИРОВАНИЯ */}
         <div className="card mb-8">
-          <h2 className="font-serif text-xl font-medium text-[#3D3D3D] mb-6">Nueva reserva</h2>
+          <h2 className="font-serif text-2xl font-light text-[#3D3D3D] mb-8">Nueva reserva</h2>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">{error}</div>
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded text-red-700 text-base font-light">{error}</div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-7">
 
             {/* SERVICIO */}
             <div>
-              <label className="form-label">Tratamiento</label>
+              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Tratamiento</label>
               <select
                 name="service"
                 value={form.service}
                 onChange={handleChange}
                 required
-                className="input-field"
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]"
               >
                 <option value="">Seleccionar tratamiento...</option>
                 {SERVICES.map((s) => (
@@ -146,13 +146,13 @@ export default function BookingPage() {
 
             {/* LONGITUD DEL CABELLO */}
             <div>
-              <label className="form-label">Longitud del cabello</label>
+              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Longitud del cabello</label>
               <select
                 name="hairLength"
                 value={form.hairLength}
                 onChange={handleChange}
                 required
-                className="input-field"
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]"
               >
                 <option value="">Seleccionar longitud...</option>
                 {HAIR_LENGTHS.map((h) => (
@@ -163,7 +163,7 @@ export default function BookingPage() {
 
             {/* FECHA */}
             <div>
-              <label className="form-label">Fecha deseada</label>
+              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Fecha deseada</label>
               <input
                 type="date"
                 name="date"
@@ -171,24 +171,24 @@ export default function BookingPage() {
                 onChange={handleChange}
                 required
                 min={minDate}
-                className="input-field"
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]"
               />
             </div>
 
             {/* NOTAS */}
             <div>
-              <label className="form-label">Notas adicionales (opcional)</label>
+              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Notas adicionales (opcional)</label>
               <textarea
                 name="notes"
                 value={form.notes}
                 onChange={handleChange}
-                rows={3}
+                rows={4}
                 placeholder="Alergias, preferencias, preguntas..."
-                className="input-field resize-none"
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] resize-none"
               />
             </div>
 
-            <button type="submit" disabled={loading} className="btn-primary w-full">
+            <button type="submit" disabled={loading} className="w-full py-4 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] disabled:opacity-50 font-light transition-colors">
               {loading ? 'Enviando...' : 'SOLICITAR RESERVA'}
             </button>
           </form>
@@ -196,8 +196,8 @@ export default function BookingPage() {
 
         {/* MIS RESERVAS */}
         {myBookings.length > 0 && (
-          <div className="card">
-            <h2 className="font-serif text-xl font-medium text-[#3D3D3D] mb-4">Mis reservas</h2>
+          <div className="card bg-white border border-[#e8e2da] p-8">
+            <h2 className="font-serif text-2xl font-light text-[#3D3D3D] mb-8">Mis reservas</h2>
             <div className="space-y-3">
               {myBookings.map((booking) => (
                 <div key={booking._id} className="flex items-center justify-between p-3 border border-[#E8E4E0] rounded-lg">
