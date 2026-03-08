@@ -127,8 +127,9 @@ export default function BookingPage() {
 
             {/* SERVICIO */}
             <div>
-              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Tratamiento</label>
+              <label htmlFor="service" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Tratamiento</label>
               <select
+                id="service"
                 name="service"
                 value={form.service}
                 onChange={handleChange}
@@ -144,8 +145,9 @@ export default function BookingPage() {
 
             {/* LONGITUD DEL CABELLO */}
             <div>
-              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Longitud del cabello</label>
+              <label htmlFor="hairLength" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Longitud del cabello</label>
               <select
+                id="hairLength"
                 name="hairLength"
                 value={form.hairLength}
                 onChange={handleChange}
@@ -161,8 +163,9 @@ export default function BookingPage() {
 
             {/* FECHA */}
             <div>
-              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Fecha deseada</label>
+              <label htmlFor="bookingDate" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Fecha deseada</label>
               <input
+                id="bookingDate"
                 type="date"
                 name="date"
                 value={form.date}
@@ -175,8 +178,9 @@ export default function BookingPage() {
 
             {/* NOTAS */}
             <div>
-              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Notas adicionales (opcional)</label>
+              <label htmlFor="bookingNotes" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Notas adicionales (opcional)</label>
               <textarea
+                id="bookingNotes"
                 name="notes"
                 value={form.notes}
                 onChange={handleChange}

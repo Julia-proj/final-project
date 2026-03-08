@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
 import { createReviewAPI } from '../api/reviews.api';
@@ -435,131 +435,7 @@ export function TratamientosSection() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 3. TABLA DE PRECIOS
-// ═══════════════════════════════════════════════════════════════
-
-const precios = [
-  { l: '20–30 cm', k: '180€', r: '150€', desc: 'Debajo de la oreja' },
-  { l: '30–40 cm', k: '200€', r: '165€', desc: 'Hombros' },
-  { l: '40–50 cm', k: '220€', r: '180€', desc: 'Mitad espalda' },
-  { l: '50–60 cm', k: '240€', r: '200€', desc: 'Cintura' },
-  { l: '60–70 cm', k: '260€', r: '220€', desc: 'Bajo cintura' },
-  { l: '70–80 cm', k: '280€', r: '240€', desc: 'Cadera' },
-];
-
-export function TablaDePreciosSection() {
-  const [tab, setTab] = useState<'k' | 'r'>('k');
-  const [selected, setSelected] = useState<number | null>(null);
-  const [showGuide, setShowGuide] = useState(false);
-  const { requireAuth } = useRequireAuth();
-  const navigate = useNavigate();
-
-  return (
-    <section id="precios" className="bg-[#F0EBE4] py-10 lg:py-16">
-      <div className="max-w-[1400px] mx-auto px-8">
-        <div className="text-center mb-10 lg:mb-14">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Precios</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Tabla de Precios</h2>
-          <p className="text-[#8B7355] text-lg md:text-xl font-light">Toca una longitud para destacar el precio</p>
-        </div>
-
-        <div className="flex border-b border-[#e8e2da] mb-10">
-          {[['k', 'Keratina / Botox'], ['r', 'Reconstrucción']].map(([v, label]) => (
-            <button
-              key={v}
-              onClick={() => {
-                setTab(v as 'k' | 'r');
-                setSelected(null);
-              }}
-              className={`pb-5 px-8 md:px-10 text-[13px] tracking-[0.15em] uppercase transition-all font-light ${
-                tab === v
-                  ? 'border-b-2 border-[#B8A99A] text-[#3d3530]'
-                  : 'text-[#a09890]'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex flex-col divide-y divide-[#f0ebe4]">
-          {precios.map((p, i) => (
-            <button
-              key={i}
-              onClick={() => setSelected(i === selected ? null : i)}
-              className={`flex justify-between items-center py-6 px-8 text-left transition-all cursor-pointer ${
-                selected === i ? 'bg-[#B8A99A]/10 border-l-2 border-[#B8A99A]' : 'hover:bg-[#FAF8F5]'
-              }`}
-            >
-              <div>
-                <span className="text-lg md:text-xl text-[#3d3530] font-light">{p.l}</span>
-              </div>
-              <span
-                className={`font-serif text-2xl md:text-3xl transition-all ${
-                  selected === i ? 'text-[#B8A99A] scale-110' : 'text-[#3d3530]'
-                }`}
-              >
-                {tab === 'k' ? p.k : p.r}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-10 bg-[#FAF8F5] px-8 py-6 text-base md:text-lg text-[#7a6f68] space-y-3">
-          <p className="font-light">
-            <span className="text-[#3d3530] font-semibold">Abundante:</span> +20€ (7cm) · +40€ (9cm) · +60€ (10+cm)
-          </p>
-          <p className="font-light">
-            <span className="text-[#3d3530] font-semibold">Extras:</span> Peeling +65€ · Nano Gold +50€ · Corte +20€
-          </p>
-        </div>
-
-        <div className="mt-10 flex flex-col sm:flex-row gap-5 items-start">
-          <button
-            onClick={() => requireAuth(() => navigate('/booking'))}
-            className="px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors cursor-pointer font-light"
-          >
-            Reservar cita
-          </button>
-
-          <button
-            onClick={() => setShowGuide(!showGuide)}
-            className="px-8 py-3.5 border border-[#e8e2da] text-[#8B7355] text-[12px] tracking-[0.15em] uppercase hover:border-[#B8A99A] transition-colors cursor-pointer flex items-center gap-2"
-          >
-            <svg
-              className={`w-3.5 h-3.5 transition-transform ${showGuide ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-            {showGuide ? 'Ocultar guía' : 'Ver guía de longitud'}
-          </button>
-        </div>
-
-        {showGuide && (
-          <div className="mt-6 flex justify-center animate-fade-in-up">
-            <div className="relative bg-[#f0ebe4] overflow-hidden max-w-[240px]">
-              <img
-                src="/images/precios.jpeg"
-                alt="Guía de longitud"
-                className="w-full object-contain relative z-10"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-              <ImgPlaceholder label="precios.jpeg" />
-            </div>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════
-// 4. ANTES & DESPUÉS
+// 3. ANTES & DESPUÉS
 // ═══════════════════════════════════════════════════════════════
 
 const adVideos: { id: string; poster: string; src?: string; igLink?: string }[] = [
@@ -572,8 +448,8 @@ const adVideos: { id: string; poster: string; src?: string; igLink?: string }[] 
 ];
 
 function ReelCard({ poster, src, igLink, idx }: { poster: string; src?: string; igLink?: string; idx: number }) {
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = React.useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
 
   if (igLink) {
     return (
@@ -641,8 +517,8 @@ function ReelCard({ poster, src, igLink, idx }: { poster: string; src?: string; 
 }
 
 export function AntesDespuesSection() {
-  const scrollRef = React.useRef<HTMLDivElement>(null);
-  const [current, setCurrent] = React.useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [current, setCurrent] = useState(0);
   const sectionRef = useReveal();
 
   const scrollToIdx = (idx: number) => {
@@ -683,6 +559,7 @@ export function AntesDespuesSection() {
           {/* Navigation arrows */}
           <button
             onClick={() => scrollToIdx(Math.max(0, current - 1))}
+            aria-label="Reel anterior"
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-12 h-12 bg-white/90 shadow-md flex items-center justify-center hover:bg-white transition-colors rounded-full hidden md:flex"
           >
             <svg className="w-5 h-5 text-[#3d3530]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -691,6 +568,7 @@ export function AntesDespuesSection() {
           </button>
           <button
             onClick={() => scrollToIdx(Math.min(adVideos.length - 1, current + 1))}
+            aria-label="Siguiente reel"
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-12 h-12 bg-white/90 shadow-md flex items-center justify-center hover:bg-white transition-colors rounded-full hidden md:flex"
           >
             <svg className="w-5 h-5 text-[#3d3530]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -705,6 +583,7 @@ export function AntesDespuesSection() {
             <button
               key={i}
               onClick={() => scrollToIdx(i)}
+              aria-label={`Ver reel ${i + 1}`}
               className={`w-2.5 h-2.5 rounded-full transition-all ${i === current ? 'bg-[#B8A99A] w-7' : 'bg-[#d4cfc9]'}`}
             />
           ))}
@@ -895,8 +774,6 @@ export function ReviewsSection() {
 // ═══════════════════════════════════════════════════════════════
 // 6. HOMECARE + PRODUCTOS
 // ═══════════════════════════════════════════════════════════════
-// 6. HOMECARE + PRODUCTOS
-// ═══════════════════════════════════════════════════════════════
 
 const productCatalog = [
   {
@@ -946,7 +823,6 @@ const careTips = [
 ];
 
 export function HomecareSection() {
-  const [showKitModal, setShowKitModal] = useState(false);
   const sectionRef = useReveal();
   const [selectedLines, setSelectedLines] = useState<Record<string, number>>({
     'Champú': 0,
@@ -1291,15 +1167,6 @@ export function HomecareSection() {
         </div>
       )}
 
-      <ReservationModal
-        isOpen={showKitModal}
-        onClose={() => setShowKitModal(false)}
-        type="kit"
-        title="Reservar Kit"
-        detalleLabel="Tipo de cabello"
-        detallePlaceholder="Liso, rizado, dañado..."
-        successMessage="¡Kit reservado con diagnóstico gratis!"
-      />
     </section>
   );
 }

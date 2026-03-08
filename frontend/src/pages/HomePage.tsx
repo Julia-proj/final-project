@@ -157,6 +157,7 @@ export default function HomePage() {
 
         {/* Scroll indicator */}
         <button onClick={() => scrollTo('inicio')}
+          aria-label="Desplazar hacia abajo"
           className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white animate-bounce hidden lg:block">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m19 9-7 7-7-7"/>
