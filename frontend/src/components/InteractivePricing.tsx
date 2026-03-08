@@ -38,7 +38,7 @@ export default function InteractivePricing() {
     servicio === 'keratina' ? 'Keratina / Botox' : servicio === 'total' ? 'Reconstrucción Total' : 'Reconstrucción';
 
   return (
-    <section id="precios" className="bg-[#F5F2EE] border-t border-[#EDE8E2] py-10 lg:py-14">
+    <section id="precios" className="bg-[#F3F2EE] py-10 lg:py-14">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-4 lg:mb-5">
@@ -123,7 +123,7 @@ export default function InteractivePricing() {
                       }`}
                     >
                       <span className="text-[10px] tracking-[0.15em] uppercase text-[#B8A99A] block font-light">{l.label}</span>
-                      <span className="font-serif text-xl text-[#3d3530]">
+                      <span className="font-serif text-lg text-[#3d3530]">
                         {getPrice(l)}
                       </span>
                     </div>
@@ -139,7 +139,7 @@ export default function InteractivePricing() {
                       <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-0.5 font-light">{activeItem.label}</p>
                       <p className="text-xs text-white/60 font-light capitalize">{getLabel()}</p>
                     </div>
-                    <p className="font-serif text-3xl text-white font-light">
+                    <p className="font-serif text-2xl text-white font-light">
                       {getPrice(activeItem)}
                     </p>
                   </div>
@@ -167,7 +167,7 @@ export default function InteractivePricing() {
                     <span className="text-sm md:text-base text-[#3d3530] font-light tracking-wide">{l.label}</span>
                   </div>
                   <span
-                    className={`font-serif text-2xl md:text-3xl transition-all ${
+                    className={`font-serif text-xl md:text-2xl transition-all ${
                       active === l.id ? 'text-[#B8A99A]' : 'text-[#3d3530]'
                     }`}
                   >

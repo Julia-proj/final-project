@@ -363,7 +363,7 @@ export function TratamientosSection() {
   const scrollToPrecios = () => document.getElementById('precios')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="servicios" className="bg-[#F8F6F2] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
+    <section id="servicios" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Servicios</p>
@@ -534,7 +534,7 @@ export function AntesDespuesSection() {
   };
 
   return (
-    <section id="resultados" className="bg-[#F7F4F0] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
+    <section id="resultados" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Resultados</p>
@@ -655,7 +655,7 @@ export function ReviewsSection() {
   };
 
   return (
-    <section id="opiniones" className="bg-[#F3F1ED] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
+    <section id="opiniones" className="bg-[#EEECEA] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -708,13 +708,13 @@ export function ReviewsSection() {
             >
               {resenasGoogle.map((r, i) => (
                 <div key={i} className="w-full flex-shrink-0">
-                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl flex flex-col min-h-[300px] sm:min-h-0">
+                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl flex flex-col min-h-[230px]">
                     <div className="flex gap-0.5 mb-3">
                       {[...Array(r.estrellas)].map((_, j) => (
                         <span key={j} className="text-[#FBBC05] text-base">★</span>
                       ))}
                     </div>
-                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed mb-5 flex-1 line-clamp-[7] sm:line-clamp-none">{r.texto}</p>
+                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed line-clamp-4 flex-1 mb-4">{r.texto}</p>
                     <div className="flex items-center gap-3 pt-4 border-t border-[#f0ebe4]">
                       <div className="w-9 h-9 rounded-full bg-[#B8A99A] flex items-center justify-center text-white text-sm font-medium flex-shrink-0">
                         {r.nombre.charAt(0)}
@@ -962,7 +962,7 @@ export function HomecareSection() {
   };
 
   return (
-    <section id="homecare" className="bg-[#F8F6F2] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
+    <section id="homecare" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
@@ -975,7 +975,7 @@ export function HomecareSection() {
 
         {/* ── Care Tips ── */}
         <div className="reveal mb-10 lg:mb-14">
-          <div className="bg-[#EDE9E3] px-4 sm:px-6 lg:px-8 py-4 lg:py-5">
+          <div className="bg-[#ECEAE7] px-4 sm:px-6 lg:px-8 py-4 lg:py-5">
             {/* Header */}
             <div className="flex items-baseline gap-6 mb-3">
               <h3 className="font-serif text-base lg:text-lg text-[#3d3530] font-light tracking-wide shrink-0">Nota de la especialista</h3>
@@ -1324,7 +1324,7 @@ export function FormacionesSection() {
   };
 
   return (
-    <section id="formaciones" className="bg-[#F5F2EE] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
+    <section id="formaciones" className="bg-[#F3F2EE] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Para Profesionales</p>
@@ -1470,7 +1470,7 @@ export function BeautyScriptsSection() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <section id="scripts" className="bg-[#46392E] py-10 lg:py-14" ref={sectionRef}>
+    <section id="scripts" className="bg-[#3F3028] py-10 lg:py-14" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">Scripts</p>
@@ -1572,7 +1572,7 @@ export function GoogleMapSection() {
           <iframe
             title="Keratin Madrid ubicación"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.4!2d-3.7144!3d40.4306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228e23d0b0b0b%3A0x0!2sCalle+de+Altamirano%2C+Madrid!5e0!3m2!1sen!2ses!4v1700000000000"
-            className="w-full h-full border-0 grayscale opacity-90"
+            className="w-full h-full border-0"
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

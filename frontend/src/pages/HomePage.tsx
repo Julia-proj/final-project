@@ -27,7 +27,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF9F6]">
+    <div className="min-h-screen bg-[#F9F8F6]">
 
       <section className="relative min-h-screen overflow-hidden flex flex-col">
 
@@ -61,7 +61,7 @@ export default function HomePage() {
         <div className="lg:hidden relative z-10 flex flex-col h-screen">
           {/* Tagline pinned to very top */}
           <div className="absolute top-0 left-0 px-6 pt-3">
-            <p className="text-[#D4C5B5]/70 text-[9px] tracking-[0.45em] uppercase font-light">Diagnóstico profesional · Protocolos exclusivos</p>
+            <p className="text-[#D4C5B5]/70 text-[9px] tracking-[0.18em] uppercase font-light">Diagnóstico profesional · Protocolos exclusivos</p>
           </div>
 
           {/* Пространство */}
@@ -201,7 +201,7 @@ export default function HomePage() {
       {/* ═══ FOOTER ═══ */}
       <footer className="bg-[#2B2420] text-[#9a8f87] py-20 lg:py-28">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 md:gap-16 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-16 mb-12">
             <div>
               <p className="font-serif text-white text-2xl mb-3 font-light">Keratin Madrid</p>
               <p className="text-sm leading-relaxed font-light mb-3">Estudio de salud y belleza capilar.</p>
