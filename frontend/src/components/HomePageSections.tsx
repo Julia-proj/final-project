@@ -707,14 +707,14 @@ export function ReviewsSection() {
               style={{ transform: `translateX(-${reviewIdx * 100}%)` }}
             >
               {resenasGoogle.map((r, i) => (
-                <div key={i} className="w-full flex-shrink-0">
-                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl flex flex-col min-h-[230px]">
+                <div key={i} className="w-full flex-shrink-0 flex flex-col">
+                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl w-full flex flex-col h-full">
                     <div className="flex gap-0.5 mb-3">
                       {[...Array(r.estrellas)].map((_, j) => (
                         <span key={j} className="text-[#FBBC05] text-base">★</span>
                       ))}
                     </div>
-                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed line-clamp-4 flex-1 mb-4">{r.texto}</p>
+                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed flex-1 mb-5">{r.texto}</p>
                     <div className="flex items-center gap-3 pt-4 border-t border-[#f0ebe4]">
                       <div className="w-9 h-9 rounded-full bg-[#B8A99A] flex items-center justify-center text-white text-sm font-medium flex-shrink-0">
                         {r.nombre.charAt(0)}
