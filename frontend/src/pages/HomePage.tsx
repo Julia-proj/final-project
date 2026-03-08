@@ -186,12 +186,12 @@ export default function HomePage() {
           </p>
           {user ? (
             <Link to="/booking"
-              className="inline-block px-14 py-5 border border-[#B8A99A] text-[#B8A99A] text-[14px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white transition-all font-light">
+              className="inline-block px-14 py-5 bg-white text-[#3d3530] text-[14px] tracking-[0.2em] uppercase hover:bg-[#f5f1ec] transition-all font-medium shadow-sm">
               Reservar Cita
             </Link>
           ) : (
             <a href={WA_URL} target="_blank" rel="noopener noreferrer"
-              className="inline-block px-14 py-5 border border-[#B8A99A] text-[#B8A99A] text-[14px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white transition-all font-light">
+              className="inline-block px-14 py-5 bg-white text-[#3d3530] text-[14px] tracking-[0.2em] uppercase hover:bg-[#f5f1ec] transition-all font-medium shadow-sm text-center">
               Contactar por WhatsApp
             </a>
           )}
@@ -203,11 +203,14 @@ export default function HomePage() {
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 md:gap-16 mb-12">
             <div>
-              <p className="font-serif text-white text-2xl mb-4 font-light">Keratin Madrid</p>
-              <p className="text-sm leading-relaxed font-light">Estudio de salud y belleza capilar. Madrid, España.</p>
+              <p className="font-serif text-white text-2xl mb-3 font-light">Keratin Madrid</p>
+              <p className="text-sm leading-relaxed font-light mb-3">Estudio de salud y belleza capilar.</p>
+              <p className="text-sm font-light">Calle Altamirano, 11<br/>Madrid, España</p>
+              <p className="text-sm font-light mt-2">+34 641 26 15 59</p>
+              <p className="text-[11px] font-light mt-2">Lun–Sáb · 10:00–20:00</p>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-light">Navegación</p>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-medium">Navegación</p>
                 <div className="flex flex-col gap-3 text-sm font-light">
                 <button onClick={() => scrollTo('inicio')} className="text-left hover:text-[#B8A99A] transition-colors">Inicio</button>
                 <button onClick={() => scrollTo('precios')} className="text-left hover:text-[#B8A99A] transition-colors">Precios</button>
@@ -215,14 +218,14 @@ export default function HomePage() {
               </div>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-light">Para Profesionales</p>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-medium">Para Profesionales</p>
               <div className="flex flex-col gap-3 text-sm font-light">
                 <button onClick={() => scrollTo('formaciones')} className="text-left hover:text-[#B8A99A] transition-colors">Formaciones</button>
                 <button onClick={() => scrollTo('scripts')} className="text-left hover:text-[#B8A99A] transition-colors">Beauty Scripts</button>
               </div>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-light">Contacto</p>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-medium">Contacto</p>
               <div className="flex flex-col gap-3 text-sm font-light">
                 <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">@keratin_madrid</a>
                 <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">YouTube</a>
@@ -231,7 +234,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-[#3d3530] pt-10 text-center text-[13px] text-[#7a7070] font-light">
-            © 2025 Keratin Madrid. Todos los derechos reservados.
+            © 2026 Keratin Madrid. Todos los derechos reservados.
           </div>
         </div>
       </footer>

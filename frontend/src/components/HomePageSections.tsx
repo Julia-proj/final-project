@@ -268,7 +268,7 @@ export function PorQueElegirSection() {
     <section id="inicio" className="bg-[#FDFCFA] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 lg:mb-14 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Beneficios</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Beneficios</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-light tracking-wide">
             ¿Por qué Keratin Madrid?
           </h2>
@@ -299,8 +299,8 @@ export function PorQueElegirSection() {
                   <div className="w-9 h-9 bg-[#F5F1EC] flex items-center justify-center text-[#8B7355] mb-3">
                     {b.icon}
                   </div>
-                  <h3 className="text-[#3d3530] text-base font-light mb-1.5 leading-snug tracking-wide">{b.titulo}</h3>
-                  <p className="text-[#7a6f68] text-sm leading-relaxed font-light">{b.texto}</p>
+                  <h3 className="text-[#3d3530] text-base font-medium mb-1.5 leading-snug">{b.titulo}</h3>
+                  <p className="text-[#7a6f68] text-sm leading-relaxed">{b.texto}</p>
                 </div>
               ))}
             </div>
@@ -366,7 +366,7 @@ export function TratamientosSection() {
     <section id="servicios" className="bg-[#F5F2ED] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Servicios</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Servicios</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-light tracking-wide">Tratamientos</h2>
           <p className="text-[#8B7355] text-base md:text-lg lg:text-xl font-light">Adaptados a tu tipo de cabello y necesidades reales</p>
         </div>
@@ -423,7 +423,7 @@ export function TratamientosSection() {
 
                 <button
                   onClick={scrollToPrecios}
-                  className="self-start px-10 py-3.5 border border-[#B8A99A] text-[#B8A99A] text-[13px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white transition-all cursor-pointer font-light"
+                  className="self-start px-10 py-3.5 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-all cursor-pointer font-medium"
                 >
                   Ver precio
                 </button>
@@ -534,10 +534,10 @@ export function AntesDespuesSection() {
   };
 
   return (
-    <section id="resultados" className="bg-[#FAF8F5] py-10 lg:py-16" ref={sectionRef}>
+    <section id="resultados" className="bg-[#F0EAE0] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Resultados</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Resultados</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Antes / Después</h2>
           <p className="text-[#8B7355] text-base md:text-lg font-light">Desliza para ver las transformaciones en video</p>
         </div>
@@ -630,6 +630,16 @@ export function ReviewsSection() {
   const [feedbackSent, setFeedbackSent] = useState(false);
   const [feedbackLoading, setFeedbackLoading] = useState(false);
   const sectionRef = useReveal();
+  const [reviewIdx, setReviewIdx] = useState(0);
+  const [reviewPaused, setReviewPaused] = useState(false);
+
+  useEffect(() => {
+    if (reviewPaused) return;
+    const timer = setInterval(() => {
+      setReviewIdx(prev => (prev + 1) % resenasGoogle.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [reviewPaused]);
 
   const handleFeedback = async () => {
     if (!feedbackText.trim() || !feedbackName.trim()) return;
@@ -645,7 +655,7 @@ export function ReviewsSection() {
   };
 
   return (
-    <section id="opiniones" className="bg-[#F7F5F2] py-10 lg:py-16" ref={sectionRef}>
+    <section id="opiniones" className="bg-[#EDE7DC] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -655,7 +665,7 @@ export function ReviewsSection() {
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            <span className="text-[13px] tracking-[0.3em] uppercase text-[#8B7355] font-light">Reseñas de Google</span>
+            <span className="text-[13px] tracking-[0.3em] uppercase text-[#8B7355] font-medium">Reseñas de Google</span>
           </div>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">
             Lo que dicen nuestras clientas
@@ -679,35 +689,79 @@ export function ReviewsSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4 mb-10">
-          {resenasGoogle.map((r, i) => (
-            <div key={i} className="flex flex-col gap-2 p-3.5 bg-white border border-[#f0ebe4] hover:shadow-sm transition-all">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-[#B8A99A] flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
-                    {r.nombre.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-[13px] text-[#3d3530] font-medium leading-tight">{r.nombre}</p>
-                    <p className="text-[10px] text-[#a09890] font-light">{r.fecha}</p>
+        {/* ── Reviews Carousel ── */}
+        <div
+          className="relative mb-4"
+          onMouseEnter={() => setReviewPaused(true)}
+          onMouseLeave={() => setReviewPaused(false)}
+        >
+          <button
+            onClick={() => setReviewIdx(prev => (prev - 1 + resenasGoogle.length) % resenasGoogle.length)}
+            aria-label="Reseña anterior"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white border border-[#e8e2da] shadow-sm flex items-center justify-center text-2xl leading-none text-[#3d3530] hover:border-[#B8A99A] hover:text-[#B8A99A] transition-all font-light"
+          >‹</button>
+
+          <div className="overflow-hidden px-11">
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${reviewIdx * 100}%)` }}
+            >
+              {resenasGoogle.map((r, i) => (
+                <div key={i} className="w-full flex-shrink-0">
+                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl">
+                    <div className="flex gap-0.5 mb-3">
+                      {[...Array(r.estrellas)].map((_, j) => (
+                        <span key={j} className="text-[#FBBC05] text-base">★</span>
+                      ))}
+                    </div>
+                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed mb-5">{r.texto}</p>
+                    <div className="flex items-center gap-3 pt-4 border-t border-[#f0ebe4]">
+                      <div className="w-9 h-9 rounded-full bg-[#B8A99A] flex items-center justify-center text-white text-sm font-medium flex-shrink-0">
+                        {r.nombre.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="text-sm text-[#3d3530] font-medium leading-tight">{r.nombre}</p>
+                        <p className="text-xs text-[#a09890] mt-0.5">{r.fecha}</p>
+                      </div>
+                      <div className="ml-auto flex-shrink-0">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="flex gap-0.5">
-                  {[...Array(r.estrellas)].map((_, j) => (
-                    <span key={j} className="text-[#FBBC05] text-xs">★</span>
-                  ))}
-                </div>
-              </div>
-              <p className="text-[#5a504b] text-xs leading-relaxed font-light line-clamp-4">{r.texto}</p>
+              ))}
             </div>
+          </div>
+
+          <button
+            onClick={() => setReviewIdx(prev => (prev + 1) % resenasGoogle.length)}
+            aria-label="Siguiente reseña"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white border border-[#e8e2da] shadow-sm flex items-center justify-center text-2xl leading-none text-[#3d3530] hover:border-[#B8A99A] hover:text-[#B8A99A] transition-all font-light"
+          >›</button>
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mb-10">
+          {resenasGoogle.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setReviewIdx(i)}
+              aria-label={`Reseña ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ${i === reviewIdx ? 'bg-[#B8A99A] w-6 h-2' : 'bg-[#d4cfc9] w-2 h-2'}`}
+            />
           ))}
         </div>
 
         {/* Anonymous Feedback Block */}
         <div className="max-w-[720px] mx-auto">
           <div className="text-center mb-5">
-            <p className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-2 font-light">Tu opinión importa</p>
-            <p className="text-sm text-[#8B7355] font-light">Déjanos tu feedback para mejorar</p>
+            <p className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-2 font-light">¿Alguna pregunta o sugerencia?</p>
+            <p className="text-sm text-[#8B7355]">Escríbenos, respondemos en menos de 24h</p>
           </div>
 
           {feedbackSent ? (
@@ -912,7 +966,7 @@ export function HomecareSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Homecare</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Homecare</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-light tracking-wide">Cuidado en casa</h2>
           <p className="text-[#8B7355] text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
             El tratamiento en salón es solo la mitad. Tu rutina en casa marca la diferencia.
@@ -972,7 +1026,7 @@ export function HomecareSection() {
                   {['Champú', 'Acondicionador', 'Mascarilla', 'Protector Térmico'].map(item => (
                     <div key={item} className="flex items-center gap-2.5">
                       <div className="w-1 h-1 rounded-full bg-[#B8A99A] flex-shrink-0"></div>
-                      <span className="text-[12px] text-[#5a504b] font-light">{item}</span>
+                      <span className="text-[13px] text-[#4a403b]">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -980,10 +1034,10 @@ export function HomecareSection() {
                 {/* Promo */}
                 <div className="border-l-2 border-[#B8A99A] pl-4 pr-3 py-1 flex items-center justify-between gap-4 bg-[#FAF8F5]">
                   <div>
-                    <p className="text-[9px] tracking-[0.35em] uppercase text-[#B8A99A] mb-1 font-light">Promo web exclusiva</p>
+                    <p className="text-[11px] tracking-[0.25em] uppercase text-[#B8A99A] mb-1 font-medium">Promo web exclusiva</p>
                     <p className="text-sm text-[#3d3530] font-light leading-snug">Diagnóstico con tricóscopio incluido al reservar</p>
                   </div>
-                  <span className="text-[9px] tracking-[0.25em] uppercase text-[#8B7355] border border-[#B8A99A]/70 px-3 py-1.5 font-light flex-shrink-0">Gratis</span>
+                  <span className="text-[11px] tracking-[0.2em] uppercase text-[#8B7355] border border-[#B8A99A]/70 px-3 py-1.5 font-medium flex-shrink-0">Gratis</span>
                 </div>
 
                 {/* Price + CTA */}
@@ -1007,7 +1061,7 @@ export function HomecareSection() {
 
         {/* ── Product Cards Grid ── */}
         <div className="mb-14 lg:mb-20">
-          <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-4 font-light text-center">Productos individuales · Línea Limba</p>
+          <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-4 font-medium text-center">Productos individuales · Línea Limba</p>
 
           {/* Global line filter */}
           <div className="flex items-center justify-center gap-2 mb-5">
@@ -1053,10 +1107,10 @@ export function HomecareSection() {
                     )}
 
                     {/* Type */}
-                    <p className="text-[11px] tracking-[0.18em] uppercase text-[#3d3530] mb-1 font-light">{product.type}</p>
+                    <p className="text-[13px] tracking-[0.12em] uppercase text-[#3d3530] mb-1 font-medium">{product.type}</p>
 
                   {/* Variant info */}
-                  <p className="text-[11px] sm:text-xs text-[#7a6f68] font-light leading-relaxed mb-3 flex-1">{variant.desc}</p>
+                  <p className="text-xs text-[#7a6f68] leading-relaxed mb-3 flex-1">{variant.desc}</p>
 
                   {/* Price + cart button */}
                   <div className="flex items-center justify-between pt-2 border-t border-[#f0ebe4]">
@@ -1191,17 +1245,17 @@ export function HomecareSection() {
                       </div>
                     )}
                     <div>
-                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-light">Nombre *</label>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Nombre *</label>
                       <input type="text" value={cartForm.nombre} onChange={e => setCartForm(f => ({ ...f, nombre: e.target.value }))}
                         className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A]" />
                     </div>
                     <div>
-                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-light">Teléfono *</label>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Teléfono *</label>
                       <input type="tel" placeholder="+34 6XX XXX XXX" value={cartForm.telefono} onChange={e => setCartForm(f => ({ ...f, telefono: e.target.value }))}
                         className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A]" />
                     </div>
                     <div>
-                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-light">Notas (opcional)</label>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Notas (opcional)</label>
                       <textarea rows={2} value={cartForm.notas} onChange={e => setCartForm(f => ({ ...f, notas: e.target.value }))}
                         placeholder="Tipo de cabello, preferencias..."
                         className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A] resize-none" />
@@ -1209,7 +1263,7 @@ export function HomecareSection() {
                     <button
                       onClick={handleCartSubmit}
                       disabled={cartLoading || !cartForm.nombre.trim() || !cartForm.telefono.trim()}
-                      className="w-full py-3.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-40 font-light transition-colors"
+                      className="w-full py-3.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-40 font-medium transition-colors"
                     >
                       {cartLoading ? 'Enviando...' : 'Confirmar reserva'}
                     </button>
@@ -1243,10 +1297,10 @@ export function FormacionesSection() {
   };
 
   return (
-    <section id="formaciones" className="bg-[#FAF9F6] py-6 lg:py-12" ref={sectionRef}>
+    <section id="formaciones" className="bg-[#EDE8E1] py-6 lg:py-12" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Para Profesionales</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Para Profesionales</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Formaciones</h2>
         </div>
 
@@ -1262,7 +1316,7 @@ export function FormacionesSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xl:gap-7 max-w-[1400px] mx-auto">
           <div className="border border-[#e8e2da] p-4 md:p-6 flex flex-col gap-3 hover:border-[#B8A99A] transition-all">
-            <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-4 py-1.5 font-light">
+            <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-4 py-1.5 font-medium">
               Curso destacado
             </span>
             <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-light">Curso intensivo de keratina</h3>
@@ -1389,19 +1443,19 @@ export function BeautyScriptsSection() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <section id="scripts" className="bg-[#EDE8E2] py-5 lg:py-8" ref={sectionRef}>
+    <section id="scripts" className="bg-[#2A2220] py-5 lg:py-8" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-3 font-light">Scripts</p>
-          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-3 font-light tracking-wide">Beauty Scripts</h2>
-          <p className="text-sm md:text-base text-[#7a6f68] max-w-2xl lg:mx-0 mx-auto font-light leading-relaxed">
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">Scripts</p>
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#F0EAE0] mb-3 font-light tracking-wide">Beauty Scripts</h2>
+          <p className="text-sm md:text-base text-[#9A8B82] max-w-2xl lg:mx-0 mx-auto font-light leading-relaxed">
             Scripts listos para usar que aumentan tus ventas. Diálogos profesionales para especialistas de beauty.
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-7 lg:gap-10 items-start">
           <div className="w-full sm:w-[220px] lg:w-[260px] xl:w-[300px] flex-shrink-0 mx-auto lg:mx-0">
-            <div className="relative aspect-[4/5] bg-[#f0ebe4] overflow-hidden shadow-sm">
+            <div className="relative aspect-[4/5] bg-[#1a1714] overflow-hidden shadow-sm">
               <img
                 src="/images/beautyscripts.jpeg"
                 alt="Beauty Scripts"
@@ -1428,8 +1482,8 @@ export function BeautyScriptsSection() {
                     </svg>
                   </span>
                   <div>
-                    <p className="text-sm sm:text-base md:text-lg font-light text-[#3d3530]">{t}</p>
-                    <p className="hidden sm:block text-sm text-[#8B7355] font-light">{d}</p>
+                    <p className="text-sm sm:text-base md:text-lg font-light text-[#EDE7DC]">{t}</p>
+                    <p className="hidden sm:block text-sm text-[#9A8B82] font-light">{d}</p>
                   </div>
                 </div>
               ))}
