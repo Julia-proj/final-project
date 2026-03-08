@@ -42,12 +42,12 @@ export default function InteractivePricing() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-4 lg:mb-5">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-2 font-medium">Precios</p>
-          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-2 font-light tracking-wide">
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-2 font-medium">Precios</p>
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-2 font-normal tracking-wide">
             Tabla de Precios
           </h2>
-          <p className="text-[#8B7355] text-sm md:text-base font-light max-w-2xl mx-auto">
-            Selecciona el servicio y toca una longitud para ver el precio
+          <p className="text-[#8B7355] text-[12px] sm:text-sm md:text-base font-normal max-w-2xl mx-auto">
+            Selecciona el servicio<br className="sm:hidden" /> y toca una longitud para ver el precio
           </p>
         </div>
 
@@ -62,7 +62,7 @@ export default function InteractivePricing() {
               <button
                 key={key}
                 onClick={() => { setServicio(key); setActive(null); }}
-                className={`px-4 md:px-7 py-2.5 text-[11px] md:text-[12px] tracking-[0.12em] uppercase transition-all font-light ${
+                className={`px-4 md:px-7 py-2.5 text-[11px] md:text-[12px] tracking-[0.12em] uppercase transition-all font-normal ${
                   servicio === key
                     ? 'bg-[#3d3530] text-white'
                     : 'text-[#8B7355] hover:bg-[#f0ebe4]'
@@ -194,7 +194,7 @@ export default function InteractivePricing() {
               {user ? (
                 <button
                   onClick={() => navigate('/booking')}
-                  className="px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
+                  className="px-12 py-4 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-colors font-medium"
                 >
                   Reservar cita
                 </button>
@@ -203,7 +203,7 @@ export default function InteractivePricing() {
                   href={WA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
+                  className="inline-block px-12 py-4 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-colors font-medium"
                 >
                   Reservar cita
                 </a>

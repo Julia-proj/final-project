@@ -69,28 +69,28 @@ export default function HomePage() {
 
           {/* Нижняя часть: весь контент прижат влево */}
           <div className="px-6 pb-12">
-            <h1 className="font-serif text-4xl font-light tracking-wider text-white mb-4 leading-tight">
+            <h1 className="font-serif text-4xl font-normal tracking-wider text-white mb-4 leading-tight">
               Estudio de salud<br />y belleza capilar
             </h1>
             <div className="w-14 h-px bg-[#D4C5B5]/60 mt-0 mb-6" />
-            <p className="text-sm font-light leading-relaxed text-white/80 mb-8 max-w-[320px]">
+            <p className="text-sm font-normal leading-relaxed text-white/80 mb-8 max-w-[320px]">
               Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
             </p>
 
             <div className="flex flex-col gap-3 mb-8">
               {user ? (
                 <Link to="/booking"
-                  className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-light text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow">
+                  className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-medium text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow">
                   Reservar Cita
                 </Link>
               ) : (
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer"
-                  className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-light text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow block">
+                  className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-medium text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow block">
                   Reservar Cita
                 </a>
               )}
               <button onClick={() => scrollTo('servicios')}
-                className="w-full py-4 border border-white/60 text-white/90 tracking-[0.18em] font-light text-[12px] uppercase hover:bg-white/10 transition-all">
+                className="w-full py-4 border border-white/60 text-white/90 tracking-[0.18em] font-medium text-[12px] uppercase hover:bg-white/10 transition-all">
                 Ver Servicios
               </button>
             </div>
@@ -129,26 +129,26 @@ export default function HomePage() {
         {/* Десктоп Hero Layout ── */}
         <div className="hidden lg:flex relative z-10 w-full px-14 xl:px-20 2xl:px-28 pb-16 items-end flex-1">
           <div className="max-w-[480px] xl:max-w-[520px]">
-            <h1 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-light mb-6 tracking-wide text-white leading-tight">
+            <h1 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-normal mb-6 tracking-wide text-white leading-tight">
               Estudio de salud<br />y belleza capilar
             </h1>
-            <p className="text-base lg:text-lg font-light mb-10 leading-relaxed text-white/70 max-w-[560px]">
+            <p className="text-base lg:text-lg font-normal mb-10 leading-relaxed text-white/80 max-w-[560px]">
               Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
             </p>
             <div className="flex gap-5">
               {user ? (
                 <Link to="/booking"
-                  className="px-10 py-4 bg-white/95 backdrop-blur-sm text-[#3D3D3D] tracking-[0.18em] text-[12px] font-light uppercase hover:bg-white transition-all">
+                  className="px-10 py-4 bg-white/95 backdrop-blur-sm text-[#3D3D3D] tracking-[0.18em] text-[12px] font-medium uppercase hover:bg-white transition-all">
                   RESERVAR CITA
                 </Link>
               ) : (
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer"
-                  className="px-10 py-4 bg-white/95 backdrop-blur-sm text-[#3D3D3D] tracking-[0.18em] text-[12px] font-light uppercase hover:bg-white transition-all">
+                  className="px-10 py-4 bg-white/95 backdrop-blur-sm text-[#3D3D3D] tracking-[0.18em] text-[12px] font-medium uppercase hover:bg-white transition-all">
                   RESERVAR CITA
                 </a>
               )}
               <button onClick={() => scrollTo('servicios')}
-                className="px-10 py-4 border border-white/50 text-white tracking-[0.18em] text-[12px] font-light uppercase hover:bg-white/10 transition-all">
+                className="px-10 py-4 border border-white/50 text-white tracking-[0.18em] text-[12px] font-medium uppercase hover:bg-white/10 transition-all">
                 VER SERVICIOS
               </button>
             </div>
@@ -182,8 +182,8 @@ export default function HomePage() {
       <section className="bg-[#3F342E] py-16 lg:py-24">
         <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-6 font-light">Contacto</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-light tracking-wide">Reserva tu cita</h2>
-          <p className="text-base md:text-lg lg:text-xl text-[#c0b8b0] mb-10 font-light leading-relaxed">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-normal tracking-wide">Reserva tu cita</h2>
+          <p className="text-base md:text-lg lg:text-xl text-[#c0b8b0] mb-10 font-normal leading-relaxed">
             Estamos en Madrid, España. Contáctanos para reservar tu tratamiento personalizado.
           </p>
           {user ? (
@@ -201,41 +201,41 @@ export default function HomePage() {
       </section>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="bg-[#2B2420] text-[#9a8f87] py-20 lg:py-28">
+      <footer className="bg-[#EDE8E2] text-[#6A5F58] py-20 lg:py-28">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-16 mb-12">
             <div>
-              <p className="font-serif text-white text-2xl mb-3 font-light">Keratin Madrid</p>
-              <p className="text-sm leading-relaxed font-light mb-3">Estudio de salud y belleza capilar.</p>
-              <p className="text-sm font-light">Calle Altamirano, 11<br/>Madrid, España</p>
-              <p className="text-sm font-light mt-2">+34 641 26 15 59</p>
-              <p className="text-[11px] font-light mt-2">Lun–Sáb · 10:00–20:00</p>
+              <p className="font-serif text-[#3d3530] text-2xl mb-3 font-normal">Keratin Madrid</p>
+              <p className="text-sm leading-relaxed font-normal mb-3">Estudio de salud y belleza capilar.</p>
+              <p className="text-sm font-normal">Calle Altamirano, 11<br/>Madrid, España</p>
+              <p className="text-sm font-normal mt-2">+34 641 26 15 59</p>
+              <p className="text-[11px] font-normal mt-2">Lun–Sáb · 10:00–20:00</p>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-medium">Navegación</p>
-                <div className="flex flex-col gap-3 text-sm font-light">
-                <button onClick={() => scrollTo('inicio')} className="text-left hover:text-[#B8A99A] transition-colors">Inicio</button>
-                <button onClick={() => scrollTo('precios')} className="text-left hover:text-[#B8A99A] transition-colors">Precios</button>
-                <button onClick={() => scrollTo('homecare')} className="text-left hover:text-[#B8A99A] transition-colors">Homecare</button>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">Navegación</p>
+                <div className="flex flex-col gap-3 text-sm font-normal">
+                <button onClick={() => scrollTo('inicio')} className="text-left hover:text-[#8B7355] transition-colors">Inicio</button>
+                <button onClick={() => scrollTo('precios')} className="text-left hover:text-[#8B7355] transition-colors">Precios</button>
+                <button onClick={() => scrollTo('homecare')} className="text-left hover:text-[#8B7355] transition-colors">Homecare</button>
               </div>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-medium">Para Profesionales</p>
-              <div className="flex flex-col gap-3 text-sm font-light">
-                <button onClick={() => scrollTo('formaciones')} className="text-left hover:text-[#B8A99A] transition-colors">Formaciones</button>
-                <button onClick={() => scrollTo('scripts')} className="text-left hover:text-[#B8A99A] transition-colors">Beauty Scripts</button>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">Para Profesionales</p>
+              <div className="flex flex-col gap-3 text-sm font-normal">
+                <button onClick={() => scrollTo('formaciones')} className="text-left hover:text-[#8B7355] transition-colors">Formaciones</button>
+                <button onClick={() => scrollTo('scripts')} className="text-left hover:text-[#8B7355] transition-colors">Beauty Scripts</button>
               </div>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-medium">Contacto</p>
-              <div className="flex flex-col gap-3 text-sm font-light">
-                <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">@keratin_madrid</a>
-                <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">YouTube</a>
-                <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">+34 641 26 15 59</a>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">Contacto</p>
+              <div className="flex flex-col gap-3 text-sm font-normal">
+                <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#8B7355]">@keratin_madrid</a>
+                <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#8B7355]">YouTube</a>
+                <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="hover:text-[#8B7355]">+34 641 26 15 59</a>
               </div>
             </div>
           </div>
-          <div className="border-t border-[#3C352F] pt-10 text-center text-[13px] text-[#7a7070] font-light">
+          <div className="border-t border-[#D0C8BF] pt-10 text-center text-[13px] text-[#8B8076] font-normal">
             © 2026 Keratin Madrid. Todos los derechos reservados.
           </div>
         </div>

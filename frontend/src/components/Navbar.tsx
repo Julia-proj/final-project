@@ -80,7 +80,7 @@ export default function Navbar() {
   const toggleHome = () => { setHomeDrop(!homeDrop); setServDrop(false); setProDrop(false); };
   const togglePro = () => { setProDrop(!proDrop); setServDrop(false); setHomeDrop(false); };
 
-  const lnk = 'text-[13px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors cursor-pointer whitespace-nowrap font-light';
+  const lnk = 'text-[13px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors cursor-pointer whitespace-nowrap font-normal';
 
   return (
     <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 bg-[#F9F8F6]/92 backdrop-blur-md transition-all duration-300 ${scrolled ? 'shadow-md border-b border-[#e8e2da]' : 'border-b border-[#ede8e2]/60'}`}>
@@ -88,7 +88,7 @@ export default function Navbar() {
 <div className="flex items-center justify-between h-[58px] lg:h-[64px]">
 
           <Link to="/" className="font-serif text-[17px] sm:text-[19px] lg:text-[21px] tracking-[0.08em] uppercase text-[#3d3530] flex-shrink-0">
-            Keratin <span className="font-light">Madrid</span>
+            Keratin <span className="font-normal">Madrid</span>
           </Link>
 
           {/* ═══ DESKTOP LINKS ═══ */}
@@ -159,8 +159,8 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link to="/login" className="text-[12px] tracking-[0.1em] uppercase text-[#8B7355] hover:text-[#3d3530] font-light transition-colors">Entrar</Link>
-                <Link to="/register" className="text-[11px] tracking-[0.1em] uppercase border border-[#B8A99A] text-[#B8A99A] hover:bg-[#B8A99A] hover:text-white px-3.5 py-1.5 font-light transition-all whitespace-nowrap">Registrarse</Link>
+                <Link to="/login" className="text-[12px] tracking-[0.1em] uppercase text-[#8B7355] hover:text-[#3d3530] font-normal transition-colors">Entrar</Link>
+                <Link to="/register" className="text-[11px] tracking-[0.1em] uppercase border border-[#B8A99A] text-[#B8A99A] hover:bg-[#B8A99A] hover:text-white px-3.5 py-1.5 font-medium transition-all whitespace-nowrap">Registrarse</Link>
               </>
             )}
           </div>
@@ -184,32 +184,32 @@ export default function Navbar() {
         <div className="px-6 py-5 flex flex-col">
 
           {/* ── Nav items ── */}
-          <button onClick={() => scrollTo('inicio')} className="text-left py-4 border-b border-[#f0ebe4] text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-light">
+          <button onClick={() => scrollTo('inicio')} className="text-left py-4 border-b border-[#f0ebe4] text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-normal">
             Inicio
           </button>
 
           <div className="border-b border-[#f0ebe4]">
-            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-light">Servicios</p>
+            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-normal">Servicios</p>
             <div className="mb-4 pl-4 border-l border-[#e0d9d1] flex flex-col gap-3.5">
-              <button onClick={() => scrollTo('servicios')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Tratamientos</button>
-              <button onClick={() => scrollTo('precios')}   className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Precios</button>
-              <button onClick={() => scrollTo('resultados')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Resultados</button>
+              <button onClick={() => scrollTo('servicios')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-normal">Tratamientos</button>
+              <button onClick={() => scrollTo('precios')}   className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-normal">Precios</button>
+              <button onClick={() => scrollTo('resultados')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-normal">Resultados</button>
             </div>
           </div>
 
           <div className="border-b border-[#f0ebe4]">
-            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-light">Homecare</p>
+            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-normal">Homecare</p>
             <div className="mb-4 pl-4 border-l border-[#e0d9d1] flex flex-col gap-3.5">
-              <button onClick={() => scrollTo('homecare')}  className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Cuidado en casa</button>
-              <button onClick={() => scrollTo('productos')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Productos</button>
+              <button onClick={() => scrollTo('homecare')}  className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-normal">Cuidado en casa</button>
+              <button onClick={() => scrollTo('productos')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-normal">Productos</button>
             </div>
           </div>
 
           <div className="border-b border-[#f0ebe4]">
-            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-light">Para Profesionales</p>
+            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-normal">Para Profesionales</p>
             <div className="mb-4 pl-4 border-l border-[#e0d9d1] flex flex-col gap-3.5">
-              <button onClick={() => scrollTo('formaciones')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Formaciones</button>
-              <button onClick={() => scrollTo('scripts')}    className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Beauty Scripts</button>
+              <button onClick={() => scrollTo('formaciones')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-normal">Formaciones</button>
+              <button onClick={() => scrollTo('scripts')}    className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-normal">Beauty Scripts</button>
             </div>
           </div>
 
@@ -218,20 +218,20 @@ export default function Navbar() {
             <div className="pt-5 pb-1 flex flex-col gap-3">
               <div className="flex items-center gap-2 mb-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0"/>
-                <span className="text-[11px] tracking-[0.18em] uppercase text-[#8B7355] font-light truncate">{user.name}</span>
+                <span className="text-[11px] tracking-[0.18em] uppercase text-[#8B7355] font-normal truncate">{user.name}</span>
               </div>
               {isAdmin && (
                 <Link
                   to="/admin"
                   onClick={() => setMobileOpen(false)}
-                  className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-6 py-2.5 font-light hover:bg-[#7a6348] transition-colors"
+                  className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-6 py-2.5 font-medium hover:bg-[#7a6348] transition-colors"
                 >
                   Panel Admin
                 </Link>
               )}
               <button
                 onClick={() => { dispatch(logout()); navigate('/'); setMobileOpen(false); }}
-                className="self-start text-[11px] tracking-[0.2em] uppercase text-[#a09890] font-light hover:text-[#3d3530] transition-colors"
+                className="self-start text-[11px] tracking-[0.2em] uppercase text-[#a09890] font-normal hover:text-[#3d3530] transition-colors"
               >
                 Cerrar sesión
               </button>
@@ -241,14 +241,14 @@ export default function Navbar() {
               <Link
                 to="/login"
                 onClick={() => setMobileOpen(false)}
-                className="w-full py-3.5 text-center text-[12px] tracking-[0.22em] uppercase bg-[#3d3530] text-white font-light hover:bg-[#2d2520] transition-colors"
+                className="w-full py-3.5 text-center text-[12px] tracking-[0.22em] uppercase bg-[#3d3530] text-white font-medium hover:bg-[#2d2520] transition-colors"
               >
                 Entrar
               </Link>
               <Link
                 to="/register"
                 onClick={() => setMobileOpen(false)}
-                className="w-full py-3.5 text-center text-[12px] tracking-[0.22em] uppercase border border-[#B8A99A] text-[#B8A99A] font-light hover:bg-[#B8A99A] hover:text-white transition-all"
+                className="w-full py-3.5 text-center text-[12px] tracking-[0.22em] uppercase border border-[#B8A99A] text-[#B8A99A] font-medium hover:bg-[#B8A99A] hover:text-white transition-all"
               >
                 Registrarse
               </Link>

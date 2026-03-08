@@ -109,7 +109,7 @@ function ReservationModal({
         <button onClick={onClose} className="absolute top-5 right-5 text-[#a09890] hover:text-[#3d3530] text-2xl font-light">
           ✕
         </button>
-        <h3 className="font-serif text-2xl text-[#3d3530] mb-8 font-light">{title}</h3>
+        <h3 className="font-serif text-2xl text-[#3d3530] mb-8 font-normal">{title}</h3>
 
         {sent ? (
           <div className="text-center py-8">
@@ -268,11 +268,11 @@ export function PorQueElegirSection() {
     <section id="inicio" className="bg-white py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 lg:mb-14 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Beneficios</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-light tracking-wide">
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Beneficios</p>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-normal tracking-wide">
             ¿Por qué Keratin Madrid?
           </h2>
-          <p className="text-[#8B7355] text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[#8B7355] text-base md:text-lg font-normal max-w-2xl mx-auto leading-relaxed">
             Nos diferenciamos por nuestro enfoque en la salud capilar y resultados duraderos.
           </p>
         </div>
@@ -280,7 +280,7 @@ export function PorQueElegirSection() {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left: Salon photo */}
           <div className="w-full lg:w-[440px] xl:w-[500px] flex-shrink-0">
-            <div className="relative aspect-[3/4] bg-[#f0ebe4] overflow-hidden">
+            <div className="relative aspect-[3/4] max-w-[220px] sm:max-w-none mx-auto sm:mx-0 bg-[#f0ebe4] overflow-hidden">
               <img
                 src="/images/salon.jpg"
                 alt="Salón Keratin Madrid"
@@ -293,14 +293,14 @@ export function PorQueElegirSection() {
 
           {/* Right: Benefits grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-5">
               {beneficios.map((b, i) => (
-                <div key={i} className="bg-white border border-[#ede8e2] p-5 lg:p-6 hover:shadow-md hover:border-[#c9bdb5] transition-all duration-300">
-                  <div className="w-9 h-9 bg-[#EDE8DF] flex items-center justify-center text-[#8B7355] mb-3">
+                <div key={i} className="bg-white border border-[#ede8e2] p-4 sm:p-5 lg:p-6 hover:shadow-md hover:border-[#c9bdb5] transition-all duration-300">
+                  <div className="w-9 h-9 lg:w-10 lg:h-10 bg-[#EDE8DF] flex items-center justify-center text-[#8B7355] mb-3">
                     {b.icon}
                   </div>
-                  <h3 className="text-[#3d3530] text-base font-medium mb-1.5 leading-snug">{b.titulo}</h3>
-                  <p className="text-[#7a6f68] text-sm leading-relaxed">{b.texto}</p>
+                  <h3 className="text-[#3d3530] text-sm sm:text-base lg:text-lg font-medium mb-1.5 leading-snug">{b.titulo}</h3>
+                  <p className="text-[#7a6f68] text-xs sm:text-sm lg:text-base leading-relaxed">{b.texto}</p>
                 </div>
               ))}
             </div>
@@ -366,9 +366,9 @@ export function TratamientosSection() {
     <section id="servicios" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Servicios</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-light tracking-wide">Tratamientos</h2>
-          <p className="text-[#8B7355] text-base md:text-lg lg:text-xl font-light">Adaptados a tu tipo de cabello y necesidades reales</p>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Servicios</p>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-normal tracking-wide">Tratamientos</h2>
+          <p className="text-[#8B7355] text-base md:text-lg lg:text-xl font-normal">Adaptados a tu tipo de cabello y necesidades reales</p>
         </div>
 
         <div className="flex flex-col gap-10 lg:gap-16">
@@ -396,8 +396,8 @@ export function TratamientosSection() {
 
               <div className="flex-1 flex flex-col gap-7">
                 <div>
-                  <p className="text-[13px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">{t.duracion}</p>
-                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-4 font-light">{t.nombre}</h3>
+                  <p className="text-[13px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal border-l-2 border-[#C9A96E]/50 pl-3">{t.duracion}</p>
+                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-4 font-normal">{t.nombre}</h3>
                   <p className="text-[#7a6f68] text-sm leading-relaxed">{t.desc}</p>
                 </div>
 
@@ -537,9 +537,9 @@ export function AntesDespuesSection() {
     <section id="resultados" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Resultados</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Antes / Después</h2>
-          <p className="text-[#8B7355] text-base md:text-lg font-light">Desliza para ver las transformaciones en video</p>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Resultados</p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">Antes / Después</h2>
+          <p className="text-[#8B7355] text-base md:text-lg font-normal">Desliza para ver las transformaciones en video</p>
         </div>
 
         {/* Carousel */}
@@ -667,7 +667,7 @@ export function ReviewsSection() {
             </svg>
             <span className="text-[13px] tracking-[0.3em] uppercase text-[#8B7355] font-medium">Reseñas de Google</span>
           </div>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">
             Lo que dicen nuestras clientas
           </h2>
           <div className="flex items-center justify-center gap-2 mt-3">
@@ -708,7 +708,8 @@ export function ReviewsSection() {
             >
               {resenasGoogle.map((r, i) => (
                 <div key={i} className="w-full flex-shrink-0 flex flex-col">
-                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl w-full flex flex-col h-full">
+                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl w-full flex flex-col h-full relative overflow-hidden">
+                    <span className="font-serif absolute top-3 left-5 text-7xl text-[#C9A96E]/15 leading-none select-none pointer-events-none">“</span>
                     <div className="flex gap-0.5 mb-3">
                       {[...Array(r.estrellas)].map((_, j) => (
                         <span key={j} className="text-[#FBBC05] text-base">★</span>
@@ -760,14 +761,14 @@ export function ReviewsSection() {
         {/* Anonymous Feedback Block */}
         <div className="max-w-[720px] mx-auto">
           <div className="text-center mb-5">
-            <p className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-2 font-light">¿Alguna pregunta o sugerencia?</p>
+            <p className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-2 font-normal">¿Alguna pregunta o sugerencia?</p>
             <p className="text-sm text-[#8B7355]">Escríbenos, respondemos en menos de 24h</p>
           </div>
 
           {feedbackSent ? (
             <div className="text-center py-12 bg-white border border-[#f0ebe4] rounded-sm">
-              <p className="text-[#8B7355] font-serif text-3xl mb-3 font-light">¡Gracias por tu opinión!</p>
-              <p className="text-lg text-[#a09890] font-light">Tu feedback nos ayuda a mejorar.</p>
+              <p className="text-[#8B7355] font-serif text-3xl mb-3 font-normal">¡Gracias por tu opinión!</p>
+              <p className="text-lg text-[#a09890] font-normal">Tu feedback nos ayuda a mejorar.</p>
             </div>
           ) : (
             <div className="bg-white border border-[#f0ebe4] p-5 rounded-sm">
@@ -966,9 +967,9 @@ export function HomecareSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Homecare</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-light tracking-wide">Cuidado en casa</h2>
-          <p className="text-[#8B7355] text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Homecare</p>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-normal tracking-wide">Cuidado en casa</h2>
+          <p className="text-[#8B7355] text-base md:text-lg font-normal max-w-2xl mx-auto leading-relaxed">
             El tratamiento en salón es solo la mitad. Tu rutina en casa marca la diferencia.
           </p>
         </div>
@@ -1013,8 +1014,8 @@ export function HomecareSection() {
               <div className="flex-1 p-6 lg:p-8 flex flex-col justify-between gap-4">
 
                 <div>
-                  <p className="text-[10px] tracking-[0.3em] uppercase text-[#B8A99A] mb-2 font-light">Kit Personalizado · Línea Limba</p>
-                  <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-3 font-light">Kit de cuidado en casa</h3>
+                  <p className="text-[10px] tracking-[0.3em] uppercase text-[#B8A99A] mb-2 font-light"><span className="whitespace-nowrap">Kit Personalizado</span><span className="whitespace-nowrap"> · Línea Limba</span></p>
+                  <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-3 font-normal">Kit de cuidado en casa</h3>
                   <p className="text-sm text-[#7a6f68] leading-relaxed max-w-md">
                     Cuatro productos elegidos por la especialista tras un diagnóstico real con tricóscopio.
                     Sin adivinanzas, sin productos genéricos.
@@ -1042,7 +1043,7 @@ export function HomecareSection() {
 
                 {/* Price + CTA */}
                 <div className="flex items-center gap-4 pt-3 border-t border-[#f0ebe4]">
-                  <p className="font-serif text-3xl text-[#3d3530] font-light">90€</p>
+                  <p className="font-serif text-3xl text-[#3d3530] font-normal">90€</p>
                   {cart.some(c => c.label === 'Kit completo' && c.line === 'Personalizado') ? (
                     <div className="flex items-center gap-1.5">
                       <button
@@ -1088,7 +1089,7 @@ export function HomecareSection() {
 
         {/* ── Product Cards Grid ── */}
         <div className="mb-14 lg:mb-20">
-          <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-4 font-medium text-center">Productos individuales · Línea Limba</p>
+          <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-4 font-medium text-center"><span className="whitespace-nowrap">Productos individuales</span><span className="whitespace-nowrap"> · Línea Limba</span></p>
 
           {/* Global line filter */}
           <div className="flex items-center justify-center gap-2 mb-5">
@@ -1218,7 +1219,7 @@ export function HomecareSection() {
           <div className="relative bg-white max-w-md w-full p-8 shadow-xl z-10 max-h-[90vh] overflow-y-auto">
             <button onClick={() => setShowCart(false)} className="absolute top-5 right-5 text-[#a09890] hover:text-[#3d3530] text-2xl font-light">✕</button>
 
-            <h3 className="font-serif text-2xl text-[#3d3530] mb-2 font-light">Tu selección</h3>
+            <h3 className="font-serif text-2xl text-[#3d3530] mb-2 font-normal">Tu selección</h3>
 
             {/* Info banner */}
             <div className="bg-[#FAF8F5] border border-[#f0ebe4] px-4 py-3 mb-6 text-[12px] text-[#7a6f68] font-light leading-relaxed">
@@ -1327,8 +1328,8 @@ export function FormacionesSection() {
     <section id="formaciones" className="bg-[#F3F2EE] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Para Profesionales</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Formaciones</h2>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Para Profesionales</p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">Formaciones</h2>
         </div>
 
         {/* ── foto strip ── */}
@@ -1346,7 +1347,7 @@ export function FormacionesSection() {
             <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-4 py-1.5 font-medium">
               Curso destacado
             </span>
-            <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-light">Curso intensivo de keratina</h3>
+            <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-normal">Curso intensivo de keratina</h3>
             <p className="text-sm text-[#8B7355] font-light">2 días · Práctica con modelos</p>
 
             <div>
@@ -1470,19 +1471,19 @@ export function BeautyScriptsSection() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <section id="scripts" className="bg-[#3F3028] py-10 lg:py-14" ref={sectionRef}>
+    <section id="scripts" className="bg-[#574438] py-10 lg:py-14" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">Scripts</p>
-          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#F0EAE0] mb-3 font-light tracking-wide">Beauty Scripts</h2>
-          <p className="text-sm md:text-base text-[#9A8B82] max-w-2xl lg:mx-0 mx-auto font-light leading-relaxed">
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal">Scripts</p>
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#F0EAE0] mb-3 font-normal tracking-wide">Beauty Scripts</h2>
+          <p className="text-sm md:text-base text-[#9A8B82] max-w-2xl lg:mx-0 mx-auto font-normal leading-relaxed">
             Scripts listos para usar que aumentan tus ventas. Diálogos profesionales para especialistas de beauty.
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-7 lg:gap-10 items-start">
           <div className="w-full sm:w-[220px] lg:w-[260px] xl:w-[300px] flex-shrink-0 mx-auto lg:mx-0">
-            <div className="relative aspect-[4/5] bg-[#1a1714] overflow-hidden shadow-sm">
+            <div className="relative aspect-[4/5] bg-[#2A1E18] overflow-hidden shadow-sm">
               <img
                 src="/images/beautyscripts.jpeg"
                 alt="Beauty Scripts"
