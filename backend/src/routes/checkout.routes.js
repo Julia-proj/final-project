@@ -2,12 +2,15 @@ import express from 'express';
 import Stripe from 'stripe';
 
 const router = express.Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // POST /api/checkout/create-session
 // Creates a Stripe Embedded Checkout session for Beauty Scripts
 router.post('/create-session', async (req, res, next) => {
   try {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return res.status(503).json({ message: 'Stripe no está configurado' });
+    }
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
       line_items: [

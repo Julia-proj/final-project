@@ -46,30 +46,38 @@ const initialState: AuthState = {
 
 // LOGIN
 export const loginThunk = createAsyncThunk(
-  'auth/login',                         // 🎨 имя — придумали сами
-  async (data: LoginForm) => {          // data = то что передаст компонент
-    const res = await loginAPI(data);   // вызываем API функцию
-    return res.data;                    // возвращаем ответ: { token, user }
-    // это попадёт в action.payload в fulfilled
+  'auth/login',
+  async (data: LoginForm, { rejectWithValue }) => {
+    try {
+      const res = await loginAPI(data);
+      return res.data;
+    } catch (err: unknown) {
+      const e = err as { response?: { data?: { message?: string } } };
+      return rejectWithValue(e.response?.data?.message || 'Error al iniciar sesión');
+    }
   }
 );
 
 // REGISTER
 export const registerThunk = createAsyncThunk(
-  'auth/register',                      // 🎨 имя придумали сами
-  async (data: RegisterForm) => {
-    const res = await registerAPI(data);
-    return res.data;                    // { token, user }
+  'auth/register',
+  async (data: RegisterForm, { rejectWithValue }) => {
+    try {
+      const res = await registerAPI(data);
+      return res.data;
+    } catch (err: unknown) {
+      const e = err as { response?: { data?: { message?: string } } };
+      return rejectWithValue(e.response?.data?.message || 'Error al registrarse');
+    }
   }
 );
 
 // GET ME — восстанавливаем сессию при перезагрузке
-// Если есть токен → спрашиваем бэк "кто я?"
 export const getMeThunk = createAsyncThunk(
   'auth/getMe',
   async () => {
     const res = await getMeAPI();
-    return res.data; // { id, name, email, role }
+    return res.data;
   }
 );
 
@@ -113,7 +121,7 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Error al iniciar sesión';
+        state.error = (action.payload as string) || 'Error al iniciar sesión';
       })
 
     // ── REGISTER ──
@@ -129,13 +137,12 @@ const authSlice = createSlice({
       })
       .addCase(registerThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Error al registrarse';
+        state.error = (action.payload as string) || 'Error al registrarse';
       })
 
     // ── GET ME ──
       .addCase(getMeThunk.fulfilled, (state, action) => {
-        // Просто сохраняем пользователя, токен уже в state (из localStorage)
-        state.user = action.payload;
+        state.user = action.payload.user;
       })
       .addCase(getMeThunk.rejected, () => {
         // Токен невалидный → чистим localStorage

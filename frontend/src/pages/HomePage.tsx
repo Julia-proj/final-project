@@ -29,7 +29,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#F9F8F6]">
 
-      <section className="relative min-h-screen overflow-hidden flex flex-col">
+      <section className="relative min-h-[calc(100svh-58px)] lg:min-h-[calc(100svh-64px)] overflow-hidden flex flex-col">
 
         {/* Hero background: video with image fallback */}
         <div className="absolute inset-0">
@@ -58,9 +58,9 @@ export default function HomePage() {
         </div>
 
         {/* ── MOBILE Hero Layout ── */}
-        <div className="lg:hidden relative z-10 flex flex-col h-screen">
+        <div className="lg:hidden relative z-10 flex flex-col flex-1">
           {/* Tagline pinned to very top */}
-          <div className="absolute top-0 left-0 px-6 pt-3">
+          <div className="absolute top-0 left-0 px-5 pt-3">
             <p className="text-[#D4C5B5]/70 text-[9px] tracking-[0.18em] uppercase font-light">Diagnóstico profesional · Protocolos exclusivos</p>
           </div>
 
@@ -68,16 +68,16 @@ export default function HomePage() {
           <div className="flex-1" />
 
           {/* Нижняя часть: весь контент прижат влево */}
-          <div className="px-6 pb-12">
-            <h1 className="font-serif text-4xl font-normal tracking-wider text-white mb-4 leading-tight">
+          <div className="px-5 pb-8 sm:pb-12">
+            <h1 className="font-serif text-[32px] sm:text-4xl font-normal tracking-wider text-white mb-3 sm:mb-4 leading-tight">
               Estudio de salud<br />y belleza capilar
             </h1>
-            <div className="w-14 h-px bg-[#D4C5B5]/60 mt-0 mb-6" />
-            <p className="text-sm font-normal leading-relaxed text-white/80 mb-8 max-w-[320px]">
+            <div className="w-14 h-px bg-[#D4C5B5]/60 mt-0 mb-5 sm:mb-6" />
+            <p className="text-[13px] sm:text-sm font-normal leading-relaxed text-white/80 mb-6 sm:mb-8 max-w-[320px]">
               Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
             </p>
 
-            <div className="flex flex-col gap-3 mb-8">
+            <div className="flex flex-col gap-3 mb-6 sm:mb-8">
               {user ? (
                 <Link to="/booking"
                   className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-medium text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow">
@@ -96,7 +96,7 @@ export default function HomePage() {
             </div>
 
             {/* Соцсети */}
-            <div className="flex justify-start gap-5">
+            <div className="flex justify-start gap-4 sm:gap-5">
               <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>

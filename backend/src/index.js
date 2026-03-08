@@ -12,9 +12,9 @@
 //   /api/admin         → panel admin (bookings + reservations + reviews)
 // ============================================================
 
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
@@ -24,9 +24,6 @@ import reviewRoutes from './routes/review.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 import checkoutRoutes from './routes/checkout.routes.js';
 import { errorHandler } from './middlewares/error.middleware.js';
-
-// ── CONFIGURACIÓN ────────────────────────────────────────────
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
