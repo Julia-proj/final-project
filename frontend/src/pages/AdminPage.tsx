@@ -136,7 +136,7 @@ export default function AdminPage() {
                           </td>
                           <td className="p-3 text-xs capitalize">{b.service}</td>
                           <td className="p-3 text-xs text-[#7a6f68]">
-                            {new Date(b.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
+                            {new Date(b.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
                           </td>
                           <td className="p-3 text-xs">
                             {b.status === 'pending' && '⏳ Pendiente'}
@@ -186,6 +186,7 @@ export default function AdminPage() {
                       <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Tipo</th>
                       <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Teléfono</th>
                       <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Detalle</th>
+                      <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Fecha</th>
                       <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Estado</th>
                       <th className="text-left p-3 text-[#8B7355] font-medium text-xs">Acciones</th>
                     </tr>
@@ -203,6 +204,9 @@ export default function AdminPage() {
                         </td>
                         <td className="p-3 text-xs">{r.telefono}</td>
                         <td className="p-3 text-xs text-[#7a6f68] max-w-[150px] truncate">{r.detalle}</td>
+                        <td className="p-3 text-xs text-[#7a6f68]">
+                          {new Date(r.createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        </td>
                         <td className="p-3 text-xs">
                           {r.status === 'pending' && '⏳'}
                           {r.status === 'contacted' && '📞'}
@@ -253,6 +257,10 @@ export default function AdminPage() {
                         }`}>{r.status}</span>
                       </div>
                       <p className="text-sm text-[#7a6f68] italic">"{r.texto}"</p>
+                      <p className="text-[10px] text-[#b5aca4] mt-1">
+                        {new Date(r.createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        {r.telefono && <span className="ml-3">📱 {r.telefono}</span>}
+                      </p>
                     </div>
                     <div className="flex gap-1 flex-shrink-0">
                       {r.status !== 'approved' && (

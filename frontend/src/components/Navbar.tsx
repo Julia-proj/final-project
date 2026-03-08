@@ -153,8 +153,8 @@ export default function Navbar() {
             <div className="w-px h-5 bg-[#d4cfc9]"/>
             {user ? (
               <>
-                {isAdmin && <Link to="/admin" className="text-[12px] tracking-widest uppercase text-white bg-[#8B7355] px-3 py-1.5 hover:bg-[#7a6348]">Admin</Link>}
-                <span className="text-[13px] tracking-widest uppercase text-[#8B7355] max-w-[90px] truncate">{user.name}</span>
+                {isAdmin && <Link to="/admin" className="text-[12px] tracking-widest uppercase text-white bg-[#8B7355] px-3 py-1.5 hover:bg-[#7a6348]">Panel</Link>}
+                <Link to="/dashboard" className="text-[13px] tracking-widest uppercase text-[#8B7355] hover:text-[#3d3530] max-w-[100px] truncate">{user.name}</Link>
                 <button onClick={() => { dispatch(logout()); navigate('/'); }} className="text-[12px] tracking-widest uppercase text-[#a09890] hover:text-[#3d3530]">Salir</button>
               </>
             ) : (
@@ -220,6 +220,13 @@ export default function Navbar() {
                 <div className="w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0"/>
                 <span className="text-[11px] tracking-[0.18em] uppercase text-[#8B7355] font-normal truncate">{user.name}</span>
               </div>
+              <Link
+                to="/dashboard"
+                onClick={() => setMobileOpen(false)}
+                className="self-start text-[11px] tracking-[0.2em] uppercase text-[#3d3530] border border-[#e8e2da] px-6 py-2.5 font-medium hover:bg-[#f0ebe4] transition-colors"
+              >
+                Mi cuenta
+              </Link>
               {isAdmin && (
                 <Link
                   to="/admin"

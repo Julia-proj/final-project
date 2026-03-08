@@ -38,13 +38,13 @@ export default function HomePage() {
             muted
             loop
             playsInline
-            poster="/images/hero.jpg"
+            poster="/images/salon.jpg"
             className="w-full h-full object-cover object-[center_20%] lg:object-center"
           >
             <source src="/video/hero.mp4" type="video/mp4" />
           </video>
           <img
-            src="/images/hero.jpg"
+            src="/images/salon.jpg"
             alt="Keratin Madrid"
             className="absolute inset-0 w-full h-full object-cover object-[center_20%] lg:object-center"
             style={{ display: 'none' }}
