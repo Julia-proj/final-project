@@ -717,12 +717,12 @@ export function ReviewsSection() {
             </div>
           ) : (
             <div className="bg-white border border-[#f0ebe4] p-5 rounded-sm">
-              <div className="flex gap-2 mb-3">
+              <div className="flex flex-wrap gap-2 mb-3">
                 {(['opinion', 'sugerencia', 'pregunta'] as const).map((type) => (
                   <button
                     key={type}
                     onClick={() => setFeedbackType(type)}
-                    className={`px-4 py-2 text-[11px] tracking-[0.15em] uppercase transition-all rounded-sm font-light ${
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] tracking-[0.15em] uppercase transition-all rounded-sm font-light ${
                       feedbackType === type
                         ? 'bg-[#B8A99A] text-white'
                         : 'border border-[#e8e2da] text-[#8B7355] hover:border-[#B8A99A]'
@@ -981,7 +981,7 @@ export function HomecareSection() {
               return (
                 <div key={product.type} className="bg-white border border-[#ede8e2] p-4 hover:shadow-sm transition-all flex flex-col">
                   {/* Product image */}
-                  <div className="relative aspect-[4/3] bg-[#f5f1ec] overflow-hidden mb-3">
+                  <div className="relative aspect-square sm:aspect-[4/3] bg-[#f5f1ec] overflow-hidden mb-3">
                     <img
                       src={variant.img}
                       alt={`${product.type} ${variant.line}`}
@@ -1200,10 +1200,10 @@ export function FormacionesSection() {
         </div>
 
         {/* ── foto strip ── */}
-        <div className="grid grid-cols-4 gap-1 mb-5 lg:mb-8 reveal">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-5 lg:mb-8 reveal">
           {['/images/ker.jpg', '/images/kera.jpg', '/images/rec.jpg', '/images/reca.jpg'].map((src, i) => (
-            <div key={i} className="relative aspect-[5/4] bg-[#f5f2ee] overflow-hidden">
-              <img src={src} alt={`Formacion ${i + 1}`} className="absolute inset-0 w-full h-full object-contain object-center z-[1]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+            <div key={i} className="relative aspect-[3/4] sm:aspect-[2/3] bg-[#f5f2ee] overflow-hidden">
+              <img src={src} alt={`Formacion ${i + 1}`} className="absolute inset-0 w-full h-full object-cover object-center z-[1]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
               <ImgPlaceholder label={src.split('/').pop() || ''} />
             </div>
           ))}
@@ -1330,6 +1330,9 @@ export function FormacionesSection() {
 // 8. BEAUTY SCRIPTS
 // ═══════════════════════════════════════════════════════════════
 
+const STRIPE_SCRIPTS_URL = 'https://buy.stripe.com/5kQdRb8cbglMf7E7dSdQQ00';
+const HAS_STRIPE_KEY = !!import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+
 export function BeautyScriptsSection() {
   const sectionRef = useReveal();
   const [showCheckout, setShowCheckout] = useState(false);
@@ -1381,12 +1384,23 @@ export function BeautyScriptsSection() {
               ))}
             </div>
 
-            <button
-              onClick={() => setShowCheckout(true)}
-              className="self-start px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light cursor-pointer"
-            >
-              Quiero los Scripts
-            </button>
+            {HAS_STRIPE_KEY ? (
+              <button
+                onClick={() => setShowCheckout(true)}
+                className="self-start px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light cursor-pointer"
+              >
+                Quiero los Scripts
+              </button>
+            ) : (
+              <a
+                href={STRIPE_SCRIPTS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="self-start px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
+              >
+                Quiero los Scripts
+              </a>
+            )}
           </div>
         </div>
       </div>

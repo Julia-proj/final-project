@@ -167,19 +167,10 @@ export default function Navbar() {
 
           {/* ═══ MOBILE HEADER ═══ */}
           <div className="flex items-center gap-3 lg:hidden">
-            <a href={TK_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] p-1"><TikTokIcon/></a>
-            <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] p-1"><InstagramIcon/></a>
-            <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] p-1"><YouTubeIcon/></a>
-            <div className="w-px h-5 bg-[#d4cfc9]"/>
-            {user
-              ? <span className="text-[12px] tracking-widest uppercase text-[#8B7355] truncate max-w-[70px]">{user.name}</span>
-              : <div className="flex items-center gap-1.5">
-                  <Link to="/login" className="text-[12px] tracking-[0.08em] uppercase text-[#3d3530] whitespace-nowrap">Entrar</Link>
-                  <span className="text-[#d4cfc9]">·</span>
-                  <Link to="/register" className="text-[12px] tracking-[0.08em] uppercase text-[#3d3530] whitespace-nowrap">Registro</Link>
-                </div>
-            }
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="flex flex-col justify-center w-8 h-8 gap-[6px] ml-1" aria-label="Menú">
+            {user && (
+              <span className="text-[11px] tracking-[0.15em] uppercase text-[#8B7355] truncate max-w-[80px]">{user.name}</span>
+            )}
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="flex flex-col justify-center w-8 h-8 gap-[6px]" aria-label="Menú">
               <span className={`block w-6 h-[1.5px] bg-[#3d3530] transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[7.5px]' : ''}`}/>
               <span className={`block w-6 h-[1.5px] bg-[#3d3530] transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`}/>
               <span className={`block w-6 h-[1.5px] bg-[#3d3530] transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[7.5px]' : ''}`}/>
@@ -218,12 +209,24 @@ export default function Navbar() {
             </div>
           </div>
 
-          {user && (
-            <div className="pt-5 flex flex-col gap-3">
+          {user ? (
+            <div className="pt-5 flex flex-col gap-3 border-t border-[#f5f0eb]">
               {isAdmin && <Link to="/admin" className="self-start text-[13px] tracking-widest uppercase text-white bg-[#8B7355] px-5 py-2.5">Panel Admin</Link>}
               <button onClick={() => { dispatch(logout()); navigate('/'); setMobileOpen(false); }} className="text-left text-[13px] tracking-widest uppercase text-[#a09890] font-light">Cerrar sesión</button>
             </div>
+          ) : (
+            <div className="pt-5 flex items-center gap-5 border-t border-[#f5f0eb]">
+              <Link to="/login" onClick={() => setMobileOpen(false)} className="text-[14px] tracking-[0.12em] uppercase text-[#3d3530] font-light">Entrar</Link>
+              <Link to="/register" onClick={() => setMobileOpen(false)} className="text-[13px] tracking-[0.12em] uppercase border border-[#B8A99A] text-[#B8A99A] px-5 py-2 font-light">Registrarse</Link>
+            </div>
           )}
+
+          {/* Social links */}
+          <div className="flex items-center gap-5 pt-4">
+            <a href={TK_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] hover:text-[#8B7355]"><TikTokIcon/></a>
+            <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] hover:text-[#8B7355]"><InstagramIcon/></a>
+            <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] hover:text-[#8B7355]"><YouTubeIcon/></a>
+          </div>
         </div>
       </div>
     </nav>
