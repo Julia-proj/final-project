@@ -38,12 +38,12 @@ export default function InteractivePricing() {
     servicio === 'keratina' ? 'Keratina / Botox' : servicio === 'total' ? 'Reconstrucción Total' : 'Reconstrucción';
 
   return (
-    <section id="precios" className="bg-[#F0EBE4] py-10 lg:py-14">
+    <section id="precios" className="bg-[#F0EBE4] py-6 lg:py-9">
         <div className="max-w-[1400px] mx-auto px-8">
         {/* Header */}
-        <div className="text-center mb-6 lg:mb-9">
-          <p className="text-[13px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Precios</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-4 font-light tracking-wide">
+        <div className="text-center mb-4 lg:mb-5">
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-2 font-light">Precios</p>
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-2 font-light tracking-wide">
             Tabla de Precios
           </h2>
           <p className="text-[#8B7355] text-sm md:text-base font-light max-w-2xl mx-auto">
@@ -52,7 +52,7 @@ export default function InteractivePricing() {
         </div>
 
         {/* Service Switcher */}
-        <div className="flex justify-center mb-5">
+        <div className="flex justify-center mb-4">
           <div className="inline-flex border border-[#e8e2da] bg-[#FAF8F5]">
             {([
               ['keratina', 'Keratina / Botox'],
@@ -77,7 +77,7 @@ export default function InteractivePricing() {
         {/* Main Layout: Image + List */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 items-start">
           {/* Image with interactive markers — dominates the section */}
-          <div className="relative w-full lg:w-[42%] xl:w-[38%] flex-shrink-0">
+          <div className="relative w-full lg:w-[34%] xl:w-[30%] flex-shrink-0">
             <div className="relative aspect-[3/4] bg-[#f0ebe4] overflow-hidden">
               <img
                 src="/images/precios.jpeg"
@@ -133,13 +133,13 @@ export default function InteractivePricing() {
 
               {/* Bottom tooltip for selected length */}
               {activeItem && (
-                <div className="absolute bottom-0 left-0 right-0 z-30 bg-[#3d3530]/95 backdrop-blur-sm px-6 py-5 animate-fade-in-up">
+                <div className="absolute bottom-0 left-0 right-0 z-30 bg-[#3d3530]/95 backdrop-blur-sm px-5 py-3.5 animate-fade-in-up">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-1 font-light">{activeItem.label}</p>
-                      <p className="text-sm text-white/60 font-light capitalize">{getLabel()}</p>
+                      <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-0.5 font-light">{activeItem.label}</p>
+                      <p className="text-xs text-white/60 font-light capitalize">{getLabel()}</p>
                     </div>
-                    <p className="font-serif text-4xl text-white font-light">
+                    <p className="font-serif text-3xl text-white font-light">
                       {getPrice(activeItem)}
                     </p>
                   </div>
@@ -149,8 +149,8 @@ export default function InteractivePricing() {
           </div>
 
           {/* Price list + extras sidebar */}
-          <div className="flex-1 lg:pl-10 xl:pl-12">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-6 font-light">
+          <div className="flex-1 lg:pl-7 xl:pl-9">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-4 font-light">
               {getLabel()} — Por longitud
             </p>
 
@@ -159,7 +159,7 @@ export default function InteractivePricing() {
                 <button
                   key={l.id}
                   onClick={() => setActive(active === l.id ? null : l.id)}
-                  className={`flex justify-between items-center py-2 px-1 text-left transition-all ${
+                  className={`flex justify-between items-center py-1.5 px-1 text-left transition-all ${
                     active === l.id ? 'bg-[#B8A99A]/8' : 'hover:bg-[#FAF8F5]'
                   }`}
                 >
@@ -178,12 +178,12 @@ export default function InteractivePricing() {
             </div>
 
             {/* Extras */}
-            <div className="mt-6 space-y-2">
-              <div className="bg-[#FAF8F5] px-5 py-3 text-sm md:text-base text-[#7a6f68]">
+            <div className="mt-4 space-y-1.5">
+              <div className="bg-[#FAF8F5] px-5 py-2.5 text-sm text-[#7a6f68]">
                 <span className="text-[#3d3530] font-medium">Abundante:</span>
                 <span className="font-light"> +20€ (7cm) · +40€ (9cm) · +60€ (10+cm)</span>
               </div>
-              <div className="bg-[#FAF8F5] px-5 py-3.5 text-sm md:text-base text-[#7a6f68]">
+              <div className="bg-[#FAF8F5] px-5 py-2.5 text-sm text-[#7a6f68]">
                 <span className="text-[#3d3530] font-medium">Extras:</span>
                 <span className="font-light"> Peeling +65€ · Nano Gold +50€ · Corte +20€</span>
               </div>

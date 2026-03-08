@@ -297,8 +297,8 @@ export function PorQueElegirSection() {
                   <div className="w-9 h-9 bg-[#F5F1EC] flex items-center justify-center text-[#8B7355] mb-3">
                     {b.icon}
                   </div>
-                  <h3 className="text-[#3d3530] text-sm md:text-base font-medium mb-1.5 leading-snug">{b.titulo}</h3>
-                  <p className="text-[#7a6f68] text-xs md:text-sm leading-relaxed font-light">{b.texto}</p>
+                  <h3 className="text-[#3d3530] text-base font-light mb-1.5 leading-snug tracking-wide">{b.titulo}</h3>
+                  <p className="text-[#7a6f68] text-sm leading-relaxed font-light">{b.texto}</p>
                 </div>
               ))}
             </div>
@@ -396,12 +396,12 @@ export function TratamientosSection() {
                 <div>
                   <p className="text-[13px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">{t.duracion}</p>
                   <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light">{t.nombre}</h3>
-                  <p className="text-[#7a6f68] text-lg md:text-xl leading-relaxed font-light">{t.desc}</p>
+                  <p className="text-[#7a6f68] text-sm leading-relaxed font-light">{t.desc}</p>
                 </div>
 
                 <ul className="grid grid-cols-2 gap-4 md:gap-5">
                   {t.ben.map((b, j) => (
-                    <li key={j} className="flex items-start gap-3 text-sm md:text-base text-[#7a6f68] font-light">
+                    <li key={j} className="flex items-start gap-3 text-sm text-[#7a6f68] font-light">
                       <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0" />
                       {b}
                     </li>
@@ -411,11 +411,11 @@ export function TratamientosSection() {
                 <div className="flex gap-5 text-base md:text-lg">
                   <div className="flex-1 bg-white px-6 py-5">
                     <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">Indicado</p>
-                    <p className="text-[#3d3530] font-light">{t.indicado}</p>
+                    <p className="text-sm text-[#3d3530] font-light">{t.indicado}</p>
                   </div>
                   <div className="flex-1 bg-white px-6 py-5">
                     <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">Efecto</p>
-                    <p className="text-[#3d3530] font-light">{t.efecto}</p>
+                    <p className="text-sm text-[#3d3530] font-light">{t.efecto}</p>
                   </div>
                 </div>
 
@@ -965,8 +965,8 @@ export function HomecareSection() {
 
   const addToCart = (label: string, line: string, price: string) => {
     setCart(prev => {
-      const exists = prev.find(i => i.label === label && i.line === line);
-      if (exists) return prev;
+      const count = prev.filter(i => i.label === label && i.line === line).length;
+      if (count >= 3) return prev;
       return [...prev, { label, line, price }];
     });
   };
@@ -1066,19 +1066,12 @@ export function HomecareSection() {
                 </div>
 
                 {/* Promo */}
-                <div className="bg-[#3d3530] px-5 py-4 relative overflow-hidden">
-                  {/* subtle decorative line */}
-                  <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#B8A99A] via-[#D4C5B5] to-transparent" />
-                  <div className="flex items-center gap-2.5 mb-1.5">
-                    <svg className="w-3 h-3 text-[#B8A99A] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2l1.8 5.5H19l-4.4 3.2 1.7 5.3L12 13l-4.3 3 1.7-5.3L5 7.5h5.2z"/>
-                    </svg>
-                    <span className="text-[9px] tracking-[0.35em] uppercase text-[#B8A99A] font-light">Promo web exclusiva</span>
-                    <span className="ml-auto bg-[#B8A99A] text-white text-[9px] tracking-[0.2em] uppercase px-2.5 py-0.5 font-light">Gratis</span>
+                <div className="border-l-2 border-[#B8A99A] pl-4 pr-3 py-1 flex items-center justify-between gap-4 bg-[#FAF8F5]">
+                  <div>
+                    <p className="text-[9px] tracking-[0.35em] uppercase text-[#B8A99A] mb-1 font-light">Promo web exclusiva</p>
+                    <p className="text-sm text-[#3d3530] font-light leading-snug">Diagnóstico con tricóscopio incluido al reservar</p>
                   </div>
-                  <p className="text-[#EDE8E2] text-sm font-light leading-snug">
-                    Diagnóstico con tricóscopio al reservar tu kit
-                  </p>
+                  <span className="text-[9px] tracking-[0.25em] uppercase text-[#8B7355] border border-[#B8A99A]/70 px-3 py-1.5 font-light flex-shrink-0">Gratis</span>
                 </div>
 
                 {/* Price + CTA */}
@@ -1155,15 +1148,42 @@ export function HomecareSection() {
                   {/* Price + cart button */}
                   <div className="flex items-center justify-between mt-auto pt-2">
                     <p className="font-serif text-xl text-[#3d3530] font-light">{variant.price}</p>
-                    <button
-                      onClick={() => addToCart(product.type, variant.line, variant.price)}
-                      className="w-8 h-8 flex items-center justify-center bg-[#B8A99A] text-white hover:bg-[#9A8B7A] transition-colors"
-                      title="Añadir al carrito"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                      </svg>
-                    </button>
+                    {cart.some(c => c.label === product.type && c.line === variant.line) ? (
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => { const idx = [...cart].reverse().findIndex(c => c.label === product.type && c.line === variant.line); removeFromCart(cart.length - 1 - idx); }}
+                          className="w-8 h-8 flex items-center justify-center border border-[#B8A99A] text-[#B8A99A] hover:bg-[#B8A99A] hover:text-white transition-colors"
+                          title="Quitar uno"
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                          </svg>
+                        </button>
+                        <span className="text-xs text-[#3d3530] font-light w-4 text-center">
+                          {cart.filter(c => c.label === product.type && c.line === variant.line).length}
+                        </span>
+                        <button
+                          onClick={() => addToCart(product.type, variant.line, variant.price)}
+                          disabled={cart.filter(c => c.label === product.type && c.line === variant.line).length >= 3}
+                          className="w-8 h-8 flex items-center justify-center bg-[#B8A99A] text-white hover:bg-[#9A8B7A] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                          title="Añadir otro"
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                          </svg>
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => addToCart(product.type, variant.line, variant.price)}
+                        className="w-8 h-8 flex items-center justify-center bg-[#B8A99A] text-white hover:bg-[#9A8B7A] transition-colors"
+                        title="Añadir al carrito"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                      </button>
+                    )}
                   </div>
                 </div>
               );
@@ -1226,8 +1246,8 @@ export function HomecareSection() {
                         </div>
                         <div className="flex items-center gap-4">
                           <span className="text-sm text-[#3d3530] font-medium">{item.price}</span>
-                          <button onClick={() => removeFromCart(idx)} className="text-[#a09890] hover:text-red-400 transition-colors">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                          <button onClick={() => removeFromCart(idx)} title="Eliminar" className="w-7 h-7 flex items-center justify-center border border-[#f0ebe4] text-[#b5a9a2] hover:border-[#e05050] hover:text-[#e05050] hover:bg-red-50 transition-all rounded-sm">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                           </button>
@@ -1302,34 +1322,34 @@ export function FormacionesSection() {
   };
 
   return (
-    <section id="formaciones" className="bg-[#FAF9F6] py-10 lg:py-16" ref={sectionRef}>
+    <section id="formaciones" className="bg-[#FAF9F6] py-6 lg:py-12" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-8">
-        <div className="text-center mb-6 lg:mb-8 reveal">
+        <div className="text-center mb-4 lg:mb-6 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Para Profesionales</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Formaciones</h2>
         </div>
 
         {/* ── foto strip ── */}
-        <div className="grid grid-cols-4 gap-2 lg:gap-3 mb-8 lg:mb-12 reveal">
+        <div className="grid grid-cols-4 gap-1 mb-5 lg:mb-8 reveal">
           {['/images/ker.jpg', '/images/kera.jpg', '/images/rec.jpg', '/images/reca.jpg'].map((src, i) => (
-            <div key={i} className="relative aspect-[4/3] bg-[#f5f2ee] overflow-hidden">
+            <div key={i} className="relative aspect-[5/4] bg-[#f5f2ee] overflow-hidden">
               <img src={src} alt={`Formacion ${i + 1}`} className="absolute inset-0 w-full h-full object-contain object-center z-[1]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
               <ImgPlaceholder label={src.split('/').pop() || ''} />
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 xl:gap-10 max-w-[1400px] mx-auto">
-          <div className="border border-[#e8e2da] p-5 md:p-7 flex flex-col gap-4 hover:border-[#B8A99A] transition-all">
-            <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-4 py-2 font-light">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xl:gap-7 max-w-[1400px] mx-auto">
+          <div className="border border-[#e8e2da] p-4 md:p-6 flex flex-col gap-3 hover:border-[#B8A99A] transition-all">
+            <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-4 py-1.5 font-light">
               Curso destacado
             </span>
-            <h3 className="font-serif text-xl md:text-2xl text-[#3d3530] font-light">Curso intensivo de keratina</h3>
-            <p className="text-sm md:text-base text-[#8B7355] font-light">2 días · Práctica con modelos</p>
+            <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-light">Curso intensivo de keratina</h3>
+            <p className="text-sm text-[#8B7355] font-light">2 días · Práctica con modelos</p>
 
             <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-4 font-light">Programa</p>
-              <ul className="space-y-2.5">
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">Programa</p>
+              <ul className="space-y-1.5">
                 {['Diagnóstico con tricóscopio', 'Protocolos de keratina y botox', 'Selección de producto según tipo de pelo', 'Técnica de aplicación paso a paso', 'Práctica con modelos reales'].map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-[#3d3530] font-light">
                     <svg className="w-3.5 h-3.5 text-[#B8A99A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1369,16 +1389,16 @@ export function FormacionesSection() {
             </div>
           </div>
 
-          <div className="border border-[#e8e2da] p-5 md:p-7 flex flex-col gap-4 hover:border-[#B8A99A] transition-all">
-            <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-4 py-2 font-light">
+          <div className="border border-[#e8e2da] p-4 md:p-6 flex flex-col gap-3 hover:border-[#B8A99A] transition-all">
+            <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-4 py-1.5 font-light">
               Masterclass
             </span>
-            <h3 className="font-serif text-xl md:text-2xl text-[#3d3530] font-light">Reconstrucción en Frío</h3>
-            <p className="text-sm md:text-base text-[#8B7355] font-light">Intensivo · Máx. 6 personas</p>
+            <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-light">Reconstrucción en Frío</h3>
+            <p className="text-sm text-[#8B7355] font-light">Intensivo · Máx. 6 personas</p>
 
             <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-4 font-light">Programa</p>
-              <ul className="space-y-2.5">
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">Programa</p>
+              <ul className="space-y-1.5">
                 {['Teoría de reconstrucción capilar', 'Diagnóstico y selección de producto', 'Técnica de aplicación en frío', 'Casos reales y resolución de dudas'].map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-[#3d3530] font-light">
                     <svg className="w-3.5 h-3.5 text-[#B8A99A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
