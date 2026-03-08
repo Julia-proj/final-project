@@ -1073,9 +1073,10 @@ export function HomecareSection() {
       {cart.length > 0 && !showCart && (
         <button
           onClick={() => setShowCart(true)}
-          className="fixed bottom-6 right-6 z-40 bg-[#3d3530] text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center hover:bg-[#2d2520] transition-colors"
+          aria-label={`Ver carrito (${cart.length} productos)`}
+          className="fixed bottom-7 left-7 z-50 bg-[#3d3530] text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center hover:bg-[#2d2520] transition-all duration-300 hover:scale-105"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
           </svg>
           <span className="absolute -top-1 -right-1 bg-[#B8A99A] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-medium">
@@ -1397,23 +1398,27 @@ export function BeautyScriptsSection() {
 
 export function GoogleMapSection() {
   return (
-    <section id="ubicacion" className="bg-[#FDFCFA]">
-      <div className="max-w-[1400px] mx-auto px-8 py-8 lg:py-12">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+    <section id="ubicacion" className="bg-[#FAF8F5] border-t border-[#ede8e2]">
+      <div className="max-w-[1400px] mx-auto px-8 py-6 lg:py-8">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-[11px] tracking-[0.35em] uppercase text-[#B8A99A] mb-1.5 font-light">Ubicación</p>
-            <h2 className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light tracking-wide">Cómo llegar</h2>
+            <p className="text-[10px] tracking-[0.4em] uppercase text-[#B8A99A] mb-1 font-light">Ubicación</p>
+            <h2 className="font-serif text-xl text-[#3d3530] font-light">Calle Altamirano, 11 — Madrid</h2>
           </div>
-          <div className="text-right sm:text-right">
-            <p className="text-sm text-[#3d3530] font-light">Calle Altamirano, 11</p>
-            <p className="text-xs text-[#a09890] font-light">Madrid, España</p>
-          </div>
+          <a
+            href="https://maps.google.com/?q=Calle+Altamirano+11+Madrid"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] tracking-[0.15em] uppercase text-[#B8A99A] border-b border-[#B8A99A]/50 pb-0.5 hover:text-[#3d3530] hover:border-[#3d3530] transition-colors font-light hidden sm:block"
+          >
+            Abrir en Maps →
+          </a>
         </div>
-        <div className="aspect-[16/6] md:aspect-[16/5] w-full overflow-hidden border border-[#e8e2da]">
+        <div className="aspect-[16/4] md:aspect-[16/3] w-full overflow-hidden">
           <iframe
             title="Keratin Madrid ubicación"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.4!2d-3.7144!3d40.4306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228e23d0b0b0b%3A0x0!2sCalle+de+Altamirano%2C+Madrid!5e0!3m2!1sen!2ses!4v1700000000000"
-            className="w-full h-full border-0"
+            className="w-full h-full border-0 grayscale opacity-90"
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
