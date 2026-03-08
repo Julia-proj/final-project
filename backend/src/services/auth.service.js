@@ -1,8 +1,16 @@
+// ============================================================
+// services/auth.service.js — Lógica de autenticación
+// ============================================================
+// Contiene la lógica de registro, login y obtener datos del
+// usuario actual. Aquí se encripta la contraseña, se comparan
+// credenciales y se generan tokens JWT.
+// ============================================================
+
 import User from '../models/user.model.js';
 import { hashPassword, comparePassword } from '../utils/password.js';
 import { generateToken } from '../utils/token.js';
 
-//  REGISTRAR USUARIO 
+// Registrar un nuevo usuario
 export const registerUser = async ({ name, email, password }) => {
 
   // 1. Comprobar si ya existe un usuario con ese email
@@ -32,7 +40,7 @@ export const registerUser = async ({ name, email, password }) => {
   };
 };
 
-// LOGIN 
+// Iniciar sesión
 export const loginUser = async ({ email, password }) => {
 
   // 1. Buscar usuario por email
@@ -56,6 +64,7 @@ export const loginUser = async ({ email, password }) => {
   };
 };
 
+// Obtener datos del usuario actual (para restaurar sesión al recargar)
 export const getMe = async (userId) => {
   const user = await User.findById(userId).select('-password');
   // .select('-password') = devuelve todo EXCEPTO password — seguro

@@ -1,15 +1,15 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux'; // 📦 ФОРМУЛА: оборачиваем в Provider
-import { store } from './store/store';  // наш Redux store
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 import App from './App.tsx';
-import './index.css'; // стили Tailwind
+import './index.css';
 
-// 📦 ФОРМУЛА: createRoot(element).render(<App />)
-// getElementById('root') — ищем div#root в index.html
+// Punto de entrada de React.
+// Provider envuelve toda la app para que Redux esté disponible
+// en cualquier componente hijo.
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {/* Provider store={store} — делает Redux доступным везде ниже */}
     <Provider store={store}>
       <App />
     </Provider>

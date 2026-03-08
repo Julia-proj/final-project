@@ -1,13 +1,13 @@
 // ============================================================
-// controllers/reservation.controller.js
+// controllers/reservation.controller.js — Controlador de solicitudes
 // ============================================================
-// РУС: Контроллер резерваций. Универсальный для всех типов.
-// ESP: Controlador de reservaciones (servicios, formaciones, kit).
+// Gestiona solicitudes de servicios, formaciones, kits y productos.
+// Incluye una ruta pública (sin login) y otra autenticada.
 // ============================================================
 
 import { createReservation, getUserReservations, createPublicReservation } from '../services/reservation.service.js';
 
-// POST /api/reservations — создать резервацию (требуется авторизация)
+// Solicitud autenticada — el userId viene del token
 export const create = async (req, res, next) => {
   try {
     const reservation = await createReservation({
@@ -24,7 +24,7 @@ export const create = async (req, res, next) => {
   }
 };
 
-// POST /api/reservations/public — публичная резервация продукта (без логина)
+// Solicitud pública — no requiere login
 export const createPublic = async (req, res, next) => {
   try {
     const reservation = await createPublicReservation({
@@ -40,7 +40,7 @@ export const createPublic = async (req, res, next) => {
   }
 };
 
-// GET /api/reservations/my — мои резервации
+// Mis solicitudes — devuelve las del usuario autenticado
 export const myReservations = async (req, res, next) => {
   try {
     const reservations = await getUserReservations(req.user.id);

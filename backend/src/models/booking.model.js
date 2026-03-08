@@ -1,37 +1,44 @@
+// ============================================================
+// models/booking.model.js — Modelo de Cita
+// ============================================================
+// Representa una cita de tratamiento capilar. Cada cita está
+// vinculada a un usuario (ref a User) e incluye servicio,
+// longitud de cabello, fecha, estado y notas opcionales.
+// ============================================================
+
 import mongoose from 'mongoose';
 
 const bookingSchema = new mongoose.Schema({
 
- 
   user: {
-    type: mongoose.Schema.Types.ObjectId,    
-    ref: 'User',                           
+    type: mongoose.Schema.Types.ObjectId,  // referencia al modelo User
+    ref: 'User',
     required: true
   },
 
-  service: {                                 
+  service: {
     type: String,
     required: true
   },
 
-  hairLength: {                             
+  hairLength: {
     type: String,
     enum: ['short', 'medium', 'long', 'extra-long'],
     required: true
   },
 
-  date: {                                
+  date: {
     type: Date,
     required: true
   },
 
-  status: {                                  
+  status: {
     type: String,
     enum: ['pending', 'confirmed', 'cancelled'],
-    default: 'pending'                     
+    default: 'pending'
   },
 
-  notes: {                                   
+  notes: {
     type: String
   }
 

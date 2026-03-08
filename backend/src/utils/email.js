@@ -1,17 +1,17 @@
 // ============================================================
-// utils/email.js — Utilidad de email con Resend
+// utils/email.js — Notificaciones por email con Resend
 // ============================================================
-// ESP: Envía un email al admin cada vez que se crea una reserva
-//      o un feedback. Usa Resend (resend.com).
+// Envía un email al admin cada vez que se crea una solicitud
+// o una reseña. Usa la API de Resend (resend.com).
 //
-// FLUJO:
-//   1. Cliente envía formulario → backend guarda en MongoDB
+// Flujo:
+//   1. El cliente envía un formulario → backend guarda en MongoDB
 //   2. Después de guardar → llama sendNotification()
-//   3. Resend envía email a beautyscriptses@gmail.com
+//   3. Resend envía el email al ADMIN_EMAIL
 //
-// CONFIGURACIÓN (.env):
-//   RESEND_API_KEY=re_xxxxxxxxxxxx   ← tu API key de resend.com
-//   ADMIN_EMAIL=beautyscriptses@gmail.com
+// Variables de entorno necesarias:
+//   RESEND_API_KEY  → API key de resend.com
+//   ADMIN_EMAIL     → email del administrador
 // ============================================================
 
 import { Resend } from 'resend';

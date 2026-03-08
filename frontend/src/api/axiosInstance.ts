@@ -1,48 +1,26 @@
 // ============================================================
-// api/axiosInstance.ts
+// api/axiosInstance.ts — Instancia de Axios configurada
 // ============================================================
-// РУС: Это "настроенный" Axios — как почтовый ящик, который
-//      АВТОМАТИЧЕСКИ приклеивает марку (JWT токен) к каждому письму.
-// ESP: Axios configurado con interceptor para añadir JWT automáticamente.
-//
-// 📦 ФОРМУЛА: axios.create({ baseURL }) + interceptors
+// Crea una instancia de Axios con la baseURL del backend.
+// Un interceptor añade automáticamente el token JWT en el
+// header Authorization de cada petición.
 // ============================================================
 
-import axios from 'axios'; // 📦 импортируем библиотеку axios
+import axios from 'axios';
 
-// ── СОЗДАЁМ ЭКЗЕМПЛЯР ────────────────────────────────────────
-// 📦 ФОРМУЛА: axios.create({ baseURL })
-// baseURL = адрес нашего бэкенда
-// Все запросы будут начинаться с этого адреса
-// axiosInstance.get('/auth/me') → GET http://localhost:3000/api/auth/me
-
+// La URL base apunta al backend (variable de entorno en Vercel / local)
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
 });
 
-// ── INTERCEPTOR ──────────────────────────────────────────────
-// РУС: Interceptor = перехватчик. Перехватывает КАЖДЫЙ запрос
-//      ПЕРЕД отправкой и добавляет токен в заголовок.
-// ESP: Interceptor = interceptor. Antes de enviar, añade el token.
-//
-// 📦 ФОРМУЛА: instance.interceptors.request.use(callback)
-// Callback получает config (настройки запроса) и возвращает его модифицированным
-
+// Interceptor: antes de enviar cualquier petición, añade el token
 axiosInstance.interceptors.request.use((config) => {
-  // Берём токен из localStorage (где мы его сохранили при логине)
-  const token = localStorage.getItem('token'); // 📦 ФОРМУЛА: getItem('ключ')
-
-  // Если токен есть — добавляем в заголовок Authorization
+  const token = localStorage.getItem('token');
   if (token) {
-    // 📦 ФОРМУЛА: 'Bearer ' + token
-    // Слово "Bearer" — это стандарт HTTP для JWT токенов
-    // Бэкенд в auth.middleware.js проверяет именно это: startsWith('Bearer ')
+    // Formato estándar HTTP: "Bearer <token>"
     config.headers.Authorization = `Bearer ${token}`;
   }
-
-  // ОБЯЗАТЕЛЬНО возвращаем config (иначе запрос не уйдёт!)
   return config;
 });
 
-// Экспортируем настроенный экземпляр — все файлы api/*.ts будут его использовать
 export default axiosInstance;

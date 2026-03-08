@@ -1,10 +1,13 @@
 // ============================================================
-// routes/reservation.routes.js
+// routes/reservation.routes.js — Rutas de solicitudes
 // ============================================================
-// РУС: Маршруты для резерваций.
-//   POST /api/reservations     → создать (требуется авторизация)
-//   GET  /api/reservations/my  → мои резервации
-// ESP: Rutas de reservaciones. Requieren token.
+// Gestiona solicitudes de servicios, formaciones, kits y productos.
+// La ruta /public no requiere autenticación (permite pedir
+// productos desde la landing sin estar logueado).
+//
+//   POST /api/reservations/public → solicitud pública (sin login)
+//   POST /api/reservations        → solicitud autenticada
+//   GET  /api/reservations/my     → mis solicitudes
 // ============================================================
 
 import { Router } from 'express';
@@ -13,10 +16,10 @@ import { authMiddleware } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 
-// Публичный — резервация продукта без логина
+// Ruta pública — no requiere login
 router.post('/public', createPublic);
 
-// Защищённые — требуется авторизация
+// A partir de aquí se requiere token
 router.use(authMiddleware);
 
 router.post('/', create);

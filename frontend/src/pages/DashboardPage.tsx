@@ -1,3 +1,10 @@
+// ============================================================
+// pages/DashboardPage.tsx — Panel del usuario
+// ============================================================
+// Muestra las citas y solicitudes del usuario autenticado
+// en dos pestañas: "Mis citas" y "Mis solicitudes".
+// ============================================================
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';

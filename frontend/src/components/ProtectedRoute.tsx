@@ -1,51 +1,33 @@
 // ============================================================
-// components/ProtectedRoute.tsx
+// components/ProtectedRoute.tsx — Guardia de rutas protegidas
 // ============================================================
-// РУС: "Охранник" — проверяет, может ли пользователь зайти на страницу.
-//      Если нет — перенаправляет на /login или /.
-// ESP: Guarda de ruta. Si no estás autenticado/autorizado, te redirige.
-//
-// АНАЛОГИЯ: Клуб с охраной.
-//   Обычные страницы = открытая улица (всем можно)
-//   /booking = клуб (нужен билет = токен)
-//   /admin = VIP зона (нужна особая карта = роль admin)
-//
-// 📦 ФОРМУЛА: <Navigate to="/login" /> из react-router-dom
+// Envuelve páginas que requieren autenticación o rol admin.
+// Si el usuario no está logueado, redirige a /login.
+// Si se necesita rol admin y no lo tiene, redirige a /.
 // ============================================================
 
-import { Navigate } from 'react-router-dom'; // 📦 перенаправление
-import { useAppSelector } from '../hooks/useAppHooks'; // наш типизированный хук
+import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '../hooks/useAppHooks';
 
-// Props компонента
 interface ProtectedRouteProps {
-  children: React.ReactNode; // то что рендерим если доступ разрешён
-  adminOnly?: boolean;       // ? = опционально, по умолчанию false
+  children: React.ReactNode;
+  adminOnly?: boolean;
 }
 
-// 📦 ФОРМУЛА компонента с props
 export default function ProtectedRoute({ children, adminOnly = false }: ProtectedRouteProps) {
-
-  // Читаем текущего пользователя из Redux state
-  // useAppSelector = типизированный useSelector
   const user = useAppSelector((state) => state.auth.user);
   const token = useAppSelector((state) => state.auth.token);
 
-  // ── ПРОВЕРКА 1: Есть ли токен/пользователь? ──────────────
-  // Если нет — не залогинен → идём на страницу логина
+  // Sin token ni usuario → no logueado → redirigir a login
   if (!token && !user) {
-    // Navigate = компонент-перенаправление из react-router-dom
-    // replace = заменяем в истории браузера (нельзя нажать "Назад" и вернуться)
     return <Navigate to="/login" replace />;
   }
 
-  // ── ПРОВЕРКА 2: Нужна роль admin? ────────────────────────
+  // Ruta solo para admin y el usuario no es admin → redirigir a inicio
   if (adminOnly && user?.role !== 'admin') {
-    // user?.role = "если user существует, возьми role"
-    // Если не admin → на главную
     return <Navigate to="/" replace />;
   }
 
-  // ── ВСЁОК: показываем защищённую страницу ────────────────
-  // children = то что было внутри <ProtectedRoute>...</ProtectedRoute>
+  // Acceso permitido → mostrar la página
   return <>{children}</>;
 }

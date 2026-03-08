@@ -1,16 +1,16 @@
 // ============================================================
-// routes/admin.routes.js
+// routes/admin.routes.js — Rutas del panel de administración
 // ============================================================
-// РУС: Маршруты админа. ВСЕ требуют авторизацию + роль admin.
-// ESP: Rutas admin. Todas requieren token + rol admin.
+// Todas las rutas requieren token + rol admin.
+// Se aplican dos middlewares globales: authMiddleware y requireRole.
 //
-// МАРШРУТЫ:
-//   GET    /api/admin/bookings              → все бронирования
-//   PATCH  /api/admin/bookings/:id/status   → сменить статус
-//   GET    /api/admin/reservations          → все резервации (?type=formacion)
-//   PATCH  /api/admin/reservations/:id/status → сменить статус
-//   GET    /api/admin/reviews               → все отзывы
-//   PATCH  /api/admin/reviews/:id/status    → сменить статус
+// Endpoints:
+//   GET    /api/admin/bookings              → todas las citas
+//   PATCH  /api/admin/bookings/:id/status   → cambiar estado
+//   GET    /api/admin/reservations          → todas las solicitudes
+//   PATCH  /api/admin/reservations/:id/status → cambiar estado
+//   GET    /api/admin/reviews               → todas las reseñas
+//   PATCH  /api/admin/reviews/:id/status    → cambiar estado
 // ============================================================
 
 import { Router } from 'express';
@@ -24,19 +24,19 @@ import { requireRole } from '../middlewares/role.middleware.js';
 
 const router = Router();
 
-// Цепочка middleware: сначала проверяем токен, потом роль admin
+// Middlewares globales: primero verificar token, luego verificar rol admin
 router.use(authMiddleware);
 router.use(requireRole('admin'));
 
-// ── Bookings (записи на услуги) ──
+// Citas
 router.get('/bookings', allBookings);
 router.patch('/bookings/:id/status', updateStatus);
 
-// ── Reservations (formaciones, kit, servicios) ──
+// Solicitudes (formaciones, kit, productos, servicios)
 router.get('/reservations', allReservations);
 router.patch('/reservations/:id/status', updateReservation);
 
-// ── Reviews (отзывы) ──
+// Reseñas
 router.get('/reviews', allReviews);
 router.patch('/reviews/:id/status', updateReview);
 

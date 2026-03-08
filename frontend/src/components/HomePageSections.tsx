@@ -47,7 +47,7 @@ function ImgPlaceholder({ label }: { label: string }) {
   );
 }
 
-// ── Модальная форма резервации ────────────────────────────────
+// ── Formulario modal de solicitud ──────────────────────────────
 interface ReservationModalProps {
   isOpen: boolean;
   onClose: () => void;

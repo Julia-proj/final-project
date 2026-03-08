@@ -1,10 +1,11 @@
 // ============================================================
-// routes/review.routes.js
+// routes/review.routes.js — Rutas de reseñas
 // ============================================================
-// РУС: Маршруты для отзывов.
-//   GET  /api/reviews          → публичный (одобренные)
-//   POST /api/reviews          → требуется авторизация
-// ESP: Rutas de reseñas. GET público, POST requiere token.
+// Ambas rutas son públicas: cualquier visitante puede ver
+// las reseñas aprobadas y enviar una nueva.
+//
+//   GET  /api/reviews → reseñas aprobadas (público)
+//   POST /api/reviews → enviar reseña (público, nombre + teléfono)
 // ============================================================
 
 import { Router } from 'express';
@@ -12,10 +13,7 @@ import { create, approved } from '../controllers/review.controller.js';
 
 const router = Router();
 
-// Публичный — без авторизации
 router.get('/', approved);
-
-// Публичный — отзыв без авторизации (имя + телефон вместо userId)
 router.post('/', create);
 
 export default router;

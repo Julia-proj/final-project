@@ -1,3 +1,11 @@
+// ============================================================
+// pages/BookingPage.tsx — Página de reserva de cita
+// ============================================================
+// Formulario protegido donde el usuario elige tratamiento,
+// longitud de cabello, fecha y notas. También muestra el
+// historial de citas del usuario.
+// ============================================================
+
 // Página de reserva protegida. Envía datos al backend para crear una reserva.
 
 import { useState, useEffect } from 'react';
@@ -5,7 +13,7 @@ import { createBookingAPI, getMyBookingsAPI } from '../api/bookings.api';
 import { useAppSelector } from '../hooks/useAppHooks';
 import type { Booking, BookingForm } from '../types';
 
-// Список услуг (соответствует полям бэка — поле service: String)
+// Lista de servicios disponibles (coincide con el campo service del backend)
 const SERVICES = [
   { value: 'keratina', label: 'Alisado de Keratina' },
   { value: 'reconstruccion', label: 'Reconstrucción en Frío' },
@@ -13,7 +21,7 @@ const SERVICES = [
   { value: 'head-spa', label: 'Head Spa' },
 ];
 
-// Длина волос (enum из booking.model.js)
+// Longitudes de cabello (enum del booking.model.js)
 const HAIR_LENGTHS = [
   { value: 'short', label: 'Corto (20-30 cm)' },
   { value: 'medium', label: 'Medio (30-50 cm)' },
@@ -22,7 +30,7 @@ const HAIR_LENGTHS = [
 ];
 
 export default function BookingPage() {
-  // Состояние формы
+  // Estado del formulario
   const [form, setForm] = useState<BookingForm>({
     service: '',
     hairLength: '',
@@ -30,7 +38,7 @@ export default function BookingPage() {
     notes: '',
   });
 
-  // Мои бронирования
+  // Mis citas
   const [myBookings, setMyBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -38,21 +46,20 @@ export default function BookingPage() {
 
   const user = useAppSelector((state) => state.auth.user);
 
-  // ── ЗАГРУЗКА МОЙ БРОНИРОВАНИЙ ─────────────────────────────
-  // useEffect без Redux — локальные данные только для этой страницы
+  // Cargar mis citas al montar la página
   useEffect(() => {
     const fetchMyBookings = async () => {
       try {
-        const res = await getMyBookingsAPI(); // GET /api/bookings/my
+        const res = await getMyBookingsAPI();
         setMyBookings(res.data);
       } catch {
-        // если ошибка — просто не показываем список
+        // si falla, simplemente no mostramos la lista
       }
     };
     fetchMyBookings();
   }, []);
 
-  // ── ИЗМЕНЕНИЕ ПОЛЕЙ ───────────────────────────────────────
+  // Manejar cambios en los campos del formulario
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -60,18 +67,18 @@ export default function BookingPage() {
     setForm({ ...form, [name]: value });
   };
 
-  // ── ОТПРАВКА ФОРМЫ ────────────────────────────────────────
+  // Enviar el formulario
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      await createBookingAPI(form); // POST /api/bookings
+      await createBookingAPI(form);
       setSuccess(true);
-      setForm({ service: '', hairLength: '', date: '', notes: '' }); // сбрасываем форму
+      setForm({ service: '', hairLength: '', date: '', notes: '' });
 
-      // Обновляем список бронирований
+      // Recargar la lista de citas
       const res = await getMyBookingsAPI();
       setMyBookings(res.data);
 
@@ -79,11 +86,11 @@ export default function BookingPage() {
       const e = err as { response?: { data?: { message?: string } } };
       setError(e.response?.data?.message || 'Error al crear la reserva');
     } finally {
-      setLoading(false); // всегда убираем loading
+      setLoading(false); // siempre quitamos loading
     }
   };
 
-  // Минимальная дата = завтра (не можем записаться в прошлое)
+  // Fecha mínima = mañana
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const minDate = tomorrow.toISOString().split('T')[0]; // "2025-03-03"
@@ -92,7 +99,7 @@ export default function BookingPage() {
     <div className="min-h-screen bg-[#FAF8F6] py-16 px-4">
       <div className="max-w-2xl mx-auto">
 
-        {/* ЗАГОЛОВОК */}
+        {/* Encabezado */}
         <div className="text-center mb-14">
           <div className="inline-block px-6 py-2 mb-6 bg-[#B8A99A]/10 rounded-full">
             <span className="text-[#B8A99A] text-[11px] tracking-[0.3em] uppercase font-light">
@@ -107,7 +114,7 @@ export default function BookingPage() {
           </p>
         </div>
 
-        {/* УСПЕШНОЕ СООБЩЕНИЕ */}
+        {/* Mensaje de éxito */}
         {success && (
           <div className="mb-8 p-5 bg-green-50 border border-green-200 rounded-lg text-green-700 text-center font-light">
             ✅ ¡Reserva creada con éxito! Te contactaremos para confirmar.
@@ -115,7 +122,7 @@ export default function BookingPage() {
           </div>
         )}
 
-        {/* ФОРМА БРОНИРОВАНИЯ */}
+        {/* Formulario de cita */}
         <div className="card mb-8">
           <h2 className="font-serif text-2xl font-light text-[#3D3D3D] mb-8">Nueva reserva</h2>
 

@@ -1,19 +1,14 @@
 // ============================================================
-// pages/AdminPage.tsx
+// pages/AdminPage.tsx — Panel de administración
 // ============================================================
-// РУС: Панель администратора с 3 вкладками:
-//   1. Reservas (bookings) — записи на услуги
-//   2. Solicitudes (reservations) — formaciones, kit, servicios
-//   3. Reseñas (reviews) — отзывы клиентов
-// ESP: Panel admin con 3 tabs: Reservas, Solicitudes, Reseñas.
+// Página con 3 pestañas: Reservas (citas), Solicitudes
+// (formaciones, kit, productos) y Reseñas.
+// El admin puede ver todo y cambiar estados.
 //
-// ✅ ТОЧКА 12: Admin видит ВСЕ резервы и управляет ими.
-//
-// КАК ЗАЙТИ АДМИНОМ:
-//   1. Зарегистрироваться обычным пользователем
-//   2. В MongoDB Compass/Shell найти пользователя:
-//      db.users.updateOne({ email: "tu@email.com" }, { $set: { role: "admin" } })
-//   3. Перелогиниться → появится кнопка "Admin" в navbar
+// Para acceder como admin:
+//   1. Registrarse como usuario normal
+//   2. En MongoDB Compass cambiar el campo role a "admin"
+//   3. Volver a iniciar sesión
 // ============================================================
 
 import { useState, useEffect } from 'react';
@@ -33,7 +28,7 @@ export default function AdminPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // ── Загрузка данных ────────────────────────────────────────
+  // Cargar todos los datos al montar el componente
   const fetchAll = async () => {
     setLoading(true);
     try {
@@ -54,7 +49,7 @@ export default function AdminPage() {
 
   useEffect(() => { fetchAll(); }, []);
 
-  // ── Обновление статусов ────────────────────────────────────
+  // Funciones para actualizar estado desde el panel
   const updateBooking = async (id: string, status: string) => {
     await updateBookingStatusAPI(id, status);
     setBookings(bs => bs.map(b => b._id === id ? { ...b, status: status as Booking['status'] } : b));
@@ -70,7 +65,7 @@ export default function AdminPage() {
     setReviews(rs => rs.map(r => r._id === id ? { ...r, status: status as Review['status'] } : r));
   };
 
-  // ── Рендер ─────────────────────────────────────────────────
+  // Render
 
   if (loading) {
     return (
@@ -89,7 +84,7 @@ export default function AdminPage() {
           <h1 className="font-serif text-2xl md:text-3xl text-[#3D3D3D]">Gestión</h1>
         </div>
 
-        {/* Счётчики */}
+        {/* Contadores por pestaña */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           {[
             { key: 'bookings' as Tab, label: 'Reservas', count: bookings.length },

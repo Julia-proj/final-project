@@ -64,10 +64,10 @@ export default function HomePage() {
             <p className="text-[#D4C5B5]/70 text-[9px] tracking-[0.18em] uppercase font-light">Diagnóstico profesional · Protocolos exclusivos</p>
           </div>
 
-          {/* Пространство */}
+          {/* Espacio */}
           <div className="flex-1" />
 
-          {/* Нижняя часть: весь контент прижат влево */}
+          {/* Parte inferior: contenido alineado a la izquierda */}
           <div className="px-5 pb-8 sm:pb-12">
             <h1 className="font-serif text-[32px] sm:text-4xl font-normal tracking-wider text-white mb-3 sm:mb-4 leading-tight">
               Estudio de salud<br />y belleza capilar
@@ -95,7 +95,7 @@ export default function HomePage() {
               </button>
             </div>
 
-            {/* Соцсети */}
+            {/* Redes sociales */}
             <div className="flex justify-start gap-4 sm:gap-5">
               <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -126,7 +126,7 @@ export default function HomePage() {
           <p className="text-[10px] tracking-[0.5em] uppercase text-[#D4C5B5]/80 font-light">Diagnóstico profesional · Protocolos exclusivos</p>
         </div>
 
-        {/* Десктоп Hero Layout ── */}
+        {/* Hero desktop layout */}
         <div className="hidden lg:flex relative z-10 w-full px-14 xl:px-20 2xl:px-28 pb-16 items-end flex-1">
           <div className="max-w-[480px] xl:max-w-[520px]">
             <h1 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-normal mb-6 tracking-wide text-white leading-tight">
@@ -165,7 +165,7 @@ export default function HomePage() {
         </button>
       </section>
 
-      {/* ═══ СЕКЦИИ ═══ */}
+      {/* ═══ SECCIONES ═══ */}
       <div className="gold-divider" />
       <PorQueElegirSection />
       <TratamientosSection />

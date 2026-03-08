@@ -1,3 +1,10 @@
+// ============================================================
+// services/booking.service.js — Lógica de citas
+// ============================================================
+// CRUD de citas: crear, ver las mías, ver todas (admin)
+// y actualizar estado (admin).
+// ============================================================
+
 import Booking from '../models/booking.model.js';
 
 // Crear una nueva reserva

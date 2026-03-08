@@ -1,3 +1,11 @@
+// ============================================================
+// components/Navbar.tsx — Barra de navegación principal
+// ============================================================
+// Navbar responsive con dropdowns por clic, enlaces a secciones
+// de la landing, redes sociales y gestión de sesión.
+// Admin ve "Panel", usuario ve su nombre con enlace a "Mi cuenta".
+// ============================================================
+
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../hooks/useAppHooks';
@@ -33,14 +41,14 @@ export default function Navbar() {
   const user = useAppSelector((s) => s.auth.user);
   const isAdmin = user?.role === 'admin';
 
-  // Скролл → тень
+  // Sombra al hacer scroll
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  // Клик вне navbar → закрыть все dropdown'ы
+  // Clic fuera del navbar → cerrar dropdowns
   useEffect(() => {
     const fn = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
@@ -53,7 +61,7 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', fn);
   }, []);
 
-  // При смене страницы → закрыть всё
+  // Al cambiar de página → cerrar todo
   useEffect(() => {
     setMobileOpen(false);
     setServDrop(false);
@@ -61,7 +69,7 @@ export default function Navbar() {
     setProDrop(false);
   }, [location]);
 
-  // Плавный скролл
+  // Scroll suave a una sección de la landing
   const scrollTo = (id: string) => {
     if (location.pathname !== '/') {
       navigate('/');
@@ -75,7 +83,7 @@ export default function Navbar() {
     setProDrop(false);
   };
 
-  // Переключатель dropdown'а (закрывает другие)
+  // Toggle de dropdowns (cierra los demás)
   const toggleServ = () => { setServDrop(!servDrop); setHomeDrop(false); setProDrop(false); };
   const toggleHome = () => { setHomeDrop(!homeDrop); setServDrop(false); setProDrop(false); };
   const togglePro = () => { setProDrop(!proDrop); setServDrop(false); setHomeDrop(false); };
@@ -95,7 +103,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-8 xl:gap-12">
             <button onClick={() => scrollTo('inicio')} className={lnk}>Inicio</button>
 
-            {/* --- Servicios (dropdown по КЛИКУ) --- */}
+            {/* Servicios (dropdown) */}
             <div className="relative">
               <button onClick={toggleServ} className={`${lnk} flex items-center gap-1`}>
                 Servicios
@@ -112,7 +120,7 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* --- Homecare (dropdown по КЛИКУ) --- */}
+            {/* Homecare (dropdown) */}
             <div className="relative">
               <button onClick={toggleHome} className={`${lnk} flex items-center gap-1`}>
                 Homecare
@@ -128,7 +136,7 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* --- Para Profesionales (dropdown по КЛИКУ) --- */}
+            {/* Para Profesionales (dropdown) */}
             <div className="relative">
               <button onClick={togglePro} className={`${lnk} flex items-center gap-1`}>
                 Para Profesionales
@@ -153,8 +161,11 @@ export default function Navbar() {
             <div className="w-px h-5 bg-[#d4cfc9]"/>
             {user ? (
               <>
-                {isAdmin && <Link to="/admin" className="text-[12px] tracking-widest uppercase text-white bg-[#8B7355] px-3 py-1.5 hover:bg-[#7a6348]">Panel</Link>}
-                <Link to="/dashboard" className="text-[13px] tracking-widest uppercase text-[#8B7355] hover:text-[#3d3530] max-w-[100px] truncate">{user.name}</Link>
+                {isAdmin ? (
+                  <Link to="/admin" className="text-[12px] tracking-widest uppercase text-white bg-[#8B7355] px-3 py-1.5 hover:bg-[#7a6348]">Panel</Link>
+                ) : (
+                  <Link to="/dashboard" className="text-[13px] tracking-widest uppercase text-[#8B7355] hover:text-[#3d3530] max-w-[100px] truncate">{user.name}</Link>
+                )}
                 <button onClick={() => { dispatch(logout()); navigate('/'); }} className="text-[12px] tracking-widest uppercase text-[#a09890] hover:text-[#3d3530]">Salir</button>
               </>
             ) : (
@@ -220,20 +231,21 @@ export default function Navbar() {
                 <div className="w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0"/>
                 <span className="text-[11px] tracking-[0.18em] uppercase text-[#8B7355] font-normal truncate">{user.name}</span>
               </div>
-              <Link
-                to="/dashboard"
-                onClick={() => setMobileOpen(false)}
-                className="self-start text-[11px] tracking-[0.2em] uppercase text-[#3d3530] border border-[#e8e2da] px-6 py-2.5 font-medium hover:bg-[#f0ebe4] transition-colors"
-              >
-                Mi cuenta
-              </Link>
-              {isAdmin && (
+              {isAdmin ? (
                 <Link
                   to="/admin"
                   onClick={() => setMobileOpen(false)}
                   className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-6 py-2.5 font-medium hover:bg-[#7a6348] transition-colors"
                 >
                   Panel Admin
+                </Link>
+              ) : (
+                <Link
+                  to="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="self-start text-[11px] tracking-[0.2em] uppercase text-[#3d3530] border border-[#e8e2da] px-6 py-2.5 font-medium hover:bg-[#f0ebe4] transition-colors"
+                >
+                  Mi cuenta
                 </Link>
               )}
               <button

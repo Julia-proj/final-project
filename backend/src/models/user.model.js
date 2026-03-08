@@ -1,20 +1,26 @@
+// ============================================================
+// models/user.model.js — Modelo de Usuario
+// ============================================================
+// Define la estructura de un usuario en MongoDB.
+// Campos: name, email (único), password (encriptado), role.
+// timestamps: true añade createdAt y updatedAt automáticamente.
+// ============================================================
+
 import mongoose from 'mongoose';
 
-// Schema - plantilla que define cómo se ve un Usuario en la DB
-
-const userSchema = new mongoose.Schema({  
+const userSchema = new mongoose.Schema({
 
   name: {
-    type: String,                           
-    required: true,                        
-    trim: true                             
+    type: String,
+    required: true,
+    trim: true
   },
 
   email: {
     type: String,
     required: true,
-    unique: true,                          
-    lowercase: true                       
+    unique: true,
+    lowercase: true
   },
 
   password: {
@@ -24,11 +30,10 @@ const userSchema = new mongoose.Schema({
 
   role: {
     type: String,
-    enum: ['user', 'admin'],               
-    default: 'user'                          
+    enum: ['user', 'admin'],  // solo estos dos valores permitidos
+    default: 'user'
   }
 
-}, { timestamps: true });               //  FÓRMULA añade createdAt y updatedAt automáticamente
+}, { timestamps: true });
 
-// Exportamos el modelo — "User" 🎨 es el nombre de la colección en MongoDB
-export default mongoose.model('User', userSchema);  
+export default mongoose.model('User', userSchema);

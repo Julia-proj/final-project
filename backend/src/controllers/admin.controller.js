@@ -1,16 +1,15 @@
 // ============================================================
-// controllers/admin.controller.js
+// controllers/admin.controller.js — Controlador del panel admin
 // ============================================================
-// РУС: Контроллер админа. Видит ВСЕ бронирования, резервации, отзывы.
-//      Может менять статусы.
-// ESP: Controlador admin. Ve y gestiona todo.
+// Permite al administrador ver y gestionar todas las citas,
+// solicitudes y reseñas. Cada función delega en su service.
 // ============================================================
 
 import { getAllBookings, updateBookingStatus } from '../services/booking.service.js';
 import { getAllReservations, updateReservationStatus } from '../services/reservation.service.js';
 import { getAllReviews, updateReviewStatus } from '../services/review.service.js';
 
-// ── BOOKINGS ─────────────────────────────────────────────────
+// ── CITAS ──────────────────────────────────────────────────
 
 export const allBookings = async (req, res, next) => {
   try {
@@ -30,11 +29,11 @@ export const updateStatus = async (req, res, next) => {
   }
 };
 
-// ── RESERVATIONS (formaciones, kit, servicios) ───────────────
+// ── SOLICITUDES (formaciones, kit, productos, servicios) ──────
 
 export const allReservations = async (req, res, next) => {
   try {
-    // Опциональный фильтр по типу: ?type=formacion
+  // Filtro opcional por tipo: ?type=formacion
     const type = req.query.type || null;
     const reservations = await getAllReservations(type);
     res.json(reservations);
@@ -52,7 +51,7 @@ export const updateReservation = async (req, res, next) => {
   }
 };
 
-// ── REVIEWS ──────────────────────────────────────────────────
+// ── RESEÑAS ────────────────────────────────────────────────────
 
 export const allReviews = async (req, res, next) => {
   try {

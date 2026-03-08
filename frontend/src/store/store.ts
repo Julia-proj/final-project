@@ -1,37 +1,21 @@
 // ============================================================
-// store/store.ts
+// store/store.ts — Configuración del store de Redux
 // ============================================================
-// РУС: Главный "магазин" Redux — объединяет все slices.
-//      Сейчас у нас один slice (auth), но можно добавлять больше.
-// ESP: La tienda principal de Redux. Une todos los slices (partes del estado).
-//
-// 📦 ФОРМУЛА: configureStore({ reducer: { имя: reducer } })
-//
-// АНАЛОГИЯ: Store = большой шкаф
-//   Каждый slice = ящик в шкафу
-//   state.auth = ящик "авторизация"
+// Aquí se crea el store principal que une todos los slices.
+// Actualmente tiene un slice: auth (autenticación).
+// También exporta los tipos RootState y AppDispatch que
+// se usan en los hooks tipados.
 // ============================================================
 
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice'; // reducer из нашего slice
+import authReducer from './authSlice';
 
-// 📦 ФОРМУЛА: configureStore({ reducer: { ... } })
 export const store = configureStore({
   reducer: {
-    auth: authReducer, // 🎨 имя 'auth' — мы придумали сами
-    // Позже можно добавить:
-    // bookings: bookingsReducer,
+    auth: authReducer,
   },
 });
 
-// ── TYPESCRIPT ТИПЫ ──────────────────────────────────────────
-// Эти типы нужны для типизированных хуков useSelector и useDispatch
-
-// RootState = полная форма всего state
-// ReturnType<X> = "возьми тип, который возвращает функция X"
-// store.getState = функция, которая возвращает весь state
+// Tipos para TypeScript — necesarios para los hooks tipados
 export type RootState = ReturnType<typeof store.getState>;
-
-// AppDispatch = тип функции dispatch
-// Нужен чтобы TypeScript знал о наших async thunks
 export type AppDispatch = typeof store.dispatch;

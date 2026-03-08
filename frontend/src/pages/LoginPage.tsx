@@ -1,6 +1,9 @@
-// РУС: Страница входа. Форма с email и password.
-// ESP: Página de login. Formulario que llama al backend.
-// ✅ ТОЧКА 4: Фикс перекрытия на мобильном
+// ============================================================
+// pages/LoginPage.tsx — Página de inicio de sesión
+// ============================================================
+// Formulario con email y contraseña. Al enviar, llama al
+// loginThunk que se comunica con el backend. Si el login
+// es exitoso, redirige a la página principal.
 // ============================================================
 
 import { useState, useEffect } from 'react';
@@ -31,7 +34,7 @@ export default function LoginPage() {
     try {
       await dispatch(loginThunk(form)).unwrap();
       navigate('/');
-    } catch { /* ошибка в state.auth.error */ }
+    } catch { /* el error se guarda en state.auth.error */ }
   };
 
   return (

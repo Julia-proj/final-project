@@ -1,13 +1,20 @@
-import bcrypt from 'bcrypt';           // librería de encriptación
+// ============================================================
+// utils/password.js — Encriptación de contraseñas
+// ============================================================
+// Usa bcrypt para encriptar y comparar contraseñas.
+// SALT_ROUNDS define la complejidad del hash (10 es estándar).
+// ============================================================
 
-const SALT_ROUNDS = 10;              // cuántas veces encripta 
+import bcrypt from 'bcrypt';
 
-// Convierte "mi_contraseña123" en "$2b$10$xK8p..." 
+const SALT_ROUNDS = 10;
+
+// Encripta una contraseña en texto plano
 export const hashPassword = async (plainPassword) => {
-  return await bcrypt.hash(plainPassword, SALT_ROUNDS);  // 
+  return await bcrypt.hash(plainPassword, SALT_ROUNDS);
 };
 
-// Compara el password que escribe el usuario con el hash guardado en DB
+// Compara la contraseña del usuario con el hash guardado en la DB
 export const comparePassword = async (plainPassword, hashedPassword) => {
-  return await bcrypt.compare(plainPassword, hashedPassword);  // 
+  return await bcrypt.compare(plainPassword, hashedPassword);
 };

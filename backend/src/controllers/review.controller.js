@@ -1,13 +1,13 @@
 // ============================================================
-// controllers/review.controller.js
+// controllers/review.controller.js — Controlador de reseñas
 // ============================================================
-// РУС: Контроллер отзывов. Принимает req → вызывает service → отдаёт res.
-// ESP: Controlador de reseñas.
+// Permite crear reseñas (público, sin login obligatorio)
+// y obtener las reseñas aprobadas para mostrar en la web.
 // ============================================================
 
 import { createReview, getApprovedReviews } from '../services/review.service.js';
 
-// POST /api/reviews — создать отзыв (публичный, без авторизации)
+// Crear reseña — el userId es opcional (puede ser anónimo)
 export const create = async (req, res, next) => {
   try {
     const review = await createReview({
@@ -23,7 +23,7 @@ export const create = async (req, res, next) => {
   }
 };
 
-// GET /api/reviews — получить одобренные отзывы (публичный)
+// Obtener reseñas aprobadas — endpoint público
 export const approved = async (req, res, next) => {
   try {
     const reviews = await getApprovedReviews();

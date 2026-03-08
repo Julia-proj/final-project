@@ -1,50 +1,42 @@
 // ============================================================
-// store/authSlice.ts
+// store/authSlice.ts — Slice de autenticación (Redux Toolkit)
 // ============================================================
-// РУС: "Срез" (slice) = кусок глобального состояния для аутентификации.
-//      Хранит: кто залогинен, токен, статус загрузки, ошибки.
-// ESP: Slice de autenticación: guarda usuario, token, loading y errores.
+// Gestiona el estado de autenticación: usuario actual, token,
+// estado de carga y errores. Contiene tres thunks asíncronos
+// (login, register, getMe) y dos acciones síncronas (logout,
+// clearError). El token se persiste en localStorage.
 //
-// ПОТОК ДАННЫХ:
-//   Component → dispatch(loginThunk) → loginAPI → бэк → ответ → state обновляется
-//
-// 📦 ФОРМУЛЫ:
-//   createSlice()       — создаёт срез Redux
-//   createAsyncThunk()  — создаёт async action (для API запросов)
-//   builder.addCase()   — обрабатывает результат async action
+// Flujo de datos:
+//   Componente → dispatch(thunk) → API → backend → respuesta → state
 // ============================================================
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginAPI, registerAPI, getMeAPI } from '../api/auth.api';
 import type { User, LoginForm, RegisterForm } from '../types';
 
-// ── TYPESCRIPT: ФОРМА СОСТОЯНИЯ ──────────────────────────────
-// Описываем что будет лежать в state.auth
+// Forma del estado de autenticación
 interface AuthState {
-  user: User | null;    // null = не залогинен
-  token: string | null; // JWT токен
-  loading: boolean;     // true пока запрос в процессе
-  error: string | null; // сообщение об ошибке
+  user: User | null;    // null = no logueado
+  token: string | null; // JWT token
+  loading: boolean;     // true mientras hay una petición en curso
+  error: string | null; // mensaje de error
 }
 
-// ── НАЧАЛЬНОЕ СОСТОЯНИЕ ──────────────────────────────────────
-// При загрузке страницы читаем токен из localStorage
-// (пользователь мог закрыть вкладку и снова открыть — не хотим разлогинивать)
+// Al cargar la página, leemos el token de localStorage
+// para no perder la sesión al cerrar y reabrir el navegador
 const initialState: AuthState = {
   user: null,
-  token: localStorage.getItem('token'), // 📦 ФОРМУЛА: getItem('ключ')
+  token: localStorage.getItem('token'),
   loading: false,
   error: null,
 };
 
-// ── ASYNC THUNKS ─────────────────────────────────────────────
-// 📦 ФОРМУЛА: createAsyncThunk('имя_среза/имя_action', async (аргумент) => { })
-// Автоматически создаёт три action type:
-//   'auth/login/pending'   → запрос отправлен
-//   'auth/login/fulfilled' → успех (возвращает данные)
-//   'auth/login/rejected'  → ошибка
+// ── THUNKS ASÍNCRONOS ────────────────────────────────────────
+// createAsyncThunk genera automáticamente tres estados:
+//   pending   → petición en curso
+//   fulfilled → éxito (devuelve datos)
+//   rejected  → error
 
-// LOGIN
 export const loginThunk = createAsyncThunk(
   'auth/login',
   async (data: LoginForm, { rejectWithValue }) => {
@@ -72,7 +64,7 @@ export const registerThunk = createAsyncThunk(
   }
 );
 
-// GET ME — восстанавливаем сессию при перезагрузке
+// GET ME — restaurar sesión al recargar la página
 export const getMeThunk = createAsyncThunk(
   'auth/getMe',
   async () => {
@@ -82,42 +74,39 @@ export const getMeThunk = createAsyncThunk(
 );
 
 // ── SLICE ────────────────────────────────────────────────────
-// 📦 ФОРМУЛА: createSlice({ name, initialState, reducers, extraReducers })
 
 const authSlice = createSlice({
-  name: 'auth',              // 🎨 имя — используется в DevTools
-  initialState,              // начальное состояние (объявили выше)
+  name: 'auth',
+  initialState,
 
-  // reducers = синхронные actions (не API запросы)
+  // Acciones síncronas (no requieren API)
   reducers: {
-    // LOGOUT — очищаем состояние и localStorage
+    // Cerrar sesión: limpia state y localStorage
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem('token'); // удаляем токен из браузера
+      localStorage.removeItem('token');
     },
-    // clearError — сброс ошибки (например при закрытии алерта)
+    // Limpiar el error (por ejemplo al cerrar el mensaje)
     clearError: (state) => {
       state.error = null;
     },
   },
 
-  // extraReducers = обработка async thunk (pending/fulfilled/rejected)
-  // 📦 ФОРМУЛА: builder.addCase(thunk.состояние, (state, action) => { })
+  // Gestionar los estados de los thunks asíncronos
   extraReducers: (builder) => {
 
     // ── LOGIN ──
     builder
       .addCase(loginThunk.pending, (state) => {
-        state.loading = true;   // показываем спиннер
-        state.error = null;     // сбрасываем старые ошибки
+        state.loading = true;
+        state.error = null;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
-        // action.payload = то что вернул наш thunk (res.data)
         state.loading = false;
-        state.user = action.payload.user;   // сохраняем пользователя
-        state.token = action.payload.token; // сохраняем токен
-        localStorage.setItem('token', action.payload.token); // сохраняем в браузер
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        localStorage.setItem('token', action.payload.token);
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.loading = false;
@@ -145,14 +134,12 @@ const authSlice = createSlice({
         state.user = action.payload.user;
       })
       .addCase(getMeThunk.rejected, () => {
-        // Токен невалидный → чистим localStorage
+        // Token inválido → limpiamos localStorage
         localStorage.removeItem('token');
       });
   },
 });
 
-// Экспортируем actions для использования в компонентах
+// Exportamos las acciones síncronas
 export const { logout, clearError } = authSlice.actions;
-
-// Экспортируем reducer — он войдёт в store.ts
 export default authSlice.reducer;

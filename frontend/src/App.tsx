@@ -1,3 +1,11 @@
+// ============================================================
+// App.tsx — Componente raíz de la aplicación
+// ============================================================
+// Define el enrutamiento (React Router) y la estructura general.
+// Al cargar, si hay un token en localStorage, intenta restaurar
+// la sesión del usuario llamando a getMeThunk.
+// ============================================================
+
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks/useAppHooks';

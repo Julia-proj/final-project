@@ -55,13 +55,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Cormorant Garamond", serif;
 }
 
-/* Золотой премиальный разделитель */
+/* Separador dorado premium */
 .gold-divider {
   height: 1px;
   background: linear-gradient(to right, transparent, #D4C4B7, transparent);
 }
 
-/* Золотой акцент-черта над overline-лейблами секций */
+/* Línea de acento dorada sobre los overline de secciones */
 .overline-accent::before {
   content: '';
   display: block;
@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto 10px;
 }
 
-/* Скрываем скроллбар для каруселей, но оставляем функционал */
+/* Ocultar scrollbar en carruseles manteniendo funcionalidad */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -79,10 +79,7 @@ h1, h2, h3, h4, h5, h6 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-/*
-   Плавный hover для изображений внутри overflow-hidden контейнеров
-   Используем на карточках с фото
-*/
+/* Efecto hover suave en imágenes dentro de contenedores overflow-hidden */
 .img-hover-zoom {
   overflow: hidden;
 }

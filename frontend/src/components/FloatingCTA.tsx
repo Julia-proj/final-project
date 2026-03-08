@@ -1,3 +1,4 @@
+// Botón flotante de WhatsApp — visible en todas las páginas
 const WA_URL = 'https://wa.me/34641261559?text=Hola!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20Keratin%20Madrid';
 
 export default function FloatingCTA() {

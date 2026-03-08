@@ -1,14 +1,14 @@
 // ============================================================
-// api/bookings.api.ts
+// api/bookings.api.ts — API de citas y panel admin
 // ============================================================
-// РУС: Запросы к /api/bookings и /api/admin/*
-// ESP: Llamadas a endpoints de reservas y administración.
+// Contiene las llamadas para citas del usuario y para las
+// funciones de administración (citas, solicitudes, reseñas).
 // ============================================================
 
 import axiosInstance from './axiosInstance';
 import type { BookingForm } from '../types';
 
-// ── BOOKINGS (пользователь) ──────────────────────────────────
+// ── CITAS (usuario) ──────────────────────────────────
 
 export const createBookingAPI = (data: BookingForm) =>
   axiosInstance.post('/bookings', data);
@@ -16,7 +16,7 @@ export const createBookingAPI = (data: BookingForm) =>
 export const getMyBookingsAPI = () =>
   axiosInstance.get('/bookings/my');
 
-// ── ADMIN: BOOKINGS ──────────────────────────────────────────
+// ── ADMIN: CITAS ────────────────────────────────────────────
 
 export const getAllBookingsAPI = () =>
   axiosInstance.get('/admin/bookings');
@@ -24,7 +24,7 @@ export const getAllBookingsAPI = () =>
 export const updateBookingStatusAPI = (id: string, status: string) =>
   axiosInstance.patch(`/admin/bookings/${id}/status`, { status });
 
-// ── ADMIN: RESERVATIONS ──────────────────────────────────────
+// ── ADMIN: SOLICITUDES ───────────────────────────────────────
 
 export const getAllReservationsAPI = (type?: string) =>
   axiosInstance.get('/admin/reservations', { params: type ? { type } : {} });
@@ -32,7 +32,7 @@ export const getAllReservationsAPI = (type?: string) =>
 export const updateReservationStatusAPI = (id: string, status: string) =>
   axiosInstance.patch(`/admin/reservations/${id}/status`, { status });
 
-// ── ADMIN: REVIEWS ───────────────────────────────────────────
+// ── ADMIN: RESEÑAS ───────────────────────────────────────────
 
 export const getAllReviewsAPI = () =>
   axiosInstance.get('/admin/reviews');

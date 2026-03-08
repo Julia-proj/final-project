@@ -1,3 +1,10 @@
+// ============================================================
+// types/index.ts — Interfaces TypeScript del proyecto
+// ============================================================
+// Define los tipos para usuarios, citas, solicitudes, reseñas,
+// formularios y respuestas de la API. Estos tipos se comparten
+// entre componentes, store y capa de API.
+// ============================================================
 
 // USER 
 export interface User {

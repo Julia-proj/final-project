@@ -1,6 +1,9 @@
-// РУС: Страница регистрации. Поля: name, email, password.
-// ESP: Página de registro.
-// ✅ ТОЧКА 4: Фикс перекрытия на мобильном
+// ============================================================
+// pages/RegisterPage.tsx — Página de registro
+// ============================================================
+// Formulario con nombre, email y contraseña. Al enviar, llama
+// al registerThunk. Si el registro es exitoso, redirige
+// a la página principal automáticamente.
 // ============================================================
 
 import { useState, useEffect } from 'react';
@@ -31,7 +34,7 @@ export default function RegisterPage() {
     try {
       await dispatch(registerThunk(form)).unwrap();
       navigate('/');
-    } catch { /* ошибка в state.auth.error */ }
+    } catch { /* el error se guarda en state.auth.error */ }
   };
 
   return (

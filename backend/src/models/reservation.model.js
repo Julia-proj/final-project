@@ -1,53 +1,56 @@
-// Modelo universal de reservación. Para formaciones, kit y servicios.
+// ============================================================
+// models/reservation.model.js — Modelo de Solicitud
+// ============================================================
+// Modelo universal para solicitudes de servicios, formaciones,
+// kits y productos. El campo user es opcional porque las
+// solicitudes públicas (sin login) no tienen usuario vinculado.
+// ============================================================
 
 import mongoose from 'mongoose';
 
 const reservationSchema = new mongoose.Schema({
 
-  // Связь с пользователем (опционально — публичные резервации без логина)
+  // Referencia al usuario (null si es solicitud pública)
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     default: null
   },
 
-  // Тип резервации
+  // Tipo de solicitud
   type: {
     type: String,
     enum: ['servicio', 'formacion', 'kit', 'producto'],
     required: true
   },
 
-  // Имя (дублируем из user для удобства admin)
+  // Nombre del cliente
   nombre: {
     type: String,
     required: true,
     trim: true
   },
 
-  // Телефон (ОБЯЗАТЕЛЬНО для связи)
+  // Teléfono de contacto (obligatorio)
   telefono: {
     type: String,
     required: true,
     trim: true
   },
 
-  // Детали — зависят от типа:
-  //   servicio  → название процедуры + длина волос
-  //   formacion → какое обучение хочет
-  //   kit       → тип волос, комментарии
+  // Detalles según el tipo (procedimiento, formación, tipo de cabello...)
   detalle: {
     type: String,
     default: ''
   },
 
-  // Дополнительные заметки от клиента
+  // Notas adicionales del cliente
   notas: {
     type: String,
     default: ''
   },
 
-  // Статус обработки администратором
+  // Estado de la solicitud (gestionado por admin)
   status: {
     type: String,
     enum: ['pending', 'contacted', 'confirmed', 'cancelled'],

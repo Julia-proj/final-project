@@ -1,3 +1,11 @@
+// ============================================================
+// middlewares/error.middleware.js — Manejador global de errores
+// ============================================================
+// Captura cualquier error que llegue con next(error).
+// En desarrollo muestra el stack trace; en producción solo
+// el mensaje para no exponer detalles internos.
+// ============================================================
+
 export const errorHandler = (err, req, res, next) => {
   console.error('Error:', err);
 

@@ -1,15 +1,16 @@
 // ============================================================
-// index.js — Точка входа Express сервера
+// index.js — Punto de entrada del servidor Express
 // ============================================================
-// РУС: Главный файл бэкенда. Подключает все маршруты.
-// ESP: Archivo principal del backend. Conecta todas las rutas.
+// Archivo principal del backend. Aquí se configura Express,
+// se conecta la base de datos y se montan todas las rutas.
 //
-// МАРШРУТЫ:
-//   /api/auth          → register, login, me
-//   /api/bookings      → crear reserva, mis reservas
-//   /api/reservations  → formaciones, kit, servicios
-//   /api/reviews       → отзывы
-//   /api/admin         → panel admin (bookings + reservations + reviews)
+// Rutas registradas:
+//   /api/auth          → registro, login, datos del usuario
+//   /api/bookings      → crear cita, ver mis citas
+//   /api/reservations  → solicitudes (formaciones, kit, productos)
+//   /api/reviews       → reseñas de clientes
+//   /api/admin         → panel admin (gestión de todo)
+//   /api/checkout      → pasarela de pago Stripe
 // ============================================================
 
 import 'dotenv/config';

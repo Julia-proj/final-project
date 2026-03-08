@@ -1,12 +1,8 @@
 // ============================================================
-// api/reservations.api.ts
+// api/reservations.api.ts — API de solicitudes
 // ============================================================
-// РУС: Запросы к /api/reservations
-// ESP: Llamadas al endpoint de reservaciones.
-//
-// МАППИНГ:
-//   POST /api/reservations    → createReservationAPI()
-//   GET  /api/reservations/my → getMyReservationsAPI()
+// Llamadas a /api/reservations para crear solicitudes
+// (autenticadas o públicas) y consultar las propias.
 // ============================================================
 
 import axiosInstance from './axiosInstance';

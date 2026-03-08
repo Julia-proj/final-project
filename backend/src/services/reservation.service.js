@@ -1,14 +1,14 @@
 // ============================================================
-// services/reservation.service.js
+// services/reservation.service.js — Lógica de solicitudes
 // ============================================================
-// РУС: Бизнес-логика для резерваций (servicios, formaciones, kit).
-// ESP: Lógica de negocio para reservaciones.
+// Gestiona solicitudes de servicios, formaciones, kits y productos.
+// Incluye envío de email al admin cuando se crea una nueva.
 // ============================================================
 
 import Reservation from '../models/reservation.model.js';
 import { notifyNewReservation } from '../utils/email.js';
 
-// Создать резервацию
+// Crear solicitud autenticada (con userId del token)
 export const createReservation = async ({ userId, type, nombre, telefono, detalle, notas }) => {
   const reservation = await Reservation.create({
     user: userId,
@@ -19,13 +19,13 @@ export const createReservation = async ({ userId, type, nombre, telefono, detall
     notas
   });
 
-  // Enviar email al admin (no bloquea la respuesta al cliente)
+  // Enviar email de notificación al admin (no bloquea la respuesta)
   notifyNewReservation(reservation).catch(() => {});
 
   return reservation;
 };
 
-// Публичная резервация (без userId)
+// Crear solicitud pública (sin usuario logueado)
 export const createPublicReservation = async ({ type, nombre, telefono, detalle, notas }) => {
   if (!nombre || !telefono) {
     throw { status: 400, message: 'Nombre y teléfono son obligatorios.' };
@@ -38,20 +38,20 @@ export const createPublicReservation = async ({ type, nombre, telefono, detalle,
     notas
   });
 
-  // Enviar email al admin
+  // Enviar email de notificación al admin
   notifyNewReservation(reservation).catch(() => {});
 
   return reservation;
 };
 
-// Мои резервации
+// Mis solicitudes (usuario autenticado)
 export const getUserReservations = async (userId) => {
   return await Reservation
     .find({ user: userId })
     .sort({ createdAt: -1 });
 };
 
-// Все резервации (admin) — с фильтром по типу
+// Todas las solicitudes (admin) — con filtro opcional por tipo
 export const getAllReservations = async (type) => {
   const filter = type ? { type } : {};
   return await Reservation
@@ -60,7 +60,7 @@ export const getAllReservations = async (type) => {
     .sort({ createdAt: -1 });
 };
 
-// Обновить статус (admin)
+// Actualizar estado (admin)
 export const updateReservationStatus = async (id, status) => {
   const reservation = await Reservation.findByIdAndUpdate(
     id,

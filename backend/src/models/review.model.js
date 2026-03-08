@@ -1,15 +1,16 @@
 // ============================================================
-// models/review.model.js
+// models/review.model.js — Modelo de Reseña
 // ============================================================
-// РУС: Модель отзыва. Хранит имя, текст, оценку.
-//      Если пользователь залогинен — привязывает к user.
-// ESP: Modelo de reseña. Guarda nombre, texto y estrellas.
+// Guarda reseñas de clientes. El campo user es opcional porque
+// se puede dejar una reseña sin estar logueado (anónima).
+// El admin modera las reseñas cambiando el status.
 // ============================================================
 
 import mongoose from 'mongoose';
 
 const reviewSchema = new mongoose.Schema({
-  // Связь с пользователем (опционально — может быть null)
+
+  // Referencia al usuario (null si es anónima)
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -42,7 +43,7 @@ const reviewSchema = new mongoose.Schema({
     default: 5
   },
 
-  // Статус модерации — admin может одобрить или скрыть
+  // Estado de moderación (el admin puede aprobar u ocultar)
   status: {
     type: String,
     enum: ['pending', 'approved', 'hidden'],

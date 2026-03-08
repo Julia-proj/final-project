@@ -1,12 +1,8 @@
 // ============================================================
-// api/reviews.api.ts
+// api/reviews.api.ts — API de reseñas
 // ============================================================
-// РУС: Запросы к /api/reviews
-// ESP: Llamadas al endpoint de reseñas.
-//
-// МАППИНГ:
-//   GET  /api/reviews → getApprovedReviewsAPI()  (публичный)
-//   POST /api/reviews → createReviewAPI()         (требуется токен)
+// Llamadas a /api/reviews para obtener reseñas aprobadas
+// (público) y enviar nuevas reseñas.
 // ============================================================
 
 import axiosInstance from './axiosInstance';

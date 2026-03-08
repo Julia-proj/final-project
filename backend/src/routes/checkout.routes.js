@@ -1,3 +1,11 @@
+// ============================================================
+// routes/checkout.routes.js — Pasarela de pago con Stripe
+// ============================================================
+// Crea una sesión de Stripe Checkout para la compra de
+// Beauty Scripts. Usa el modo embedded de Stripe.
+// Si Stripe no está configurado, devuelve 503.
+// ============================================================
+
 import express from 'express';
 import Stripe from 'stripe';
 

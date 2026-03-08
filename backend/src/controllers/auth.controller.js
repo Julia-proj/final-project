@@ -1,14 +1,19 @@
+// ============================================================
+// controllers/auth.controller.js — Controlador de autenticación
+// ============================================================
+// Recibe las peticiones HTTP, llama al service correspondiente
+// y devuelve la respuesta. Si hay error, lo pasa a next().
+// ============================================================
+
 import { registerUser, loginUser, getMe } from '../services/auth.service.js';
 
-// El patrón es siempre el mismo: try { llama service, envía res } catch { next(error) }
-
-export const register = async (req, res, next) => { 
+export const register = async (req, res, next) => {
   try {
-    // req.body contiene { name, email, password } — viene del JSON del cliente
-    const result = await registerUser(req.body);    
-    res.status(201).json(result);                    
+    // req.body contiene { name, email, password } del formulario
+    const result = await registerUser(req.body);
+    res.status(201).json(result);
   } catch (error) {
-    next(error);  
+    next(error);
   }
 };
 

@@ -1,3 +1,10 @@
+// ============================================================
+// config/db.js — Conexión a MongoDB
+// ============================================================
+// Conecta a la base de datos usando la URI del archivo .env.
+// Si la conexión falla, el proceso se detiene (process.exit).
+// ============================================================
+
 import mongoose from 'mongoose';
 
 export const connectDB = async () => {
@@ -6,6 +13,6 @@ export const connectDB = async () => {
     console.log(`✅ MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
     console.error('MongoDB connection error:', error.message);
-    process.exit(1); 
+    process.exit(1);
   }
 };
