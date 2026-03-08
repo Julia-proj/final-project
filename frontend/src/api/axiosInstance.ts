@@ -17,7 +17,7 @@ import axios from 'axios'; // 📦 импортируем библиотеку a
 // axiosInstance.get('/auth/me') → GET http://localhost:3000/api/auth/me
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api', // 🎨 адрес нашего Express сервера
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
 });
 
 // ── INTERCEPTOR ──────────────────────────────────────────────

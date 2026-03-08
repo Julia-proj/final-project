@@ -6,6 +6,7 @@
 // ============================================================
 
 import Reservation from '../models/reservation.model.js';
+import { notifyNewReservation } from '../utils/email.js';
 
 // Создать резервацию
 export const createReservation = async ({ userId, type, nombre, telefono, detalle, notas }) => {
@@ -17,6 +18,10 @@ export const createReservation = async ({ userId, type, nombre, telefono, detall
     detalle,
     notas
   });
+
+  // Enviar email al admin (no bloquea la respuesta al cliente)
+  notifyNewReservation(reservation).catch(() => {});
+
   return reservation;
 };
 
@@ -32,6 +37,10 @@ export const createPublicReservation = async ({ type, nombre, telefono, detalle,
     detalle,
     notas
   });
+
+  // Enviar email al admin
+  notifyNewReservation(reservation).catch(() => {});
+
   return reservation;
 };
 

@@ -6,6 +6,7 @@
 // ============================================================
 
 import Review from '../models/review.model.js';
+import { notifyNewReview } from '../utils/email.js';
 
 // Создать отзыв (userId опционален)
 export const createReview = async ({ userId, nombre, texto, estrellas, telefono }) => {
@@ -16,6 +17,10 @@ export const createReview = async ({ userId, nombre, texto, estrellas, telefono 
     estrellas,
     telefono: telefono || ''
   });
+
+  // Enviar email al admin (no bloquea la respuesta al cliente)
+  notifyNewReview(review).catch(() => {});
+
   return review;
 };
 
