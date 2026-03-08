@@ -178,7 +178,7 @@ export default function HomePage() {
 
       {/* CTA final */}
       <section className="bg-[#3d3530] py-16 lg:py-24">
-        <div className="max-w-[900px] mx-auto px-8 text-center">
+        <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-6 font-light">Contacto</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-light tracking-wide">Reserva tu cita</h2>
           <p className="text-base md:text-lg lg:text-xl text-[#c0b8b0] mb-10 font-light leading-relaxed">
@@ -200,7 +200,7 @@ export default function HomePage() {
 
       {/* ═══ FOOTER ═══ */}
       <footer className="bg-[#2d2520] text-[#9a8f87] py-20 lg:py-28">
-          <div className="max-w-[1400px] mx-auto px-8">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 md:gap-16 mb-12">
             <div>
               <p className="font-serif text-white text-2xl mb-4 font-light">Keratin Madrid</p>

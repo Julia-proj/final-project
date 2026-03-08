@@ -266,7 +266,7 @@ export function PorQueElegirSection() {
   const sectionRef = useReveal();
   return (
     <section id="inicio" className="bg-[#FDFCFA] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 lg:mb-14 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Beneficios</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-light tracking-wide">
@@ -364,7 +364,7 @@ export function TratamientosSection() {
 
   return (
     <section id="servicios" className="bg-[#F5F2ED] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Servicios</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-light tracking-wide">Tratamientos</h2>
@@ -535,7 +535,7 @@ export function AntesDespuesSection() {
 
   return (
     <section id="resultados" className="bg-[#FAF8F5] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Resultados</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Antes / Después</h2>
@@ -646,7 +646,7 @@ export function ReviewsSection() {
 
   return (
     <section id="opiniones" className="bg-[#F7F5F2] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <div className="flex items-center justify-center gap-3 mb-4">
             <svg className="w-7 h-7 text-[#FBBC05]" viewBox="0 0 24 24" fill="currentColor">
@@ -824,14 +824,29 @@ const careTips = [
   'Evitar agua muy caliente',
 ];
 
+const CART_PENDING_KEY = 'homecare_cart_pending';
+
 export function HomecareSection() {
   const sectionRef = useReveal();
+  const user = useAppSelector((s) => s.auth.user);
+  const navigate = useNavigate();
   const [selectedLines, setSelectedLines] = useState<Record<string, number>>({
     'Champú': 0,
     'Acondicionador': 0,
     'Mascarilla': 0,
     'Protector Spray': 0,
   });
+  const [activeLine, setActiveLine] = useState('Color');
+  const handleLineFilter = (line: string, idx: number) => {
+    setActiveLine(line);
+    setSelectedLines({ 'Champú': idx, 'Acondicionador': idx, 'Mascarilla': idx, 'Protector Spray': 0 });
+  };
+  const lineFilterClasses: Record<string, string> = {
+    'Color': 'bg-[#C4939B] text-white',
+    'Volume': 'bg-[#9E93B8] text-white',
+    'Detox': 'bg-[#7FAF96] text-white',
+    'Hydration': 'bg-[#C99A72] text-white',
+  };
 
   // ── Cart state ──
   type CartItem = { label: string; line: string; price: string };
@@ -840,6 +855,25 @@ export function HomecareSection() {
   const [cartForm, setCartForm] = useState({ nombre: '', telefono: '', notas: '' });
   const [cartLoading, setCartLoading] = useState(false);
   const [cartSent, setCartSent] = useState(false);
+
+  // After login: restore cart saved before redirect, then auto-open cart panel
+  useEffect(() => {
+    if (user) {
+      const stored = localStorage.getItem(CART_PENDING_KEY);
+      if (stored) {
+        try {
+          const saved = JSON.parse(stored) as CartItem[];
+          if (saved.length > 0) { setCart(saved); setShowCart(true); }
+        } catch { /* ignore malformed data */ }
+        localStorage.removeItem(CART_PENDING_KEY);
+      }
+    }
+  }, [user]);
+
+  // Pre-fill nombre from logged-in user whenever user state changes
+  useEffect(() => {
+    if (user) setCartForm(f => ({ ...f, nombre: f.nombre || user.name || '' }));
+  }, [user]);
 
   const addToCart = (label: string, line: string, price: string) => {
     setCart(prev => {
@@ -875,7 +909,7 @@ export function HomecareSection() {
 
   return (
     <section id="homecare" className="bg-[#F3EFE9] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Homecare</p>
@@ -887,16 +921,16 @@ export function HomecareSection() {
 
         {/* ── Care Tips ── */}
         <div className="reveal mb-10 lg:mb-14">
-          <div className="bg-[#EDE7DF] px-6 lg:px-10 py-6 lg:py-8">
+          <div className="bg-[#EDE7DF] px-4 sm:px-6 lg:px-8 py-4 lg:py-5">
             {/* Header */}
-            <div className="flex items-baseline gap-8 mb-5">
-              <h3 className="font-serif text-xl lg:text-2xl text-[#3d3530] font-light tracking-wide shrink-0">Nota de la especialista</h3>
+            <div className="flex items-baseline gap-6 mb-3">
+              <h3 className="font-serif text-base lg:text-lg text-[#3d3530] font-light tracking-wide shrink-0">Nota de la especialista</h3>
               <div className="hidden md:block flex-1 h-px bg-[#c4b8ab]" />
             </div>
             {/* Tips */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16">
               {careTips.map((tip, i) => (
-                <div key={i} className="flex items-start gap-4 py-3 border-b border-[#d4cdc6]">
+                <div key={i} className="flex items-start gap-3 py-2 border-b border-[#d4cdc6]">
                   <span className="text-[13px] text-[#B8A99A] font-light pt-0.5 w-6 shrink-0 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                   <span className="text-sm text-[#3d3530] font-light leading-relaxed">{tip}</span>
                 </div>
@@ -973,15 +1007,33 @@ export function HomecareSection() {
 
         {/* ── Product Cards Grid ── */}
         <div className="mb-14 lg:mb-20">
-          <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-8 font-light text-center">Productos individuales · Línea Limba</p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+          <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-4 font-light text-center">Productos individuales · Línea Limba</p>
+
+          {/* Global line filter */}
+          <div className="flex items-center justify-center gap-2 mb-5">
+            {(['Color', 'Volume', 'Detox', 'Hydration'] as const).map((line, idx) => (
+              <button
+                key={line}
+                onClick={() => handleLineFilter(line, idx)}
+                className={`text-[10px] tracking-[0.15em] uppercase px-3.5 sm:px-5 py-2 font-light transition-all ${
+                  activeLine === line
+                    ? lineFilterClasses[line]
+                    : 'bg-[#EDE7DF] text-[#8B7355] hover:bg-[#ddd6cd]'
+                }`}
+              >
+                {line}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {productCatalog.map((product) => {
               const lineIdx = selectedLines[product.type] || 0;
               const variant = product.variants[lineIdx];
               return (
-                <div key={product.type} className="bg-white border border-[#ede8e2] p-4 hover:shadow-sm transition-all flex flex-col">
+                <div key={product.type} className="bg-white border border-[#C0B5AC] shadow-sm hover:shadow-md transition-all flex flex-col">
                   {/* Product image */}
-                  <div className="relative aspect-square sm:aspect-[4/3] bg-[#f5f1ec] overflow-hidden mb-3">
+                  <div className="relative aspect-square bg-[#EDE8E2] overflow-hidden">
                     <img
                       src={variant.img}
                       alt={`${product.type} ${variant.line}`}
@@ -991,40 +1043,23 @@ export function HomecareSection() {
                     <ImgPlaceholder label={product.type.toLowerCase()} />
                   </div>
 
-                  {/* Type */}
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">{product.type}</p>
+                  {/* Content */}
+                  <div className="flex flex-col flex-1 p-2.5 sm:p-3.5">
+                    {/* Line badge */}
+                    {variant.line !== 'Universal' && (
+                      <span className={`self-start text-[9px] tracking-[0.12em] uppercase px-2 py-0.5 mb-2 font-light ${
+                        lineFilterClasses[variant.line] || 'bg-[#3d3530] text-white'
+                      }`}>{variant.line}</span>
+                    )}
 
-                  {/* Line switcher */}
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {product.variants.map((v, i) => {
-                      const lineActiveClasses: Record<string, string> = {
-                        'Color':      'bg-[#C4939B] text-white',
-                        'Volume':     'bg-[#9E93B8] text-white',
-                        'Detox':      'bg-[#7FAF96] text-white',
-                        'Hydration':  'bg-[#C99A72] text-white',
-                      };
-                      const activeClass = lineActiveClasses[v.line] || 'bg-[#3d3530] text-white';
-                      return (
-                        <button
-                          key={v.line}
-                          onClick={() => setSelectedLines(prev => ({ ...prev, [product.type]: i }))}
-                          className={`text-[9px] tracking-[0.1em] uppercase px-2 py-1 transition-all font-light ${
-                            i === lineIdx
-                              ? activeClass
-                              : 'bg-[#f5f1ec] text-[#8B7355] hover:bg-[#ede8e2]'
-                          }`}
-                        >
-                          {v.line}
-                        </button>
-                      );
-                    })}
-                  </div>
+                    {/* Type */}
+                    <p className="text-[11px] tracking-[0.18em] uppercase text-[#3d3530] mb-1 font-light">{product.type}</p>
 
                   {/* Variant info */}
-                  <p className="text-xs text-[#7a6f68] font-light leading-relaxed mb-3 min-h-[36px]">{variant.desc}</p>
+                  <p className="text-[11px] sm:text-xs text-[#7a6f68] font-light leading-relaxed mb-3 flex-1">{variant.desc}</p>
 
                   {/* Price + cart button */}
-                  <div className="flex items-center justify-between mt-auto pt-2">
+                  <div className="flex items-center justify-between pt-2 border-t border-[#f0ebe4]">
                     <p className="font-serif text-xl text-[#3d3530] font-light">{variant.price}</p>
                     {cart.some(c => c.label === product.type && c.line === variant.line) ? (
                       <div className="flex items-center gap-1.5">
@@ -1063,6 +1098,7 @@ export function HomecareSection() {
                       </button>
                     )}
                   </div>
+                  </div>
                 </div>
               );
             })}
@@ -1074,7 +1110,14 @@ export function HomecareSection() {
       {/* ── Floating cart button ── */}
       {cart.length > 0 && !showCart && (
         <button
-          onClick={() => setShowCart(true)}
+          onClick={() => {
+            if (!user) {
+              localStorage.setItem(CART_PENDING_KEY, JSON.stringify(cart));
+              navigate('/login');
+            } else {
+              setShowCart(true);
+            }
+          }}
           aria-label={`Ver carrito (${cart.length} productos)`}
           className="fixed bottom-7 left-7 z-50 bg-[#3d3530] text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center hover:bg-[#2d2520] transition-all duration-300 hover:scale-105"
         >
@@ -1139,6 +1182,14 @@ export function HomecareSection() {
                 {/* Form */}
                 {cart.length > 0 && (
                   <div className="flex flex-col gap-4">
+                    {user && (
+                      <div className="flex items-center gap-2 px-3 py-2 bg-[#F3EFE9] border-l-2 border-[#B8A99A]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0" />
+                        <span className="text-[11px] tracking-[0.12em] uppercase text-[#8B7355] font-light">
+                          Reservando como <span className="text-[#3d3530]">{user.name}</span>
+                        </span>
+                      </div>
+                    )}
                     <div>
                       <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-light">Nombre *</label>
                       <input type="text" value={cartForm.nombre} onChange={e => setCartForm(f => ({ ...f, nombre: e.target.value }))}
@@ -1193,7 +1244,7 @@ export function FormacionesSection() {
 
   return (
     <section id="formaciones" className="bg-[#FAF9F6] py-6 lg:py-12" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Para Profesionales</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Formaciones</h2>
@@ -1338,19 +1389,19 @@ export function BeautyScriptsSection() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <section id="scripts" className="bg-[#EDE8E2] py-8 lg:py-12" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-8">
-        <div className="text-center mb-8 lg:mb-12 lg:text-left reveal">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Scripts</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Beauty Scripts</h2>
-          <p className="text-base md:text-lg lg:text-xl text-[#7a6f68] max-w-3xl lg:mx-0 mx-auto font-light leading-relaxed">
+    <section id="scripts" className="bg-[#EDE8E2] py-5 lg:py-8" ref={sectionRef}>
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-3 font-light">Scripts</p>
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-3 font-light tracking-wide">Beauty Scripts</h2>
+          <p className="text-sm md:text-base text-[#7a6f68] max-w-2xl lg:mx-0 mx-auto font-light leading-relaxed">
             Scripts listos para usar que aumentan tus ventas. Diálogos profesionales para especialistas de beauty.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
-          <div className="w-full lg:w-[360px] xl:w-[400px] flex-shrink-0 mx-auto lg:mx-0">
-            <div className="relative aspect-[3/4] bg-[#f0ebe4] overflow-hidden shadow-sm">
+        <div className="flex flex-col lg:flex-row gap-7 lg:gap-10 items-start">
+          <div className="w-full sm:w-[220px] lg:w-[260px] xl:w-[300px] flex-shrink-0 mx-auto lg:mx-0">
+            <div className="relative aspect-[4/5] bg-[#f0ebe4] overflow-hidden shadow-sm">
               <img
                 src="/images/beautyscripts.jpeg"
                 alt="Beauty Scripts"
@@ -1363,22 +1414,22 @@ export function BeautyScriptsSection() {
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col gap-8">
-            <div className="flex flex-col gap-6">
+          <div className="flex-1 flex flex-col gap-3 sm:gap-5">
+            <div className="flex flex-col gap-2 sm:gap-4">
               {[
                 ['Ahorra tiempo', 'Scripts probados y listos para usar.'],
                 ['Reduce estrés', 'Responde con confianza a cualquier pregunta.'],
                 ['Más conversiones', 'Optimizados para cerrar más ventas.'],
               ].map(([t, d]) => (
-                <div key={t} className="flex gap-4">
-                  <span className="w-6 h-6 border border-[#B8A99A] flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-3 h-3 text-[#B8A99A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div key={t} className="flex gap-3">
+                  <span className="w-5 h-5 border border-[#B8A99A] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-2.5 h-2.5 text-[#B8A99A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
                   </span>
                   <div>
-                    <p className="text-lg md:text-xl font-light text-[#3d3530]">{t}</p>
-                    <p className="text-sm md:text-base text-[#8B7355] font-light">{d}</p>
+                    <p className="text-sm sm:text-base md:text-lg font-light text-[#3d3530]">{t}</p>
+                    <p className="hidden sm:block text-sm text-[#8B7355] font-light">{d}</p>
                   </div>
                 </div>
               ))}
@@ -1387,7 +1438,7 @@ export function BeautyScriptsSection() {
             {HAS_STRIPE_KEY ? (
               <button
                 onClick={() => setShowCheckout(true)}
-                className="self-start px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light cursor-pointer"
+                className="w-full sm:w-auto self-start px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light cursor-pointer"
               >
                 Quiero los Scripts
               </button>
@@ -1396,7 +1447,7 @@ export function BeautyScriptsSection() {
                 href={STRIPE_SCRIPTS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="self-start px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
+                className="w-full sm:w-auto self-start px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light text-center"
               >
                 Quiero los Scripts
               </a>
@@ -1421,7 +1472,7 @@ export function BeautyScriptsSection() {
 export function GoogleMapSection() {
   return (
     <section id="ubicacion" className="bg-[#FAF8F5] border-t border-[#ede8e2]">
-      <div className="max-w-[1400px] mx-auto px-8 py-6 lg:py-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-[10px] tracking-[0.4em] uppercase text-[#B8A99A] mb-1 font-light">Ubicación</p>

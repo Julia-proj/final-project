@@ -39,7 +39,7 @@ export default function InteractivePricing() {
 
   return (
     <section id="precios" className="bg-[#F0EBE4] py-6 lg:py-9">
-        <div className="max-w-[1400px] mx-auto px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-4 lg:mb-5">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-2 font-light">Precios</p>

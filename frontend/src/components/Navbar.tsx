@@ -180,53 +180,88 @@ export default function Navbar() {
       </div>
 
       {/* ═══ MOBILE MENU ═══ */}
-      <div className={`lg:hidden bg-[#FAF8F5] border-t border-[#e8e2da] overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="px-7 py-6 flex flex-col gap-0.5">
-          <button onClick={() => scrollTo('inicio')} className="text-left text-[15px] tracking-[0.1em] uppercase text-[#3d3530] py-3.5 border-b border-[#f5f0eb] font-light">Inicio</button>
+      <div className={`lg:hidden bg-[#FAF8F5] border-t border-[#e8e2da] overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[92vh] overflow-y-auto opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="px-6 py-5 flex flex-col">
 
-          <div className="py-3.5 border-b border-[#f5f0eb]">
-            <p className="text-[15px] tracking-[0.1em] uppercase text-[#3d3530] mb-2.5 font-light">Servicios</p>
-            <div className="pl-5 flex flex-col gap-3">
-              <button onClick={() => scrollTo('servicios')} className="text-left text-[14px] tracking-widest uppercase text-[#8B7355] font-light">Tratamientos</button>
-              <button onClick={() => scrollTo('precios')} className="text-left text-[14px] tracking-widest uppercase text-[#8B7355] font-light">Precios</button>
-              <button onClick={() => scrollTo('resultados')} className="text-left text-[14px] tracking-widest uppercase text-[#8B7355] font-light">Resultados</button>
+          {/* ── Nav items ── */}
+          <button onClick={() => scrollTo('inicio')} className="text-left py-4 border-b border-[#f0ebe4] text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-light">
+            Inicio
+          </button>
+
+          <div className="border-b border-[#f0ebe4]">
+            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-light">Servicios</p>
+            <div className="mb-4 pl-4 border-l border-[#e0d9d1] flex flex-col gap-3.5">
+              <button onClick={() => scrollTo('servicios')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Tratamientos</button>
+              <button onClick={() => scrollTo('precios')}   className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Precios</button>
+              <button onClick={() => scrollTo('resultados')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Resultados</button>
             </div>
           </div>
 
-          <div className="py-3.5 border-b border-[#f5f0eb]">
-            <p className="text-[15px] tracking-[0.1em] uppercase text-[#3d3530] mb-2.5 font-light">Homecare</p>
-            <div className="pl-5 flex flex-col gap-3">
-              <button onClick={() => scrollTo('homecare')} className="text-left text-[14px] tracking-widest uppercase text-[#8B7355] font-light">Cuidado en casa</button>
-              <button onClick={() => scrollTo('productos')} className="text-left text-[14px] tracking-widest uppercase text-[#8B7355] font-light">Productos</button>
+          <div className="border-b border-[#f0ebe4]">
+            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-light">Homecare</p>
+            <div className="mb-4 pl-4 border-l border-[#e0d9d1] flex flex-col gap-3.5">
+              <button onClick={() => scrollTo('homecare')}  className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Cuidado en casa</button>
+              <button onClick={() => scrollTo('productos')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Productos</button>
             </div>
           </div>
 
-          <div className="py-3.5 border-b border-[#f5f0eb]">
-            <p className="text-[15px] tracking-[0.1em] uppercase text-[#3d3530] mb-2.5 font-light">Para Profesionales</p>
-            <div className="pl-5 flex flex-col gap-3">
-              <button onClick={() => scrollTo('formaciones')} className="text-left text-[14px] tracking-widest uppercase text-[#8B7355] font-light">Formaciones</button>
-              <button onClick={() => scrollTo('scripts')} className="text-left text-[14px] tracking-widest uppercase text-[#8B7355] font-light">Beauty Scripts</button>
+          <div className="border-b border-[#f0ebe4]">
+            <p className="py-4 text-[12px] tracking-[0.22em] uppercase text-[#3d3530] font-light">Para Profesionales</p>
+            <div className="mb-4 pl-4 border-l border-[#e0d9d1] flex flex-col gap-3.5">
+              <button onClick={() => scrollTo('formaciones')} className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Formaciones</button>
+              <button onClick={() => scrollTo('scripts')}    className="text-left text-[11px] tracking-[0.2em] uppercase text-[#8B7355] font-light">Beauty Scripts</button>
             </div>
           </div>
 
+          {/* ── Auth ── */}
           {user ? (
-            <div className="pt-5 flex flex-col gap-3 border-t border-[#f5f0eb]">
-              {isAdmin && <Link to="/admin" className="self-start text-[13px] tracking-widest uppercase text-white bg-[#8B7355] px-5 py-2.5">Panel Admin</Link>}
-              <button onClick={() => { dispatch(logout()); navigate('/'); setMobileOpen(false); }} className="text-left text-[13px] tracking-widest uppercase text-[#a09890] font-light">Cerrar sesión</button>
+            <div className="pt-5 pb-1 flex flex-col gap-3">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0"/>
+                <span className="text-[11px] tracking-[0.18em] uppercase text-[#8B7355] font-light truncate">{user.name}</span>
+              </div>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  onClick={() => setMobileOpen(false)}
+                  className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-6 py-2.5 font-light hover:bg-[#7a6348] transition-colors"
+                >
+                  Panel Admin
+                </Link>
+              )}
+              <button
+                onClick={() => { dispatch(logout()); navigate('/'); setMobileOpen(false); }}
+                className="self-start text-[11px] tracking-[0.2em] uppercase text-[#a09890] font-light hover:text-[#3d3530] transition-colors"
+              >
+                Cerrar sesión
+              </button>
             </div>
           ) : (
-            <div className="pt-5 flex items-center gap-5 border-t border-[#f5f0eb]">
-              <Link to="/login" onClick={() => setMobileOpen(false)} className="text-[14px] tracking-[0.12em] uppercase text-[#3d3530] font-light">Entrar</Link>
-              <Link to="/register" onClick={() => setMobileOpen(false)} className="text-[13px] tracking-[0.12em] uppercase border border-[#B8A99A] text-[#B8A99A] px-5 py-2 font-light">Registrarse</Link>
+            <div className="pt-5 pb-1 flex flex-col gap-2.5">
+              <Link
+                to="/login"
+                onClick={() => setMobileOpen(false)}
+                className="w-full py-3.5 text-center text-[12px] tracking-[0.22em] uppercase bg-[#3d3530] text-white font-light hover:bg-[#2d2520] transition-colors"
+              >
+                Entrar
+              </Link>
+              <Link
+                to="/register"
+                onClick={() => setMobileOpen(false)}
+                className="w-full py-3.5 text-center text-[12px] tracking-[0.22em] uppercase border border-[#B8A99A] text-[#B8A99A] font-light hover:bg-[#B8A99A] hover:text-white transition-all"
+              >
+                Registrarse
+              </Link>
             </div>
           )}
 
-          {/* Social links */}
-          <div className="flex items-center gap-5 pt-4">
-            <a href={TK_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] hover:text-[#8B7355]"><TikTokIcon/></a>
-            <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] hover:text-[#8B7355]"><InstagramIcon/></a>
-            <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] hover:text-[#8B7355]"><YouTubeIcon/></a>
+          {/* ── Social ── */}
+          <div className="flex items-center gap-6 pt-5 mt-3 border-t border-[#f0ebe4]">
+            <a href={TK_URL} target="_blank" rel="noopener noreferrer" className="text-[#b5aca4] hover:text-[#8B7355] transition-colors"><TikTokIcon/></a>
+            <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-[#b5aca4] hover:text-[#8B7355] transition-colors"><InstagramIcon/></a>
+            <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="text-[#b5aca4] hover:text-[#8B7355] transition-colors"><YouTubeIcon/></a>
           </div>
+
         </div>
       </div>
     </nav>
