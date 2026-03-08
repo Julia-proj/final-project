@@ -73,7 +73,7 @@ export default function HomePage() {
               Estudio de salud<br />y belleza capilar
             </h1>
             <div className="w-14 h-px bg-[#D4C5B5]/60 mt-0 mb-6" />
-            <p className="text-sm font-light leading-relaxed text-white/65 mb-8 max-w-[320px]">
+            <p className="text-sm font-light leading-relaxed text-white/80 mb-8 max-w-[320px]">
               Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
             </p>
 
@@ -96,7 +96,7 @@ export default function HomePage() {
             </div>
 
             {/* Соцсети */}
-            <div className="flex justify-start gap-7">
+            <div className="flex justify-start gap-5">
               <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
@@ -166,6 +166,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══ СЕКЦИИ ═══ */}
+      <div className="gold-divider" />
       <PorQueElegirSection />
       <TratamientosSection />
       <InteractivePricing />
@@ -175,6 +176,7 @@ export default function HomePage() {
       <FormacionesSection />
       <BeautyScriptsSection />
       <GoogleMapSection />
+      <div className="gold-divider" />
 
       {/* CTA final */}
       <section className="bg-[#3F342E] py-16 lg:py-24">

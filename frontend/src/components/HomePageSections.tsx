@@ -176,7 +176,7 @@ function ReservationModal({
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="w-full py-3.5 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] disabled:opacity-50 font-light"
+              className="w-full py-3.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-50 font-medium"
             >
               {loading ? 'Enviando...' : 'Enviar solicitud'}
             </button>
@@ -296,7 +296,7 @@ export function PorQueElegirSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
               {beneficios.map((b, i) => (
                 <div key={i} className="bg-white border border-[#ede8e2] p-5 lg:p-6 hover:shadow-md hover:border-[#c9bdb5] transition-all duration-300">
-                  <div className="w-9 h-9 bg-[#F5F1EC] flex items-center justify-center text-[#8B7355] mb-3">
+                  <div className="w-9 h-9 bg-[#EDE8DF] flex items-center justify-center text-[#8B7355] mb-3">
                     {b.icon}
                   </div>
                   <h3 className="text-[#3d3530] text-base font-medium mb-1.5 leading-snug">{b.titulo}</h3>
@@ -815,7 +815,7 @@ export function ReviewsSection() {
               <button
                 onClick={handleFeedback}
                 disabled={feedbackLoading || !feedbackText.trim() || !feedbackName.trim()}
-                className="w-full py-2.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-40 font-light transition-colors rounded-sm"
+                className="w-full py-3.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-50 font-medium transition-colors rounded-sm"
               >
                 {feedbackLoading ? 'Enviando...' : 'Enviar feedback'}
               </button>
@@ -1112,7 +1112,7 @@ export function HomecareSection() {
               const lineIdx = selectedLines[product.type] || 0;
               const variant = product.variants[lineIdx];
               return (
-                <div key={product.type} className="bg-white border border-[#C0B5AC] shadow-sm hover:shadow-md transition-all flex flex-col">
+                <div key={product.type} className="bg-white border border-[#e8e2da] shadow-sm hover:shadow-md transition-all flex flex-col">
                   {/* Product image */}
                   <div className="relative aspect-square bg-[#EDE8E2] overflow-hidden">
                     <img

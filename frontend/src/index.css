@@ -36,12 +36,19 @@ body {
   background-color: #F9F8F6;
   font-family: "Manrope", sans-serif;
   color: #3B332E;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.8;
+  line-height: 1.75;
   letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 17px;
+    line-height: 1.8;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
