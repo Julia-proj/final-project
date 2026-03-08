@@ -83,7 +83,7 @@ export default function Navbar() {
   const lnk = 'text-[13px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors cursor-pointer whitespace-nowrap font-light';
 
   return (
-    <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 bg-[#FAF8F5]/88 backdrop-blur-md transition-all duration-300 ${scrolled ? 'shadow-md border-b border-[#e8e2da]' : 'border-b border-[#ede8e2]/60'}`}>
+    <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 bg-[#FBF9F6]/92 backdrop-blur-md transition-all duration-300 ${scrolled ? 'shadow-md border-b border-[#e8e2da]' : 'border-b border-[#ede8e2]/60'}`}>
       <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-14">
 <div className="flex items-center justify-between h-[58px] lg:h-[64px]">
 
@@ -180,7 +180,7 @@ export default function Navbar() {
       </div>
 
       {/* ═══ MOBILE MENU ═══ */}
-      <div className={`lg:hidden bg-[#FAF8F5] border-t border-[#e8e2da] overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[92vh] overflow-y-auto opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`lg:hidden bg-[#FBF9F6] border-t border-[#e8e2da] overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-[92vh] overflow-y-auto opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-6 py-5 flex flex-col">
 
           {/* ── Nav items ── */}

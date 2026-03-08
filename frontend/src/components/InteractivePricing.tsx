@@ -38,11 +38,11 @@ export default function InteractivePricing() {
     servicio === 'keratina' ? 'Keratina / Botox' : servicio === 'total' ? 'Reconstrucción Total' : 'Reconstrucción';
 
   return (
-    <section id="precios" className="bg-[#F0EBE4] py-6 lg:py-9">
+    <section id="precios" className="bg-[#F0ECE5] py-10 lg:py-14">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-4 lg:mb-5">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-2 font-light">Precios</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-2 font-medium">Precios</p>
           <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-2 font-light tracking-wide">
             Tabla de Precios
           </h2>
@@ -53,7 +53,7 @@ export default function InteractivePricing() {
 
         {/* Service Switcher */}
         <div className="flex justify-center mb-4">
-          <div className="inline-flex border border-[#e8e2da] bg-[#FAF8F5]">
+          <div className="inline-flex border border-[#e8e2da] bg-white">
             {([
               ['keratina', 'Keratina / Botox'],
               ['reconstruccion', 'Reconstrucción'],

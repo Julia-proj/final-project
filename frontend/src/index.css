@@ -5,12 +5,37 @@
   --font-serif: "Cormorant Garamond", serif;
 }
 
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --c-bg:           #FBF9F6;  /* main background */
+  --c-bg-soft:      #F7F4EF;  /* section level 2 */
+  --c-bg-muted:     #F0ECE5;  /* section level 3 */
+  --c-bg-warm:      #EDE9E3;  /* section level 4 */
+  --c-surface:      #FFFFFF;
+  --c-surface-warm: #FAF8F5;
+  --c-border:       #E8E2DA;
+  --c-border-soft:  #EDE9E3;
+  /* Text */
+  --c-text:         #3B332E;  /* primary */
+  --c-text-muted:   #7A6F68;  /* body/description */
+  --c-text-subtle:  #8B8076;  /* labels/captions */
+  /* Brand */
+  --c-accent:       #BCA590;
+  --c-accent-warm:  #8B7355;
+  --c-dark:         #3F342E;  /* soft espresso */
+  --c-espresso:     #342B22;  /* dark section */
+  --c-ink:          #2B2420;  /* footer */
+  /* Layout */
+  --section-max:    1400px;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap');
 
 body {
-  background-color: #FAF8F5;
+  background-color: #FBF9F6;
   font-family: "Manrope", sans-serif;
-  color: #3D3530;
+  color: #3B332E;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.8;

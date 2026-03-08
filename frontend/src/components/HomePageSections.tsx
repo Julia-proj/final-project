@@ -265,7 +265,7 @@ const beneficios = [
 export function PorQueElegirSection() {
   const sectionRef = useReveal();
   return (
-    <section id="inicio" className="bg-[#FDFCFA] py-10 lg:py-16" ref={sectionRef}>
+    <section id="inicio" className="bg-white py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 lg:mb-14 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Beneficios</p>
@@ -279,7 +279,7 @@ export function PorQueElegirSection() {
 
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left: Salon photo */}
-          <div className="w-full lg:w-[400px] xl:w-[460px] flex-shrink-0">
+          <div className="w-full lg:w-[440px] xl:w-[500px] flex-shrink-0">
             <div className="relative aspect-[3/4] bg-[#f0ebe4] overflow-hidden">
               <img
                 src="/images/salon.jpg"
@@ -295,7 +295,7 @@ export function PorQueElegirSection() {
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
               {beneficios.map((b, i) => (
-                <div key={i} className="bg-white border border-[#ede8e2] p-5 lg:p-6 hover:shadow-sm transition-all">
+                <div key={i} className="bg-white border border-[#ede8e2] p-5 lg:p-6 hover:shadow-md hover:border-[#c9bdb5] transition-all duration-300">
                   <div className="w-9 h-9 bg-[#F5F1EC] flex items-center justify-center text-[#8B7355] mb-3">
                     {b.icon}
                   </div>
@@ -363,7 +363,7 @@ export function TratamientosSection() {
   const scrollToPrecios = () => document.getElementById('precios')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="servicios" className="bg-[#F5F2ED] py-10 lg:py-16" ref={sectionRef}>
+    <section id="servicios" className="bg-[#F7F4EF] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Servicios</p>
@@ -398,26 +398,26 @@ export function TratamientosSection() {
                 <div>
                   <p className="text-[13px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">{t.duracion}</p>
                   <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-4 font-light">{t.nombre}</h3>
-                  <p className="text-[#7a6f68] text-sm leading-relaxed font-light">{t.desc}</p>
+                  <p className="text-[#7a6f68] text-sm leading-relaxed">{t.desc}</p>
                 </div>
 
                 <ul className="grid grid-cols-2 gap-4 md:gap-5">
                   {t.ben.map((b, j) => (
-                    <li key={j} className="flex items-start gap-3 text-sm text-[#7a6f68] font-light">
+                    <li key={j} className="flex items-start gap-3 text-sm text-[#7a6f68]">
                       <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0" />
                       {b}
                     </li>
                   ))}
                 </ul>
 
-                <div className="flex gap-5 text-base md:text-lg">
-                  <div className="flex-1 bg-white px-6 py-5">
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">Indicado</p>
-                    <p className="text-sm text-[#3d3530] font-light">{t.indicado}</p>
+                <div className="flex gap-4 text-base md:text-lg">
+                  <div className="flex-1 bg-[#FDFCFA] border border-[#e8e2da] px-5 py-4">
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#BCA590] mb-1.5">Indicado</p>
+                    <p className="text-sm text-[#3b332e]">{t.indicado}</p>
                   </div>
-                  <div className="flex-1 bg-white px-6 py-5">
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">Efecto</p>
-                    <p className="text-sm text-[#3d3530] font-light">{t.efecto}</p>
+                  <div className="flex-1 bg-[#FDFCFA] border border-[#e8e2da] px-5 py-4">
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#BCA590] mb-1.5">Efecto</p>
+                    <p className="text-sm text-[#3b332e]">{t.efecto}</p>
                   </div>
                 </div>
 
@@ -534,7 +534,7 @@ export function AntesDespuesSection() {
   };
 
   return (
-    <section id="resultados" className="bg-[#F0EAE0] py-10 lg:py-16" ref={sectionRef}>
+    <section id="resultados" className="bg-[#F2EDE7] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Resultados</p>
@@ -655,7 +655,7 @@ export function ReviewsSection() {
   };
 
   return (
-    <section id="opiniones" className="bg-[#EDE7DC] py-10 lg:py-16" ref={sectionRef}>
+    <section id="opiniones" className="bg-[#EDE9E3] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -962,7 +962,7 @@ export function HomecareSection() {
   };
 
   return (
-    <section id="homecare" className="bg-[#F3EFE9] py-10 lg:py-16" ref={sectionRef}>
+    <section id="homecare" className="bg-[#F7F4EF] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
@@ -975,7 +975,7 @@ export function HomecareSection() {
 
         {/* ── Care Tips ── */}
         <div className="reveal mb-10 lg:mb-14">
-          <div className="bg-[#EDE7DF] px-4 sm:px-6 lg:px-8 py-4 lg:py-5">
+          <div className="bg-[#EDE9E3] px-4 sm:px-6 lg:px-8 py-4 lg:py-5">
             {/* Header */}
             <div className="flex items-baseline gap-6 mb-3">
               <h3 className="font-serif text-base lg:text-lg text-[#3d3530] font-light tracking-wide shrink-0">Nota de la especialista</h3>
@@ -986,7 +986,7 @@ export function HomecareSection() {
               {careTips.map((tip, i) => (
                 <div key={i} className="flex items-start gap-3 py-2 border-b border-[#d4cdc6]">
                   <span className="text-[13px] text-[#B8A99A] font-light pt-0.5 w-6 shrink-0 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="text-sm text-[#3d3530] font-light leading-relaxed">{tip}</span>
+                  <span className="text-sm text-[#3b332e] leading-relaxed">{tip}</span>
                 </div>
               ))}
             </div>
@@ -1015,7 +1015,7 @@ export function HomecareSection() {
                 <div>
                   <p className="text-[10px] tracking-[0.3em] uppercase text-[#B8A99A] mb-2 font-light">Kit Personalizado · Línea Limba</p>
                   <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-3 font-light">Kit de cuidado en casa</h3>
-                  <p className="text-sm text-[#7a6f68] font-light leading-relaxed max-w-md">
+                  <p className="text-sm text-[#7a6f68] leading-relaxed max-w-md">
                     Cuatro productos elegidos por la especialista tras un diagnóstico real con tricóscopio.
                     Sin adivinanzas, sin productos genéricos.
                   </p>
@@ -1297,7 +1297,7 @@ export function FormacionesSection() {
   };
 
   return (
-    <section id="formaciones" className="bg-[#EDE8E1] py-6 lg:py-12" ref={sectionRef}>
+    <section id="formaciones" className="bg-[#F0ECE5] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Para Profesionales</p>
@@ -1443,7 +1443,7 @@ export function BeautyScriptsSection() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <section id="scripts" className="bg-[#2A2220] py-5 lg:py-8" ref={sectionRef}>
+    <section id="scripts" className="bg-[#342B22] py-10 lg:py-14" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">Scripts</p>

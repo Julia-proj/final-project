@@ -27,7 +27,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-[#FBF9F6]">
 
       <section className="relative min-h-screen overflow-hidden flex flex-col">
 
@@ -177,7 +177,7 @@ export default function HomePage() {
       <GoogleMapSection />
 
       {/* CTA final */}
-      <section className="bg-[#3d3530] py-16 lg:py-24">
+      <section className="bg-[#3F342E] py-16 lg:py-24">
         <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-6 font-light">Contacto</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-light tracking-wide">Reserva tu cita</h2>
@@ -199,7 +199,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="bg-[#2d2520] text-[#9a8f87] py-20 lg:py-28">
+      <footer className="bg-[#2B2420] text-[#9a8f87] py-20 lg:py-28">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 md:gap-16 mb-12">
             <div>
@@ -233,7 +233,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="border-t border-[#3d3530] pt-10 text-center text-[13px] text-[#7a7070] font-light">
+          <div className="border-t border-[#3C352F] pt-10 text-center text-[13px] text-[#7a7070] font-light">
             © 2026 Keratin Madrid. Todos los derechos reservados.
           </div>
         </div>
