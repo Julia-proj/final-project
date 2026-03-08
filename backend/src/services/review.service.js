@@ -7,13 +7,14 @@
 
 import Review from '../models/review.model.js';
 
-// Создать отзыв (требуется userId)
-export const createReview = async ({ userId, nombre, texto, estrellas }) => {
+// Создать отзыв (userId опционален)
+export const createReview = async ({ userId, nombre, texto, estrellas, telefono }) => {
   const review = await Review.create({
-    user: userId,
+    user: userId || undefined,
     nombre,
     texto,
-    estrellas
+    estrellas,
+    telefono: telefono || ''
   });
   return review;
 };

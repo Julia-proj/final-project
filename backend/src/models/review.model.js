@@ -22,6 +22,12 @@ const reviewSchema = new mongoose.Schema({
     trim: true
   },
 
+  telefono: {
+    type: String,
+    default: '',
+    trim: true
+  },
+
   texto: {
     type: String,
     required: true,

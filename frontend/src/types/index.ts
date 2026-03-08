@@ -24,7 +24,7 @@ export interface Booking {
 export interface Reservation {
   _id: string;
   user: string | User;
-  type: 'servicio' | 'formacion' | 'kit';
+  type: 'servicio' | 'formacion' | 'kit' | 'producto';
   nombre: string;
   telefono: string;
   detalle: string;
@@ -65,7 +65,7 @@ export interface BookingForm {
 }
 
 export interface ReservationForm {
-  type: 'servicio' | 'formacion' | 'kit';
+  type: 'servicio' | 'formacion' | 'kit' | 'producto';
   nombre: string;
   telefono: string;
   detalle: string;
@@ -76,6 +76,7 @@ export interface ReviewForm {
   nombre: string;
   texto: string;
   estrellas: number;
+  telefono?: string;
 }
 
 // API RESPONSES 

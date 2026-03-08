@@ -5,13 +5,29 @@
 // ESP: Controlador de reservaciones (servicios, formaciones, kit).
 // ============================================================
 
-import { createReservation, getUserReservations } from '../services/reservation.service.js';
+import { createReservation, getUserReservations, createPublicReservation } from '../services/reservation.service.js';
 
 // POST /api/reservations — создать резервацию (требуется авторизация)
 export const create = async (req, res, next) => {
   try {
     const reservation = await createReservation({
       userId: req.user.id,
+      type: req.body.type,
+      nombre: req.body.nombre,
+      telefono: req.body.telefono,
+      detalle: req.body.detalle,
+      notas: req.body.notas
+    });
+    res.status(201).json(reservation);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// POST /api/reservations/public — публичная резервация продукта (без логина)
+export const createPublic = async (req, res, next) => {
+  try {
+    const reservation = await createPublicReservation({
       type: req.body.type,
       nombre: req.body.nombre,
       telefono: req.body.telefono,

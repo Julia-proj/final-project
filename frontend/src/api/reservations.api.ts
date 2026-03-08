@@ -15,5 +15,8 @@ import type { ReservationForm } from '../types';
 export const createReservationAPI = (data: ReservationForm) =>
   axiosInstance.post('/reservations', data);
 
+export const createPublicReservationAPI = (data: ReservationForm) =>
+  axiosInstance.post('/reservations/public', data);
+
 export const getMyReservationsAPI = () =>
   axiosInstance.get('/reservations/my');

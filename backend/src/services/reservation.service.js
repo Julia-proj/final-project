@@ -20,6 +20,21 @@ export const createReservation = async ({ userId, type, nombre, telefono, detall
   return reservation;
 };
 
+// Публичная резервация (без userId)
+export const createPublicReservation = async ({ type, nombre, telefono, detalle, notas }) => {
+  if (!nombre || !telefono) {
+    throw { status: 400, message: 'Nombre y teléfono son obligatorios.' };
+  }
+  const reservation = await Reservation.create({
+    type,
+    nombre,
+    telefono,
+    detalle,
+    notas
+  });
+  return reservation;
+};
+
 // Мои резервации
 export const getUserReservations = async (userId) => {
   return await Reservation

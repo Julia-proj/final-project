@@ -4,17 +4,17 @@ import mongoose from 'mongoose';
 
 const reservationSchema = new mongoose.Schema({
 
-  // Связь с пользователем (обязательно — требуется логин)
+  // Связь с пользователем (опционально — публичные резервации без логина)
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    default: null
   },
 
   // Тип резервации
   type: {
     type: String,
-    enum: ['servicio', 'formacion', 'kit'],
+    enum: ['servicio', 'formacion', 'kit', 'producto'],
     required: true
   },
 

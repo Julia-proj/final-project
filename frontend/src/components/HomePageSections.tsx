@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
 import { createReviewAPI } from '../api/reviews.api';
-import { createReservationAPI } from '../api/reservations.api';
+import { createReservationAPI, createPublicReservationAPI } from '../api/reservations.api';
 
 // ── Scroll-triggered reveal hook ─────────────────────────────
 function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.15) {
@@ -742,17 +742,19 @@ const resenasGoogle = [
 ];
 
 export function ReviewsSection() {
-  const [feedbackType, setFeedbackType] = useState<'opinion' | 'sugerencia' | 'comentario'>('opinion');
+  const [feedbackType, setFeedbackType] = useState<'opinion' | 'sugerencia' | 'pregunta'>('opinion');
   const [feedbackText, setFeedbackText] = useState('');
+  const [feedbackName, setFeedbackName] = useState('');
+  const [feedbackPhone, setFeedbackPhone] = useState('');
   const [feedbackSent, setFeedbackSent] = useState(false);
   const [feedbackLoading, setFeedbackLoading] = useState(false);
   const sectionRef = useReveal();
 
   const handleFeedback = async () => {
-    if (!feedbackText.trim()) return;
+    if (!feedbackText.trim() || !feedbackName.trim()) return;
     setFeedbackLoading(true);
     try {
-      await createReviewAPI({ nombre: 'Anónimo', texto: `[${feedbackType}] ${feedbackText}`, estrellas: 5 });
+      await createReviewAPI({ nombre: feedbackName.trim(), texto: `[${feedbackType}] ${feedbackText}`, estrellas: 5, telefono: feedbackPhone.trim() || undefined });
       setFeedbackSent(true);
     } catch {
       // silent
@@ -831,7 +833,7 @@ export function ReviewsSection() {
         <div className="max-w-[720px] mx-auto">
           <div className="text-center mb-5">
             <p className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-2 font-light">Tu opinión importa</p>
-            <p className="text-sm text-[#8B7355] font-light">Déjanos tu feedback anónimo para mejorar</p>
+            <p className="text-sm text-[#8B7355] font-light">Déjanos tu feedback para mejorar</p>
           </div>
 
           {feedbackSent ? (
@@ -842,7 +844,7 @@ export function ReviewsSection() {
           ) : (
             <div className="bg-white border border-[#f0ebe4] p-6 rounded-sm">
               <div className="flex gap-2 mb-4">
-                {(['opinion', 'sugerencia', 'comentario'] as const).map((type) => (
+                {(['opinion', 'sugerencia', 'pregunta'] as const).map((type) => (
                   <button
                     key={type}
                     onClick={() => setFeedbackType(type)}
@@ -852,14 +854,31 @@ export function ReviewsSection() {
                         : 'border border-[#e8e2da] text-[#8B7355] hover:border-[#B8A99A]'
                     }`}
                   >
-                    {type === 'opinion' ? 'Opinión' : type === 'sugerencia' ? 'Sugerencia' : 'Comentario'}
+                    {type === 'opinion' ? 'Opinión' : type === 'sugerencia' ? 'Sugerencia' : 'Pregunta'}
                   </button>
                 ))}
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                <input
+                  type="text"
+                  placeholder="Tu nombre *"
+                  value={feedbackName}
+                  onChange={(e) => setFeedbackName(e.target.value)}
+                  className="w-full border border-[#e8e2da] px-4 py-3 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
+                />
+                <input
+                  type="tel"
+                  placeholder="Teléfono (opcional)"
+                  value={feedbackPhone}
+                  onChange={(e) => setFeedbackPhone(e.target.value)}
+                  className="w-full border border-[#e8e2da] px-4 py-3 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
+                />
+              </div>
+
               <textarea
                 rows={3}
-                placeholder="Escribe aquí tu opinión de forma anónima..."
+                placeholder="Escribe aquí tu opinión..."
                 value={feedbackText}
                 onChange={(e) => setFeedbackText(e.target.value)}
                 className="w-full border border-[#e8e2da] px-4 py-3 text-sm focus:outline-none focus:border-[#B8A99A] resize-none mb-3 rounded-sm"
@@ -867,10 +886,10 @@ export function ReviewsSection() {
 
               <button
                 onClick={handleFeedback}
-                disabled={feedbackLoading || !feedbackText.trim()}
+                disabled={feedbackLoading || !feedbackText.trim() || !feedbackName.trim()}
                 className="w-full py-3 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-40 font-light transition-colors rounded-sm"
               >
-                {feedbackLoading ? 'Enviando...' : 'Enviar feedback anónimo'}
+                {feedbackLoading ? 'Enviando...' : 'Enviar feedback'}
               </button>
             </div>
           )}
@@ -934,7 +953,6 @@ const careTips = [
 ];
 
 export function HomecareSection() {
-  const { requireAuth } = useRequireAuth();
   const [showKitModal, setShowKitModal] = useState(false);
   const sectionRef = useReveal();
   const [selectedLines, setSelectedLines] = useState<Record<string, number>>({
@@ -943,6 +961,46 @@ export function HomecareSection() {
     'Mascarilla': 0,
     'Protector Spray': 0,
   });
+
+  // ── Cart state ──
+  type CartItem = { label: string; line: string; price: string };
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [showCart, setShowCart] = useState(false);
+  const [cartForm, setCartForm] = useState({ nombre: '', telefono: '', notas: '' });
+  const [cartLoading, setCartLoading] = useState(false);
+  const [cartSent, setCartSent] = useState(false);
+
+  const addToCart = (label: string, line: string, price: string) => {
+    setCart(prev => {
+      const exists = prev.find(i => i.label === label && i.line === line);
+      if (exists) return prev;
+      return [...prev, { label, line, price }];
+    });
+  };
+
+  const removeFromCart = (idx: number) => {
+    setCart(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  const handleCartSubmit = async () => {
+    if (!cartForm.nombre.trim() || !cartForm.telefono.trim() || cart.length === 0) return;
+    setCartLoading(true);
+    try {
+      const detalle = cart.map(i => `${i.label} (${i.line}) — ${i.price}`).join(', ');
+      await createPublicReservationAPI({
+        type: 'producto',
+        nombre: cartForm.nombre.trim(),
+        telefono: cartForm.telefono.trim(),
+        detalle,
+        notas: cartForm.notas.trim(),
+      });
+      setCartSent(true);
+    } catch {
+      // silent
+    } finally {
+      setCartLoading(false);
+    }
+  };
 
   return (
     <section id="homecare" className="bg-[#F3EFE9] py-10 lg:py-16" ref={sectionRef}>
@@ -1021,13 +1079,16 @@ export function HomecareSection() {
                 </div>
 
                 {/* Price + CTA */}
-                <div className="flex items-center gap-6 pt-4 border-t border-[#f0ebe4]">
+                <div className="flex items-center gap-4 pt-4 border-t border-[#f0ebe4]">
                   <p className="font-serif text-4xl text-[#3d3530] font-light">90€</p>
                   <button
-                    onClick={() => requireAuth(() => setShowKitModal(true))}
-                    className="px-8 py-3.5 bg-[#B8A99A] text-white text-[11px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors cursor-pointer font-light"
+                    onClick={() => addToCart('Kit completo', 'Personalizado', '90€')}
+                    className="px-6 py-3 bg-[#B8A99A] text-white text-[11px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors cursor-pointer font-light flex items-center gap-2"
                   >
-                    Reservar kit
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                    </svg>
+                    Añadir kit
                   </button>
                 </div>
 
@@ -1044,7 +1105,7 @@ export function HomecareSection() {
               const lineIdx = selectedLines[product.type] || 0;
               const variant = product.variants[lineIdx];
               return (
-                <div key={product.type} className="bg-white border border-[#ede8e2] p-4 hover:shadow-sm transition-all">
+                <div key={product.type} className="bg-white border border-[#ede8e2] p-4 hover:shadow-sm transition-all flex flex-col">
                   {/* Product image */}
                   <div className="relative aspect-[4/3] bg-[#f5f1ec] overflow-hidden mb-3">
                     <img
@@ -1087,7 +1148,20 @@ export function HomecareSection() {
 
                   {/* Variant info */}
                   <p className="text-xs text-[#7a6f68] font-light leading-relaxed mb-3 min-h-[36px]">{variant.desc}</p>
-                  <p className="font-serif text-xl text-[#3d3530] font-light">{variant.price}</p>
+
+                  {/* Price + cart button */}
+                  <div className="flex items-center justify-between mt-auto pt-2">
+                    <p className="font-serif text-xl text-[#3d3530] font-light">{variant.price}</p>
+                    <button
+                      onClick={() => addToCart(product.type, variant.line, variant.price)}
+                      className="w-8 h-8 flex items-center justify-center bg-[#B8A99A] text-white hover:bg-[#9A8B7A] transition-colors"
+                      title="Añadir al carrito"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               );
             })}
@@ -1095,6 +1169,104 @@ export function HomecareSection() {
         </div>
 
       </div>
+
+      {/* ── Floating cart button ── */}
+      {cart.length > 0 && !showCart && (
+        <button
+          onClick={() => setShowCart(true)}
+          className="fixed bottom-6 right-6 z-40 bg-[#3d3530] text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center hover:bg-[#2d2520] transition-colors"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+          </svg>
+          <span className="absolute -top-1 -right-1 bg-[#B8A99A] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-medium">
+            {cart.length}
+          </span>
+        </button>
+      )}
+
+      {/* ── Cart panel ── */}
+      {showCart && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/40" onClick={() => setShowCart(false)} />
+          <div className="relative bg-white max-w-md w-full p-8 shadow-xl z-10 max-h-[90vh] overflow-y-auto">
+            <button onClick={() => setShowCart(false)} className="absolute top-5 right-5 text-[#a09890] hover:text-[#3d3530] text-2xl font-light">✕</button>
+
+            <h3 className="font-serif text-2xl text-[#3d3530] mb-2 font-light">Tu selección</h3>
+
+            {/* Info banner */}
+            <div className="bg-[#FAF8F5] border border-[#f0ebe4] px-4 py-3 mb-6 text-[12px] text-[#7a6f68] font-light leading-relaxed">
+              <span className="text-[#8B7355] font-medium">Nota:</span> Puedes hacer tu reserva aquí y te confirmaremos la disponibilidad. La recogida es directamente en el salón.
+            </div>
+
+            {cartSent ? (
+              <div className="text-center py-8">
+                <p className="text-[#8B7355] mb-3 font-light text-lg">✅ ¡Reserva enviada!</p>
+                <p className="text-base text-[#a09890] font-light mb-6">Te contactaremos para confirmar disponibilidad.</p>
+                <button onClick={() => { setShowCart(false); setCart([]); setCartSent(false); setCartForm({ nombre: '', telefono: '', notas: '' }); }}
+                  className="px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase font-light hover:bg-[#9A8B7A]">
+                  Cerrar
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* Cart items */}
+                {cart.length === 0 ? (
+                  <p className="text-[#a09890] text-sm font-light mb-6">Tu carrito está vacío.</p>
+                ) : (
+                  <div className="mb-6">
+                    {cart.map((item, idx) => (
+                      <div key={idx} className="flex items-center justify-between py-3 border-b border-[#f0ebe4]">
+                        <div>
+                          <p className="text-sm text-[#3d3530] font-light">{item.label}</p>
+                          <p className="text-[11px] text-[#a09890] font-light">{item.line}</p>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <span className="text-sm text-[#3d3530] font-medium">{item.price}</span>
+                          <button onClick={() => removeFromCart(idx)} className="text-[#a09890] hover:text-red-400 transition-colors">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Form */}
+                {cart.length > 0 && (
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-light">Nombre *</label>
+                      <input type="text" value={cartForm.nombre} onChange={e => setCartForm(f => ({ ...f, nombre: e.target.value }))}
+                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A]" />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-light">Teléfono *</label>
+                      <input type="tel" placeholder="+34 6XX XXX XXX" value={cartForm.telefono} onChange={e => setCartForm(f => ({ ...f, telefono: e.target.value }))}
+                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A]" />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-light">Notas (opcional)</label>
+                      <textarea rows={2} value={cartForm.notas} onChange={e => setCartForm(f => ({ ...f, notas: e.target.value }))}
+                        placeholder="Tipo de cabello, preferencias..."
+                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A] resize-none" />
+                    </div>
+                    <button
+                      onClick={handleCartSubmit}
+                      disabled={cartLoading || !cartForm.nombre.trim() || !cartForm.telefono.trim()}
+                      className="w-full py-3.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-40 font-light transition-colors"
+                    >
+                      {cartLoading ? 'Enviando...' : 'Confirmar reserva'}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       <ReservationModal
         isOpen={showKitModal}

@@ -8,12 +8,15 @@
 // ============================================================
 
 import { Router } from 'express';
-import { create, myReservations } from '../controllers/reservation.controller.js';
+import { create, myReservations, createPublic } from '../controllers/reservation.controller.js';
 import { authMiddleware } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 
-// Все rutas protegidas
+// Публичный — резервация продукта без логина
+router.post('/public', createPublic);
+
+// Защищённые — требуется авторизация
 router.use(authMiddleware);
 
 router.post('/', create);

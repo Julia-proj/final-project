@@ -9,14 +9,13 @@
 
 import { Router } from 'express';
 import { create, approved } from '../controllers/review.controller.js';
-import { authMiddleware } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 
 // Публичный — без авторизации
 router.get('/', approved);
 
-// Защищённый — требуется логин
-router.post('/', authMiddleware, create);
+// Публичный — отзыв без авторизации (имя + телефон вместо userId)
+router.post('/', create);
 
 export default router;
