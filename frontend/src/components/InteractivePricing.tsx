@@ -183,10 +183,37 @@ export default function InteractivePricing() {
                 <span className="text-[#3d3530] font-medium">Abundante:</span>
                 <span className="font-light"> +20€ (7cm) · +40€ (9cm) · +60€ (10+cm)</span>
               </div>
-              <div className="bg-[#FAF8F5] px-5 py-2.5 text-sm text-[#7a6f68]">
-                <span className="text-[#3d3530] font-medium">Extras:</span>
-                <span className="font-light"> Peeling +65€ · Nano Gold +50€ · Corte +20€</span>
-              </div>
+              {servicio === 'keratina' ? (
+                <div className="bg-[#FAF8F5] px-5 py-2.5 text-sm text-[#7a6f68]">
+                  <span className="text-[#3d3530] font-medium">Extras:</span>
+                  <span className="font-light"> Peeling anticaspa +65€ · Nano Gold +50€ · Corte puntas +20€</span>
+                </div>
+              ) : (
+                <>
+                  <div className="bg-[#FAF8F5] px-5 py-3.5 text-sm text-[#7a6f68]">
+                    <p className="text-[#3d3530] font-medium mb-1">
+                      Nano Gold <span className="font-normal text-[#B8A99A] ml-1">+50€</span>
+                    </p>
+                    <p className="font-light text-xs mb-2 text-[#9a8f88]">Nanopartículas + luz LED azul — penetración profunda</p>
+                    <ul className="text-xs space-y-1.5">
+                      {[
+                        'Reconstrucción capilar profunda',
+                        'Hidratación y brillo intenso',
+                        'Fortalece y previene fragilidad',
+                      ].map((b, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="mt-1.5 w-1 h-1 rounded-full bg-[#B8A99A] flex-shrink-0" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="bg-[#FAF8F5] px-5 py-2.5 text-sm text-[#7a6f68]">
+                    <span className="text-[#3d3530] font-medium">Otros:</span>
+                    <span className="font-light"> Peeling anticaspa +65€ · Corte puntas +20€</span>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* CTA */}

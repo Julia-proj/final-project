@@ -378,18 +378,24 @@ export function TratamientosSection() {
               className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-10 md:gap-16 lg:gap-20 items-start md:items-center`}
             >
               <div className="w-full md:w-[300px] lg:w-[360px] xl:w-[400px] flex-shrink-0">
-                <div className="relative h-[280px] md:h-[340px] bg-[#e8e2da] overflow-hidden">
+                <div className="relative h-[280px] md:h-[340px] bg-[#e8e2da] overflow-hidden group">
                   <img
                     src={t.img}
                     alt={t.nombre}
-                    className="w-full h-full object-cover relative z-10"
+                    className="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}
                   />
                   <ImgPlaceholder label={t.img.split('/').pop() || ''} />
-                  <div className="absolute top-4 left-4 bg-white/88 backdrop-blur-sm text-[#3b332e] text-[10px] tracking-[0.22em] uppercase px-3.5 py-1.5 z-20 font-medium shadow-sm">
-                    {t.tag}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent z-20" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 z-30">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="h-px w-6 bg-[#B8A99A]" />
+                      <span className="text-[#B8A99A] text-[10px] tracking-[0.25em] uppercase font-medium">{t.tag}</span>
+                    </div>
+                    <h3 className="font-serif text-xl md:text-2xl font-normal text-white tracking-wide leading-tight">{t.nombre}</h3>
+                    <p className="text-white/60 text-xs mt-1 font-light">{t.duracion}</p>
                   </div>
                 </div>
               </div>
