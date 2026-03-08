@@ -40,6 +40,7 @@ export interface Review {
   nombre: string;
   texto: string;
   estrellas: number;
+  telefono?: string;
   status: 'pending' | 'approved' | 'hidden';
   createdAt: string;
 }
