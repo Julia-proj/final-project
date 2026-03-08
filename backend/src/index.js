@@ -22,6 +22,7 @@ import bookingRoutes from './routes/booking.routes.js';
 import reservationRoutes from './routes/reservation.routes.js';
 import reviewRoutes from './routes/review.routes.js';
 import adminRoutes from './routes/admin.routes.js';
+import checkoutRoutes from './routes/checkout.routes.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 
 // ── CONFIGURACIÓN ────────────────────────────────────────────
@@ -48,6 +49,7 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/checkout', checkoutRoutes);
 
 // ── MIDDLEWARE DE ERRORES (siempre al final) ─────────────────
 app.use(errorHandler);

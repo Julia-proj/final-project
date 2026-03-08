@@ -1,8 +1,10 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
 import { createReviewAPI } from '../api/reviews.api';
 import { createReservationAPI, createPublicReservationAPI } from '../api/reservations.api';
+
+const StripeCheckoutModal = lazy(() => import('./StripeCheckoutModal'));
 
 // ── Scroll-triggered reveal hook ─────────────────────────────
 function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.15) {
@@ -1328,10 +1330,10 @@ export function FormacionesSection() {
 // 8. BEAUTY SCRIPTS
 // ═══════════════════════════════════════════════════════════════
 
-const STRIPE_SCRIPTS_URL = 'https://buy.stripe.com/5kQdRb8cbglMf7E7dSdQQ00';
-
 export function BeautyScriptsSection() {
   const sectionRef = useReveal();
+  const [showCheckout, setShowCheckout] = useState(false);
+
   return (
     <section id="scripts" className="bg-[#EDE8E2] py-8 lg:py-12" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-8">
@@ -1379,15 +1381,21 @@ export function BeautyScriptsSection() {
               ))}
             </div>
 
-            <a
-              href={STRIPE_SCRIPTS_URL}
-              className="self-start px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
+            <button
+              onClick={() => setShowCheckout(true)}
+              className="self-start px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light cursor-pointer"
             >
               Quiero los Scripts
-            </a>
+            </button>
           </div>
         </div>
       </div>
+
+      {showCheckout && (
+        <Suspense fallback={null}>
+          <StripeCheckoutModal onClose={() => setShowCheckout(false)} />
+        </Suspense>
+      )}
     </section>
   );
 }
