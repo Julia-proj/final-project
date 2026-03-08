@@ -629,6 +629,7 @@ export function ReviewsSection() {
   const [feedbackPhone, setFeedbackPhone] = useState('');
   const [feedbackSent, setFeedbackSent] = useState(false);
   const [feedbackLoading, setFeedbackLoading] = useState(false);
+  const [feedbackError, setFeedbackError] = useState('');
   const sectionRef = useReveal();
   const [reviewIdx, setReviewIdx] = useState(0);
   const [reviewPaused, setReviewPaused] = useState(false);
@@ -644,11 +645,12 @@ export function ReviewsSection() {
   const handleFeedback = async () => {
     if (!feedbackText.trim() || !feedbackName.trim()) return;
     setFeedbackLoading(true);
+    setFeedbackError('');
     try {
       await createReviewAPI({ nombre: feedbackName.trim(), texto: `[${feedbackType}] ${feedbackText}`, estrellas: 5, telefono: feedbackPhone.trim() || undefined });
       setFeedbackSent(true);
     } catch {
-      // silent
+      setFeedbackError('Error al enviar. Inténtalo de nuevo.');
     } finally {
       setFeedbackLoading(false);
     }
@@ -767,8 +769,8 @@ export function ReviewsSection() {
 
           {feedbackSent ? (
             <div className="text-center py-12 bg-white border border-[#f0ebe4] rounded-sm">
-              <p className="text-[#8B7355] font-serif text-3xl mb-3 font-normal">¡Gracias por tu opinión!</p>
-              <p className="text-lg text-[#a09890] font-normal">Tu feedback nos ayuda a mejorar.</p>
+              <p className="text-[#8B7355] font-serif text-3xl mb-3 font-normal">¡Gracias por tu mensaje!</p>
+              <p className="text-lg text-[#a09890] font-normal">Te responderemos pronto.</p>
             </div>
           ) : (
             <div className="bg-white border border-[#f0ebe4] p-5 rounded-sm">
@@ -812,6 +814,10 @@ export function ReviewsSection() {
                 onChange={(e) => setFeedbackText(e.target.value)}
                 className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] resize-none mb-2 rounded-sm"
               />
+
+              {feedbackError && (
+                <p className="text-red-500 text-sm font-light mb-1">{feedbackError}</p>
+              )}
 
               <button
                 onClick={handleFeedback}
@@ -910,6 +916,7 @@ export function HomecareSection() {
   const [cartForm, setCartForm] = useState({ nombre: '', telefono: '', notas: '' });
   const [cartLoading, setCartLoading] = useState(false);
   const [cartSent, setCartSent] = useState(false);
+  const [cartError, setCartError] = useState('');
 
   // After login: restore cart saved before redirect, then auto-open cart panel
   useEffect(() => {
@@ -945,6 +952,7 @@ export function HomecareSection() {
   const handleCartSubmit = async () => {
     if (!cartForm.nombre.trim() || !cartForm.telefono.trim() || cart.length === 0) return;
     setCartLoading(true);
+    setCartError('');
     try {
       const detalle = cart.map(i => `${i.label} (${i.line}) — ${i.price}`).join(', ');
       await createPublicReservationAPI({
@@ -956,7 +964,7 @@ export function HomecareSection() {
       });
       setCartSent(true);
     } catch {
-      // silent
+      setCartError('Error al enviar la reserva. Inténtalo de nuevo.');
     } finally {
       setCartLoading(false);
     }
@@ -1288,6 +1296,10 @@ export function HomecareSection() {
                         placeholder="Tipo de cabello, preferencias..."
                         className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A] resize-none" />
                     </div>
+                    {cartError && (
+                      <p className="text-red-500 text-sm font-light">{cartError}</p>
+                    )}
+
                     <button
                       onClick={handleCartSubmit}
                       disabled={cartLoading || !cartForm.nombre.trim() || !cartForm.telefono.trim()}
