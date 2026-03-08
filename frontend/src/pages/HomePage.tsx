@@ -179,7 +179,7 @@ export default function HomePage() {
       <section className="bg-[#3d3530] py-16 lg:py-24">
         <div className="max-w-[900px] mx-auto px-8 text-center">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-6 font-light">Contacto</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6 font-light tracking-wide">Reserva tu cita</h2>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-light tracking-wide">Reserva tu cita</h2>
           <p className="text-base md:text-lg lg:text-xl text-[#c0b8b0] mb-10 font-light leading-relaxed">
             Estamos en Madrid, España. Contáctanos para reservar tu tratamiento personalizado.
           </p>
@@ -203,11 +203,11 @@ export default function HomePage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 md:gap-16 mb-12">
             <div>
               <p className="font-serif text-white text-2xl mb-4 font-light">Keratin Madrid</p>
-              <p className="text-lg leading-relaxed font-light">Estudio de salud y belleza capilar. Madrid, España.</p>
+              <p className="text-sm leading-relaxed font-light">Estudio de salud y belleza capilar. Madrid, España.</p>
             </div>
             <div>
               <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-light">Navegación</p>
-                <div className="flex flex-col gap-3 text-lg font-light">
+                <div className="flex flex-col gap-3 text-sm font-light">
                 <button onClick={() => scrollTo('inicio')} className="text-left hover:text-[#B8A99A] transition-colors">Inicio</button>
                 <button onClick={() => scrollTo('precios')} className="text-left hover:text-[#B8A99A] transition-colors">Precios</button>
                 <button onClick={() => scrollTo('homecare')} className="text-left hover:text-[#B8A99A] transition-colors">Homecare</button>
@@ -215,14 +215,14 @@ export default function HomePage() {
             </div>
             <div>
               <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-light">Para Profesionales</p>
-              <div className="flex flex-col gap-3 text-base font-light">
+              <div className="flex flex-col gap-3 text-sm font-light">
                 <button onClick={() => scrollTo('formaciones')} className="text-left hover:text-[#B8A99A] transition-colors">Formaciones</button>
                 <button onClick={() => scrollTo('scripts')} className="text-left hover:text-[#B8A99A] transition-colors">Beauty Scripts</button>
               </div>
             </div>
             <div>
               <p className="text-[12px] tracking-[0.2em] uppercase text-[#c0b8b0] mb-5 font-light">Contacto</p>
-              <div className="flex flex-col gap-3 text-base font-light">
+              <div className="flex flex-col gap-3 text-sm font-light">
                 <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">@keratin_madrid</a>
                 <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">YouTube</a>
                 <a href="https://wa.me/34641261559" target="_blank" rel="noopener noreferrer" className="hover:text-[#B8A99A]">+34 641 26 15 59</a>

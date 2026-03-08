@@ -194,7 +194,7 @@ export default function InteractivePricing() {
               {user ? (
                 <button
                   onClick={() => navigate('/booking')}
-                  className="px-12 py-4.5 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
+                  className="px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
                 >
                   Reservar cita
                 </button>
@@ -203,7 +203,7 @@ export default function InteractivePricing() {
                   href={WA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-12 py-4.5 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
+                  className="inline-block px-12 py-4 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light"
                 >
                   Reservar cita
                 </a>

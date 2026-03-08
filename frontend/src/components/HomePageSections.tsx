@@ -277,7 +277,7 @@ export function PorQueElegirSection() {
 
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left: Salon photo */}
-          <div className="w-full lg:w-[340px] xl:w-[380px] flex-shrink-0">
+          <div className="w-full lg:w-[400px] xl:w-[460px] flex-shrink-0">
             <div className="relative aspect-[3/4] bg-[#f0ebe4] overflow-hidden">
               <img
                 src="/images/salon.jpg"
@@ -369,7 +369,7 @@ export function TratamientosSection() {
           <p className="text-[#8B7355] text-base md:text-lg lg:text-xl font-light">Adaptados a tu tipo de cabello y necesidades reales</p>
         </div>
 
-        <div className="flex flex-col gap-12 lg:gap-20">
+        <div className="flex flex-col gap-10 lg:gap-16">
           {tratamientos.map((t, i) => (
             <div
               key={i}
@@ -395,7 +395,7 @@ export function TratamientosSection() {
               <div className="flex-1 flex flex-col gap-7">
                 <div>
                   <p className="text-[13px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">{t.duracion}</p>
-                  <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light">{t.nombre}</h3>
+                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-4 font-light">{t.nombre}</h3>
                   <p className="text-[#7a6f68] text-sm leading-relaxed font-light">{t.desc}</p>
                 </div>
 
@@ -583,7 +583,7 @@ function ReelCard({ poster, src, igLink, idx }: { poster: string; src?: string; 
         rel="noopener noreferrer"
         className="flex-shrink-0 w-[110px] sm:w-[140px] md:w-[170px] lg:w-[200px] snap-start group cursor-pointer"
       >
-        <div className="relative aspect-[9/16] bg-[#e8e2da] overflow-hidden rounded-lg">
+        <div className="relative aspect-[9/16] bg-[#e8e2da] overflow-hidden rounded-sm">
           <img src={poster} alt={`reel${idx + 1}`} className="w-full h-full object-cover relative z-10" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
           <ImgPlaceholder label={`reel${idx + 1}`} />
           <div className="absolute inset-0 z-20 flex items-end justify-center pb-4 bg-gradient-to-t from-black/40 to-transparent group-hover:from-black/60 transition-all">
@@ -616,7 +616,7 @@ function ReelCard({ poster, src, igLink, idx }: { poster: string; src?: string; 
       className="flex-shrink-0 w-[110px] sm:w-[140px] md:w-[170px] lg:w-[200px] snap-start group cursor-pointer"
       onClick={toggle}
     >
-      <div className="relative aspect-[9/16] bg-[#e8e2da] overflow-hidden rounded-lg">
+      <div className="relative aspect-[9/16] bg-[#e8e2da] overflow-hidden rounded-sm">
         <video
           ref={videoRef}
           poster={poster}
@@ -999,7 +999,7 @@ export function HomecareSection() {
     <section id="homecare" className="bg-[#F3EFE9] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-8">
         {/* Header */}
-        <div className="text-center mb-12 lg:mb-16 reveal">
+        <div className="text-center mb-8 lg:mb-12 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Homecare</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-light tracking-wide">Cuidado en casa</h2>
           <p className="text-[#8B7355] text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
@@ -1019,7 +1019,7 @@ export function HomecareSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24">
               {careTips.map((tip, i) => (
                 <div key={i} className="flex items-start gap-4 py-3 border-b border-[#d4cdc6]">
-                  <span className="text-[11px] tracking-[0.2em] text-[#b5a99f] font-light pt-0.5 w-6 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-[13px] text-[#B8A99A] font-light pt-0.5 w-6 shrink-0 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                   <span className="text-sm text-[#3d3530] font-light leading-relaxed">{tip}</span>
                 </div>
               ))}

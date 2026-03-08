@@ -1,7 +1,6 @@
 // Página de reserva protegida. Envía datos al backend para crear una reserva.
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { createBookingAPI, getMyBookingsAPI } from '../api/bookings.api';
 import { useAppSelector } from '../hooks/useAppHooks';
 import type { Booking, BookingForm } from '../types';
@@ -37,7 +36,6 @@ export default function BookingPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const navigate = useNavigate();
   const user = useAppSelector((state) => state.auth.user);
 
   // ── ЗАГРУЗКА МОЙ БРОНИРОВАНИЙ ─────────────────────────────
