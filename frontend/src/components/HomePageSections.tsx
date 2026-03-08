@@ -363,7 +363,7 @@ export function TratamientosSection() {
   const scrollToPrecios = () => document.getElementById('precios')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="servicios" className="bg-[#F7F4EF] py-10 lg:py-16" ref={sectionRef}>
+    <section id="servicios" className="bg-[#F8F6F2] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Servicios</p>
@@ -388,7 +388,7 @@ export function TratamientosSection() {
                     }}
                   />
                   <ImgPlaceholder label={t.img.split('/').pop() || ''} />
-                  <div className="absolute top-5 left-5 bg-[#3d3530] text-white text-[10px] tracking-[0.2em] uppercase px-4 py-2 z-20">
+                  <div className="absolute top-4 left-4 bg-white/88 backdrop-blur-sm text-[#3b332e] text-[10px] tracking-[0.22em] uppercase px-3.5 py-1.5 z-20 font-medium shadow-sm">
                     {t.tag}
                   </div>
                 </div>
@@ -534,7 +534,7 @@ export function AntesDespuesSection() {
   };
 
   return (
-    <section id="resultados" className="bg-[#F2EDE7] py-10 lg:py-16" ref={sectionRef}>
+    <section id="resultados" className="bg-[#F7F4F0] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Resultados</p>
@@ -655,7 +655,7 @@ export function ReviewsSection() {
   };
 
   return (
-    <section id="opiniones" className="bg-[#EDE9E3] py-10 lg:py-16" ref={sectionRef}>
+    <section id="opiniones" className="bg-[#F3F1ED] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -708,13 +708,13 @@ export function ReviewsSection() {
             >
               {resenasGoogle.map((r, i) => (
                 <div key={i} className="w-full flex-shrink-0">
-                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl">
+                  <div className="bg-white border border-[#ede8e2] p-6 sm:p-8 mx-auto max-w-2xl flex flex-col min-h-[300px] sm:min-h-0">
                     <div className="flex gap-0.5 mb-3">
                       {[...Array(r.estrellas)].map((_, j) => (
                         <span key={j} className="text-[#FBBC05] text-base">★</span>
                       ))}
                     </div>
-                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed mb-5">{r.texto}</p>
+                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed mb-5 flex-1 line-clamp-[7] sm:line-clamp-none">{r.texto}</p>
                     <div className="flex items-center gap-3 pt-4 border-t border-[#f0ebe4]">
                       <div className="w-9 h-9 rounded-full bg-[#B8A99A] flex items-center justify-center text-white text-sm font-medium flex-shrink-0">
                         {r.nombre.charAt(0)}
@@ -962,7 +962,7 @@ export function HomecareSection() {
   };
 
   return (
-    <section id="homecare" className="bg-[#F7F4EF] py-10 lg:py-16" ref={sectionRef}>
+    <section id="homecare" className="bg-[#F8F6F2] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
@@ -1043,15 +1043,42 @@ export function HomecareSection() {
                 {/* Price + CTA */}
                 <div className="flex items-center gap-4 pt-3 border-t border-[#f0ebe4]">
                   <p className="font-serif text-3xl text-[#3d3530] font-light">90€</p>
-                  <button
-                    onClick={() => addToCart('Kit completo', 'Personalizado', '90€')}
-                    className="px-6 py-3 bg-[#B8A99A] text-white text-[11px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors cursor-pointer font-light flex items-center gap-2"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                    </svg>
-                    Añadir kit
-                  </button>
+                  {cart.some(c => c.label === 'Kit completo' && c.line === 'Personalizado') ? (
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => { const idx = [...cart].reverse().findIndex(c => c.label === 'Kit completo' && c.line === 'Personalizado'); removeFromCart(cart.length - 1 - idx); }}
+                        className="w-9 h-9 flex items-center justify-center border border-[#B8A99A] text-[#B8A99A] hover:bg-[#B8A99A] hover:text-white transition-colors"
+                        title="Quitar uno"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                        </svg>
+                      </button>
+                      <span className="text-sm text-[#3d3530] font-medium w-5 text-center">
+                        {cart.filter(c => c.label === 'Kit completo' && c.line === 'Personalizado').length}
+                      </span>
+                      <button
+                        onClick={() => addToCart('Kit completo', 'Personalizado', '90€')}
+                        disabled={cart.filter(c => c.label === 'Kit completo' && c.line === 'Personalizado').length >= 3}
+                        className="w-9 h-9 flex items-center justify-center bg-[#B8A99A] text-white hover:bg-[#9A8B7A] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                        title="Añadir otro"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => addToCart('Kit completo', 'Personalizado', '90€')}
+                      className="px-6 py-3 bg-[#B8A99A] text-white text-[11px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors cursor-pointer font-light flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                      </svg>
+                      Añadir kit
+                    </button>
+                  )}
                 </div>
 
               </div>
@@ -1297,7 +1324,7 @@ export function FormacionesSection() {
   };
 
   return (
-    <section id="formaciones" className="bg-[#F0ECE5] py-10 lg:py-16" ref={sectionRef}>
+    <section id="formaciones" className="bg-[#F5F2EE] border-t border-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Para Profesionales</p>
@@ -1443,7 +1470,7 @@ export function BeautyScriptsSection() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <section id="scripts" className="bg-[#342B22] py-10 lg:py-14" ref={sectionRef}>
+    <section id="scripts" className="bg-[#46392E] py-10 lg:py-14" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
           <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">Scripts</p>

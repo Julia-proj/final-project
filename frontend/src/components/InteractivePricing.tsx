@@ -38,7 +38,7 @@ export default function InteractivePricing() {
     servicio === 'keratina' ? 'Keratina / Botox' : servicio === 'total' ? 'Reconstrucción Total' : 'Reconstrucción';
 
   return (
-    <section id="precios" className="bg-[#F0ECE5] py-10 lg:py-14">
+    <section id="precios" className="bg-[#F5F2EE] border-t border-[#EDE8E2] py-10 lg:py-14">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-4 lg:mb-5">
