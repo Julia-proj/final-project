@@ -41,7 +41,7 @@ export default function HomePage() {
             poster="/images/hero.jpg"
             className="w-full h-full object-cover object-[center_20%] lg:object-center"
           >
-            <source src="/images/hero.mp4" type="video/mp4" />
+            <source src="/video/hero.mp4" type="video/mp4" />
           </video>
           <img
             src="/images/hero.jpg"
@@ -53,50 +53,50 @@ export default function HomePage() {
               if (video) video.addEventListener('error', () => { (e.target as HTMLImageElement).style.display = 'block'; });
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70 lg:bg-gradient-to-t lg:from-black/60 lg:via-black/15 lg:to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70 lg:bg-none" />
+          <div className="absolute inset-0 hidden lg:block" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.35) 42%, rgba(0,0,0,0.05) 70%, transparent 100%)' }} />
         </div>
 
         {/* ── MOBILE Hero Layout ── */}
         <div className="lg:hidden relative z-10 flex flex-col h-screen">
-          {/* Верхняя часть: логотип + подзаголовок */}
-          <div className="pt-32 px-6 text-center">
-            <p className="text-[#D4C5B5] text-[10px] tracking-[0.5em] uppercase mb-5 font-light">Diagnóstico profesional · Protocolos exclusivos</p>
-            <h1 className="font-serif text-4xl font-light tracking-wider text-white mb-4 leading-tight">
-              Keratin Madrid
-            </h1>
-            <p className="text-base font-light text-white/80 tracking-wide">Estudio de salud y belleza capilar</p>
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#D4C5B5] to-transparent mx-auto mt-5" />
+          {/* Tagline pinned to very top */}
+          <div className="absolute top-0 left-0 px-6 pt-3">
+            <p className="text-[#D4C5B5]/70 text-[9px] tracking-[0.45em] uppercase font-light">Diagnóstico profesional · Protocolos exclusivos</p>
           </div>
 
           {/* Пространство */}
           <div className="flex-1" />
 
-          {/* Нижняя часть: описание + кнопки */}
+          {/* Нижняя часть: весь контент прижат влево */}
           <div className="px-6 pb-12">
-            <p className="text-sm font-light leading-relaxed text-white/70 text-center mb-8 max-w-[340px] mx-auto">
+            <h1 className="font-serif text-4xl font-light tracking-wider text-white mb-4 leading-tight">
+              Estudio de salud<br />y belleza capilar
+            </h1>
+            <div className="w-14 h-px bg-[#D4C5B5]/60 mt-0 mb-6" />
+            <p className="text-sm font-light leading-relaxed text-white/65 mb-8 max-w-[320px]">
               Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
             </p>
 
-            <div className="flex flex-col gap-4 max-w-[360px] mx-auto mb-10">
+            <div className="flex flex-col gap-3 mb-8">
               {user ? (
                 <Link to="/booking"
-                  className="w-full py-4.5 bg-white text-[#3D3D3D] tracking-[0.18em] font-light text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow">
+                  className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-light text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow">
                   Reservar Cita
                 </Link>
               ) : (
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer"
-                  className="w-full py-4.5 bg-white text-[#3D3D3D] tracking-[0.18em] font-light text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow block">
+                  className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-light text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow block">
                   Reservar Cita
                 </a>
               )}
               <button onClick={() => scrollTo('servicios')}
-                className="w-full py-4.5 border border-white/60 text-white/90 tracking-[0.18em] font-light text-[12px] uppercase hover:bg-white/10 transition-all">
+                className="w-full py-4 border border-white/60 text-white/90 tracking-[0.18em] font-light text-[12px] uppercase hover:bg-white/10 transition-all">
                 Ver Servicios
               </button>
             </div>
 
             {/* Соцсети */}
-            <div className="flex justify-center gap-8">
+            <div className="flex justify-start gap-7">
               <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
@@ -121,16 +121,17 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Tagline pinned to very top of screen — desktop */}
+        <div className="hidden lg:block absolute z-20 top-4 left-14 xl:left-20 2xl:left-28">
+          <p className="text-[10px] tracking-[0.5em] uppercase text-[#D4C5B5]/80 font-light">Diagnóstico profesional · Protocolos exclusivos</p>
+        </div>
+
         {/* Десктоп Hero Layout ── */}
-        <div className="hidden lg:flex relative z-10 max-w-[1400px] mx-auto px-8 pb-16 items-end flex-1">
-          <div className="max-w-[760px]">
-            <p className="text-[11px] tracking-[0.5em] uppercase text-[#D4C5B5] mb-6 font-light">Diagnóstico profesional · Protocolos exclusivos</p>
-            <h1 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-light mb-4 tracking-wide text-white leading-tight">
-              Keratin Madrid
+        <div className="hidden lg:flex relative z-10 w-full px-14 xl:px-20 2xl:px-28 pb-16 items-end flex-1">
+          <div className="max-w-[480px] xl:max-w-[520px]">
+            <h1 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-light mb-6 tracking-wide text-white leading-tight">
+              Estudio de salud<br />y belleza capilar
             </h1>
-            <p className="text-xl lg:text-2xl font-serif font-light mb-6 tracking-wide text-white/85">
-              Estudio de salud y belleza capilar
-            </p>
             <p className="text-base lg:text-lg font-light mb-10 leading-relaxed text-white/70 max-w-[560px]">
               Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
             </p>

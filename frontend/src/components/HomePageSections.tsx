@@ -493,7 +493,6 @@ export function TablaDePreciosSection() {
             >
               <div>
                 <span className="text-lg md:text-xl text-[#3d3530] font-light">{p.l}</span>
-                <span className="text-[12px] text-[#a09890] ml-4 font-light">{p.desc}</span>
               </div>
               <span
                 className={`font-serif text-2xl md:text-3xl transition-all ${
@@ -563,16 +562,42 @@ export function TablaDePreciosSection() {
 // 4. ANTES & DESPUÉS
 // ═══════════════════════════════════════════════════════════════
 
-const adVideos = [
-  { id: 'reel1', poster: '/images/reel1.jpg', src: '/images/reel1.mp4' },
-  { id: 'reel2', poster: '/images/reel2.jpg', src: '/images/reel2.mp4' },
-  { id: 'reel3', poster: '/images/reel3.jpg', src: '/images/reel3.mp4' },
-  { id: 'reel4', poster: '/images/reel4.jpg', src: '/images/reel4.mp4' },
+const adVideos: { id: string; poster: string; src?: string; igLink?: string }[] = [
+  { id: 'reel1', poster: '/images/reel1.jpg', src: '/images/reel1.mp4', igLink: 'https://www.instagram.com/reel/DTvGw6JguAb/?=MXVka3c2c2phZG82cw==' },
+  { id: 'reel2', poster: '/images/reel2.jpg', src: '/images/reel2.mp4', igLink: 'https://www.instagram.com/reel/DMhu4lot6ZR/?igsh=b3dpeDBnMmx1OHR0' },
+  { id: 'reel3', poster: '/images/reel3.jpg', src: '/images/reel3.mp4', igLink: 'https://www.instagram.com/reel/DTiWXcJgo7a/?igsh=MXhzcWQ5MDhsNmF6cQ==' },
+  { id: 'reel4', poster: '/images/reel4.jpg', src: '/images/reel4.mp4', igLink: 'https://www.instagram.com/reel/DL77PjstKI8/?igsh=MXQzc2N3ZW1pOWRm' },
+  { id: 'reel5', poster: '/images/reel5.jpg', igLink: 'https://www.instagram.com/reel/DR9jtSogntv/?igsh=dXhreXRyM3B4cjFm' },
+  { id: 'reel6', poster: '/images/reel6.jpg', igLink: 'https://www.instagram.com/reel/DLmMzLPtL0C/?igsh=MXhvcnhvM2RsN2VkOQ==' },
 ];
 
-function ReelCard({ poster, src, idx }: { poster: string; src: string; idx: number }) {
+function ReelCard({ poster, src, igLink, idx }: { poster: string; src?: string; igLink?: string; idx: number }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = React.useState(false);
+
+  if (igLink) {
+    return (
+      <a
+        href={igLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex-shrink-0 w-[110px] sm:w-[140px] md:w-[170px] lg:w-[200px] snap-start group cursor-pointer"
+      >
+        <div className="relative aspect-[9/16] bg-[#e8e2da] overflow-hidden rounded-lg">
+          <img src={poster} alt={`reel${idx + 1}`} className="w-full h-full object-cover relative z-10" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+          <ImgPlaceholder label={`reel${idx + 1}`} />
+          <div className="absolute inset-0 z-20 flex items-end justify-center pb-4 bg-gradient-to-t from-black/40 to-transparent group-hover:from-black/60 transition-all">
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
+              </svg>
+              <span className="text-[9px] tracking-[0.15em] uppercase text-white/80 font-light">Ver reel</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    );
+  }
 
   const toggle = () => {
     const v = videoRef.current;
@@ -588,7 +613,7 @@ function ReelCard({ poster, src, idx }: { poster: string; src: string; idx: numb
 
   return (
     <div
-      className="flex-shrink-0 w-[140px] sm:w-[160px] md:w-[185px] lg:w-[200px] snap-start group cursor-pointer"
+      className="flex-shrink-0 w-[110px] sm:w-[140px] md:w-[170px] lg:w-[200px] snap-start group cursor-pointer"
       onClick={toggle}
     >
       <div className="relative aspect-[9/16] bg-[#e8e2da] overflow-hidden rounded-lg">
@@ -600,12 +625,12 @@ function ReelCard({ poster, src, idx }: { poster: string; src: string; idx: numb
           preload="none"
           className="w-full h-full object-cover relative z-10"
         >
-          <source src={src} type="video/mp4" />
+          {src && <source src={src} type="video/mp4" />}
         </video>
         <ImgPlaceholder label={`reel${idx + 1}`} />
         <div className={`absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300 ${playing ? 'opacity-0 hover:opacity-100' : 'opacity-100'} bg-black/10`}>
-          <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-            <svg className="w-5 h-5 text-[#3d3530] ml-1" fill="currentColor" viewBox="0 0 24 24">
+          <div className="w-11 h-11 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <svg className="w-4 h-4 text-[#3d3530] ml-0.5" fill="currentColor" viewBox="0 0 24 24">
               <path d={playing ? "M6 4h4v16H6zm8 0h4v16h-4z" : "M8 5v14l11-7z"} />
             </svg>
           </div>
@@ -651,7 +676,7 @@ export function AntesDespuesSection() {
             }}
           >
             {adVideos.map((v, i) => (
-              <ReelCard key={v.id} poster={v.poster} src={v.src} idx={i} />
+              <ReelCard key={v.id} poster={v.poster} src={v.src} igLink={v.igLink} idx={i} />
             ))}
           </div>
 
@@ -756,7 +781,7 @@ export function ReviewsSection() {
             <div className="flex gap-0.5">
               {[1,2,3,4,5].map(n => <span key={n} className="text-[#FBBC05] text-lg">★</span>)}
             </div>
-            <span className="text-[#3d3530] text-base font-medium">5.0</span>
+            <span className="text-[#3d3530] text-base font-medium">4.9</span>
             <span className="text-[#8B7355] text-sm font-light">· Google Reviews</span>
           </div>
           <div className="mt-4">
@@ -932,15 +957,22 @@ export function HomecareSection() {
         </div>
 
         {/* ── Care Tips ── */}
-        <div className="reveal mb-14 lg:mb-20 bg-[#FAF8F6] border border-[#ede8e2] p-8 lg:p-10">
-          <p className="text-[10px] tracking-[0.35em] uppercase text-[#a09890] mb-7 font-light">Consejos de la especialista</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-10">
-            {careTips.map((tip, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <span className="text-[#B8A99A] text-[10px] font-light w-6 flex-shrink-0 pt-1">{String(i + 1).padStart(2, '0')}</span>
-                <span className="text-[13px] text-[#5a504b] font-light leading-relaxed">{tip}</span>
-              </div>
-            ))}
+        <div className="reveal mb-14 lg:mb-20">
+          <div className="bg-[#EDE7DF] px-8 lg:px-12 py-10 lg:py-12">
+            {/* Header */}
+            <div className="flex items-baseline gap-8 mb-8">
+              <h3 className="font-serif text-2xl lg:text-3xl text-[#3d3530] font-light tracking-wide shrink-0">Nota de la especialista</h3>
+              <div className="hidden md:block flex-1 h-px bg-[#c4b8ab]" />
+            </div>
+            {/* Tips */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24">
+              {careTips.map((tip, i) => (
+                <div key={i} className="flex items-start gap-5 py-4 border-b border-[#d4cdc6]">
+                  <span className="text-[11px] tracking-[0.2em] text-[#b5a99f] font-light pt-0.5 w-6 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-sm text-[#3d3530] font-light leading-relaxed">{tip}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -1029,19 +1061,28 @@ export function HomecareSection() {
 
                   {/* Line switcher */}
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {product.variants.map((v, i) => (
-                      <button
-                        key={v.line}
-                        onClick={() => setSelectedLines(prev => ({ ...prev, [product.type]: i }))}
-                        className={`text-[9px] tracking-[0.1em] uppercase px-2 py-1 transition-all font-light ${
-                          i === lineIdx
-                            ? 'bg-[#3d3530] text-white'
-                            : 'bg-[#f5f1ec] text-[#8B7355] hover:bg-[#ede8e2]'
-                        }`}
-                      >
-                        {v.line}
-                      </button>
-                    ))}
+                    {product.variants.map((v, i) => {
+                      const lineActiveClasses: Record<string, string> = {
+                        'Color':      'bg-[#C4939B] text-white',
+                        'Volume':     'bg-[#9E93B8] text-white',
+                        'Detox':      'bg-[#7FAF96] text-white',
+                        'Hydration':  'bg-[#C99A72] text-white',
+                      };
+                      const activeClass = lineActiveClasses[v.line] || 'bg-[#3d3530] text-white';
+                      return (
+                        <button
+                          key={v.line}
+                          onClick={() => setSelectedLines(prev => ({ ...prev, [product.type]: i }))}
+                          className={`text-[9px] tracking-[0.1em] uppercase px-2 py-1 transition-all font-light ${
+                            i === lineIdx
+                              ? activeClass
+                              : 'bg-[#f5f1ec] text-[#8B7355] hover:bg-[#ede8e2]'
+                          }`}
+                        >
+                          {v.line}
+                        </button>
+                      );
+                    })}
                   </div>
 
                   {/* Variant info */}
@@ -1098,8 +1139,8 @@ export function FormacionesSection() {
             <span className="self-start text-[12px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-5 py-2.5 font-light">
               Curso destacado
             </span>
-            <h3 className="font-serif text-4xl md:text-5xl text-[#3d3530] font-light">Curso intensivo de keratina</h3>
-            <p className="text-xl md:text-2xl text-[#8B7355] font-light">2 días · Práctica con modelos</p>
+            <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light">Curso intensivo de keratina</h3>
+            <p className="text-sm md:text-base text-[#8B7355] font-light">2 días · Práctica con modelos</p>
 
             <div className="grid grid-cols-2 gap-2">
               {['/images/ker.jpg', '/images/kera.jpg'].map((src, i) => (
@@ -1114,8 +1155,8 @@ export function FormacionesSection() {
               <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-4 font-light">Programa</p>
               <ul className="space-y-2.5">
                 {['Diagnóstico con tricóscopio', 'Protocolos de keratina y botox', 'Selección de producto según tipo de pelo', 'Técnica de aplicación paso a paso', 'Práctica con modelos reales'].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-base text-[#3d3530] font-light">
-                    <svg className="w-4 h-4 text-[#B8A99A] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-[#3d3530] font-light">
+                    <svg className="w-3.5 h-3.5 text-[#B8A99A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
                     {item}
@@ -1126,7 +1167,7 @@ export function FormacionesSection() {
 
             <div>
               <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-3 font-light">Incluye</p>
-              <p className="text-base text-[#7a6f68] font-light leading-relaxed">
+              <p className="text-sm text-[#7a6f68] font-light leading-relaxed">
                 Materiales · Manual profesional · Fotos · Certificado
               </p>
             </div>
@@ -1141,11 +1182,11 @@ export function FormacionesSection() {
               <p className="text-sm text-[#3d3530] font-light">Acceso a grupo privado de soporte post-formación</p>
             </div>
 
-            <div className="flex items-center justify-between pt-7 border-t border-[#f0ebe4]">
-              <span className="font-serif text-5xl text-[#3d3530] font-light">1.400€</span>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-5 border-t border-[#f0ebe4] gap-4">
+              <span className="font-serif text-3xl md:text-4xl text-[#3d3530] font-light">1.400€</span>
               <button
                 onClick={() => handleReservar('Curso intensivo de keratina')}
-                className="px-8 py-3.5 bg-[#B8A99A] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] cursor-pointer font-light"
+                className="w-full sm:w-auto px-7 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] cursor-pointer font-light"
               >
                 Reservar plaza
               </button>
@@ -1156,8 +1197,8 @@ export function FormacionesSection() {
             <span className="self-start text-[12px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-5 py-2.5 font-light">
               Masterclass
             </span>
-            <h3 className="font-serif text-4xl md:text-5xl text-[#3d3530] font-light">Reconstrucción en Frío</h3>
-            <p className="text-xl md:text-2xl text-[#8B7355] font-light">Intensivo · Máx. 6 personas</p>
+            <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light">Reconstrucción en Frío</h3>
+            <p className="text-sm md:text-base text-[#8B7355] font-light">Intensivo · Máx. 6 personas</p>
 
             <div className="grid grid-cols-2 gap-2">
               {['/images/rec.jpg', '/images/reca.jpg'].map((src, i) => (
@@ -1172,8 +1213,8 @@ export function FormacionesSection() {
               <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-4 font-light">Programa</p>
               <ul className="space-y-2.5">
                 {['Teoría de reconstrucción capilar', 'Diagnóstico y selección de producto', 'Técnica de aplicación en frío', 'Casos reales y resolución de dudas'].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-base text-[#3d3530] font-light">
-                    <svg className="w-4 h-4 text-[#B8A99A] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-[#3d3530] font-light">
+                    <svg className="w-3.5 h-3.5 text-[#B8A99A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
                     {item}
@@ -1184,7 +1225,7 @@ export function FormacionesSection() {
 
             <div>
               <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-3 font-light">Incluye</p>
-              <p className="text-base text-[#7a6f68] font-light leading-relaxed">
+              <p className="text-sm text-[#7a6f68] font-light leading-relaxed">
                 Materiales · Guía profesional · Certificado
               </p>
             </div>
@@ -1199,14 +1240,14 @@ export function FormacionesSection() {
               <p className="text-sm text-[#3d3530] font-light">Descuento especial en productos profesionales Limba</p>
             </div>
 
-            <div className="flex items-center justify-between pt-7 border-t border-[#f0ebe4]">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-5 border-t border-[#f0ebe4] gap-4">
               <div>
-                <span className="font-serif text-5xl text-[#3d3530] font-light">350€</span>
-                <span className="text-lg text-[#8B7355] block font-light">por persona · mín. 3</span>
+                <span className="font-serif text-3xl md:text-4xl text-[#3d3530] font-light">350€</span>
+                <span className="text-sm text-[#8B7355] block font-light">por persona · mín. 3</span>
               </div>
               <button
                 onClick={() => handleReservar('Masterclass Reconstrucción')}
-                className="px-8 py-3.5 border border-[#B8A99A] text-[#B8A99A] text-[13px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white cursor-pointer font-light"
+                className="w-full sm:w-auto px-7 py-3 border border-[#B8A99A] text-[#B8A99A] text-[12px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white cursor-pointer font-light"
               >
                 Reservar plaza
               </button>

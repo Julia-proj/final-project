@@ -13,18 +13,18 @@ interface LengthPrice {
 }
 
 const lengths: LengthPrice[] = [
-  { id: '70-80', label: '70–80 cm', desc: 'Cadera', keratina: '280€', reconstruccion: '200€', total: '340€', top: '82%' },
-  { id: '60-70', label: '60–70 cm', desc: 'Bajo cintura', keratina: '260€', reconstruccion: '200€', total: '320€', top: '73%' },
-  { id: '50-60', label: '50–60 cm', desc: 'Cintura', keratina: '240€', reconstruccion: '160€', total: '300€', top: '63%' },
-  { id: '40-50', label: '40–50 cm', desc: 'Mitad espalda', keratina: '220€', reconstruccion: '140€', total: '280€', top: '52%' },
-  { id: '30-40', label: '30–40 cm', desc: 'Hombros', keratina: '200€', reconstruccion: '120€', total: '260€', top: '42%' },
   { id: '20-30', label: '20–30 cm', desc: 'Debajo de la oreja', keratina: '180€', reconstruccion: '110€', total: '240€', top: '32%' },
+  { id: '30-40', label: '30–40 cm', desc: 'Hombros', keratina: '200€', reconstruccion: '120€', total: '260€', top: '42%' },
+  { id: '40-50', label: '40–50 cm', desc: 'Mitad espalda', keratina: '220€', reconstruccion: '140€', total: '280€', top: '52%' },
+  { id: '50-60', label: '50–60 cm', desc: 'Cintura', keratina: '240€', reconstruccion: '160€', total: '300€', top: '63%' },
+  { id: '60-70', label: '60–70 cm', desc: 'Bajo cintura', keratina: '260€', reconstruccion: '200€', total: '320€', top: '73%' },
+  { id: '70-80', label: '70–80 cm', desc: 'Cadera', keratina: '280€', reconstruccion: '200€', total: '340€', top: '82%' },
 ];
 
 type Servicio = 'keratina' | 'reconstruccion' | 'total';
 
 export default function InteractivePricing() {
-  const [servicio, setServicio] = useState<Servicio>('keratina');
+  const [servicio, setServicio] = useState<Servicio>('reconstruccion');
   const [active, setActive] = useState<string | null>(null);
   const user = useAppSelector((s) => s.auth.user);
   const navigate = useNavigate();
@@ -136,7 +136,7 @@ export default function InteractivePricing() {
                 <div className="absolute bottom-0 left-0 right-0 z-30 bg-[#3d3530]/95 backdrop-blur-sm px-6 py-5 animate-fade-in-up">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-1 font-light">{activeItem.label} · {activeItem.desc}</p>
+                      <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-1 font-light">{activeItem.label}</p>
                       <p className="text-sm text-white/60 font-light capitalize">{getLabel()}</p>
                     </div>
                     <p className="font-serif text-4xl text-white font-light">
@@ -165,7 +165,6 @@ export default function InteractivePricing() {
                 >
                   <div>
                     <span className="text-sm md:text-base text-[#3d3530] font-light tracking-wide">{l.label}</span>
-                    <span className="text-[12px] text-[#a09890] ml-3 font-light hidden sm:inline">{l.desc}</span>
                   </div>
                   <span
                     className={`font-serif text-2xl md:text-3xl transition-all ${
