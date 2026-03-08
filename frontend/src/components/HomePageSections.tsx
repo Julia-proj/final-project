@@ -266,7 +266,7 @@ export function PorQueElegirSection() {
     <section id="inicio" className="bg-[#FDFCFA] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-8">
         <div className="text-center mb-10 lg:mb-14 reveal">
-          <p className="text-[14px] tracking-[0.3em] uppercase text-[#8B7355] mb-5 font-light">Beneficios</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Beneficios</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-light tracking-wide">
             ¿Por qué Keratin Madrid?
           </h2>
@@ -364,7 +364,7 @@ export function TratamientosSection() {
     <section id="servicios" className="bg-[#F5F2ED] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
-          <p className="text-[14px] tracking-[0.3em] uppercase text-[#8B7355] mb-5 font-light">Servicios</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Servicios</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-light tracking-wide">Tratamientos</h2>
           <p className="text-[#8B7355] text-base md:text-lg lg:text-xl font-light">Adaptados a tu tipo de cabello y necesidades reales</p>
         </div>
@@ -458,7 +458,7 @@ export function TablaDePreciosSection() {
     <section id="precios" className="bg-[#F0EBE4] py-10 lg:py-16">
       <div className="max-w-[1400px] mx-auto px-8">
         <div className="text-center mb-10 lg:mb-14">
-          <p className="text-[13px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Precios</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Precios</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Tabla de Precios</h2>
           <p className="text-[#8B7355] text-lg md:text-xl font-light">Toca una longitud para destacar el precio</p>
         </div>
@@ -659,7 +659,7 @@ export function AntesDespuesSection() {
     <section id="resultados" className="bg-[#FAF8F5] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
-          <p className="text-[14px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Resultados</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Resultados</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Antes / Después</h2>
           <p className="text-[#8B7355] text-base md:text-lg font-light">Desliza para ver las transformaciones en video</p>
         </div>
@@ -798,33 +798,26 @@ export function ReviewsSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4 mb-10">
           {resenasGoogle.map((r, i) => (
-            <div key={i} className="flex flex-col gap-2.5 p-4 lg:p-5 bg-white border border-[#f0ebe4] hover:shadow-md transition-all">
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#B8A99A] flex items-center justify-center text-white text-sm font-medium flex-shrink-0">
+            <div key={i} className="flex flex-col gap-2 p-3.5 bg-white border border-[#f0ebe4] hover:shadow-sm transition-all">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-full bg-[#B8A99A] flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
                     {r.nombre.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-[#3d3530] font-medium leading-tight">{r.nombre}</p>
-                    <p className="text-[11px] text-[#a09890] font-light mt-0.5">{r.meta}</p>
+                    <p className="text-[13px] text-[#3d3530] font-medium leading-tight">{r.nombre}</p>
+                    <p className="text-[10px] text-[#a09890] font-light">{r.fecha}</p>
                   </div>
                 </div>
-                <svg className="w-4 h-4 flex-shrink-0 mt-0.5 opacity-70" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                </svg>
+                <div className="flex gap-0.5">
+                  {[...Array(r.estrellas)].map((_, j) => (
+                    <span key={j} className="text-[#FBBC05] text-xs">★</span>
+                  ))}
+                </div>
               </div>
-              <div className="flex gap-0.5 items-center">
-                {[...Array(r.estrellas)].map((_, j) => (
-                  <span key={j} className="text-[#FBBC05] text-sm">★</span>
-                ))}
-                <span className="text-[11px] text-[#a09890] font-light ml-2">{r.fecha}</span>
-              </div>
-              <p className="text-[#5a504b] text-sm leading-relaxed flex-1 font-light">{r.texto}</p>
+              <p className="text-[#5a504b] text-xs leading-relaxed font-light line-clamp-4">{r.texto}</p>
             </div>
           ))}
         </div>
@@ -842,13 +835,13 @@ export function ReviewsSection() {
               <p className="text-lg text-[#a09890] font-light">Tu feedback nos ayuda a mejorar.</p>
             </div>
           ) : (
-            <div className="bg-white border border-[#f0ebe4] p-6 rounded-sm">
-              <div className="flex gap-2 mb-4">
+            <div className="bg-white border border-[#f0ebe4] p-5 rounded-sm">
+              <div className="flex gap-2 mb-3">
                 {(['opinion', 'sugerencia', 'pregunta'] as const).map((type) => (
                   <button
                     key={type}
                     onClick={() => setFeedbackType(type)}
-                    className={`px-5 py-2.5 text-[12px] tracking-[0.15em] uppercase transition-all rounded-sm font-light ${
+                    className={`px-4 py-2 text-[11px] tracking-[0.15em] uppercase transition-all rounded-sm font-light ${
                       feedbackType === type
                         ? 'bg-[#B8A99A] text-white'
                         : 'border border-[#e8e2da] text-[#8B7355] hover:border-[#B8A99A]'
@@ -859,35 +852,35 @@ export function ReviewsSection() {
                 ))}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
                 <input
                   type="text"
                   placeholder="Tu nombre *"
                   value={feedbackName}
                   onChange={(e) => setFeedbackName(e.target.value)}
-                  className="w-full border border-[#e8e2da] px-4 py-3 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
+                  className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
                 />
                 <input
                   type="tel"
                   placeholder="Teléfono (opcional)"
                   value={feedbackPhone}
                   onChange={(e) => setFeedbackPhone(e.target.value)}
-                  className="w-full border border-[#e8e2da] px-4 py-3 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
+                  className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
                 />
               </div>
 
               <textarea
-                rows={3}
+                rows={2}
                 placeholder="Escribe aquí tu opinión..."
                 value={feedbackText}
                 onChange={(e) => setFeedbackText(e.target.value)}
-                className="w-full border border-[#e8e2da] px-4 py-3 text-sm focus:outline-none focus:border-[#B8A99A] resize-none mb-3 rounded-sm"
+                className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] resize-none mb-2 rounded-sm"
               />
 
               <button
                 onClick={handleFeedback}
                 disabled={feedbackLoading || !feedbackText.trim() || !feedbackName.trim()}
-                className="w-full py-3 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-40 font-light transition-colors rounded-sm"
+                className="w-full py-2.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-40 font-light transition-colors rounded-sm"
               >
                 {feedbackLoading ? 'Enviando...' : 'Enviar feedback'}
               </button>
@@ -1007,7 +1000,7 @@ export function HomecareSection() {
       <div className="max-w-[1400px] mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-12 lg:mb-16 reveal">
-          <p className="text-[14px] tracking-[0.3em] uppercase text-[#8B7355] mb-5 font-light">Homecare</p>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Homecare</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-light tracking-wide">Cuidado en casa</h2>
           <p className="text-[#8B7355] text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
             El tratamiento en salón es solo la mitad. Tu rutina en casa marca la diferencia.
@@ -1015,17 +1008,17 @@ export function HomecareSection() {
         </div>
 
         {/* ── Care Tips ── */}
-        <div className="reveal mb-14 lg:mb-20">
-          <div className="bg-[#EDE7DF] px-8 lg:px-12 py-10 lg:py-12">
+        <div className="reveal mb-10 lg:mb-14">
+          <div className="bg-[#EDE7DF] px-6 lg:px-10 py-6 lg:py-8">
             {/* Header */}
-            <div className="flex items-baseline gap-8 mb-8">
-              <h3 className="font-serif text-2xl lg:text-3xl text-[#3d3530] font-light tracking-wide shrink-0">Nota de la especialista</h3>
+            <div className="flex items-baseline gap-8 mb-5">
+              <h3 className="font-serif text-xl lg:text-2xl text-[#3d3530] font-light tracking-wide shrink-0">Nota de la especialista</h3>
               <div className="hidden md:block flex-1 h-px bg-[#c4b8ab]" />
             </div>
             {/* Tips */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24">
               {careTips.map((tip, i) => (
-                <div key={i} className="flex items-start gap-5 py-4 border-b border-[#d4cdc6]">
+                <div key={i} className="flex items-start gap-4 py-3 border-b border-[#d4cdc6]">
                   <span className="text-[11px] tracking-[0.2em] text-[#b5a99f] font-light pt-0.5 w-6 shrink-0">{String(i + 1).padStart(2, '0')}</span>
                   <span className="text-sm text-[#3d3530] font-light leading-relaxed">{tip}</span>
                 </div>
@@ -1040,7 +1033,7 @@ export function HomecareSection() {
             <div className="flex flex-col md:flex-row">
 
               {/* Left: Image */}
-              <div className="w-full md:w-[40%] lg:w-[44%] flex-shrink-0 relative bg-[#EDE8E2]" style={{ minHeight: '220px' }}>
+              <div className="w-full md:w-[40%] lg:w-[44%] flex-shrink-0 relative bg-[#EDE8E2]" style={{ minHeight: '180px' }}>
                 <img
                   src="/images/kit.jpg"
                   alt="Kit personalizado"
@@ -1051,11 +1044,11 @@ export function HomecareSection() {
               </div>
 
               {/* Right: Content */}
-              <div className="flex-1 p-8 lg:p-10 xl:p-12 flex flex-col justify-between gap-6">
+              <div className="flex-1 p-6 lg:p-8 flex flex-col justify-between gap-4">
 
                 <div>
-                  <p className="text-[10px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-light">Kit Personalizado · Línea Limba</p>
-                  <h3 className="font-serif text-3xl md:text-4xl text-[#3d3530] mb-4 font-light">Kit de cuidado en casa</h3>
+                  <p className="text-[10px] tracking-[0.3em] uppercase text-[#B8A99A] mb-2 font-light">Kit Personalizado · Línea Limba</p>
+                  <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-3 font-light">Kit de cuidado en casa</h3>
                   <p className="text-sm text-[#7a6f68] font-light leading-relaxed max-w-md">
                     Cuatro productos elegidos por la especialista tras un diagnóstico real con tricóscopio.
                     Sin adivinanzas, sin productos genéricos.
@@ -1073,14 +1066,24 @@ export function HomecareSection() {
                 </div>
 
                 {/* Promo */}
-                <div className="bg-[#FAF8F5] px-5 py-3 border border-[#f0ebe4] text-sm">
-                  <span className="text-[#3d3530] font-medium">Promo web:</span>{' '}
-                  <span className="text-[#7a6f68] font-light">Diagnóstico con tricóscopio gratis al reservar</span>
+                <div className="bg-[#3d3530] px-5 py-4 relative overflow-hidden">
+                  {/* subtle decorative line */}
+                  <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#B8A99A] via-[#D4C5B5] to-transparent" />
+                  <div className="flex items-center gap-2.5 mb-1.5">
+                    <svg className="w-3 h-3 text-[#B8A99A] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2l1.8 5.5H19l-4.4 3.2 1.7 5.3L12 13l-4.3 3 1.7-5.3L5 7.5h5.2z"/>
+                    </svg>
+                    <span className="text-[9px] tracking-[0.35em] uppercase text-[#B8A99A] font-light">Promo web exclusiva</span>
+                    <span className="ml-auto bg-[#B8A99A] text-white text-[9px] tracking-[0.2em] uppercase px-2.5 py-0.5 font-light">Gratis</span>
+                  </div>
+                  <p className="text-[#EDE8E2] text-sm font-light leading-snug">
+                    Diagnóstico con tricóscopio al reservar tu kit
+                  </p>
                 </div>
 
                 {/* Price + CTA */}
-                <div className="flex items-center gap-4 pt-4 border-t border-[#f0ebe4]">
-                  <p className="font-serif text-4xl text-[#3d3530] font-light">90€</p>
+                <div className="flex items-center gap-4 pt-3 border-t border-[#f0ebe4]">
+                  <p className="font-serif text-3xl text-[#3d3530] font-light">90€</p>
                   <button
                     onClick={() => addToCart('Kit completo', 'Personalizado', '90€')}
                     className="px-6 py-3 bg-[#B8A99A] text-white text-[11px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors cursor-pointer font-light flex items-center gap-2"
@@ -1301,27 +1304,28 @@ export function FormacionesSection() {
   return (
     <section id="formaciones" className="bg-[#FAF9F6] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-8">
-        <div className="text-center mb-8 lg:mb-12 reveal">
-          <p className="text-[14px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Para Profesionales</p>
+        <div className="text-center mb-6 lg:mb-8 reveal">
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Para Profesionales</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Formaciones</h2>
         </div>
 
+        {/* ── foto strip ── */}
+        <div className="grid grid-cols-4 gap-2 lg:gap-3 mb-8 lg:mb-12 reveal">
+          {['/images/ker.jpg', '/images/kera.jpg', '/images/rec.jpg', '/images/reca.jpg'].map((src, i) => (
+            <div key={i} className="relative aspect-[4/3] bg-[#f5f2ee] overflow-hidden">
+              <img src={src} alt={`Formacion ${i + 1}`} className="absolute inset-0 w-full h-full object-contain object-center z-[1]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+              <ImgPlaceholder label={src.split('/').pop() || ''} />
+            </div>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 xl:gap-10 max-w-[1400px] mx-auto">
-          <div className="border border-[#e8e2da] p-7 md:p-9 flex flex-col gap-5 hover:border-[#B8A99A] transition-all">
-            <span className="self-start text-[12px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-5 py-2.5 font-light">
+          <div className="border border-[#e8e2da] p-5 md:p-7 flex flex-col gap-4 hover:border-[#B8A99A] transition-all">
+            <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-4 py-2 font-light">
               Curso destacado
             </span>
-            <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light">Curso intensivo de keratina</h3>
+            <h3 className="font-serif text-xl md:text-2xl text-[#3d3530] font-light">Curso intensivo de keratina</h3>
             <p className="text-sm md:text-base text-[#8B7355] font-light">2 días · Práctica con modelos</p>
-
-            <div className="grid grid-cols-2 gap-2">
-              {['/images/ker.jpg', '/images/kera.jpg'].map((src, i) => (
-                <div key={i} className="relative aspect-[4/3] bg-[#f5f2ee] overflow-hidden rounded-sm">
-                  <img src={src} alt={`Curso keratina ${i + 1}`} className="absolute inset-0 w-full h-full object-contain object-center z-[1]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                  <ImgPlaceholder label={src.split('/').pop() || ''} />
-                </div>
-              ))}
-            </div>
 
             <div>
               <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-4 font-light">Programa</p>
@@ -1344,8 +1348,8 @@ export function FormacionesSection() {
               </p>
             </div>
 
-            <div className="bg-[#FAF8F5] p-4 border border-[#f0ebe4]">
-              <div className="flex items-center gap-2 mb-2">
+            <div className="bg-[#FAF8F5] p-3 border border-[#f0ebe4]">
+              <div className="flex items-center gap-2 mb-1.5">
                 <svg className="w-4 h-4 text-[#8B7355]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
                 </svg>
@@ -1354,32 +1358,23 @@ export function FormacionesSection() {
               <p className="text-sm text-[#3d3530] font-light">Acceso a grupo privado de soporte post-formación</p>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-5 border-t border-[#f0ebe4] gap-4">
-              <span className="font-serif text-3xl md:text-4xl text-[#3d3530] font-light">1.400€</span>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 border-t border-[#f0ebe4] gap-4">
+              <span className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light">1.400€</span>
               <button
                 onClick={() => handleReservar('Curso intensivo de keratina')}
-                className="w-full sm:w-auto px-7 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] cursor-pointer font-light"
+                className="w-full sm:w-auto px-6 py-2.5 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] cursor-pointer font-light"
               >
                 Reservar plaza
               </button>
             </div>
           </div>
 
-          <div className="border border-[#e8e2da] p-7 md:p-9 flex flex-col gap-5 hover:border-[#B8A99A] transition-all">
-            <span className="self-start text-[12px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-5 py-2.5 font-light">
+          <div className="border border-[#e8e2da] p-5 md:p-7 flex flex-col gap-4 hover:border-[#B8A99A] transition-all">
+            <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-4 py-2 font-light">
               Masterclass
             </span>
-            <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light">Reconstrucción en Frío</h3>
+            <h3 className="font-serif text-xl md:text-2xl text-[#3d3530] font-light">Reconstrucción en Frío</h3>
             <p className="text-sm md:text-base text-[#8B7355] font-light">Intensivo · Máx. 6 personas</p>
-
-            <div className="grid grid-cols-2 gap-2">
-              {['/images/rec.jpg', '/images/reca.jpg'].map((src, i) => (
-                <div key={i} className="relative aspect-[4/3] bg-[#f5f2ee] overflow-hidden rounded-sm">
-                  <img src={src} alt={`Curso reconstrucción ${i + 1}`} className="absolute inset-0 w-full h-full object-contain object-center z-[1]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                  <ImgPlaceholder label={src.split('/').pop() || ''} />
-                </div>
-              ))}
-            </div>
 
             <div>
               <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-4 font-light">Programa</p>
@@ -1402,8 +1397,8 @@ export function FormacionesSection() {
               </p>
             </div>
 
-            <div className="bg-[#FAF8F5] p-4 border border-[#f0ebe4]">
-              <div className="flex items-center gap-2 mb-2">
+            <div className="bg-[#FAF8F5] p-3 border border-[#f0ebe4]">
+              <div className="flex items-center gap-2 mb-1.5">
                 <svg className="w-4 h-4 text-[#8B7355]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
                 </svg>
@@ -1412,14 +1407,14 @@ export function FormacionesSection() {
               <p className="text-sm text-[#3d3530] font-light">Descuento especial en productos profesionales Limba</p>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-5 border-t border-[#f0ebe4] gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 border-t border-[#f0ebe4] gap-4">
               <div>
-                <span className="font-serif text-3xl md:text-4xl text-[#3d3530] font-light">350€</span>
+                <span className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light">350€</span>
                 <span className="text-sm text-[#8B7355] block font-light">por persona · mín. 3</span>
               </div>
               <button
                 onClick={() => handleReservar('Masterclass Reconstrucción')}
-                className="w-full sm:w-auto px-7 py-3 border border-[#B8A99A] text-[#B8A99A] text-[12px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white cursor-pointer font-light"
+                className="w-full sm:w-auto px-6 py-2.5 border border-[#B8A99A] text-[#B8A99A] text-[12px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white cursor-pointer font-light"
               >
                 Reservar plaza
               </button>
@@ -1450,19 +1445,19 @@ const STRIPE_SCRIPTS_URL = 'https://buy.stripe.com/5kQdRb8cbglMf7E7dSdQQ00';
 export function BeautyScriptsSection() {
   const sectionRef = useReveal();
   return (
-    <section id="scripts" className="bg-[#EDE8E2] py-10 lg:py-16" ref={sectionRef}>
+    <section id="scripts" className="bg-[#EDE8E2] py-8 lg:py-12" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-8">
-        <div className="text-center mb-12 lg:mb-18 lg:text-left reveal">
-          <p className="text-[14px] tracking-[0.3em] uppercase text-[#8B7355] mb-5 font-light">Scripts</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-light tracking-wide">Beauty Scripts</h2>
-          <p className="text-xl md:text-2xl lg:text-3xl text-[#7a6f68] max-w-3xl lg:mx-0 mx-auto font-light leading-relaxed">
+        <div className="text-center mb-8 lg:mb-12 lg:text-left reveal">
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-light">Scripts</p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-light tracking-wide">Beauty Scripts</h2>
+          <p className="text-base md:text-lg lg:text-xl text-[#7a6f68] max-w-3xl lg:mx-0 mx-auto font-light leading-relaxed">
             Scripts listos para usar que aumentan tus ventas. Diálogos profesionales para especialistas de beauty.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
-          <div className="w-full lg:w-[440px] xl:w-[480px] flex-shrink-0 mx-auto lg:mx-0">
-            <div className="relative aspect-[4/5] bg-[#f0ebe4] overflow-hidden shadow-sm">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+          <div className="w-full lg:w-[360px] xl:w-[400px] flex-shrink-0 mx-auto lg:mx-0">
+            <div className="relative aspect-[3/4] bg-[#f0ebe4] overflow-hidden shadow-sm">
               <img
                 src="/images/beautyscripts.jpeg"
                 alt="Beauty Scripts"
@@ -1475,22 +1470,22 @@ export function BeautyScriptsSection() {
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col gap-10">
-            <div className="flex flex-col gap-8">
+          <div className="flex-1 flex flex-col gap-8">
+            <div className="flex flex-col gap-6">
               {[
                 ['Ahorra tiempo', 'Scripts probados y listos para usar.'],
                 ['Reduce estrés', 'Responde con confianza a cualquier pregunta.'],
                 ['Más conversiones', 'Optimizados para cerrar más ventas.'],
               ].map(([t, d]) => (
-                <div key={t} className="flex gap-5">
-                  <span className="w-7 h-7 border border-[#B8A99A] flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-3.5 h-3.5 text-[#B8A99A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div key={t} className="flex gap-4">
+                  <span className="w-6 h-6 border border-[#B8A99A] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-[#B8A99A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
                   </span>
                   <div>
-                    <p className="text-xl md:text-2xl font-light text-[#3d3530]">{t}</p>
-                    <p className="text-base md:text-lg text-[#8B7355] font-light">{d}</p>
+                    <p className="text-lg md:text-xl font-light text-[#3d3530]">{t}</p>
+                    <p className="text-sm md:text-base text-[#8B7355] font-light">{d}</p>
                   </div>
                 </div>
               ))}
@@ -1516,13 +1511,18 @@ export function BeautyScriptsSection() {
 export function GoogleMapSection() {
   return (
     <section id="ubicacion" className="bg-[#FDFCFA]">
-      <div className="max-w-[1400px] mx-auto px-8 py-10 lg:py-16">
-        <div className="text-center mb-14">
-          <p className="text-[14px] tracking-[0.3em] uppercase text-[#8B7355] mb-5 font-light">Ubicación</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#3d3530] mb-5 font-light tracking-wide">Cómo llegar</h2>
-          <p className="text-[#8B7355] text-xl md:text-2xl font-light">Calle de Altamirano · Madrid, España</p>
+      <div className="max-w-[1400px] mx-auto px-8 py-8 lg:py-12">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+          <div>
+            <p className="text-[11px] tracking-[0.35em] uppercase text-[#B8A99A] mb-1.5 font-light">Ubicación</p>
+            <h2 className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light tracking-wide">Cómo llegar</h2>
+          </div>
+          <div className="text-right sm:text-right">
+            <p className="text-sm text-[#3d3530] font-light">Calle Altamirano, 11</p>
+            <p className="text-xs text-[#a09890] font-light">Madrid, España</p>
+          </div>
         </div>
-        <div className="aspect-[16/7] md:aspect-[16/6] w-full overflow-hidden rounded-sm border border-[#e8e2da]">
+        <div className="aspect-[16/6] md:aspect-[16/5] w-full overflow-hidden border border-[#e8e2da]">
           <iframe
             title="Keratin Madrid ubicación"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.4!2d-3.7144!3d40.4306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228e23d0b0b0b%3A0x0!2sCalle+de+Altamirano%2C+Madrid!5e0!3m2!1sen!2ses!4v1700000000000"
