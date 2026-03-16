@@ -132,7 +132,7 @@ function ReservationModal({
                 type="text"
                 value={form.nombre}
                 onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]"
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A]"
               />
             </div>
 
@@ -143,7 +143,7 @@ function ReservationModal({
                 value={form.telefono}
                 placeholder="+34 6XX XXX XXX"
                 onChange={(e) => setForm((f) => ({ ...f, telefono: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]"
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A]"
               />
             </div>
 
@@ -156,7 +156,7 @@ function ReservationModal({
                 value={form.detalle}
                 placeholder={detallePlaceholder}
                 onChange={(e) => setForm((f) => ({ ...f, detalle: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]"
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A]"
               />
             </div>
 
@@ -169,7 +169,7 @@ function ReservationModal({
                 value={form.notas}
                 placeholder={tr.sections.modalNotasPlaceholder}
                 onChange={(e) => setForm((f) => ({ ...f, notas: e.target.value }))}
-                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] resize-none"
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A] resize-none"
               />
             </div>
 
@@ -435,7 +435,7 @@ export function TratamientosSection() {
 
                 <button
                   onClick={scrollToPrecios}
-                  className="self-start px-10 py-3.5 bg-[#6b5c52] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#5c4f47] transition-all cursor-pointer font-medium"
+                  className="self-start px-10 py-3.5 border border-[#8B7355] text-[#8B7355] text-[13px] tracking-[0.2em] uppercase hover:bg-[#8B7355] hover:text-white transition-all cursor-pointer font-medium"
                 >
                   {tr.sections.verPrecio}
                 </button>
@@ -792,8 +792,10 @@ export function ReviewsSection() {
               key={i}
               onClick={() => setReviewIdx(i)}
               aria-label={`Reseña ${i + 1}`}
-              className={`rounded-full transition-all duration-300 ${i === reviewIdx ? 'bg-[#B8A99A] w-6 h-2' : 'bg-[#d4cfc9] w-2 h-2'}`}
-            />
+              className="w-8 h-8 flex items-center justify-center"
+            >
+              <span className={`rounded-full transition-all duration-300 block ${i === reviewIdx ? 'bg-[#B8A99A] w-6 h-2' : 'bg-[#d4cfc9] w-2 h-2'}`} />
+            </button>
           ))}
         </div>
 
@@ -833,14 +835,14 @@ export function ReviewsSection() {
                   placeholder={tr.sections.revNombre}
                   value={feedbackName}
                   onChange={(e) => setFeedbackName(e.target.value)}
-                  className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
+                  className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A] rounded-sm"
                 />
                 <input
                   type="tel"
                   placeholder={tr.sections.revTelefono}
                   value={feedbackPhone}
                   onChange={(e) => setFeedbackPhone(e.target.value)}
-                  className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
+                  className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A] rounded-sm"
                 />
               </div>
 
@@ -849,7 +851,7 @@ export function ReviewsSection() {
                 placeholder={tr.sections.revMensaje}
                 value={feedbackText}
                 onChange={(e) => setFeedbackText(e.target.value)}
-                className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] resize-none mb-2 rounded-sm"
+                className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A] resize-none mb-2 rounded-sm"
               />
 
               {feedbackError && (
@@ -1008,7 +1010,7 @@ export function HomecareSection() {
   };
 
   return (
-    <section id="homecare" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
+    <section id="homecare" className="bg-white py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
@@ -1136,7 +1138,7 @@ export function HomecareSection() {
           <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-4 font-medium text-center">{tr.sections.hcIndividuales}</p>
 
           {/* Global line filter */}
-          <div className="flex items-center justify-center gap-2 mb-5">
+          <div className="flex items-center gap-2 mb-5 overflow-x-auto hide-scrollbar justify-center px-1">
             {(['Color', 'Volume', 'Detox', 'Hydration'] as const).map((line, idx) => (
               <button
                 key={line}
@@ -1157,7 +1159,7 @@ export function HomecareSection() {
               const lineIdx = selectedLines[product.typeKey] || 0;
               const variant = product.variants[lineIdx];
               return (
-                <div key={product.typeKey + activeLine} className="bg-white border border-[#e8e2da] shadow-sm hover:shadow-md transition-shadow flex flex-col animate-fade-in">
+                <div key={product.typeKey + activeLine} className="bg-white border border-[#e8e2da] shadow-sm hover:shadow-md transition-shadow flex flex-col h-full animate-fade-in">
                   {/* Product image */}
                   <div className="relative aspect-square bg-[#EDE8E2] overflow-hidden">
                     <img
@@ -1318,18 +1320,18 @@ export function HomecareSection() {
                     <div>
                       <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.sections.hcCartNombre}</label>
                       <input type="text" value={cartForm.nombre} onChange={e => setCartForm(f => ({ ...f, nombre: e.target.value }))}
-                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A]" />
+                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A]" />
                     </div>
                     <div>
                       <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.sections.hcCartTelefono}</label>
                       <input type="tel" placeholder="+34 6XX XXX XXX" value={cartForm.telefono} onChange={e => setCartForm(f => ({ ...f, telefono: e.target.value }))}
-                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A]" />
+                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A]" />
                     </div>
                     <div>
                       <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.sections.hcCartNotas}</label>
                       <textarea rows={2} value={cartForm.notas} onChange={e => setCartForm(f => ({ ...f, notas: e.target.value }))}
                         placeholder={tr.sections.hcCartNotasPlaceholder}
-                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A] resize-none" />
+                        className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A] resize-none" />
                     </div>
                     {cartError && (
                       <p className="text-red-500 text-sm font-light">{cartError}</p>

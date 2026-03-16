@@ -115,7 +115,7 @@ export default function BookingPage() {
             <div>
               <label htmlFor="service" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">{tr.booking.tratamiento}</label>
               <select id="service" name="service" value={form.service} onChange={handleChange} required
-                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]">
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A]">
                 <option value="">{tr.booking.seleccionarTratamiento}</option>
                 {SERVICES.map((s) => (
                   <option key={s.value} value={s.value}>{s.label}</option>
@@ -126,7 +126,7 @@ export default function BookingPage() {
             <div>
               <label htmlFor="hairLength" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">{tr.booking.longitud}</label>
               <select id="hairLength" name="hairLength" value={form.hairLength} onChange={handleChange} required
-                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]">
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A]">
                 <option value="">{tr.booking.seleccionarLongitud}</option>
                 {HAIR_LENGTHS.map((h) => (
                   <option key={h.value} value={h.value}>{h.label}</option>
@@ -138,14 +138,14 @@ export default function BookingPage() {
               <label htmlFor="bookingDate" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">{tr.booking.fecha}</label>
               <input id="bookingDate" type="date" name="date" value={form.date} onChange={handleChange}
                 required min={minDate}
-                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A]"/>
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A]"/>
             </div>
 
             <div>
               <label htmlFor="bookingNotes" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">{tr.booking.notas}</label>
               <textarea id="bookingNotes" name="notes" value={form.notes} onChange={handleChange}
                 rows={4} placeholder={tr.booking.notasPlaceholder}
-                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] resize-none"/>
+                className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:ring-1 focus:ring-[#B8A99A]/50 focus:border-[#B8A99A] resize-none"/>
             </div>
 
             <button type="submit" disabled={loading}
