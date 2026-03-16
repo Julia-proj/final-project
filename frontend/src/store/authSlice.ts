@@ -11,7 +11,7 @@
 // ============================================================
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loginAPI, registerAPI, getMeAPI } from '../api/auth.api';
+import { loginAPI, registerAPI, getMeAPI, googleAuthAPI } from '../api/auth.api';
 import type { User, LoginForm, RegisterForm } from '../types';
 
 // Forma del estado de autenticación
@@ -60,6 +60,19 @@ export const registerThunk = createAsyncThunk(
     } catch (err: unknown) {
       const e = err as { response?: { data?: { message?: string } } };
       return rejectWithValue(e.response?.data?.message || 'Error al registrarse');
+    }
+  }
+);
+
+export const googleAuthThunk = createAsyncThunk(
+  'auth/google',
+  async (credential: string, { rejectWithValue }) => {
+    try {
+      const res = await googleAuthAPI(credential);
+      return res.data;
+    } catch (err: unknown) {
+      const e = err as { response?: { data?: { message?: string } } };
+      return rejectWithValue(e.response?.data?.message || 'Error con Google');
     }
   }
 );
@@ -127,6 +140,22 @@ const authSlice = createSlice({
       .addCase(registerThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = (action.payload as string) || 'Error al registrarse';
+      })
+
+    // ── GOOGLE AUTH ──
+      .addCase(googleAuthThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(googleAuthThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        localStorage.setItem('token', action.payload.token);
+      })
+      .addCase(googleAuthThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = (action.payload as string) || 'Error con Google';
       })
 
     // ── GET ME ──

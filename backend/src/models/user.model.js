@@ -25,7 +25,17 @@ const userSchema = new mongoose.Schema({
 
   password: {
     type: String,
-    required: true
+    required: false   // null para usuarios registrados con Google
+  },
+
+  googleId: {
+    type: String,
+    sparse: true,
+    unique: true
+  },
+
+  avatar: {
+    type: String
   },
 
   role: {

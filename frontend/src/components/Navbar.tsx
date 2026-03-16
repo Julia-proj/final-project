@@ -83,9 +83,9 @@ export default function Navbar() {
     setProDrop(false);
   };
 
-  const toggleServ = () => { setServDrop(!servDrop); setHomeDrop(false); setProDrop(false); };
-  const toggleHome = () => { setHomeDrop(!homeDrop); setServDrop(false); setProDrop(false); };
-  const togglePro = () => { setProDrop(!proDrop); setServDrop(false); setHomeDrop(false); };
+  const toggleServ = () => { setServDrop(!servDrop); setHomeDrop(false); setProDrop(false); setLangOpen(false); };
+  const toggleHome = () => { setHomeDrop(!homeDrop); setServDrop(false); setProDrop(false); setLangOpen(false); };
+  const togglePro = () => { setProDrop(!proDrop); setServDrop(false); setHomeDrop(false); setLangOpen(false); };
 
   const lnk = 'text-[13px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors cursor-pointer whitespace-nowrap font-normal';
 
@@ -183,8 +183,31 @@ export default function Navbar() {
             <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] hover:text-[#8B7355] p-1.5"><InstagramIcon/></a>
             <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="text-[#a89585] hover:text-[#8B7355] p-1.5"><YouTubeIcon/></a>
             <div className="w-px h-5 bg-[#d4cfc9]"/>
-            {/* ── Language selector ── */}
-            <LangSelector />
+            {/* ── Language dropdown ── */}
+            <div className="relative">
+              <button
+                onClick={() => { setLangOpen(!langOpen); setServDrop(false); setHomeDrop(false); setProDrop(false); }}
+                className="flex items-center gap-1 text-[11px] tracking-[0.16em] uppercase text-[#8B7355] hover:text-[#3d3530] transition-colors px-1 py-0.5"
+              >
+                {lang.toUpperCase()}
+                <svg className={`w-2.5 h-2.5 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              {langOpen && (
+                <div className="absolute top-full right-0 mt-2 bg-[#FAF8F5] border border-[#e8e2da] shadow-md z-50 min-w-[52px]">
+                  {LANGS.filter(l => l !== lang).map(l => (
+                    <button
+                      key={l}
+                      onClick={() => { setLang(l); setLangOpen(false); }}
+                      className="block w-full py-2.5 text-[10px] tracking-[0.16em] uppercase text-[#8B7355] hover:bg-[#f0ebe4] transition-colors text-center font-normal"
+                    >
+                      {l.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <div className="w-px h-5 bg-[#d4cfc9]"/>
             {user ? (
               <>
@@ -196,10 +219,7 @@ export default function Navbar() {
                 <button onClick={() => { dispatch(logout()); navigate('/'); }} className="text-[12px] tracking-widest uppercase text-[#a09890] hover:text-[#3d3530]">{tr.nav.salir}</button>
               </>
             ) : (
-              <>
-                <Link to="/login" className="text-[12px] tracking-[0.1em] uppercase text-[#8B7355] hover:text-[#3d3530] font-normal transition-colors">{tr.nav.entrar}</Link>
-                <Link to="/register" className="text-[11px] tracking-[0.1em] uppercase border border-[#B8A99A] text-[#B8A99A] hover:bg-[#B8A99A] hover:text-white px-3.5 py-1.5 font-medium transition-all whitespace-nowrap">{tr.nav.registrarse}</Link>
-              </>
+              <Link to="/login" className="text-[11px] tracking-[0.1em] uppercase border border-[#B8A99A] text-[#B8A99A] hover:bg-[#B8A99A] hover:text-white px-3.5 py-1.5 font-medium transition-all whitespace-nowrap">{tr.nav.miCuenta}</Link>
             )}
           </div>
 

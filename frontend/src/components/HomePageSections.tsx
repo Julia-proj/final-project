@@ -628,12 +628,12 @@ export function AntesDespuesSection() {
 // ═══════════════════════════════════════════════════════════════
 
 const resenasGoogle = [
+  { nombre: 'Maria A. P.', estrellas: 5, meta: 'Local Guide · 60 reseñas · 12 fotos', texto: 'Llevaba mucho tiempo viendo su contenido, hasta que al fin me decidí, primero que todo el trato es fenomenal, te explican detalladamente lo que hacen, y te dan tips para cuidar en casa, hoy inicié la recuperación de mi cabello y de verdad estoy feliz con el primer resultado, así que volveré próximamente.', fecha: 'Hace 2 años', avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjX9PyNKgrEkfckDZsGdjqpp1d64h4fdLp2kIlkBHaXGEgME-pyjHA=w72-h72-p-rp-mo-ba3-br100' },
   { nombre: 'Laura Castillo', estrellas: 5, meta: '8 reseñas · 3 fotos', texto: 'Me ha fascinado como me han dejado mi cabello, tan sedoso y brillante. Alexa me ha tratado de lo mejor y me ha enseñado tantas cosas que no sabía sobre la salud de mi cuero cabelludo, me han cuidado y restaurado desde el interior, me ha quedado lleno de vida. Además el lugar es precioso, la decoración es hermosa, la atención son muy amables, volveré encantada!', fecha: 'Hace 5 meses' },
   { nombre: 'Monica Aranguez', estrellas: 5, meta: '5 reseñas', texto: 'Llevo con ellas desde hace bastantes meses y el cambio de mi pelo ha sido espectacular. Nunca he tenido así el pelo, tan hidratado y no se me parte! Te recomiendan cada vez que voy, que es lo ideal para ti. Las mejores sin duda ❤️', fecha: 'Hace 3 meses' },
   { nombre: 'Tatiana Rogr', estrellas: 5, meta: '2 reseñas', texto: 'Un lugar perfecto, es la segunda vez que voy porque me encanta el resultado y me encanta la profesionalidad con lo que hace todo, en todo momento sabe que necesita mi pelo y me va súper bien, acabado de primera, no solo el alisado, también la hidratación profunda y la limpieza, estoy encantada.', fecha: 'Hace 2 meses' },
   { nombre: 'Sara García', estrellas: 5, meta: '7 reseñas', texto: 'Los descubrí por Instagram en julio y estoy encantada con como está mejorando mi pelo. Me he hecho dos veces la keratina y una reconstrucción capilar. La atención al detalle, como te cuidan mientras estás con ellas y luego el seguimiento que te hacen es impecable.', fecha: 'Hace 2 meses', avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjX1B5_dYc-tjAG2eJ0BuQc2bOvDAxCl_miMT-cgj_YGODNx7Rfy=w72-h72-p-rp-mo-br100' },
   { nombre: 'Silvia Fernandez', estrellas: 5, meta: '7 reseñas', texto: 'El trato es súper profesional, proporcionándote opciones para cuidar tu cabello. Si buscáis mejorar la salud de vuestro cabello a través de cualquier tratamiento aquí proporcionado, este es el sitio.', fecha: 'Hace 5 meses', avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjVOzih4Ad7l2UGLZV4DnPFLrgaTBD_OceYGjxL7FarrFz_mGThA9w=w72-h72-p-rp-mo-br100' },
-  { nombre: 'Maria A. P.', estrellas: 5, meta: 'Local Guide · 60 reseñas · 12 fotos', texto: 'Llevaba mucho tiempo viendo su contenido, hasta que al fin me decidí, primero que todo el trato es fenomenal, te explican detalladamente lo que hacen, y te dan tips para cuidar en casa, hoy inicié la recuperación de mi cabello y de verdad estoy feliz con el primer resultado, así que volveré próximamente.', fecha: 'Hace 2 años', avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjX9PyNKgrEkfckDZsGdjqpp1d64h4fdLp2kIlkBHaXGEgME-pyjHA=w72-h72-p-rp-mo-ba3-br100' },
 ];
 
 const AVATAR_COLORS = ['#4285F4','#EA4335','#34A853','#F57C00','#9C27B0','#00838F','#1976D2','#C62828'];
@@ -1144,7 +1144,7 @@ export function HomecareSection() {
               const lineIdx = selectedLines[product.type] || 0;
               const variant = product.variants[lineIdx];
               return (
-                <div key={product.type} className="bg-white border border-[#e8e2da] shadow-sm hover:shadow-md transition-all flex flex-col">
+                <div key={product.type + activeLine} className="bg-white border border-[#e8e2da] shadow-sm hover:shadow-md transition-shadow flex flex-col animate-fade-in">
                   {/* Product image */}
                   <div className="relative aspect-square bg-[#EDE8E2] overflow-hidden">
                     <img

@@ -31,7 +31,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#F9F8F6]">
 
-      <section className="relative min-h-[calc(100svh-58px)] lg:min-h-[calc(100svh-64px)] overflow-hidden flex flex-col">
+      <section id="inicio" className="relative min-h-[calc(100svh-58px)] lg:min-h-[calc(100svh-64px)] overflow-hidden flex flex-col">
 
         <div className="absolute inset-0">
           <video autoPlay muted loop playsInline poster="/images/salon.jpg"

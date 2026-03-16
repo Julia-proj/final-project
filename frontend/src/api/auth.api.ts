@@ -18,6 +18,9 @@ export const registerAPI = (data: RegisterForm) =>
 export const loginAPI = (data: LoginForm) =>
   axiosInstance.post('/auth/login', data);
 
+export const googleAuthAPI = (access_token: string) =>
+  axiosInstance.post('/auth/google', { access_token });
+
 // No necesita body — el interceptor añade el token automáticamente
 export const getMeAPI = () =>
   axiosInstance.get('/auth/me');

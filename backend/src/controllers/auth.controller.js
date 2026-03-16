@@ -5,7 +5,7 @@
 // y devuelve la respuesta. Si hay error, lo pasa a next().
 // ============================================================
 
-import { registerUser, loginUser, getMe } from '../services/auth.service.js';
+import { registerUser, loginUser, getMe, googleAuthUser } from '../services/auth.service.js';
 
 export const register = async (req, res, next) => {
   try {
@@ -21,6 +21,15 @@ export const login = async (req, res, next) => {
   try {
     const result = await loginUser(req.body);
     res.json(result);   
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const googleAuth = async (req, res, next) => {
+  try {
+    const result = await googleAuthUser(req.body.access_token);
+    res.json(result);
   } catch (error) {
     next(error);
   }
