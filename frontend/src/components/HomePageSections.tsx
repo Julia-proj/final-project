@@ -408,8 +408,6 @@ export function TratamientosSection() {
 
               <div className="flex-1 flex flex-col gap-7">
                 <div>
-                  <p className="text-[13px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal border-l-2 border-[#C9A96E]/50 pl-3">{td.duracion}</p>
-                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-4 font-normal">{td.nombre}</h3>
                   <p className="text-[#7a6f68] text-sm leading-relaxed">{td.desc}</p>
                 </div>
 
