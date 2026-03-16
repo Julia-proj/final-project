@@ -396,12 +396,10 @@ export function TratamientosSection() {
                   <ImgPlaceholder label={t.img.split('/').pop() || ''} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent z-20" />
                   <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 z-30">
-                    {(() => { const c = ['#C9A96E','#7BA8C4','#7AAD8C','#FFFFFF'][i]; return (
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="h-px w-6" style={{ backgroundColor: c }} />
-                      <span className="text-[10px] tracking-[0.25em] uppercase font-medium" style={{ color: c }}>{td.tag}</span>
+                      <div className="h-px w-6 bg-[#C9A96E]" />
+                      <span className="text-[10px] tracking-[0.25em] uppercase font-medium text-[#C9A96E]">{td.tag}</span>
                     </div>
-                    ); })()}
                     <h3 className="font-serif text-xl md:text-2xl font-normal text-white tracking-wide leading-tight">{td.nombre}</h3>
                     <p className="text-white/60 text-xs mt-1 font-light">{td.duracion}</p>
                   </div>
