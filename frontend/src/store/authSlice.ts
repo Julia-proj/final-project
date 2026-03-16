@@ -37,6 +37,14 @@ const initialState: AuthState = {
 //   fulfilled → éxito (devuelve datos)
 //   rejected  → error
 
+function extractError(err: unknown, fallback: string): string {
+  const e = err as { code?: string; response?: { data?: { message?: string } } };
+  if (e.response?.data?.message) return e.response.data.message;
+  if (e.code === 'ERR_NETWORK' || e.code === 'ECONNABORTED')
+    return 'No se puede conectar al servidor. Espera unos segundos y vuelve a intentarlo.';
+  return fallback;
+}
+
 export const loginThunk = createAsyncThunk(
   'auth/login',
   async (data: LoginForm, { rejectWithValue }) => {
@@ -44,8 +52,7 @@ export const loginThunk = createAsyncThunk(
       const res = await loginAPI(data);
       return res.data;
     } catch (err: unknown) {
-      const e = err as { response?: { data?: { message?: string } } };
-      return rejectWithValue(e.response?.data?.message || 'Error al iniciar sesión');
+      return rejectWithValue(extractError(err, 'Error al iniciar sesión'));
     }
   }
 );
@@ -58,8 +65,7 @@ export const registerThunk = createAsyncThunk(
       const res = await registerAPI(data);
       return res.data;
     } catch (err: unknown) {
-      const e = err as { response?: { data?: { message?: string } } };
-      return rejectWithValue(e.response?.data?.message || 'Error al registrarse');
+      return rejectWithValue(extractError(err, 'Error al registrarse'));
     }
   }
 );
@@ -71,8 +77,7 @@ export const googleAuthThunk = createAsyncThunk(
       const res = await googleAuthAPI(credential);
       return res.data;
     } catch (err: unknown) {
-      const e = err as { response?: { data?: { message?: string } } };
-      return rejectWithValue(e.response?.data?.message || 'Error con Google');
+      return rejectWithValue(extractError(err, 'Error con Google'));
     }
   }
 );
