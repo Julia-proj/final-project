@@ -173,10 +173,8 @@ export default function InteractivePricing() {
                         {l.desc}
                       </span>
                     </div>
-                    <span className={`font-serif transition-all duration-200 ${
-                      isActive
-                        ? 'text-3xl md:text-4xl text-[#3d3530] font-normal'
-                        : 'text-xl md:text-2xl text-[#3d3530]/60'
+                    <span className={`font-serif text-xl md:text-2xl transition-all duration-200 ${
+                      isActive ? 'text-[#3d3530] font-semibold' : 'text-[#3d3530]/60'
                     }`}>
                       {getPrice(l)}
                     </span>
