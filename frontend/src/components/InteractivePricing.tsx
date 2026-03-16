@@ -77,9 +77,9 @@ export default function InteractivePricing() {
         </div>
 
         {/* Main Layout: Image + List */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 items-start">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start max-w-[820px] mx-auto w-full">
           {/* Image with interactive markers — dominates the section */}
-          <div className="relative w-full lg:w-[34%] xl:w-[30%] flex-shrink-0">
+          <div className="relative w-full lg:w-[42%] flex-shrink-0">
             <div className="relative aspect-[3/4] bg-[#f0ebe4] overflow-hidden">
               <img
                 src="/images/precios.jpeg"
@@ -105,22 +105,22 @@ export default function InteractivePricing() {
                   <button
                     key={l.id}
                     onClick={() => setActive(isActive ? null : l.id)}
-                    className="absolute left-0 right-0 z-20 group cursor-pointer"
+                    className="absolute left-0 right-0 z-20 group cursor-pointer py-3 -translate-y-1/2"
                     style={{ top: l.top }}
                   >
                     {/* Horizontal line */}
-                    <div className={`h-px transition-all duration-300 ${isActive ? 'bg-[#B8A99A]' : 'bg-white/40 group-hover:bg-white/70'}`} />
+                    <div className={`h-0.5 transition-all duration-300 ${isActive ? 'bg-[#C9A96E]' : 'bg-white/50 group-hover:bg-white/90'}`} />
                     {/* Dot on the right side */}
                     <div
                       className={`absolute right-[8%] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
                         isActive
-                          ? 'bg-[#B8A99A] border-white scale-150 shadow-lg'
-                          : 'bg-white/80 border-[#B8A99A]/60 group-hover:bg-[#B8A99A] group-hover:border-white group-hover:scale-125'
+                          ? 'bg-[#C9A96E] border-white scale-150 shadow-lg'
+                          : 'bg-white/80 border-white/70 group-hover:bg-[#C9A96E] group-hover:border-white group-hover:scale-125'
                       }`}
                     />
                     {/* Price label that appears on hover/active */}
                     <div
-                      className={`absolute right-[14%] top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm shadow-md px-4 py-2 transition-all duration-300 whitespace-nowrap ${
+                      className={`absolute right-[14%] top-1/2 -translate-y-1/2 bg-white shadow-md px-4 py-2 transition-all duration-300 whitespace-nowrap ${
                         isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0'
                       }`}
                     >
@@ -151,26 +151,26 @@ export default function InteractivePricing() {
           </div>
 
           {/* Price list + extras sidebar */}
-          <div className="flex-1 lg:pl-7 xl:pl-9">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-4 font-light">
+          <div className="flex-1">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-3 font-light">
               {getLabel()} — {tr.pricing.porLongitud}
             </p>
 
-            <div className="flex flex-col divide-y divide-[#f0ebe4]">
+            <div className="flex flex-col divide-y divide-[#e8e2da]">
               {lengths.map((l) => (
                 <button
                   key={l.id}
                   onClick={() => setActive(active === l.id ? null : l.id)}
-                  className={`flex justify-between items-center py-1.5 px-1 text-left transition-all ${
-                    active === l.id ? 'bg-[#B8A99A]/8' : 'hover:bg-[#FAF8F5]'
+                  className={`flex justify-between items-center py-2.5 px-3 text-left transition-all border-l-2 ${
+                    active === l.id
+                      ? 'bg-[#B8A99A]/12 border-[#C9A96E]'
+                      : 'border-transparent hover:bg-[#FAF8F5] hover:border-[#e8e2da]'
                   }`}
                 >
-                  <div>
-                    <span className="text-sm md:text-base text-[#3d3530] font-light tracking-wide">{l.label}</span>
-                  </div>
+                  <span className={`text-sm md:text-base font-light tracking-wide transition-colors ${active === l.id ? 'text-[#3d3530] font-medium' : 'text-[#5a4f48]'}`}>{l.label}</span>
                   <span
                     className={`font-serif text-xl md:text-2xl transition-all ${
-                      active === l.id ? 'text-[#B8A99A]' : 'text-[#3d3530]'
+                      active === l.id ? 'text-[#C9A96E] font-normal' : 'text-[#3d3530]'
                     }`}
                   >
                     {getPrice(l)}

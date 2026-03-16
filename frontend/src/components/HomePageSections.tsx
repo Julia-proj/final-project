@@ -744,7 +744,7 @@ export function ReviewsSection() {
                         <span key={j} className="text-[#FBBC05] text-base">★</span>
                       ))}
                     </div>
-                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed flex-1 mb-2">{r.texto}</p>
+                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed flex-1 mb-2">{tr.sections.revTextos[i] ?? r.texto}</p>
                     {tr.sections.revTranslated && (
                       <p className="text-[10px] tracking-[0.08em] text-[#b5a9a0] italic mb-4">{tr.sections.revTranslated}</p>
                     )}
