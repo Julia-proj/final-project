@@ -435,7 +435,7 @@ export function TratamientosSection() {
 
                 <button
                   onClick={scrollToPrecios}
-                  className="self-start px-10 py-3.5 bg-[#8B7355] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#7A6348] transition-all cursor-pointer font-medium"
+                  className="self-start px-10 py-3.5 bg-[#6b5c52] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#5c4f47] transition-all cursor-pointer font-medium"
                 >
                   {tr.sections.verPrecio}
                 </button>

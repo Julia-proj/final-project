@@ -138,8 +138,8 @@ export default function InteractivePricing() {
                 <div className="absolute bottom-0 left-0 right-0 z-30 bg-[#6b5c52] px-5 py-2 animate-fade-in-up">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[11px] tracking-[0.18em] uppercase text-[#B8A99A] font-medium">{activeItem.label}</p>
-                      <p className="text-[10px] text-white/60 font-light mt-0.5">{activeItem.desc} · {getLabel()}</p>
+                      <p className="text-[11px] tracking-[0.18em] uppercase text-white/85 font-medium">{activeItem.label}</p>
+                      <p className="text-[10px] text-white/70 font-light mt-0.5">{activeItem.desc} · {getLabel()}</p>
                     </div>
                     <p className="font-serif text-2xl text-white">{getPrice(activeItem)}</p>
                   </div>
