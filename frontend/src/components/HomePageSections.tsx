@@ -879,34 +879,34 @@ const PRODUCT_CATALOG_BASE = [
   {
     typeKey: 'champu' as const,
     variants: [
-      { line: 'Color', img: '/images/champu1.jpg', price: '22€' },
-      { line: 'Volume', img: '/images/champu2.jpg', price: '22€' },
+      { line: 'Color', img: '/images/champu1.jpg', price: '20€' },
+      { line: 'Volume', img: '/images/champu2.jpg', price: '20€' },
       { line: 'Detox', img: '/images/champu3.jpg', price: '20€' },
-      { line: 'Hydration', img: '/images/champu4.jpg', price: '24€' },
+      { line: 'Hydration', img: '/images/champu4.jpg', price: '20€' },
     ],
   },
   {
     typeKey: 'acondicionador' as const,
     variants: [
-      { line: 'Color', img: '/images/cond1.jpg', price: '24€' },
-      { line: 'Volume', img: '/images/cond2.jpg', price: '24€' },
-      { line: 'Detox', img: '/images/cond3.jpg', price: '22€' },
-      { line: 'Hydration', img: '/images/cond4.jpg', price: '26€' },
+      { line: 'Color', img: '/images/cond1.jpg', price: '20€' },
+      { line: 'Volume', img: '/images/cond2.jpg', price: '20€' },
+      { line: 'Detox', img: '/images/cond3.jpg', price: '20€' },
+      { line: 'Hydration', img: '/images/cond4.jpg', price: '20€' },
     ],
   },
   {
     typeKey: 'mascarilla' as const,
     variants: [
-      { line: 'Color', img: '/images/mask1.jpg', price: '28€' },
-      { line: 'Volume', img: '/images/mask2.jpg', price: '28€' },
-      { line: 'Detox', img: '/images/mask3.jpg', price: '26€' },
-      { line: 'Hydration', img: '/images/mask4.jpg', price: '30€' },
+      { line: 'Color', img: '/images/mask1.jpg', price: '25€' },
+      { line: 'Volume', img: '/images/mask2.jpg', price: '25€' },
+      { line: 'Detox', img: '/images/mask3.jpg', price: '25€' },
+      { line: 'Hydration', img: '/images/mask4.jpg', price: '25€' },
     ],
   },
   {
     typeKey: 'protectorSpray' as const,
     variants: [
-      { line: 'Universal', img: '/images/thermo.jpg', price: '18€' },
+      { line: 'Universal', img: '/images/thermo.jpg', price: '25€' },
     ],
   },
 ];
