@@ -41,7 +41,7 @@ export default function InteractivePricing() {
 
   return (
     <section id="precios" className="bg-[#F9F7F4] py-12 lg:py-18">
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10">
 
         {/* Header */}
         <div className="text-center mb-8 lg:mb-10">

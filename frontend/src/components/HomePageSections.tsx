@@ -269,10 +269,10 @@ export function PorQueElegirSection() {
   const { tr } = useLanguage();
   return (
     <section id="inicio" className="bg-white py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 lg:mb-14 reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.pqeOverline}</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-normal tracking-wide">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5 font-normal tracking-wide">
             {tr.sections.pqeTitle}
           </h2>
           <p className="text-[#8B7355] text-base md:text-lg font-normal max-w-2xl mx-auto leading-relaxed">
@@ -368,10 +368,10 @@ export function TratamientosSection() {
 
   return (
     <section id="servicios" className="bg-[#FAF8F5] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.tratOverline}</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-normal tracking-wide">{tr.sections.tratTitle}</h2>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-6 font-normal tracking-wide">{tr.sections.tratTitle}</h2>
           <p className="text-[#8B7355] text-base md:text-lg lg:text-xl font-normal">{tr.sections.tratSubtitle}</p>
         </div>
 
@@ -549,7 +549,7 @@ export function AntesDespuesSection() {
 
   return (
     <section id="resultados" className="bg-[#F8F6F2] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.adOverline}</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">{tr.sections.adTitle}</h2>
@@ -678,7 +678,7 @@ export function ReviewsSection() {
 
   return (
     <section id="opiniones" className="bg-[#EEECEA] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <div className="flex items-center justify-center gap-3 mb-4">
             <svg className="w-7 h-7 text-[#FBBC05]" viewBox="0 0 24 24" fill="currentColor">
@@ -942,10 +942,10 @@ export function HomecareSection() {
     setSelectedLines({ 'champu': idx, 'acondicionador': idx, 'mascarilla': idx, 'protectorSpray': 0 });
   };
   const lineFilterClasses: Record<string, string> = {
-    'Color': 'bg-[#C4939B] text-white',
-    'Volume': 'bg-[#9E93B8] text-white',
-    'Detox': 'bg-[#7FAF96] text-white',
-    'Hydration': 'bg-[#C99A72] text-white',
+    'Color':     'bg-[#A89080] text-white',
+    'Volume':    'bg-[#8B8A9E] text-white',
+    'Detox':     'bg-[#7A9E8A] text-white',
+    'Hydration': 'bg-[#A8865C] text-white',
   };
 
   // ── Cart state ──
@@ -1011,11 +1011,11 @@ export function HomecareSection() {
 
   return (
     <section id="homecare" className="bg-white py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.hcOverline}</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-normal tracking-wide">{tr.sections.hcTitle}</h2>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-5 font-normal tracking-wide">{tr.sections.hcTitle}</h2>
           <p className="text-[#8B7355] text-base md:text-lg font-normal max-w-2xl mx-auto leading-relaxed">
             {tr.sections.hcDesc}
           </p>
@@ -1376,7 +1376,7 @@ export function FormacionesSection() {
 
   return (
     <section id="formaciones" className="bg-[#ECEAE7] py-10 lg:py-16" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.formOverline}</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">{tr.sections.formTitle}</h2>
@@ -1392,7 +1392,7 @@ export function FormacionesSection() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xl:gap-7 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xl:gap-7 max-w-[1200px] mx-auto">
           <div className="border border-[#e8e2da] p-4 md:p-6 flex flex-col gap-3 hover:border-[#B8A99A] transition-all">
             <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-4 py-1.5 font-medium">
               {tr.sections.formCursoDestacado}
@@ -1523,7 +1523,7 @@ export function BeautyScriptsSection() {
 
   return (
     <section id="scripts" className="bg-[#574438] py-10 lg:py-14" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal">{tr.sections.bsOverline}</p>
           <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#F0EAE0] mb-3 font-normal tracking-wide">{tr.sections.bsTitle}</h2>
@@ -1602,7 +1602,7 @@ export function GoogleMapSection() {
   const { tr } = useLanguage();
   return (
     <section id="ubicacion" className="bg-[#FAF8F5] border-t border-[#ede8e2]">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-[10px] tracking-[0.4em] uppercase text-[#B8A99A] mb-1 font-light">{tr.sections.gmapUbicacion}</p>
