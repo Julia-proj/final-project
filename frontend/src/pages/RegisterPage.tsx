@@ -70,7 +70,7 @@ export default function RegisterPage() {
           <p className="font-serif text-xl text-[#c0b8b0] font-light leading-relaxed italic" style={{ whiteSpace: 'pre-line' }}>
             {tr.register.quote}
           </p>
-          <p className="text-[11px] tracking-[0.2em] uppercase text-[#6a6560] mt-6 font-light">Calle Altamirano, 11 &mdash; Madrid</p>
+          <p className="text-[11px] tracking-[0.2em] uppercase text-[#6a6560] mt-6 font-light">Calle Altamirano, 33 &mdash; Madrid</p>
         </div>
         <div className="relative z-10 flex gap-5">
           <a href="https://www.instagram.com/keratin_madrid" target="_blank" rel="noopener noreferrer" className="text-[#6a6560] hover:text-[#B8A99A] transition-colors">

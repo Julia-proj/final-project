@@ -1607,7 +1607,7 @@ export function GoogleMapSection() {
             <h2 className="font-serif text-xl text-[#3d3530] font-light">{tr.sections.gmapAddress}</h2>
           </div>
           <a
-            href="https://maps.google.com/?q=Calle+Altamirano+11+Madrid"
+            href="https://maps.google.com/?q=Calle+Altamirano+33+Madrid"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[11px] tracking-[0.15em] uppercase text-[#B8A99A] border-b border-[#B8A99A]/50 pb-0.5 hover:text-[#3d3530] hover:border-[#3d3530] transition-colors font-light hidden sm:block"

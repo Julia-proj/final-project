@@ -297,7 +297,7 @@ const es = {
     modalErrorEnvio: 'Error al enviar.',
     // GoogleMap
     gmapUbicacion: 'Ubicación',
-    gmapAddress: 'Calle Altamirano, 11 — Madrid',
+    gmapAddress: 'Calle Altamirano, 33 — Madrid',
     gmapAbrirMaps: 'Abrir en Maps →',
   },
   pricing: {
@@ -612,7 +612,7 @@ const ru: typeof es = {
     modalError: 'Имя и телефон обязательны.',
     modalErrorEnvio: 'Ошибка при отправке.',
     gmapUbicacion: 'Расположение',
-    gmapAddress: 'Calle Altamirano, 11 — Мадрид',
+    gmapAddress: 'Calle Altamirano, 33 — Мадрид',
     gmapAbrirMaps: 'Открыть в Maps →',
   },
   pricing: {
@@ -927,7 +927,7 @@ const en: typeof es = {
     modalError: 'Name and phone are required.',
     modalErrorEnvio: 'Error sending.',
     gmapUbicacion: 'Location',
-    gmapAddress: 'Calle Altamirano, 11 — Madrid',
+    gmapAddress: 'Calle Altamirano, 33 — Madrid',
     gmapAbrirMaps: 'Open in Maps →',
   },
   pricing: {

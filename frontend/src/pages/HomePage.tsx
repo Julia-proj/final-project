@@ -188,7 +188,7 @@ export default function HomePage() {
             <div>
               <p className="font-serif text-[#3d3530] text-2xl mb-3 font-normal">Keratin Madrid</p>
               <p className="text-sm leading-relaxed font-normal mb-3">{tr.footer.estudio}</p>
-              <p className="text-sm font-normal">Calle Altamirano, 11<br/>Madrid, España</p>
+              <p className="text-sm font-normal">Calle Altamirano, 33<br/>Madrid, España</p>
               <p className="text-sm font-normal mt-2">+34 641 26 15 59</p>
               <p className="text-[11px] font-normal mt-2">{tr.footer.horario}</p>
             </div>
