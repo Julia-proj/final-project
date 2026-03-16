@@ -942,10 +942,10 @@ export function HomecareSection() {
     setSelectedLines({ 'champu': idx, 'acondicionador': idx, 'mascarilla': idx, 'protectorSpray': 0 });
   };
   const lineFilterClasses: Record<string, string> = {
-    'Color':     'bg-[#A89080] text-white',
-    'Volume':    'bg-[#8B8A9E] text-white',
-    'Detox':     'bg-[#7A9E8A] text-white',
-    'Hydration': 'bg-[#A8865C] text-white',
+    'Color':     'bg-[#C4939B] text-white',
+    'Volume':    'bg-[#9E93B8] text-white',
+    'Detox':     'bg-[#7FAF96] text-white',
+    'Hydration': 'bg-[#C99A72] text-white',
   };
 
   // ── Cart state ──
