@@ -135,7 +135,7 @@ export default function InteractivePricing() {
 
               {/* Bottom info strip — light, minimal */}
               {activeItem && (
-                <div className="absolute bottom-0 left-0 right-0 z-30 bg-[#6b5c52]/70 backdrop-blur-sm px-5 py-2 animate-fade-in-up">
+                <div className="absolute bottom-0 left-0 right-0 z-30 bg-[#6b5c52] px-5 py-2 animate-fade-in-up">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[11px] tracking-[0.18em] uppercase text-white/85 font-medium">{activeItem.label}</p>
