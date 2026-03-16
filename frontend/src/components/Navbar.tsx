@@ -2,7 +2,7 @@
 // components/Navbar.tsx — Barra de navegación principal
 // ============================================================
 
-import { useState, useEffect, useRef, Fragment } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../hooks/useAppHooks';
 import { logout } from '../store/authSlice';
@@ -89,30 +89,6 @@ export default function Navbar() {
 
   const lnk = 'text-[13px] tracking-[0.12em] uppercase text-[#3d3530] hover:text-[#8B7355] transition-colors cursor-pointer whitespace-nowrap font-normal';
 
-  // Language selector — minimal ES · RU · EN pill
-  const LangSelector = ({ mobile = false }: { mobile?: boolean }) => (
-    <div className={`flex items-center ${mobile ? 'gap-0 text-[10px]' : 'gap-0.5 text-[11px]'} tracking-[0.14em]`}>
-      {LANGS.map((l, i) => (
-        <Fragment key={l}>
-          {i > 0 && <span className={`select-none ${mobile ? 'text-[#ddd6d0]' : 'mx-0.5 text-[#d4cfc9]'}`}>·</span>}
-          <button
-            onClick={() => setLang(l)}
-            className={`${mobile ? 'px-0.5' : 'px-1'} py-0.5 transition-colors ${
-              lang === l
-                ? mobile
-                  ? 'text-[#8B7355] font-medium'
-                  : 'text-[#3d3530] font-semibold'
-                : mobile
-                  ? 'text-[#c4bab4] hover:text-[#8B7355]'
-                  : 'text-[#a89585] hover:text-[#8B7355]'
-            }`}
-          >
-            {l.toUpperCase()}
-          </button>
-        </Fragment>
-      ))}
-    </div>
-  );
 
   return (
     <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 bg-[#F9F8F6]/92 backdrop-blur-md transition-all duration-300 ${scrolled ? 'shadow-md border-b border-[#e8e2da]' : 'border-b border-[#ede8e2]/60'}`}>
