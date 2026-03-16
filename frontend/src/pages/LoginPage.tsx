@@ -1,21 +1,15 @@
-// ============================================================
-// pages/LoginPage.tsx — Página de inicio de sesión
-// ============================================================
-// Formulario con email y contraseña. Al enviar, llama al
-// loginThunk que se comunica con el backend. Si el login
-// es exitoso, redirige a la página principal.
-// ============================================================
-
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/useAppHooks';
 import { loginThunk, clearError } from '../store/authSlice';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, error, user } = useAppSelector((state) => state.auth);
+  const { tr } = useLanguage();
 
   useEffect(() => {
     if (user) navigate('/');
@@ -34,25 +28,25 @@ export default function LoginPage() {
     try {
       await dispatch(loginThunk(form)).unwrap();
       navigate('/');
-    } catch { /* el error se guarda en state.auth.error */ }
+    } catch { /* error saved in state.auth.error */ }
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* ── Left brand panel (desktop only) ── */}
+      {/* Left brand panel (desktop) */}
       <div className="hidden lg:flex lg:w-[42%] xl:w-[40%] bg-[#2A2220] flex-col justify-between p-12 xl:p-16 relative overflow-hidden flex-shrink-0">
         <div className="absolute inset-0 opacity-[0.04]"
           style={{ backgroundImage: 'radial-gradient(circle, #B8A99A 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="relative z-10">
-          <p className="text-[10px] tracking-[0.45em] uppercase text-[#B8A99A] mb-10 font-light">Estudio de belleza capilar</p>
+          <p className="text-[10px] tracking-[0.45em] uppercase text-[#B8A99A] mb-10 font-light">{tr.login.estudio}</p>
           <h1 className="font-serif text-5xl xl:text-6xl text-white font-light tracking-wide leading-[1.1]">
             Keratin<br />Madrid
           </h1>
         </div>
         <div className="relative z-10">
           <div className="w-10 h-px bg-[#B8A99A] mb-7" />
-          <p className="font-serif text-xl text-[#c0b8b0] font-light leading-relaxed italic">
-            &ldquo;La salud del cabello<br />es el lujo más real.&rdquo;
+          <p className="font-serif text-xl text-[#c0b8b0] font-light leading-relaxed italic" style={{ whiteSpace: 'pre-line' }}>
+            {tr.login.quote}
           </p>
           <p className="text-[11px] tracking-[0.2em] uppercase text-[#6a6560] mt-6 font-light">Calle Altamirano, 11 &mdash; Madrid</p>
         </div>
@@ -69,43 +63,43 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* ── Right form panel ── */}
+      {/* Right form panel */}
       <div className="flex-1 bg-[#FAF8F5] flex items-center justify-center px-6 py-12 sm:px-10">
         <div className="w-full max-w-[420px]">
           <div className="lg:hidden text-center mb-10">
             <p className="font-serif text-3xl text-[#3D3530] font-light tracking-wide">Keratin Madrid</p>
-            <p className="text-[11px] tracking-[0.3em] uppercase text-[#B8A99A] mt-2 font-light">Estudio de belleza capilar</p>
+            <p className="text-[11px] tracking-[0.3em] uppercase text-[#B8A99A] mt-2 font-light">{tr.login.estudio}</p>
           </div>
           <div className="mb-8">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-[#8B7355] mb-3 font-medium">Acceso</p>
-            <h2 className="font-serif text-3xl text-[#3D3530] mb-2 font-light tracking-wide">Bienvenida de nuevo</h2>
-            <p className="text-sm text-[#7a6f68]">Entra para gestionar tus citas y pedidos</p>
+            <p className="text-[11px] tracking-[0.3em] uppercase text-[#8B7355] mb-3 font-medium">{tr.login.overline}</p>
+            <h2 className="font-serif text-3xl text-[#3D3530] mb-2 font-light tracking-wide">{tr.login.title}</h2>
+            <p className="text-sm text-[#7a6f68]">{tr.login.subtitle}</p>
           </div>
           {error && (
             <div className="mb-5 p-4 bg-red-50 border-l-4 border-red-400 text-red-700 text-sm">{error}</div>
           )}
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
-              <label htmlFor="email" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Email</label>
+              <label htmlFor="email" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.login.email}</label>
               <input id="email" type="email" name="email" value={form.email}
                 onChange={handleChange} required placeholder="tu@email.com"
                 className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] transition-colors"/>
             </div>
             <div>
-              <label htmlFor="password" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Contraseña</label>
+              <label htmlFor="password" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.login.password}</label>
               <input id="password" type="password" name="password" value={form.password}
                 onChange={handleChange} required placeholder="••••••••"
                 className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] transition-colors"/>
             </div>
             <button type="submit" disabled={loading}
               className="w-full py-4 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-colors disabled:opacity-50 mt-1 font-medium">
-              {loading ? 'Entrando...' : 'Entrar'}
+              {loading ? tr.login.entrando : tr.login.entrar}
             </button>
           </form>
           <div className="mt-7 pt-6 border-t border-[#ede8e2] text-center">
             <p className="text-sm text-[#8B7355]">
-              ¿Primera vez?{' '}
-              <Link to="/register" className="text-[#3d3530] font-semibold border-b border-[#3d3530]/30 hover:border-[#3d3530] transition-colors">Crear cuenta</Link>
+              {tr.login.primeraVez}{' '}
+              <Link to="/register" className="text-[#3d3530] font-semibold border-b border-[#3d3530]/30 hover:border-[#3d3530] transition-colors">{tr.login.crearCuenta}</Link>
             </p>
           </div>
         </div>

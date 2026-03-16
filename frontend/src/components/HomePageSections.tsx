@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
 import { createReviewAPI } from '../api/reviews.api';
 import { createReservationAPI, createPublicReservationAPI } from '../api/reservations.api';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const StripeCheckoutModal = lazy(() => import('./StripeCheckoutModal'));
 
@@ -68,6 +69,7 @@ function ReservationModal({
   successMessage,
 }: ReservationModalProps) {
   const user = useAppSelector((s) => s.auth.user);
+  const { tr } = useLanguage();
   const [form, setForm] = useState({ nombre: user?.name || '', telefono: '', detalle: '', notas: '' });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -81,7 +83,7 @@ function ReservationModal({
 
   const handleSubmit = async () => {
     if (!form.nombre.trim() || !form.telefono.trim()) {
-      setError('Nombre y teléfono son obligatorios.');
+      setError(tr.sections.modalError);
       return;
     }
     setLoading(true);
@@ -96,7 +98,7 @@ function ReservationModal({
       });
       setSent(true);
     } catch {
-      setError('Error al enviar.');
+      setError(tr.sections.modalErrorEnvio);
     } finally {
       setLoading(false);
     }
@@ -114,18 +116,18 @@ function ReservationModal({
         {sent ? (
           <div className="text-center py-8">
             <p className="text-[#8B7355] mb-3 font-light text-lg">✅ {successMessage}</p>
-            <p className="text-base text-[#a09890] font-light mb-6">Te contactaremos pronto.</p>
+            <p className="text-base text-[#a09890] font-light mb-6">{tr.sections.modalContactaremos}</p>
             <button
               onClick={onClose}
               className="px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase font-light hover:bg-[#9A8B7A]"
             >
-              Cerrar
+              {tr.sections.modalCerrar}
             </button>
           </div>
         ) : (
           <div className="flex flex-col gap-5">
             <div>
-              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Nombre</label>
+              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">{tr.sections.modalNombre}</label>
               <input
                 type="text"
                 value={form.nombre}
@@ -135,7 +137,7 @@ function ReservationModal({
             </div>
 
             <div>
-              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">Teléfono *</label>
+              <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">{tr.sections.modalTelefono}</label>
               <input
                 type="tel"
                 value={form.telefono}
@@ -160,12 +162,12 @@ function ReservationModal({
 
             <div>
               <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-3 font-light">
-                Notas (opcional)
+                {tr.sections.modalNotas}
               </label>
               <textarea
                 rows={3}
                 value={form.notas}
-                placeholder="Comentarios..."
+                placeholder={tr.sections.modalNotasPlaceholder}
                 onChange={(e) => setForm((f) => ({ ...f, notas: e.target.value }))}
                 className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] resize-none"
               />
@@ -178,7 +180,7 @@ function ReservationModal({
               disabled={loading}
               className="w-full py-3.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-50 font-medium"
             >
-              {loading ? 'Enviando...' : 'Enviar solicitud'}
+              {loading ? tr.sections.modalEnviando : tr.sections.modalEnviar}
             </button>
           </div>
         )}
@@ -264,16 +266,17 @@ const beneficios = [
 
 export function PorQueElegirSection() {
   const sectionRef = useReveal();
+  const { tr } = useLanguage();
   return (
     <section id="inicio" className="bg-white py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 lg:mb-14 reveal">
-          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Beneficios</p>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.pqeOverline}</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-normal tracking-wide">
-            ¿Por qué Keratin Madrid?
+            {tr.sections.pqeTitle}
           </h2>
           <p className="text-[#8B7355] text-base md:text-lg font-normal max-w-2xl mx-auto leading-relaxed">
-            Nos diferenciamos por nuestro enfoque en la salud capilar y resultados duraderos.
+            {tr.sections.pqeDesc}
           </p>
         </div>
 
@@ -299,8 +302,8 @@ export function PorQueElegirSection() {
                   <div className="w-9 h-9 lg:w-10 lg:h-10 bg-[#EDE8DF] flex items-center justify-center text-[#8B7355] mb-3">
                     {b.icon}
                   </div>
-                  <h3 className="text-[#3d3530] text-sm sm:text-base lg:text-lg font-medium mb-1.5 leading-snug">{b.titulo}</h3>
-                  <p className="text-[#7a6f68] text-xs sm:text-sm lg:text-base leading-relaxed">{b.texto}</p>
+                  <h3 className="text-[#3d3530] text-sm sm:text-base lg:text-lg font-medium mb-1.5 leading-snug">{tr.sections.beneficios[i].titulo}</h3>
+                  <p className="text-[#7a6f68] text-xs sm:text-sm lg:text-base leading-relaxed">{tr.sections.beneficios[i].texto}</p>
                 </div>
               ))}
             </div>
@@ -360,19 +363,22 @@ const tratamientos = [
 
 export function TratamientosSection() {
   const sectionRef = useReveal();
+  const { tr } = useLanguage();
   const scrollToPrecios = () => document.getElementById('precios')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <section id="servicios" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
-          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Servicios</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-normal tracking-wide">Tratamientos</h2>
-          <p className="text-[#8B7355] text-base md:text-lg lg:text-xl font-normal">Adaptados a tu tipo de cabello y necesidades reales</p>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.tratOverline}</p>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-6 font-normal tracking-wide">{tr.sections.tratTitle}</h2>
+          <p className="text-[#8B7355] text-base md:text-lg lg:text-xl font-normal">{tr.sections.tratSubtitle}</p>
         </div>
 
         <div className="flex flex-col gap-10 lg:gap-16">
-          {tratamientos.map((t, i) => (
+          {tratamientos.map((t, i) => {
+            const td = tr.sections.tratamientos[i];
+            return (
             <div
               key={i}
               className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-10 md:gap-16 lg:gap-20 items-start md:items-center`}
@@ -381,7 +387,7 @@ export function TratamientosSection() {
                 <div className="relative h-[280px] md:h-[340px] bg-[#e8e2da] overflow-hidden group">
                   <img
                     src={t.img}
-                    alt={t.nombre}
+                    alt={td.nombre}
                     className="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
@@ -392,23 +398,23 @@ export function TratamientosSection() {
                   <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 z-30">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="h-px w-6 bg-[#B8A99A]" />
-                      <span className="text-[#B8A99A] text-[10px] tracking-[0.25em] uppercase font-medium">{t.tag}</span>
+                      <span className="text-[#B8A99A] text-[10px] tracking-[0.25em] uppercase font-medium">{td.tag}</span>
                     </div>
-                    <h3 className="font-serif text-xl md:text-2xl font-normal text-white tracking-wide leading-tight">{t.nombre}</h3>
-                    <p className="text-white/60 text-xs mt-1 font-light">{t.duracion}</p>
+                    <h3 className="font-serif text-xl md:text-2xl font-normal text-white tracking-wide leading-tight">{td.nombre}</h3>
+                    <p className="text-white/60 text-xs mt-1 font-light">{td.duracion}</p>
                   </div>
                 </div>
               </div>
 
               <div className="flex-1 flex flex-col gap-7">
                 <div>
-                  <p className="text-[13px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal border-l-2 border-[#C9A96E]/50 pl-3">{t.duracion}</p>
-                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-4 font-normal">{t.nombre}</h3>
-                  <p className="text-[#7a6f68] text-sm leading-relaxed">{t.desc}</p>
+                  <p className="text-[13px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal border-l-2 border-[#C9A96E]/50 pl-3">{td.duracion}</p>
+                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#3d3530] mb-4 font-normal">{td.nombre}</h3>
+                  <p className="text-[#7a6f68] text-sm leading-relaxed">{td.desc}</p>
                 </div>
 
                 <ul className="grid grid-cols-2 gap-4 md:gap-5">
-                  {t.ben.map((b, j) => (
+                  {td.ben.map((b, j) => (
                     <li key={j} className="flex items-start gap-3 text-sm text-[#7a6f68]">
                       <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0" />
                       {b}
@@ -418,12 +424,12 @@ export function TratamientosSection() {
 
                 <div className="flex gap-4 text-base md:text-lg">
                   <div className="flex-1 bg-[#FDFCFA] border border-[#e8e2da] px-5 py-4">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#BCA590] mb-1.5">Indicado</p>
-                    <p className="text-sm text-[#3b332e]">{t.indicado}</p>
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#BCA590] mb-1.5">{tr.sections.indicado}</p>
+                    <p className="text-sm text-[#3b332e]">{td.indicado}</p>
                   </div>
                   <div className="flex-1 bg-[#FDFCFA] border border-[#e8e2da] px-5 py-4">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#BCA590] mb-1.5">Efecto</p>
-                    <p className="text-sm text-[#3b332e]">{t.efecto}</p>
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#BCA590] mb-1.5">{tr.sections.efecto}</p>
+                    <p className="text-sm text-[#3b332e]">{td.efecto}</p>
                   </div>
                 </div>
 
@@ -431,11 +437,12 @@ export function TratamientosSection() {
                   onClick={scrollToPrecios}
                   className="self-start px-10 py-3.5 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-all cursor-pointer font-medium"
                 >
-                  Ver precio
+                  {tr.sections.verPrecio}
                 </button>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -528,6 +535,7 @@ export function AntesDespuesSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
   const sectionRef = useReveal();
+  const { tr } = useLanguage();
 
   const scrollToIdx = (idx: number) => {
     const el = scrollRef.current;
@@ -543,9 +551,9 @@ export function AntesDespuesSection() {
     <section id="resultados" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
-          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Resultados</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">Antes / Después</h2>
-          <p className="text-[#8B7355] text-base md:text-lg font-normal">Desliza para ver las transformaciones en video</p>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.adOverline}</p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">{tr.sections.adTitle}</h2>
+          <p className="text-[#8B7355] text-base md:text-lg font-normal">{tr.sections.adSubtitle}</p>
         </div>
 
         {/* Carousel */}
@@ -607,7 +615,7 @@ export function AntesDespuesSection() {
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" />
             </svg>
-            Ver más en Instagram
+            {tr.sections.adInstagram}
           </a>
         </div>
       </div>
@@ -648,6 +656,8 @@ export function ReviewsSection() {
     return () => clearInterval(timer);
   }, [reviewPaused]);
 
+  const { tr } = useLanguage();
+
   const handleFeedback = async () => {
     if (!feedbackText.trim() || !feedbackName.trim()) return;
     setFeedbackLoading(true);
@@ -656,7 +666,7 @@ export function ReviewsSection() {
       await createReviewAPI({ nombre: feedbackName.trim(), texto: `[${feedbackType}] ${feedbackText}`, estrellas: 5, telefono: feedbackPhone.trim() || undefined });
       setFeedbackSent(true);
     } catch {
-      setFeedbackError('Error al enviar. Inténtalo de nuevo.');
+      setFeedbackError(tr.sections.revError);
     } finally {
       setFeedbackLoading(false);
     }
@@ -673,10 +683,10 @@ export function ReviewsSection() {
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            <span className="text-[13px] tracking-[0.3em] uppercase text-[#8B7355] font-medium">Reseñas de Google</span>
+            <span className="text-[13px] tracking-[0.3em] uppercase text-[#8B7355] font-medium">{tr.sections.revOverline}</span>
           </div>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">
-            Lo que dicen nuestras clientas
+            {tr.sections.revTitle}
           </h2>
           <div className="flex items-center justify-center gap-2 mt-3">
             <div className="flex gap-0.5">
@@ -692,7 +702,7 @@ export function ReviewsSection() {
               rel="noopener noreferrer"
               className="text-[12px] tracking-[0.15em] uppercase text-[#B8A99A] border-b border-[#B8A99A] pb-0.5 hover:text-[#3d3530] hover:border-[#3d3530] transition-colors font-light"
             >
-              Ver todas las reseñas en Google →
+              {tr.sections.revVerGoogle}
             </a>
           </div>
         </div>
@@ -769,14 +779,14 @@ export function ReviewsSection() {
         {/* Anonymous Feedback Block */}
         <div className="max-w-[720px] mx-auto">
           <div className="text-center mb-5">
-            <p className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-2 font-normal">¿Alguna pregunta o sugerencia?</p>
-            <p className="text-sm text-[#8B7355]">Escríbenos, respondemos en menos de 24h</p>
+            <p className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-2 font-normal">{tr.sections.revFeedbackTitle}</p>
+            <p className="text-sm text-[#8B7355]">{tr.sections.revFeedbackSubtitle}</p>
           </div>
 
           {feedbackSent ? (
             <div className="text-center py-12 bg-white border border-[#f0ebe4] rounded-sm">
-              <p className="text-[#8B7355] font-serif text-3xl mb-3 font-normal">¡Gracias por tu mensaje!</p>
-              <p className="text-lg text-[#a09890] font-normal">Te responderemos pronto.</p>
+              <p className="text-[#8B7355] font-serif text-3xl mb-3 font-normal">{tr.sections.revGracias}</p>
+              <p className="text-lg text-[#a09890] font-normal">{tr.sections.revResponderemos}</p>
             </div>
           ) : (
             <div className="bg-white border border-[#f0ebe4] p-5 rounded-sm">
@@ -791,7 +801,7 @@ export function ReviewsSection() {
                         : 'border border-[#e8e2da] text-[#8B7355] hover:border-[#B8A99A]'
                     }`}
                   >
-                    {type === 'opinion' ? 'Opinión' : type === 'sugerencia' ? 'Sugerencia' : 'Pregunta'}
+                    {type === 'opinion' ? tr.sections.revOpinion : type === 'sugerencia' ? tr.sections.revSugerencia : tr.sections.revPregunta}
                   </button>
                 ))}
               </div>
@@ -799,14 +809,14 @@ export function ReviewsSection() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
                 <input
                   type="text"
-                  placeholder="Tu nombre *"
+                  placeholder={tr.sections.revNombre}
                   value={feedbackName}
                   onChange={(e) => setFeedbackName(e.target.value)}
                   className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
                 />
                 <input
                   type="tel"
-                  placeholder="Teléfono (opcional)"
+                  placeholder={tr.sections.revTelefono}
                   value={feedbackPhone}
                   onChange={(e) => setFeedbackPhone(e.target.value)}
                   className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] rounded-sm"
@@ -815,7 +825,7 @@ export function ReviewsSection() {
 
               <textarea
                 rows={2}
-                placeholder="Escribe aquí tu opinión..."
+                placeholder={tr.sections.revMensaje}
                 value={feedbackText}
                 onChange={(e) => setFeedbackText(e.target.value)}
                 className="w-full border border-[#e8e2da] px-3 py-2 text-sm focus:outline-none focus:border-[#B8A99A] resize-none mb-2 rounded-sm"
@@ -830,7 +840,7 @@ export function ReviewsSection() {
                 disabled={feedbackLoading || !feedbackText.trim() || !feedbackName.trim()}
                 className="w-full py-3.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-50 font-medium transition-colors rounded-sm"
               >
-                {feedbackLoading ? 'Enviando...' : 'Enviar feedback'}
+                {feedbackLoading ? tr.sections.revEnviando : tr.sections.revEnviar}
               </button>
             </div>
           )}
@@ -895,6 +905,7 @@ const CART_PENDING_KEY = 'homecare_cart_pending';
 
 export function HomecareSection() {
   const sectionRef = useReveal();
+  const { tr } = useLanguage();
   const user = useAppSelector((s) => s.auth.user);
   const navigate = useNavigate();
   const [selectedLines, setSelectedLines] = useState<Record<string, number>>({
@@ -970,7 +981,7 @@ export function HomecareSection() {
       });
       setCartSent(true);
     } catch {
-      setCartError('Error al enviar la reserva. Inténtalo de nuevo.');
+      setCartError(tr.sections.hcCartError);
     } finally {
       setCartLoading(false);
     }
@@ -981,10 +992,10 @@ export function HomecareSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 reveal">
-          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Homecare</p>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-normal tracking-wide">Cuidado en casa</h2>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.hcOverline}</p>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#3d3530] mb-5 font-normal tracking-wide">{tr.sections.hcTitle}</h2>
           <p className="text-[#8B7355] text-base md:text-lg font-normal max-w-2xl mx-auto leading-relaxed">
-            El tratamiento en salón es solo la mitad. Tu rutina en casa marca la diferencia.
+            {tr.sections.hcDesc}
           </p>
         </div>
 
@@ -993,12 +1004,12 @@ export function HomecareSection() {
           <div className="bg-[#ECEAE7] px-4 sm:px-6 lg:px-8 py-4 lg:py-5">
             {/* Header */}
             <div className="flex items-baseline gap-6 mb-3">
-              <h3 className="font-serif text-base lg:text-lg text-[#3d3530] font-light tracking-wide shrink-0">Nota de la especialista</h3>
+              <h3 className="font-serif text-base lg:text-lg text-[#3d3530] font-light tracking-wide shrink-0">{tr.sections.hcNotaEspecialista}</h3>
               <div className="hidden md:block flex-1 h-px bg-[#c4b8ab]" />
             </div>
             {/* Tips */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16">
-              {careTips.map((tip, i) => (
+              {tr.sections.hcCareTips.map((tip, i) => (
                 <div key={i} className="flex items-start gap-3 py-2 border-b border-[#d4cdc6]">
                   <span className="text-[13px] text-[#B8A99A] font-light pt-0.5 w-6 shrink-0 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                   <span className="text-sm text-[#3b332e] leading-relaxed">{tip}</span>
@@ -1029,16 +1040,15 @@ export function HomecareSection() {
 
                 <div>
                   <p className="text-[10px] tracking-[0.3em] uppercase text-[#B8A99A] mb-2 font-light"><span className="whitespace-nowrap">Kit Personalizado</span><span className="whitespace-nowrap"> · Línea Limba</span></p>
-                  <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-3 font-normal">Kit de cuidado en casa</h3>
+                  <h3 className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-3 font-normal">{tr.sections.hcKitTitle}</h3>
                   <p className="text-sm text-[#7a6f68] leading-relaxed max-w-md">
-                    Cuatro productos elegidos por la especialista tras un diagnóstico real con tricóscopio.
-                    Sin adivinanzas, sin productos genéricos.
+                    {tr.sections.hcKitDesc}
                   </p>
                 </div>
 
                 {/* Includes */}
                 <div className="grid grid-cols-2 gap-y-2 gap-x-6">
-                  {['Champú', 'Acondicionador', 'Mascarilla', 'Protector Térmico'].map(item => (
+                  {tr.sections.hcKitContents.map(item => (
                     <div key={item} className="flex items-center gap-2.5">
                       <div className="w-1 h-1 rounded-full bg-[#B8A99A] flex-shrink-0"></div>
                       <span className="text-[13px] text-[#4a403b]">{item}</span>
@@ -1049,10 +1059,10 @@ export function HomecareSection() {
                 {/* Promo */}
                 <div className="border-l-2 border-[#B8A99A] pl-4 pr-3 py-1 flex items-center justify-between gap-4 bg-[#FAF8F5]">
                   <div>
-                    <p className="text-[11px] tracking-[0.25em] uppercase text-[#B8A99A] mb-1 font-medium">Promo web exclusiva</p>
-                    <p className="text-sm text-[#3d3530] font-light leading-snug">Diagnóstico con tricóscopio incluido al reservar</p>
+                    <p className="text-[11px] tracking-[0.25em] uppercase text-[#B8A99A] mb-1 font-medium">{tr.sections.hcPromoTitle}</p>
+                    <p className="text-sm text-[#3d3530] font-light leading-snug">{tr.sections.hcPromoDesc}</p>
                   </div>
-                  <span className="text-[11px] tracking-[0.2em] uppercase text-[#8B7355] border border-[#B8A99A]/70 px-3 py-1.5 font-medium flex-shrink-0">Gratis</span>
+                  <span className="text-[11px] tracking-[0.2em] uppercase text-[#8B7355] border border-[#B8A99A]/70 px-3 py-1.5 font-medium flex-shrink-0">{tr.sections.hcPromoGratis}</span>
                 </div>
 
                 {/* Price + CTA */}
@@ -1091,7 +1101,7 @@ export function HomecareSection() {
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                       </svg>
-                      Añadir kit
+                      {tr.sections.hcAnadirKit}
                     </button>
                   )}
                 </div>
@@ -1103,7 +1113,7 @@ export function HomecareSection() {
 
         {/* ── Product Cards Grid ── */}
         <div className="mb-14 lg:mb-20">
-          <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-4 font-medium text-center"><span className="whitespace-nowrap">Productos individuales</span><span className="whitespace-nowrap"> · Línea Limba</span></p>
+          <p className="text-[13px] tracking-[0.25em] uppercase text-[#8B7355] mb-4 font-medium text-center">{tr.sections.hcIndividuales}</p>
 
           {/* Global line filter */}
           <div className="flex items-center justify-center gap-2 mb-5">
@@ -1233,27 +1243,27 @@ export function HomecareSection() {
           <div className="relative bg-white max-w-md w-full p-8 shadow-xl z-10 max-h-[90vh] overflow-y-auto">
             <button onClick={() => setShowCart(false)} className="absolute top-5 right-5 text-[#a09890] hover:text-[#3d3530] text-2xl font-light">✕</button>
 
-            <h3 className="font-serif text-2xl text-[#3d3530] mb-2 font-normal">Tu selección</h3>
+            <h3 className="font-serif text-2xl text-[#3d3530] mb-2 font-normal">{tr.sections.hcCarrito}</h3>
 
             {/* Info banner */}
             <div className="bg-[#FAF8F5] border border-[#f0ebe4] px-4 py-3 mb-6 text-[12px] text-[#7a6f68] font-light leading-relaxed">
-              <span className="text-[#8B7355] font-medium">Nota:</span> Puedes hacer tu reserva aquí y te confirmaremos la disponibilidad. La recogida es directamente en el salón.
+              <span className="text-[#8B7355] font-medium">{tr.sections.hcCartNotaLabel}:</span> {tr.sections.hcCartNota}
             </div>
 
             {cartSent ? (
               <div className="text-center py-8">
-                <p className="text-[#8B7355] mb-3 font-light text-lg">✅ ¡Reserva enviada!</p>
-                <p className="text-base text-[#a09890] font-light mb-6">Te contactaremos para confirmar disponibilidad.</p>
+                <p className="text-[#8B7355] mb-3 font-light text-lg">{tr.sections.hcCartEnviado}</p>
+                <p className="text-base text-[#a09890] font-light mb-6">{tr.sections.hcCartEnviadoDesc}</p>
                 <button onClick={() => { setShowCart(false); setCart([]); setCartSent(false); setCartForm({ nombre: '', telefono: '', notas: '' }); }}
                   className="px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase font-light hover:bg-[#9A8B7A]">
-                  Cerrar
+                  {tr.sections.hcCartCerrar}
                 </button>
               </div>
             ) : (
               <>
                 {/* Cart items */}
                 {cart.length === 0 ? (
-                  <p className="text-[#a09890] text-sm font-light mb-6">Tu carrito está vacío.</p>
+                  <p className="text-[#a09890] text-sm font-light mb-6">{tr.sections.hcCartVacio}</p>
                 ) : (
                   <div className="mb-6">
                     {cart.map((item, idx) => (
@@ -1282,24 +1292,24 @@ export function HomecareSection() {
                       <div className="flex items-center gap-2 px-3 py-2 bg-[#F3EFE9] border-l-2 border-[#B8A99A]">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#B8A99A] flex-shrink-0" />
                         <span className="text-[11px] tracking-[0.12em] uppercase text-[#8B7355] font-light">
-                          Reservando como <span className="text-[#3d3530]">{user.name}</span>
+                          {tr.sections.hcCartReservandoComo} <span className="text-[#3d3530]">{user.name}</span>
                         </span>
                       </div>
                     )}
                     <div>
-                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Nombre *</label>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.sections.hcCartNombre}</label>
                       <input type="text" value={cartForm.nombre} onChange={e => setCartForm(f => ({ ...f, nombre: e.target.value }))}
                         className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A]" />
                     </div>
                     <div>
-                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Teléfono *</label>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.sections.hcCartTelefono}</label>
                       <input type="tel" placeholder="+34 6XX XXX XXX" value={cartForm.telefono} onChange={e => setCartForm(f => ({ ...f, telefono: e.target.value }))}
                         className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A]" />
                     </div>
                     <div>
-                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Notas (opcional)</label>
+                      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.sections.hcCartNotas}</label>
                       <textarea rows={2} value={cartForm.notas} onChange={e => setCartForm(f => ({ ...f, notas: e.target.value }))}
-                        placeholder="Tipo de cabello, preferencias..."
+                        placeholder={tr.sections.hcCartNotasPlaceholder}
                         className="w-full border border-[#e8e2da] px-4 py-3 text-sm bg-white focus:outline-none focus:border-[#B8A99A] resize-none" />
                     </div>
                     {cartError && (
@@ -1311,7 +1321,7 @@ export function HomecareSection() {
                       disabled={cartLoading || !cartForm.nombre.trim() || !cartForm.telefono.trim()}
                       className="w-full py-3.5 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] disabled:opacity-40 font-medium transition-colors"
                     >
-                      {cartLoading ? 'Enviando...' : 'Confirmar reserva'}
+                      {cartLoading ? tr.sections.hcCartEnviando : tr.sections.hcCartConfirmar}
                     </button>
                   </div>
                 )}
@@ -1331,6 +1341,7 @@ export function HomecareSection() {
 
 export function FormacionesSection() {
   const { requireAuth } = useRequireAuth();
+  const { tr } = useLanguage();
   const [showModal, setShowModal] = useState(false);
   const [selectedFormacion, setSelectedFormacion] = useState('');
   const sectionRef = useReveal();
@@ -1346,8 +1357,8 @@ export function FormacionesSection() {
     <section id="formaciones" className="bg-[#F3F2EE] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
-          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">Para Profesionales</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">Formaciones</h2>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.formOverline}</p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#3d3530] mb-4 font-normal tracking-wide">{tr.sections.formTitle}</h2>
         </div>
 
         {/* ── foto strip ── */}
@@ -1363,15 +1374,15 @@ export function FormacionesSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xl:gap-7 max-w-[1400px] mx-auto">
           <div className="border border-[#e8e2da] p-4 md:p-6 flex flex-col gap-3 hover:border-[#B8A99A] transition-all">
             <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#B8A99A] px-4 py-1.5 font-medium">
-              Curso destacado
+              {tr.sections.formCursoDestacado}
             </span>
-            <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-normal">Curso intensivo de keratina</h3>
-            <p className="text-sm text-[#8B7355] font-light">2 días · Práctica con modelos</p>
+            <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-normal">{tr.sections.formCursoName}</h3>
+            <p className="text-sm text-[#8B7355] font-light">{tr.sections.formCursoDuracion}</p>
 
             <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">Programa</p>
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">{tr.sections.formPrograma}</p>
               <ul className="space-y-1.5">
-                {['Diagnóstico con tricóscopio', 'Protocolos de keratina y botox', 'Selección de producto según tipo de pelo', 'Técnica de aplicación paso a paso', 'Práctica con modelos reales'].map((item) => (
+                {tr.sections.formCursoPrograma.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-[#3d3530] font-light">
                     <svg className="w-3.5 h-3.5 text-[#B8A99A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m4.5 12.75 6 6 9-13.5" />
@@ -1383,9 +1394,9 @@ export function FormacionesSection() {
             </div>
 
             <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-3 font-light">Incluye</p>
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-3 font-light">{tr.sections.formIncluye}</p>
               <p className="text-sm text-[#7a6f68] font-light leading-relaxed">
-                Materiales · Manual profesional · Fotos · Certificado
+                {tr.sections.formCursoIncluye}
               </p>
             </div>
 
@@ -1394,18 +1405,18 @@ export function FormacionesSection() {
                 <svg className="w-4 h-4 text-[#8B7355]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
                 </svg>
-                <p className="text-[11px] tracking-[0.15em] uppercase text-[#8B7355] font-light">Bonus</p>
+                <p className="text-[11px] tracking-[0.15em] uppercase text-[#8B7355] font-light">{tr.sections.formBonus}</p>
               </div>
-              <p className="text-sm text-[#3d3530] font-light">Acceso a grupo privado de soporte post-formación</p>
+              <p className="text-sm text-[#3d3530] font-light">{tr.sections.formCursoBonus}</p>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 border-t border-[#f0ebe4] gap-4">
               <span className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light">1.400€</span>
               <button
-                onClick={() => handleReservar('Curso intensivo de keratina')}
+                onClick={() => handleReservar(tr.sections.formCursoName)}
                 className="w-full sm:w-auto px-6 py-2.5 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] cursor-pointer font-light"
               >
-                Reservar plaza
+                {tr.sections.formReservarPlaza}
               </button>
             </div>
           </div>
@@ -1414,13 +1425,13 @@ export function FormacionesSection() {
             <span className="self-start text-[11px] tracking-[0.2em] uppercase text-white bg-[#8B7355] px-4 py-1.5 font-light">
               Masterclass
             </span>
-            <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-light">Reconstrucción en Frío</h3>
-            <p className="text-sm text-[#8B7355] font-light">Intensivo · Máx. 6 personas</p>
+            <h3 className="font-serif text-lg md:text-2xl text-[#3d3530] font-light">{tr.sections.formMasterclassName}</h3>
+            <p className="text-sm text-[#8B7355] font-light">{tr.sections.formMasterclassDuracion}</p>
 
             <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">Programa</p>
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-2 font-light">{tr.sections.formPrograma}</p>
               <ul className="space-y-1.5">
-                {['Teoría de reconstrucción capilar', 'Diagnóstico y selección de producto', 'Técnica de aplicación en frío', 'Casos reales y resolución de dudas'].map((item) => (
+                {tr.sections.formMasterclassPrograma.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-[#3d3530] font-light">
                     <svg className="w-3.5 h-3.5 text-[#B8A99A] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m4.5 12.75 6 6 9-13.5" />
@@ -1432,9 +1443,9 @@ export function FormacionesSection() {
             </div>
 
             <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-3 font-light">Incluye</p>
+              <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-3 font-light">{tr.sections.formIncluye}</p>
               <p className="text-sm text-[#7a6f68] font-light leading-relaxed">
-                Materiales · Guía profesional · Certificado
+                {tr.sections.formMasterclassIncluye}
               </p>
             </div>
 
@@ -1443,21 +1454,21 @@ export function FormacionesSection() {
                 <svg className="w-4 h-4 text-[#8B7355]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
                 </svg>
-                <p className="text-[11px] tracking-[0.15em] uppercase text-[#8B7355] font-light">Bonus</p>
+                <p className="text-[11px] tracking-[0.15em] uppercase text-[#8B7355] font-light">{tr.sections.formBonus}</p>
               </div>
-              <p className="text-sm text-[#3d3530] font-light">Descuento especial en productos profesionales Limba</p>
+              <p className="text-sm text-[#3d3530] font-light">{tr.sections.formMasterclassBonus}</p>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 border-t border-[#f0ebe4] gap-4">
               <div>
                 <span className="font-serif text-2xl md:text-3xl text-[#3d3530] font-light">350€</span>
-                <span className="text-sm text-[#8B7355] block font-light">por persona · mín. 3</span>
+                <span className="text-sm text-[#8B7355] block font-light">{tr.sections.formMasterclassPerPersona}</span>
               </div>
               <button
-                onClick={() => handleReservar('Masterclass Reconstrucción')}
+                onClick={() => handleReservar(tr.sections.formMasterclassName)}
                 className="w-full sm:w-auto px-6 py-2.5 border border-[#B8A99A] text-[#B8A99A] text-[12px] tracking-[0.2em] uppercase hover:bg-[#B8A99A] hover:text-white cursor-pointer font-light"
               >
-                Reservar plaza
+                {tr.sections.formReservarPlaza}
               </button>
             </div>
           </div>
@@ -1468,10 +1479,10 @@ export function FormacionesSection() {
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         type="formacion"
-        title="Reservar plaza"
-        detalleLabel="Formación"
+        title={tr.sections.formReservarPlaza}
+        detalleLabel={tr.sections.formTitle}
         detallePlaceholder={selectedFormacion}
-        successMessage="¡Plaza reservada!"
+        successMessage={tr.sections.formReservarPlaza + '!'}
       />
     </section>
   );
@@ -1486,16 +1497,17 @@ const HAS_STRIPE_KEY = !!import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 
 export function BeautyScriptsSection() {
   const sectionRef = useReveal();
+  const { tr } = useLanguage();
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
     <section id="scripts" className="bg-[#574438] py-10 lg:py-14" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
-          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal">Scripts</p>
-          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#F0EAE0] mb-3 font-normal tracking-wide">Beauty Scripts</h2>
+          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal">{tr.sections.bsOverline}</p>
+          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#F0EAE0] mb-3 font-normal tracking-wide">{tr.sections.bsTitle}</h2>
           <p className="text-sm md:text-base text-[#9A8B82] max-w-2xl lg:mx-0 mx-auto font-normal leading-relaxed">
-            Scripts listos para usar que aumentan tus ventas. Diálogos profesionales para especialistas de beauty.
+            {tr.sections.bsDesc}
           </p>
         </div>
 
@@ -1516,11 +1528,7 @@ export function BeautyScriptsSection() {
 
           <div className="flex-1 flex flex-col gap-3 sm:gap-5">
             <div className="flex flex-col gap-2 sm:gap-4">
-              {[
-                ['Ahorra tiempo', 'Scripts probados y listos para usar.'],
-                ['Reduce estrés', 'Responde con confianza a cualquier pregunta.'],
-                ['Más conversiones', 'Optimizados para cerrar más ventas.'],
-              ].map(([t, d]) => (
+              {tr.sections.bsFeatures.map(({ title: t, desc: d }) => (
                 <div key={t} className="flex gap-3">
                   <span className="w-5 h-5 border border-[#B8A99A] flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg className="w-2.5 h-2.5 text-[#B8A99A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1540,7 +1548,7 @@ export function BeautyScriptsSection() {
                 onClick={() => setShowCheckout(true)}
                 className="w-full sm:w-auto self-start px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light cursor-pointer"
               >
-                Quiero los Scripts
+                {tr.sections.bsBoton}
               </button>
             ) : (
               <a
@@ -1549,7 +1557,7 @@ export function BeautyScriptsSection() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto self-start px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light text-center"
               >
-                Quiero los Scripts
+                {tr.sections.bsBoton}
               </a>
             )}
           </div>
@@ -1570,13 +1578,14 @@ export function BeautyScriptsSection() {
 // ═══════════════════════════════════════════════════════════════
 
 export function GoogleMapSection() {
+  const { tr } = useLanguage();
   return (
     <section id="ubicacion" className="bg-[#FAF8F5] border-t border-[#ede8e2]">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-[10px] tracking-[0.4em] uppercase text-[#B8A99A] mb-1 font-light">Ubicación</p>
-            <h2 className="font-serif text-xl text-[#3d3530] font-light">Calle Altamirano, 11 — Madrid</h2>
+            <p className="text-[10px] tracking-[0.4em] uppercase text-[#B8A99A] mb-1 font-light">{tr.sections.gmapUbicacion}</p>
+            <h2 className="font-serif text-xl text-[#3d3530] font-light">{tr.sections.gmapAddress}</h2>
           </div>
           <a
             href="https://maps.google.com/?q=Calle+Altamirano+11+Madrid"
@@ -1584,7 +1593,7 @@ export function GoogleMapSection() {
             rel="noopener noreferrer"
             className="text-[11px] tracking-[0.15em] uppercase text-[#B8A99A] border-b border-[#B8A99A]/50 pb-0.5 hover:text-[#3d3530] hover:border-[#3d3530] transition-colors font-light hidden sm:block"
           >
-            Abrir en Maps →
+            {tr.sections.gmapAbrirMaps}
           </a>
         </div>
         <div className="aspect-[16/4] md:aspect-[16/3] w-full overflow-hidden">

@@ -6,6 +6,7 @@
 // ============================================================
 
 import { createBooking, getUserBookings } from '../services/booking.service.js';
+import { notifyNewBooking } from '../utils/email.js';
 
 export const create = async (req, res, next) => {
   try {
@@ -14,6 +15,7 @@ export const create = async (req, res, next) => {
       userId: req.user.id,
       ...req.body
     });
+    notifyNewBooking(booking).catch(() => {});
     res.status(201).json(booking);
   } catch (error) {
     next(error);

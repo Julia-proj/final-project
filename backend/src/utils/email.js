@@ -71,6 +71,27 @@ export const notifyNewReservation = (reservation) => {
 };
 
 /**
+ * Notificación de nueva cita de tratamiento
+ */
+export const notifyNewBooking = (booking) => {
+  const subject = `Nueva cita: ${booking.service} — ${booking.userId}`;
+  const html = `
+    <div style="font-family:sans-serif;max-width:500px;margin:0 auto">
+      <h2 style="color:#3d3530">Nueva cita de tratamiento</h2>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:8px 0;color:#8B7355;width:120px"><strong>Servicio</strong></td><td>${booking.service}</td></tr>
+        <tr><td style="padding:8px 0;color:#8B7355"><strong>Longitud</strong></td><td>${booking.hairLength}</td></tr>
+        <tr><td style="padding:8px 0;color:#8B7355"><strong>Fecha</strong></td><td>${booking.date}</td></tr>
+        ${booking.notes ? `<tr><td style="padding:8px 0;color:#8B7355"><strong>Notas</strong></td><td>${booking.notes}</td></tr>` : ''}
+      </table>
+      <hr style="border:none;border-top:1px solid #e8e2da;margin:20px 0"/>
+      <p style="color:#999;font-size:12px">Keratin Madrid — Panel Admin</p>
+    </div>
+  `;
+  return sendNotification(subject, html);
+};
+
+/**
  * Notificación de nuevo feedback / reseña
  */
 export const notifyNewReview = (review) => {

@@ -1,21 +1,15 @@
-// ============================================================
-// pages/RegisterPage.tsx — Página de registro
-// ============================================================
-// Formulario con nombre, email y contraseña. Al enviar, llama
-// al registerThunk. Si el registro es exitoso, redirige
-// a la página principal automáticamente.
-// ============================================================
-
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/useAppHooks';
 import { registerThunk, clearError } from '../store/authSlice';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function RegisterPage() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, error, user } = useAppSelector((state) => state.auth);
+  const { tr } = useLanguage();
 
   useEffect(() => {
     if (user) navigate('/');
@@ -34,7 +28,7 @@ export default function RegisterPage() {
     try {
       await dispatch(registerThunk(form)).unwrap();
       navigate('/');
-    } catch { /* el error se guarda en state.auth.error */ }
+    } catch { /* error saved in state.auth.error */ }
   };
 
   return (
@@ -43,15 +37,15 @@ export default function RegisterPage() {
         <div className="absolute inset-0 opacity-[0.04]"
           style={{ backgroundImage: 'radial-gradient(circle, #B8A99A 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="relative z-10">
-          <p className="text-[10px] tracking-[0.45em] uppercase text-[#B8A99A] mb-10 font-light">Estudio de belleza capilar</p>
+          <p className="text-[10px] tracking-[0.45em] uppercase text-[#B8A99A] mb-10 font-light">{tr.register.estudio}</p>
           <h1 className="font-serif text-5xl xl:text-6xl text-white font-light tracking-wide leading-[1.1]">
             Keratin<br />Madrid
           </h1>
         </div>
         <div className="relative z-10">
           <div className="w-10 h-px bg-[#B8A99A] mb-7" />
-          <p className="font-serif text-xl text-[#c0b8b0] font-light leading-relaxed italic">
-            &ldquo;Diagnóstico real,<br />resultados que duran.&rdquo;
+          <p className="font-serif text-xl text-[#c0b8b0] font-light leading-relaxed italic" style={{ whiteSpace: 'pre-line' }}>
+            {tr.register.quote}
           </p>
           <p className="text-[11px] tracking-[0.2em] uppercase text-[#6a6560] mt-6 font-light">Calle Altamirano, 11 &mdash; Madrid</p>
         </div>
@@ -72,44 +66,44 @@ export default function RegisterPage() {
         <div className="w-full max-w-[420px]">
           <div className="lg:hidden text-center mb-10">
             <p className="font-serif text-3xl text-[#3D3530] font-light tracking-wide">Keratin Madrid</p>
-            <p className="text-[11px] tracking-[0.3em] uppercase text-[#B8A99A] mt-2 font-light">Estudio de belleza capilar</p>
+            <p className="text-[11px] tracking-[0.3em] uppercase text-[#B8A99A] mt-2 font-light">{tr.register.estudio}</p>
           </div>
           <div className="mb-8">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-[#8B7355] mb-3 font-medium">Nueva cuenta</p>
-            <h2 className="font-serif text-3xl text-[#3D3530] mb-2 font-light tracking-wide">Crea tu cuenta</h2>
-            <p className="text-sm text-[#7a6f68]">Accede a reservas, historial y ofertas exclusivas</p>
+            <p className="text-[11px] tracking-[0.3em] uppercase text-[#8B7355] mb-3 font-medium">{tr.register.overline}</p>
+            <h2 className="font-serif text-3xl text-[#3D3530] mb-2 font-light tracking-wide">{tr.register.title}</h2>
+            <p className="text-sm text-[#7a6f68]">{tr.register.subtitle}</p>
           </div>
           {error && (
             <div className="mb-5 p-4 bg-red-50 border-l-4 border-red-400 text-red-700 text-sm">{error}</div>
           )}
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
-              <label htmlFor="name" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Nombre</label>
+              <label htmlFor="name" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.register.nombre}</label>
               <input id="name" type="text" name="name" value={form.name}
-                onChange={handleChange} required placeholder="Tu nombre"
+                onChange={handleChange} required placeholder={tr.register.nombrePlaceholder}
                 className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] transition-colors"/>
             </div>
             <div>
-              <label htmlFor="email" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Email</label>
+              <label htmlFor="email" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.register.email}</label>
               <input id="email" type="email" name="email" value={form.email}
                 onChange={handleChange} required placeholder="tu@email.com"
                 className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] transition-colors"/>
             </div>
             <div>
-              <label htmlFor="password" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">Contraseña</label>
+              <label htmlFor="password" className="block text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-2 font-medium">{tr.register.password}</label>
               <input id="password" type="password" name="password" value={form.password}
-                onChange={handleChange} required minLength={6} placeholder="Mínimo 6 caracteres"
+                onChange={handleChange} required minLength={6} placeholder={tr.register.passwordMin}
                 className="w-full border border-[#e8e2da] px-5 py-3.5 text-base bg-white focus:outline-none focus:border-[#B8A99A] transition-colors"/>
             </div>
             <button type="submit" disabled={loading}
               className="w-full py-4 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-colors disabled:opacity-50 mt-1 font-medium">
-              {loading ? 'Creando...' : 'Crear cuenta'}
+              {loading ? tr.register.creando : tr.register.crearCuenta}
             </button>
           </form>
           <div className="mt-7 pt-6 border-t border-[#ede8e2] text-center">
             <p className="text-sm text-[#8B7355]">
-              ¿Ya tienes cuenta?{' '}
-              <Link to="/login" className="text-[#3d3530] font-semibold border-b border-[#3d3530]/30 hover:border-[#3d3530] transition-colors">Entrar</Link>
+              {tr.register.yaTienesCuenta}{' '}
+              <Link to="/login" className="text-[#3d3530] font-semibold border-b border-[#3d3530]/30 hover:border-[#3d3530] transition-colors">{tr.register.entrar}</Link>
             </p>
           </div>
         </div>

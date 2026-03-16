@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
+import { useLanguage } from '../i18n/LanguageContext';
 import {
   PorQueElegirSection,
   TratamientosSection,
@@ -20,6 +21,7 @@ const YT_URL = 'https://www.youtube.com/@keratinmadrid';
 
 export default function HomePage() {
   const user = useAppSelector((s) => s.auth.user);
+  const { tr } = useLanguage();
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const scrollTo = (id: string) => {
@@ -31,21 +33,12 @@ export default function HomePage() {
 
       <section className="relative min-h-[calc(100svh-58px)] lg:min-h-[calc(100svh-64px)] overflow-hidden flex flex-col">
 
-        {/* Hero background: video with image fallback */}
         <div className="absolute inset-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/images/salon.jpg"
-            className="w-full h-full object-cover object-[center_20%] lg:object-center"
-          >
+          <video autoPlay muted loop playsInline poster="/images/salon.jpg"
+            className="w-full h-full object-cover object-[center_20%] lg:object-center">
             <source src="/video/hero.mp4" type="video/mp4" />
           </video>
-          <img
-            src="/images/salon.jpg"
-            alt="Keratin Madrid"
+          <img src="/images/salon.jpg" alt="Keratin Madrid"
             className="absolute inset-0 w-full h-full object-cover object-[center_20%] lg:object-center"
             style={{ display: 'none' }}
             onLoad={(e) => {
@@ -57,45 +50,37 @@ export default function HomePage() {
           <div className="absolute inset-0 hidden lg:block" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.35) 42%, rgba(0,0,0,0.05) 70%, transparent 100%)' }} />
         </div>
 
-        {/* ── MOBILE Hero Layout ── */}
+        {/* Mobile Hero */}
         <div className="lg:hidden relative z-10 flex flex-col flex-1">
-          {/* Tagline pinned to very top */}
           <div className="absolute top-0 left-0 px-5 pt-3">
-            <p className="text-[#D4C5B5]/70 text-[9px] tracking-[0.18em] uppercase font-light">Diagnóstico profesional · Protocolos exclusivos</p>
+            <p className="text-[#D4C5B5]/70 text-[9px] tracking-[0.18em] uppercase font-light">{tr.hero.tagline}</p>
           </div>
-
-          {/* Espacio */}
           <div className="flex-1" />
-
-          {/* Parte inferior: contenido alineado a la izquierda */}
           <div className="px-5 pb-8 sm:pb-12">
             <h1 className="font-serif text-[32px] sm:text-4xl font-normal tracking-wider text-white mb-3 sm:mb-4 leading-tight">
-              Estudio de salud<br />y belleza capilar
+              {tr.hero.h1a}<br />{tr.hero.h1b}
             </h1>
             <div className="w-14 h-px bg-[#D4C5B5]/60 mt-0 mb-5 sm:mb-6" />
             <p className="text-[13px] sm:text-sm font-normal leading-relaxed text-white/80 mb-6 sm:mb-8 max-w-[320px]">
-              Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
+              {tr.hero.desc}
             </p>
-
             <div className="flex flex-col gap-3 mb-6 sm:mb-8">
               {user ? (
                 <Link to="/booking"
                   className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-medium text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow">
-                  Reservar Cita
+                  {tr.hero.reservar}
                 </Link>
               ) : (
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer"
                   className="w-full py-4 bg-white text-[#3D3D3D] tracking-[0.18em] font-medium text-[13px] uppercase text-center shadow-lg hover:shadow-xl transition-shadow block">
-                  Reservar Cita
+                  {tr.hero.reservar}
                 </a>
               )}
               <button onClick={() => scrollTo('servicios')}
                 className="w-full py-4 border border-white/60 text-white/90 tracking-[0.18em] font-medium text-[12px] uppercase hover:bg-white/10 transition-all">
-                Ver Servicios
+                {tr.hero.verServicios}
               </button>
             </div>
-
-            {/* Redes sociales */}
             <div className="flex justify-start gap-4 sm:gap-5">
               <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -121,43 +106,40 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Tagline pinned to very top of screen — desktop */}
+        {/* Desktop Hero */}
         <div className="hidden lg:block absolute z-20 top-4 left-14 xl:left-20 2xl:left-28">
-          <p className="text-[10px] tracking-[0.5em] uppercase text-[#D4C5B5]/80 font-light">Diagnóstico profesional · Protocolos exclusivos</p>
+          <p className="text-[10px] tracking-[0.5em] uppercase text-[#D4C5B5]/80 font-light">{tr.hero.tagline}</p>
         </div>
 
-        {/* Hero desktop layout */}
         <div className="hidden lg:flex relative z-10 w-full px-14 xl:px-20 2xl:px-28 pb-16 items-end flex-1">
           <div className="max-w-[480px] xl:max-w-[520px]">
             <h1 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-normal mb-6 tracking-wide text-white leading-tight">
-              Estudio de salud<br />y belleza capilar
+              {tr.hero.h1a}<br />{tr.hero.h1b}
             </h1>
             <p className="text-base lg:text-lg font-normal mb-10 leading-relaxed text-white/80 max-w-[560px]">
-              Alisado sin dañar, reconstrucción real y brillo espejo desde la primera sesión.
+              {tr.hero.desc}
             </p>
             <div className="flex gap-5">
               {user ? (
                 <Link to="/booking"
                   className="px-10 py-4 bg-white/95 backdrop-blur-sm text-[#3D3D3D] tracking-[0.18em] text-[12px] font-medium uppercase hover:bg-white transition-all">
-                  RESERVAR CITA
+                  {tr.hero.reservar.toUpperCase()}
                 </Link>
               ) : (
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer"
                   className="px-10 py-4 bg-white/95 backdrop-blur-sm text-[#3D3D3D] tracking-[0.18em] text-[12px] font-medium uppercase hover:bg-white transition-all">
-                  RESERVAR CITA
+                  {tr.hero.reservar.toUpperCase()}
                 </a>
               )}
               <button onClick={() => scrollTo('servicios')}
                 className="px-10 py-4 border border-white/50 text-white tracking-[0.18em] text-[12px] font-medium uppercase hover:bg-white/10 transition-all">
-                VER SERVICIOS
+                {tr.hero.verServicios.toUpperCase()}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <button onClick={() => scrollTo('inicio')}
-          aria-label="Desplazar hacia abajo"
+        <button onClick={() => scrollTo('inicio')} aria-label={tr.hero.scrollDown}
           className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white animate-bounce hidden lg:block">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m19 9-7 7-7-7"/>
@@ -165,7 +147,6 @@ export default function HomePage() {
         </button>
       </section>
 
-      {/* ═══ SECCIONES ═══ */}
       <div className="gold-divider" />
       <PorQueElegirSection />
       <TratamientosSection />
@@ -181,53 +162,53 @@ export default function HomePage() {
       {/* CTA final */}
       <section className="bg-[#3F342E] py-16 lg:py-24">
         <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-6 font-light">Contacto</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-normal tracking-wide">Reserva tu cita</h2>
+          <p className="text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-6 font-light">{tr.cta.contacto}</p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-normal tracking-wide">{tr.cta.reservaTitle}</h2>
           <p className="text-base md:text-lg lg:text-xl text-[#c0b8b0] mb-10 font-normal leading-relaxed">
-            Estamos en Madrid, España. Contáctanos para reservar tu tratamiento personalizado.
+            {tr.cta.reservaDesc}
           </p>
           {user ? (
             <Link to="/booking"
               className="inline-block px-14 py-5 bg-white text-[#3d3530] text-[14px] tracking-[0.2em] uppercase hover:bg-[#f5f1ec] transition-all font-medium shadow-sm">
-              Reservar Cita
+              {tr.cta.reservarCita}
             </Link>
           ) : (
             <a href={WA_URL} target="_blank" rel="noopener noreferrer"
               className="inline-block px-14 py-5 bg-white text-[#3d3530] text-[14px] tracking-[0.2em] uppercase hover:bg-[#f5f1ec] transition-all font-medium shadow-sm text-center">
-              Contactar por WhatsApp
+              {tr.hero.contactarWhatsApp}
             </a>
           )}
         </div>
       </section>
 
-      {/* ═══ FOOTER ═══ */}
+      {/* Footer */}
       <footer className="bg-[#EDE8E2] text-[#6A5F58] py-20 lg:py-28">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-16 mb-12">
             <div>
               <p className="font-serif text-[#3d3530] text-2xl mb-3 font-normal">Keratin Madrid</p>
-              <p className="text-sm leading-relaxed font-normal mb-3">Estudio de salud y belleza capilar.</p>
+              <p className="text-sm leading-relaxed font-normal mb-3">{tr.footer.estudio}</p>
               <p className="text-sm font-normal">Calle Altamirano, 11<br/>Madrid, España</p>
               <p className="text-sm font-normal mt-2">+34 641 26 15 59</p>
-              <p className="text-[11px] font-normal mt-2">Lun–Sáb · 10:00–20:00</p>
+              <p className="text-[11px] font-normal mt-2">{tr.footer.horario}</p>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">Navegación</p>
-                <div className="flex flex-col gap-3 text-sm font-normal">
-                <button onClick={() => scrollTo('inicio')} className="text-left hover:text-[#8B7355] transition-colors">Inicio</button>
-                <button onClick={() => scrollTo('precios')} className="text-left hover:text-[#8B7355] transition-colors">Precios</button>
-                <button onClick={() => scrollTo('homecare')} className="text-left hover:text-[#8B7355] transition-colors">Homecare</button>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">{tr.footer.navegacion}</p>
+              <div className="flex flex-col gap-3 text-sm font-normal">
+                <button onClick={() => scrollTo('inicio')} className="text-left hover:text-[#8B7355] transition-colors">{tr.nav.inicio}</button>
+                <button onClick={() => scrollTo('precios')} className="text-left hover:text-[#8B7355] transition-colors">{tr.nav.precios}</button>
+                <button onClick={() => scrollTo('homecare')} className="text-left hover:text-[#8B7355] transition-colors">{tr.nav.homecare}</button>
               </div>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">Para Profesionales</p>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">{tr.footer.profesionales}</p>
               <div className="flex flex-col gap-3 text-sm font-normal">
-                <button onClick={() => scrollTo('formaciones')} className="text-left hover:text-[#8B7355] transition-colors">Formaciones</button>
+                <button onClick={() => scrollTo('formaciones')} className="text-left hover:text-[#8B7355] transition-colors">{tr.nav.formaciones}</button>
                 <button onClick={() => scrollTo('scripts')} className="text-left hover:text-[#8B7355] transition-colors">Beauty Scripts</button>
               </div>
             </div>
             <div>
-              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">Contacto</p>
+              <p className="text-[12px] tracking-[0.2em] uppercase text-[#8B7355] mb-5 font-medium">{tr.footer.contacto}</p>
               <div className="flex flex-col gap-3 text-sm font-normal">
                 <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#8B7355]">@keratin_madrid</a>
                 <a href={YT_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#8B7355]">YouTube</a>
@@ -236,7 +217,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-[#D0C8BF] pt-10 text-center text-[13px] text-[#8B8076] font-normal">
-            © 2026 Keratin Madrid. Todos los derechos reservados.
+            {tr.footer.derechos}
           </div>
         </div>
       </footer>

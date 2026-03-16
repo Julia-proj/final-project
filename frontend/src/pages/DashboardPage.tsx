@@ -1,25 +1,12 @@
-// ============================================================
-// pages/DashboardPage.tsx — Panel del usuario
-// ============================================================
-// Muestra las citas y solicitudes del usuario autenticado
-// en dos pestañas: "Mis citas" y "Mis solicitudes".
-// ============================================================
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppHooks';
 import { getMyBookingsAPI } from '../api/bookings.api';
 import { getMyReservationsAPI } from '../api/reservations.api';
+import { useLanguage } from '../i18n/LanguageContext';
 import type { Booking, Reservation } from '../types';
 
 type Tab = 'bookings' | 'reservations';
-
-const statusLabel: Record<string, string> = {
-  pending: '⏳ Pendiente',
-  confirmed: '✅ Confirmada',
-  cancelled: '❌ Cancelada',
-  contacted: '📞 Contactado',
-};
 
 const statusColor: Record<string, string> = {
   pending: 'bg-amber-50 text-amber-700 border-amber-200',
@@ -38,6 +25,14 @@ export default function DashboardPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState(true);
+  const { tr } = useLanguage();
+
+  const statusLabel: Record<string, string> = {
+    pending: tr.dash.status.pending,
+    confirmed: tr.dash.status.confirmed,
+    cancelled: tr.dash.status.cancelled,
+    contacted: tr.dash.status.contacted,
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -50,7 +45,7 @@ export default function DashboardPage() {
         setBookings(bRes.data);
         setReservations(rRes.data);
       } catch {
-        // silently fail — empty lists shown
+        // silently fail
       } finally {
         setLoading(false);
       }
@@ -61,7 +56,7 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#FAF8F6] flex items-center justify-center">
-        <p className="text-[#8B7355] text-sm tracking-widest uppercase">Cargando...</p>
+        <p className="text-[#8B7355] text-sm tracking-widest uppercase">{tr.dash.cargando}</p>
       </div>
     );
   }
@@ -70,20 +65,18 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-[#FAF8F6] py-10 px-4">
       <div className="max-w-3xl mx-auto">
 
-        {/* Header */}
         <div className="mb-8">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-2">Mi cuenta</p>
+          <p className="text-[11px] tracking-[0.25em] uppercase text-[#8B7355] mb-2">{tr.dash.miCuenta}</p>
           <h1 className="font-serif text-2xl md:text-3xl text-[#3d3530] mb-1">
-            Hola, {user?.name}
+            {tr.dash.hola}, {user?.name}
           </h1>
           <p className="text-sm text-[#a09890] font-light">{user?.email}</p>
         </div>
 
-        {/* Tabs */}
         <div className="flex gap-3 mb-6">
           {([
-            ['bookings', 'Mis citas', bookings.length],
-            ['reservations', 'Mis solicitudes', reservations.length],
+            ['bookings', tr.dash.misCitas, bookings.length],
+            ['reservations', tr.dash.misSolicitudes, reservations.length],
           ] as const).map(([key, label, count]) => (
             <button
               key={key}
@@ -100,26 +93,21 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Bookings tab */}
         {tab === 'bookings' && (
           <div className="bg-white border border-[#e8e2da]">
             <div className="p-4 border-b border-[#e8e2da] flex justify-between items-center">
-              <h2 className="font-serif text-lg text-[#3d3530]">Citas de tratamiento</h2>
-              <Link
-                to="/booking"
-                className="text-[10px] tracking-[0.15em] uppercase text-white bg-[#B8A99A] hover:bg-[#9A8B7A] px-4 py-2 transition-colors"
-              >
-                + Nueva cita
+              <h2 className="font-serif text-lg text-[#3d3530]">{tr.dash.citasTratamiento}</h2>
+              <Link to="/booking"
+                className="text-[10px] tracking-[0.15em] uppercase text-white bg-[#B8A99A] hover:bg-[#9A8B7A] px-4 py-2 transition-colors">
+                {tr.dash.nuevaCita}
               </Link>
             </div>
             {bookings.length === 0 ? (
               <div className="p-10 text-center">
-                <p className="text-sm text-[#a09890] mb-4">No tienes citas todavía.</p>
-                <Link
-                  to="/booking"
-                  className="inline-block text-[11px] tracking-[0.15em] uppercase text-white bg-[#3d3530] hover:bg-[#2d2520] px-8 py-3 transition-colors"
-                >
-                  Reservar tu primera cita
+                <p className="text-sm text-[#a09890] mb-4">{tr.dash.noCitas}</p>
+                <Link to="/booking"
+                  className="inline-block text-[11px] tracking-[0.15em] uppercase text-white bg-[#3d3530] hover:bg-[#2d2520] px-8 py-3 transition-colors">
+                  {tr.dash.reservarPrimera}
                 </Link>
               </div>
             ) : (
@@ -141,14 +129,13 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Reservations tab */}
         {tab === 'reservations' && (
           <div className="bg-white border border-[#e8e2da]">
             <div className="p-4 border-b border-[#e8e2da]">
-              <h2 className="font-serif text-lg text-[#3d3530]">Solicitudes (formaciones, productos, kits)</h2>
+              <h2 className="font-serif text-lg text-[#3d3530]">{tr.dash.solicitudesTitle}</h2>
             </div>
             {reservations.length === 0 ? (
-              <p className="p-10 text-center text-sm text-[#a09890]">No tienes solicitudes.</p>
+              <p className="p-10 text-center text-sm text-[#a09890]">{tr.dash.noSolicitudes}</p>
             ) : (
               <div className="divide-y divide-[#f0ebe4]">
                 {reservations.map((r) => (
