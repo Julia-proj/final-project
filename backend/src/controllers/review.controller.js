@@ -6,6 +6,7 @@
 // ============================================================
 
 import { createReview, getApprovedReviews } from '../services/review.service.js';
+import { notifyNewReview } from '../utils/email.js';
 
 // Crear reseña — el userId es opcional (puede ser anónimo)
 export const create = async (req, res, next) => {
@@ -17,6 +18,7 @@ export const create = async (req, res, next) => {
       estrellas: req.body.estrellas,
       telefono: req.body.telefono
     });
+    notifyNewReview(review).catch(() => {});
     res.status(201).json(review);
   } catch (error) {
     next(error);

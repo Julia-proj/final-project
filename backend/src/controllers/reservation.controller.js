@@ -6,6 +6,7 @@
 // ============================================================
 
 import { createReservation, getUserReservations, createPublicReservation } from '../services/reservation.service.js';
+import { notifyNewReservation } from '../utils/email.js';
 
 // Solicitud autenticada — el userId viene del token
 export const create = async (req, res, next) => {
@@ -18,6 +19,7 @@ export const create = async (req, res, next) => {
       detalle: req.body.detalle,
       notas: req.body.notas
     });
+    notifyNewReservation(reservation).catch(() => {});
     res.status(201).json(reservation);
   } catch (error) {
     next(error);
@@ -34,6 +36,7 @@ export const createPublic = async (req, res, next) => {
       detalle: req.body.detalle,
       notas: req.body.notas
     });
+    notifyNewReservation(reservation).catch(() => {});
     res.status(201).json(reservation);
   } catch (error) {
     next(error);

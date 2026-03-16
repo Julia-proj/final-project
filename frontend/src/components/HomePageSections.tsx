@@ -472,7 +472,7 @@ function ReelCard({ poster, src, igLink, idx }: { poster: string; src?: string; 
         href={igLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex-shrink-0 w-[110px] sm:w-[140px] md:w-[170px] lg:w-[200px] snap-start group cursor-pointer"
+        className="flex-shrink-0 w-[130px] sm:w-[140px] md:w-[170px] lg:w-[200px] snap-start group cursor-pointer"
       >
         <div className="relative aspect-[9/16] bg-[#e8e2da] overflow-hidden rounded-sm">
           <img src={poster} alt={`reel${idx + 1}`} className="w-full h-full object-cover relative z-10" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
@@ -504,7 +504,7 @@ function ReelCard({ poster, src, igLink, idx }: { poster: string; src?: string; 
 
   return (
     <div
-      className="flex-shrink-0 w-[110px] sm:w-[140px] md:w-[170px] lg:w-[200px] snap-start group cursor-pointer"
+      className="flex-shrink-0 w-[130px] sm:w-[140px] md:w-[170px] lg:w-[200px] snap-start group cursor-pointer"
       onClick={toggle}
     >
       <div className="relative aspect-[9/16] bg-[#e8e2da] overflow-hidden rounded-sm">
@@ -631,10 +631,13 @@ const resenasGoogle = [
   { nombre: 'Laura Castillo', estrellas: 5, meta: '8 reseñas · 3 fotos', texto: 'Me ha fascinado como me han dejado mi cabello, tan sedoso y brillante. Alexa me ha tratado de lo mejor y me ha enseñado tantas cosas que no sabía sobre la salud de mi cuero cabelludo, me han cuidado y restaurado desde el interior, me ha quedado lleno de vida. Además el lugar es precioso, la decoración es hermosa, la atención son muy amables, volveré encantada!', fecha: 'Hace 5 meses' },
   { nombre: 'Monica Aranguez', estrellas: 5, meta: '5 reseñas', texto: 'Llevo con ellas desde hace bastantes meses y el cambio de mi pelo ha sido espectacular. Nunca he tenido así el pelo, tan hidratado y no se me parte! Te recomiendan cada vez que voy, que es lo ideal para ti. Las mejores sin duda ❤️', fecha: 'Hace 3 meses' },
   { nombre: 'Tatiana Rogr', estrellas: 5, meta: '2 reseñas', texto: 'Un lugar perfecto, es la segunda vez que voy porque me encanta el resultado y me encanta la profesionalidad con lo que hace todo, en todo momento sabe que necesita mi pelo y me va súper bien, acabado de primera, no solo el alisado, también la hidratación profunda y la limpieza, estoy encantada.', fecha: 'Hace 2 meses' },
-  { nombre: 'Sara García', estrellas: 5, meta: '7 reseñas', texto: 'Los descubrí por Instagram en julio y estoy encantada con como está mejorando mi pelo. Me he hecho dos veces la keratina y una reconstrucción capilar. La atención al detalle, como te cuidan mientras estás con ellas y luego el seguimiento que te hacen es impecable.', fecha: 'Hace 2 meses' },
-  { nombre: 'Silvia Fernandez', estrellas: 5, meta: '7 reseñas', texto: 'El trato es súper profesional, proporcionándote opciones para cuidar tu cabello. Si buscáis mejorar la salud de vuestro cabello a través de cualquier tratamiento aquí proporcionado, este es el sitio.', fecha: 'Hace 5 meses' },
-  { nombre: 'Maria A. P.', estrellas: 5, meta: 'Local Guide · 60 reseñas · 12 fotos', texto: 'Llevaba mucho tiempo viendo su contenido, hasta que al fin me decidí, primero que todo el trato es fenomenal, te explican detalladamente lo que hacen, y te dan tips para cuidar en casa, hoy inicié la recuperación de mi cabello y de verdad estoy feliz con el primer resultado, así que volveré próximamente.', fecha: 'Hace 2 años' },
+  { nombre: 'Sara García', estrellas: 5, meta: '7 reseñas', texto: 'Los descubrí por Instagram en julio y estoy encantada con como está mejorando mi pelo. Me he hecho dos veces la keratina y una reconstrucción capilar. La atención al detalle, como te cuidan mientras estás con ellas y luego el seguimiento que te hacen es impecable.', fecha: 'Hace 2 meses', avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjX1B5_dYc-tjAG2eJ0BuQc2bOvDAxCl_miMT-cgj_YGODNx7Rfy=w72-h72-p-rp-mo-br100' },
+  { nombre: 'Silvia Fernandez', estrellas: 5, meta: '7 reseñas', texto: 'El trato es súper profesional, proporcionándote opciones para cuidar tu cabello. Si buscáis mejorar la salud de vuestro cabello a través de cualquier tratamiento aquí proporcionado, este es el sitio.', fecha: 'Hace 5 meses', avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjVOzih4Ad7l2UGLZV4DnPFLrgaTBD_OceYGjxL7FarrFz_mGThA9w=w72-h72-p-rp-mo-br100' },
+  { nombre: 'Maria A. P.', estrellas: 5, meta: 'Local Guide · 60 reseñas · 12 fotos', texto: 'Llevaba mucho tiempo viendo su contenido, hasta que al fin me decidí, primero que todo el trato es fenomenal, te explican detalladamente lo que hacen, y te dan tips para cuidar en casa, hoy inicié la recuperación de mi cabello y de verdad estoy feliz con el primer resultado, así que volveré próximamente.', fecha: 'Hace 2 años', avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjX9PyNKgrEkfckDZsGdjqpp1d64h4fdLp2kIlkBHaXGEgME-pyjHA=w72-h72-p-rp-mo-ba3-br100' },
 ];
+
+const AVATAR_COLORS = ['#4285F4','#EA4335','#34A853','#F57C00','#9C27B0','#00838F','#1976D2','#C62828'];
+const avatarColor = (name: string) => AVATAR_COLORS[name.charCodeAt(0) % AVATAR_COLORS.length];
 
 export function ReviewsSection() {
   const [feedbackType, setFeedbackType] = useState<'opinion' | 'sugerencia' | 'pregunta'>('opinion');
@@ -647,6 +650,7 @@ export function ReviewsSection() {
   const sectionRef = useReveal();
   const [reviewIdx, setReviewIdx] = useState(0);
   const [reviewPaused, setReviewPaused] = useState(false);
+  const touchStartX = useRef(0);
 
   useEffect(() => {
     if (reviewPaused) return;
@@ -712,6 +716,13 @@ export function ReviewsSection() {
           className="relative mb-4"
           onMouseEnter={() => setReviewPaused(true)}
           onMouseLeave={() => setReviewPaused(false)}
+          onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; setReviewPaused(true); }}
+          onTouchEnd={(e) => {
+            const diff = touchStartX.current - e.changedTouches[0].clientX;
+            if (diff > 50) setReviewIdx(prev => (prev + 1) % resenasGoogle.length);
+            else if (diff < -50) setReviewIdx(prev => (prev - 1 + resenasGoogle.length) % resenasGoogle.length);
+            setReviewPaused(false);
+          }}
         >
           <button
             onClick={() => setReviewIdx(prev => (prev - 1 + resenasGoogle.length) % resenasGoogle.length)}
@@ -735,9 +746,16 @@ export function ReviewsSection() {
                     </div>
                     <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed flex-1 mb-5">{r.texto}</p>
                     <div className="flex items-center gap-3 pt-4 border-t border-[#f0ebe4]">
-                      <div className="w-9 h-9 rounded-full bg-[#B8A99A] flex items-center justify-center text-white text-sm font-medium flex-shrink-0">
-                        {r.nombre.charAt(0)}
-                      </div>
+                      {r.avatar ? (
+                        <img src={r.avatar} alt={r.nombre} className="w-9 h-9 rounded-full object-cover flex-shrink-0" referrerPolicy="no-referrer" />
+                      ) : (
+                        <div
+                          className="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-medium flex-shrink-0"
+                          style={{ backgroundColor: avatarColor(r.nombre) }}
+                        >
+                          {r.nombre.charAt(0).toUpperCase()}
+                        </div>
+                      )}
                       <div>
                         <p className="text-sm text-[#3d3530] font-medium leading-tight">{r.nombre}</p>
                         <p className="text-xs text-[#a09890] mt-0.5">{r.fecha}</p>
@@ -888,17 +906,6 @@ const productCatalog = [
       { line: 'Universal', img: '/images/thermo.jpg', desc: 'Protección térmica hasta 230°C. Sella y protege.', price: '18€' },
     ],
   },
-];
-
-const careTips = [
-  'Champú adaptado según necesidad',
-  'Mascarilla 1–2×/sem (20–30 min)',
-  'Acondicionador en días sin mascarilla',
-  'Termoprotector antes de secar',
-  'Secador en aire tibio o frío',
-  'Cepillo con púas suaves',
-  'No dormir con pelo mojado',
-  'Evitar agua muy caliente',
 ];
 
 const CART_PENDING_KEY = 'homecare_cart_pending';
