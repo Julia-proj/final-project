@@ -162,7 +162,7 @@ export default function InteractivePricing() {
                     key={l.id}
                     onClick={() => setActive(isActive ? null : l.id)}
                     className={`flex items-center justify-between py-3 px-4 text-left transition-all border-b border-[#f0ebe4] last:border-b-0 active:opacity-70 ${
-                      isActive ? 'bg-[#E8DDD0]' : 'hover:bg-[#FDFCFB]'
+                      isActive ? 'bg-[#F3EDE6]' : 'hover:bg-[#FDFCFB]'
                     }`}
                   >
                     <div className="flex flex-col">
