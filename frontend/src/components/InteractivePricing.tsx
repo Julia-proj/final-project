@@ -135,13 +135,13 @@ export default function InteractivePricing() {
 
               {/* Bottom info strip — light, minimal */}
               {activeItem && (
-                <div className="absolute bottom-0 left-0 right-0 z-30 bg-white/90 backdrop-blur-sm border-t border-[#e8e2da] px-5 py-3 animate-fade-in-up">
+                <div className="absolute bottom-0 left-0 right-0 z-30 bg-[#6b5c52] px-5 py-2 animate-fade-in-up">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[11px] tracking-[0.18em] uppercase text-[#8B7355] font-medium">{activeItem.label}</p>
-                      <p className="text-[10px] text-[#a09890] font-light mt-0.5">{activeItem.desc} · {getLabel()}</p>
+                      <p className="text-[11px] tracking-[0.18em] uppercase text-[#B8A99A] font-medium">{activeItem.label}</p>
+                      <p className="text-[10px] text-white/60 font-light mt-0.5">{activeItem.desc} · {getLabel()}</p>
                     </div>
-                    <p className="font-serif text-2xl text-[#3d3530]">{getPrice(activeItem)}</p>
+                    <p className="font-serif text-2xl text-white">{getPrice(activeItem)}</p>
                   </div>
                 </div>
               )}
@@ -150,7 +150,7 @@ export default function InteractivePricing() {
 
           {/* ── Price list ── */}
           <div className="flex-1 pt-0 lg:pt-1">
-            <p className="text-[11px] tracking-[0.22em] uppercase text-[#B8A99A] mb-4 font-light">
+            <p className="text-[11px] tracking-[0.22em] uppercase text-[#8B7355] mb-4 font-medium">
               {getLabel()} — {tr.pricing.porLongitud}
             </p>
 
@@ -162,7 +162,7 @@ export default function InteractivePricing() {
                     key={l.id}
                     onClick={() => setActive(isActive ? null : l.id)}
                     className={`flex items-center justify-between py-3 px-4 text-left transition-all border-b border-[#f0ebe4] last:border-b-0 active:opacity-70 ${
-                      isActive ? 'bg-[#F3F1EE]' : 'hover:bg-[#FDFCFB]'
+                      isActive ? 'bg-[#E8DDD0]' : 'hover:bg-[#FDFCFB]'
                     }`}
                   >
                     <div className="flex flex-col">
