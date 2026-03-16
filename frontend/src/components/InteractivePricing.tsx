@@ -40,7 +40,7 @@ export default function InteractivePricing() {
     servicio === 'keratina' ? tr.pricing.keratina : servicio === 'total' ? tr.pricing.total : tr.pricing.reconstruccion;
 
   return (
-    <section id="precios" className="bg-[#F3F2EE] py-12 lg:py-18">
+    <section id="precios" className="bg-[#F9F7F4] py-12 lg:py-18">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-10">
 
         {/* Header */}
@@ -67,7 +67,7 @@ export default function InteractivePricing() {
                 onClick={() => { setServicio(key); setActive(null); }}
                 className={`px-5 md:px-8 py-3 text-[11px] md:text-[12px] tracking-[0.14em] uppercase transition-all font-normal ${
                   servicio === key
-                    ? 'bg-[#8B7355] text-white'
+                    ? 'bg-[#3d3530] text-white'
                     : 'text-[#8B7355] hover:bg-[#f0ebe4]'
                 }`}
               >
@@ -110,17 +110,17 @@ export default function InteractivePricing() {
                     className="absolute left-0 right-0 z-20 group cursor-pointer py-3 -translate-y-1/2"
                     style={{ top: l.top }}
                   >
-                    {/* Horizontal line — gold when active */}
-                    <div className={`transition-all duration-300 ${
+                    {/* Horizontal line */}
+                    <div className={`transition-all duration-200 ${
                       isActive
-                        ? 'h-[2px] bg-[#C9A96E] shadow-[0_0_6px_rgba(201,169,110,0.7)]'
-                        : 'h-px bg-white/40 group-hover:bg-white/80 group-hover:h-[1.5px]'
+                        ? 'h-[2px] bg-white'
+                        : 'h-px bg-white/35 group-hover:bg-white/75'
                     }`} />
                     {/* Dot */}
-                    <div className={`absolute right-[8%] top-1/2 -translate-y-1/2 rounded-full border-2 transition-all duration-300 ${
+                    <div className={`absolute right-[8%] top-1/2 -translate-y-1/2 rounded-full border-2 transition-all duration-200 ${
                       isActive
-                        ? 'w-5 h-5 bg-[#C9A96E] border-white scale-125 shadow-[0_0_8px_rgba(201,169,110,0.6)]'
-                        : 'w-3.5 h-3.5 bg-white/80 border-white/60 group-hover:w-4 group-hover:h-4 group-hover:bg-[#C9A96E] group-hover:border-white'
+                        ? 'w-4 h-4 bg-white border-white/40 scale-150 shadow-md'
+                        : 'w-3 h-3 bg-white/60 border-white/40 group-hover:w-3.5 group-hover:h-3.5 group-hover:bg-white group-hover:scale-110'
                     }`} />
                     {/* Floating price tag */}
                     <div className={`absolute right-[15%] top-1/2 -translate-y-1/2 bg-white shadow-md px-3.5 py-1.5 transition-all duration-300 whitespace-nowrap ${
@@ -161,8 +161,8 @@ export default function InteractivePricing() {
                   <button
                     key={l.id}
                     onClick={() => setActive(isActive ? null : l.id)}
-                    className={`flex items-center justify-between py-3 px-4 text-left transition-all border-b border-[#e8e2da] ${
-                      isActive ? 'bg-[#8B7355]/8' : 'hover:bg-white/60'
+                    className={`flex items-center justify-between py-3 px-4 text-left transition-all border-b border-[#e8e2da] active:opacity-70 ${
+                      isActive ? 'bg-white/80' : 'hover:bg-white/50'
                     }`}
                   >
                     <div className="flex flex-col">
@@ -225,7 +225,7 @@ export default function InteractivePricing() {
               {user ? (
                 <button
                   onClick={() => navigate('/booking')}
-                  className="w-full sm:w-auto px-12 py-4 bg-[#8B7355] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#7A6348] transition-colors font-medium"
+                  className="w-full sm:w-auto px-12 py-4 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-colors font-medium active:opacity-75"
                 >
                   {tr.pricing.reservarCita}
                 </button>
@@ -234,7 +234,7 @@ export default function InteractivePricing() {
                   href={WA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block w-full sm:w-auto text-center px-12 py-4 bg-[#8B7355] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#7A6348] transition-colors font-medium"
+                  className="inline-block w-full sm:w-auto text-center px-12 py-4 bg-[#3d3530] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-colors font-medium active:opacity-75"
                 >
                   {tr.pricing.reservarCita}
                 </a>
