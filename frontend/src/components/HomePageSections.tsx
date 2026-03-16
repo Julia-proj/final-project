@@ -1166,7 +1166,6 @@ export function HomecareSection() {
                       className="w-full h-full object-contain relative z-10"
                       onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                     />
-                    <ImgPlaceholder label={product.typeKey} />
                   </div>
 
                   {/* Content */}
