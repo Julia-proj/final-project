@@ -713,7 +713,7 @@ export function ReviewsSection() {
 
         {/* ── Reviews Carousel ── */}
         <div
-          className="relative mb-4"
+          className="relative mb-4 touch-pan-y"
           onMouseEnter={() => setReviewPaused(true)}
           onMouseLeave={() => setReviewPaused(false)}
           onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; setReviewPaused(true); }}
