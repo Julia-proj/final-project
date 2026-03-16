@@ -744,7 +744,10 @@ export function ReviewsSection() {
                         <span key={j} className="text-[#FBBC05] text-base">★</span>
                       ))}
                     </div>
-                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed flex-1 mb-5">{r.texto}</p>
+                    <p className="text-[#4a403b] text-sm sm:text-base leading-relaxed flex-1 mb-2">{r.texto}</p>
+                    {tr.sections.revTranslated && (
+                      <p className="text-[10px] tracking-[0.08em] text-[#b5a9a0] italic mb-4">{tr.sections.revTranslated}</p>
+                    )}
                     <div className="flex items-center gap-3 pt-4 border-t border-[#f0ebe4]">
                       {r.avatar ? (
                         <img src={r.avatar} alt={r.nombre} className="w-9 h-9 rounded-full object-cover flex-shrink-0" referrerPolicy="no-referrer" />
@@ -872,38 +875,38 @@ export function ReviewsSection() {
 // 6. HOMECARE + PRODUCTOS
 // ═══════════════════════════════════════════════════════════════
 
-const productCatalog = [
+const PRODUCT_CATALOG_BASE = [
   {
-    type: 'Champú',
+    typeKey: 'champu' as const,
     variants: [
-      { line: 'Color', img: '/images/champu1.jpg', desc: 'Protege el color y aporta brillo. Sin sulfatos.', price: '22€' },
-      { line: 'Volume', img: '/images/champu2.jpg', desc: 'Volumen natural sin apelmazar. Limpieza suave.', price: '22€' },
-      { line: 'Detox', img: '/images/champu3.jpg', desc: 'Purificante para cuero cabelludo graso o sensible.', price: '20€' },
-      { line: 'Hydration', img: '/images/champu4.jpg', desc: 'Hidratación profunda para cabello seco y dañado.', price: '24€' },
+      { line: 'Color', img: '/images/champu1.jpg', price: '22€' },
+      { line: 'Volume', img: '/images/champu2.jpg', price: '22€' },
+      { line: 'Detox', img: '/images/champu3.jpg', price: '20€' },
+      { line: 'Hydration', img: '/images/champu4.jpg', price: '24€' },
     ],
   },
   {
-    type: 'Acondicionador',
+    typeKey: 'acondicionador' as const,
     variants: [
-      { line: 'Color', img: '/images/cond1.jpg', desc: 'Sella cutícula y fija el color. Brillo duradero.', price: '24€' },
-      { line: 'Volume', img: '/images/cond2.jpg', desc: 'Ligereza y cuerpo. No apelmaza las fibras.', price: '24€' },
-      { line: 'Detox', img: '/images/cond3.jpg', desc: 'Ligero y equilibrante. No obstruye poros.', price: '22€' },
-      { line: 'Hydration', img: '/images/cond4.jpg', desc: 'Nutrición intensa sin peso. Cabello suave y flexible.', price: '26€' },
+      { line: 'Color', img: '/images/cond1.jpg', price: '24€' },
+      { line: 'Volume', img: '/images/cond2.jpg', price: '24€' },
+      { line: 'Detox', img: '/images/cond3.jpg', price: '22€' },
+      { line: 'Hydration', img: '/images/cond4.jpg', price: '26€' },
     ],
   },
   {
-    type: 'Mascarilla',
+    typeKey: 'mascarilla' as const,
     variants: [
-      { line: 'Color', img: '/images/mask1.jpg', desc: 'Fija pigmentos y aporta brillo. Uso 1-2×/semana.', price: '28€' },
-      { line: 'Volume', img: '/images/mask2.jpg', desc: 'Volumen y fuerza sin apelmazar las raíces.', price: '28€' },
-      { line: 'Detox', img: '/images/mask3.jpg', desc: 'Arcilla purificante para cuero cabelludo.', price: '26€' },
-      { line: 'Hydration', img: '/images/mask4.jpg', desc: 'Hidratación profunda. 20 min de tratamiento.', price: '30€' },
+      { line: 'Color', img: '/images/mask1.jpg', price: '28€' },
+      { line: 'Volume', img: '/images/mask2.jpg', price: '28€' },
+      { line: 'Detox', img: '/images/mask3.jpg', price: '26€' },
+      { line: 'Hydration', img: '/images/mask4.jpg', price: '30€' },
     ],
   },
   {
-    type: 'Protector Spray',
+    typeKey: 'protectorSpray' as const,
     variants: [
-      { line: 'Universal', img: '/images/thermo.jpg', desc: 'Protección térmica hasta 230°C. Sella y protege.', price: '18€' },
+      { line: 'Universal', img: '/images/thermo.jpg', price: '18€' },
     ],
   },
 ];
@@ -915,16 +918,26 @@ export function HomecareSection() {
   const { tr } = useLanguage();
   const user = useAppSelector((s) => s.auth.user);
   const navigate = useNavigate();
+
+  const productCatalog = PRODUCT_CATALOG_BASE.map(p => ({
+    ...p,
+    type: tr.sections.hcProductTypes[p.typeKey],
+    variants: p.variants.map(v => ({
+      ...v,
+      desc: (tr.sections.hcProducts[p.typeKey] as Record<string, string>)[v.line] ?? '',
+    })),
+  }));
+
   const [selectedLines, setSelectedLines] = useState<Record<string, number>>({
-    'Champú': 0,
-    'Acondicionador': 0,
-    'Mascarilla': 0,
-    'Protector Spray': 0,
+    'champu': 0,
+    'acondicionador': 0,
+    'mascarilla': 0,
+    'protectorSpray': 0,
   });
   const [activeLine, setActiveLine] = useState('Color');
   const handleLineFilter = (line: string, idx: number) => {
     setActiveLine(line);
-    setSelectedLines({ 'Champú': idx, 'Acondicionador': idx, 'Mascarilla': idx, 'Protector Spray': 0 });
+    setSelectedLines({ 'champu': idx, 'acondicionador': idx, 'mascarilla': idx, 'protectorSpray': 0 });
   };
   const lineFilterClasses: Record<string, string> = {
     'Color': 'bg-[#C4939B] text-white',
@@ -1141,10 +1154,10 @@ export function HomecareSection() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {productCatalog.map((product) => {
-              const lineIdx = selectedLines[product.type] || 0;
+              const lineIdx = selectedLines[product.typeKey] || 0;
               const variant = product.variants[lineIdx];
               return (
-                <div key={product.type + activeLine} className="bg-white border border-[#e8e2da] shadow-sm hover:shadow-md transition-shadow flex flex-col animate-fade-in">
+                <div key={product.typeKey + activeLine} className="bg-white border border-[#e8e2da] shadow-sm hover:shadow-md transition-shadow flex flex-col animate-fade-in">
                   {/* Product image */}
                   <div className="relative aspect-square bg-[#EDE8E2] overflow-hidden">
                     <img
@@ -1153,7 +1166,7 @@ export function HomecareSection() {
                       className="w-full h-full object-contain relative z-10"
                       onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                     />
-                    <ImgPlaceholder label={product.type.toLowerCase()} />
+                    <ImgPlaceholder label={product.typeKey} />
                   </div>
 
                   {/* Content */}
@@ -1174,10 +1187,10 @@ export function HomecareSection() {
                   {/* Price + cart button */}
                   <div className="flex items-center justify-between pt-2 border-t border-[#f0ebe4]">
                     <p className="font-serif text-xl text-[#3d3530] font-light">{variant.price}</p>
-                    {cart.some(c => c.label === product.type && c.line === variant.line) ? (
+                    {cart.some(c => c.label === product.typeKey && c.line === variant.line) ? (
                       <div className="flex items-center gap-1.5">
                         <button
-                          onClick={() => { const idx = [...cart].reverse().findIndex(c => c.label === product.type && c.line === variant.line); removeFromCart(cart.length - 1 - idx); }}
+                          onClick={() => { const idx = [...cart].reverse().findIndex(c => c.label === product.typeKey && c.line === variant.line); removeFromCart(cart.length - 1 - idx); }}
                           className="w-8 h-8 flex items-center justify-center border border-[#B8A99A] text-[#B8A99A] hover:bg-[#B8A99A] hover:text-white transition-colors"
                           title="Quitar uno"
                         >
@@ -1186,11 +1199,11 @@ export function HomecareSection() {
                           </svg>
                         </button>
                         <span className="text-xs text-[#3d3530] font-light w-4 text-center">
-                          {cart.filter(c => c.label === product.type && c.line === variant.line).length}
+                          {cart.filter(c => c.label === product.typeKey && c.line === variant.line).length}
                         </span>
                         <button
-                          onClick={() => addToCart(product.type, variant.line, variant.price)}
-                          disabled={cart.filter(c => c.label === product.type && c.line === variant.line).length >= 3}
+                          onClick={() => addToCart(product.typeKey, variant.line, variant.price)}
+                          disabled={cart.filter(c => c.label === product.typeKey && c.line === variant.line).length >= 3}
                           className="w-8 h-8 flex items-center justify-center bg-[#B8A99A] text-white hover:bg-[#9A8B7A] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                           title="Añadir otro"
                         >
@@ -1201,7 +1214,7 @@ export function HomecareSection() {
                       </div>
                     ) : (
                       <button
-                        onClick={() => addToCart(product.type, variant.line, variant.price)}
+                        onClick={() => addToCart(product.typeKey, variant.line, variant.price)}
                         className="w-8 h-8 flex items-center justify-center bg-[#B8A99A] text-white hover:bg-[#9A8B7A] transition-colors"
                         title="Añadir al carrito"
                       >
@@ -1276,7 +1289,7 @@ export function HomecareSection() {
                     {cart.map((item, idx) => (
                       <div key={idx} className="flex items-center justify-between py-3 border-b border-[#f0ebe4]">
                         <div>
-                          <p className="text-sm text-[#3d3530] font-light">{item.label}</p>
+                          <p className="text-sm text-[#3d3530] font-light">{(tr.sections.hcProductTypes as Record<string, string>)[item.label] ?? item.label}</p>
                           <p className="text-[11px] text-[#a09890] font-light">{item.line}</p>
                         </div>
                         <div className="flex items-center gap-4">

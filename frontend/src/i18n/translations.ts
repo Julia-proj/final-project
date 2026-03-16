@@ -163,6 +163,7 @@ const es = {
     adInstagram: 'Ver más en Instagram',
     // Reviews
     revOverline: 'Reseñas de Google',
+    revTranslated: '',
     revTitle: 'Lo que dicen nuestras clientas',
     revVerGoogle: 'Ver todas las reseñas en Google →',
     revFeedbackTitle: '¿Alguna pregunta o sugerencia?',
@@ -221,6 +222,29 @@ const es = {
       mascarilla: 'Mascarilla',
       protectorSpray: 'Protector Spray',
       protectorTermico: 'Protector Térmico',
+    },
+    hcProducts: {
+      champu: {
+        Color: 'Protege el color y aporta brillo. Sin sulfatos.',
+        Volume: 'Volumen natural sin apelmazar. Limpieza suave.',
+        Detox: 'Purificante para cuero cabelludo graso o sensible.',
+        Hydration: 'Hidratación profunda para cabello seco y dañado.',
+      },
+      acondicionador: {
+        Color: 'Sella cutícula y fija el color. Brillo duradero.',
+        Volume: 'Ligereza y cuerpo. No apelmaza las fibras.',
+        Detox: 'Ligero y equilibrante. No obstruye poros.',
+        Hydration: 'Nutrición intensa sin peso. Cabello suave y flexible.',
+      },
+      mascarilla: {
+        Color: 'Fija pigmentos y aporta brillo. Uso 1-2×/semana.',
+        Volume: 'Volumen y fuerza sin apelmazar las raíces.',
+        Detox: 'Arcilla purificante para cuero cabelludo.',
+        Hydration: 'Hidratación profunda. 20 min de tratamiento.',
+      },
+      protectorSpray: {
+        Universal: 'Protección térmica hasta 230°C. Sella y protege.',
+      },
     },
     hcKitContents: ['Champú', 'Acondicionador', 'Mascarilla', 'Protector Térmico'] as string[],
     // Formaciones
@@ -451,6 +475,7 @@ const ru: typeof es = {
     adSubtitle: 'Листайте, чтобы увидеть трансформации в видео',
     adInstagram: 'Больше в Instagram',
     revOverline: 'Отзывы Google',
+    revTranslated: 'Переведено с испанского',
     revTitle: 'Что говорят наши клиентки',
     revVerGoogle: 'Все отзывы на Google →',
     revFeedbackTitle: 'Есть вопрос или предложение?',
@@ -508,6 +533,29 @@ const ru: typeof es = {
       mascarilla: 'Маска',
       protectorSpray: 'Термозащита',
       protectorTermico: 'Термозащита',
+    },
+    hcProducts: {
+      champu: {
+        Color: 'Защищает цвет и придаёт блеск. Без сульфатов.',
+        Volume: 'Естественный объём без утяжеления. Мягкое очищение.',
+        Detox: 'Очищающий для жирной или чувствительной кожи головы.',
+        Hydration: 'Глубокое увлажнение для сухих и повреждённых волос.',
+      },
+      acondicionador: {
+        Color: 'Запечатывает кутикулу и фиксирует цвет. Стойкий блеск.',
+        Volume: 'Лёгкость и тело. Не утяжеляет волокна.',
+        Detox: 'Лёгкий и балансирующий. Не закупоривает поры.',
+        Hydration: 'Интенсивное питание без веса. Мягкие и гибкие волосы.',
+      },
+      mascarilla: {
+        Color: 'Фиксирует пигменты и придаёт блеск. 1-2×/нед.',
+        Volume: 'Объём и сила без утяжеления корней.',
+        Detox: 'Очищающая глина для кожи головы.',
+        Hydration: 'Глубокое увлажнение. 20 мин обработки.',
+      },
+      protectorSpray: {
+        Universal: 'Термозащита до 230°C. Запечатывает и защищает.',
+      },
     },
     hcKitContents: ['Шампунь', 'Кондиционер', 'Маска', 'Термозащита'],
     formOverline: 'Для профессионалов',
@@ -734,6 +782,7 @@ const en: typeof es = {
     adSubtitle: 'Swipe to see transformations in video',
     adInstagram: 'See more on Instagram',
     revOverline: 'Google Reviews',
+    revTranslated: 'Translated from Spanish',
     revTitle: 'What our clients say',
     revVerGoogle: 'See all Google reviews →',
     revFeedbackTitle: 'Any questions or suggestions?',
@@ -791,6 +840,29 @@ const en: typeof es = {
       mascarilla: 'Mask',
       protectorSpray: 'Heat Protector',
       protectorTermico: 'Heat Protector',
+    },
+    hcProducts: {
+      champu: {
+        Color: 'Protects colour and adds shine. Sulphate-free.',
+        Volume: 'Natural volume without weighing down. Gentle cleansing.',
+        Detox: 'Purifying for oily or sensitive scalp.',
+        Hydration: 'Deep hydration for dry and damaged hair.',
+      },
+      acondicionador: {
+        Color: 'Seals cuticle and locks in colour. Long-lasting shine.',
+        Volume: 'Lightness and body. Does not weigh down fibres.',
+        Detox: 'Light and balancing. Does not clog pores.',
+        Hydration: 'Intense nourishment without weight. Soft and flexible hair.',
+      },
+      mascarilla: {
+        Color: 'Locks in pigments and adds shine. Use 1-2×/week.',
+        Volume: 'Volume and strength without weighing down roots.',
+        Detox: 'Purifying clay for the scalp.',
+        Hydration: 'Deep hydration. 20 min treatment.',
+      },
+      protectorSpray: {
+        Universal: 'Heat protection up to 230°C. Seals and protects.',
+      },
     },
     hcKitContents: ['Shampoo', 'Conditioner', 'Mask', 'Heat Protector'],
     formOverline: 'For Professionals',
