@@ -154,15 +154,15 @@ export default function InteractivePricing() {
               {getLabel()} — {tr.pricing.porLongitud}
             </p>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col bg-white border border-[#e8e2da]">
               {lengths.map((l) => {
                 const isActive = active === l.id;
                 return (
                   <button
                     key={l.id}
                     onClick={() => setActive(isActive ? null : l.id)}
-                    className={`flex items-center justify-between py-3 px-4 text-left transition-all border-b border-[#e8e2da] active:opacity-70 ${
-                      isActive ? 'bg-white/80' : 'hover:bg-white/50'
+                    className={`flex items-center justify-between py-3 px-4 text-left transition-all border-b border-[#f0ebe4] last:border-b-0 active:opacity-70 ${
+                      isActive ? 'bg-[#F3F1EE]' : 'hover:bg-[#FDFCFB]'
                     }`}
                   >
                     <div className="flex flex-col">
