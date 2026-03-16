@@ -66,7 +66,7 @@ export default function InteractivePricing() {
                 onClick={() => { setServicio(key); setActive(null); }}
                 className={`px-4 md:px-7 py-2.5 text-[11px] md:text-[12px] tracking-[0.12em] uppercase transition-all font-normal ${
                   servicio === key
-                    ? 'bg-[#3d3530] text-white'
+                    ? 'bg-[#8B7355] text-white'
                     : 'text-[#8B7355] hover:bg-[#f0ebe4]'
                 }`}
               >
@@ -135,13 +135,13 @@ export default function InteractivePricing() {
 
               {/* Bottom tooltip for selected length */}
               {activeItem && (
-                <div className="absolute bottom-0 left-0 right-0 z-30 bg-[#3d3530]/95 backdrop-blur-sm px-5 py-3.5 animate-fade-in-up">
+                <div className="absolute bottom-0 left-0 right-0 z-30 bg-white/92 backdrop-blur-sm border-t border-[#e8e2da] px-5 py-3 animate-fade-in-up">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8A99A] mb-0.5 font-light">{activeItem.label}</p>
-                      <p className="text-xs text-white/60 font-light capitalize">{getLabel()}</p>
+                      <p className="text-[11px] tracking-[0.2em] uppercase text-[#8B7355] mb-0.5 font-light">{activeItem.label}</p>
+                      <p className="text-[10px] text-[#a09890] font-light capitalize tracking-wide">{getLabel()}</p>
                     </div>
-                    <p className="font-serif text-2xl text-white font-light">
+                    <p className="font-serif text-2xl text-[#3d3530] font-light">
                       {getPrice(activeItem)}
                     </p>
                   </div>
@@ -161,10 +161,10 @@ export default function InteractivePricing() {
                 <button
                   key={l.id}
                   onClick={() => setActive(active === l.id ? null : l.id)}
-                  className={`flex justify-between items-center py-2.5 px-3 text-left transition-all border-l-2 ${
+                  className={`flex justify-between items-center py-2.5 px-3 text-left transition-all ${
                     active === l.id
-                      ? 'bg-[#B8A99A]/20 border-[#B8A99A]'
-                      : 'border-transparent hover:bg-[#FAF8F5] hover:border-[#e8e2da]'
+                      ? 'bg-[#B8A99A]/15'
+                      : 'hover:bg-[#FAF8F5]'
                   }`}
                 >
                   <span className={`text-sm md:text-base tracking-wide transition-colors ${active === l.id ? 'text-[#3d3530] font-semibold' : 'text-[#5a4f48] font-light'}`}>{l.label}</span>
@@ -219,7 +219,7 @@ export default function InteractivePricing() {
               {user ? (
                 <button
                   onClick={() => navigate('/booking')}
-                  className="px-12 py-4 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-colors font-medium"
+                  className="px-12 py-4 bg-[#8B7355] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#7A6348] transition-colors font-medium"
                 >
                   {tr.pricing.reservarCita}
                 </button>
@@ -228,7 +228,7 @@ export default function InteractivePricing() {
                   href={WA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-12 py-4 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-colors font-medium"
+                  className="inline-block px-12 py-4 bg-[#8B7355] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#7A6348] transition-colors font-medium"
                 >
                   {tr.pricing.reservarCita}
                 </a>

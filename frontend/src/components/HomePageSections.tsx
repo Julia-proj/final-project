@@ -367,7 +367,7 @@ export function TratamientosSection() {
   const scrollToPrecios = () => document.getElementById('precios')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="servicios" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
+    <section id="servicios" className="bg-[#FAF8F5] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-18 reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.tratOverline}</p>
@@ -435,7 +435,7 @@ export function TratamientosSection() {
 
                 <button
                   onClick={scrollToPrecios}
-                  className="self-start px-10 py-3.5 bg-[#3d3530] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#2d2520] transition-all cursor-pointer font-medium"
+                  className="self-start px-10 py-3.5 bg-[#8B7355] text-white text-[13px] tracking-[0.2em] uppercase hover:bg-[#7A6348] transition-all cursor-pointer font-medium"
                 >
                   {tr.sections.verPrecio}
                 </button>
@@ -548,7 +548,7 @@ export function AntesDespuesSection() {
   };
 
   return (
-    <section id="resultados" className="bg-[#F5F4F1] py-10 lg:py-16" ref={sectionRef}>
+    <section id="resultados" className="bg-[#F8F6F2] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-7 lg:mb-10 reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.adOverline}</p>
@@ -1374,7 +1374,7 @@ export function FormacionesSection() {
   };
 
   return (
-    <section id="formaciones" className="bg-[#F3F2EE] py-10 lg:py-16" ref={sectionRef}>
+    <section id="formaciones" className="bg-[#ECEAE7] py-10 lg:py-16" ref={sectionRef}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 lg:mb-6 reveal">
           <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#8B7355] mb-4 font-medium">{tr.sections.formOverline}</p>
