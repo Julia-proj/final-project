@@ -34,7 +34,7 @@ const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
   .split(',').map(o => o.trim());
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin || allowedOrigins.some(o => origin === o || origin.endsWith('.vercel.app'))) {
+    if (!origin || allowedOrigins.some(o => origin === o || origin.endsWith('.vercel.app')) || /^https?:\/\/localhost(:\d+)?$/.test(origin)) {
       cb(null, true);
     } else {
       cb(new Error(`CORS blocked: ${origin}`));
@@ -48,7 +48,7 @@ app.use(express.json());
 connectDB();
 
 // ── HEALTH CHECK ─────────────────────────────────────────────
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'OK', message: 'Keratin Madrid API running!' });
 });
 
