@@ -1541,12 +1541,12 @@ export function BeautyScriptsSection() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <section id="scripts" className="bg-[#574438] py-10 lg:py-14" ref={sectionRef}>
+    <section id="scripts" className="bg-[#3F342E] py-16 lg:py-24" ref={sectionRef}>
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4 lg:mb-6 lg:text-left reveal">
-          <p className="overline-accent text-[12px] tracking-[0.3em] uppercase text-[#B8A99A] mb-3 font-normal">{tr.sections.bsOverline}</p>
-          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#F0EAE0] mb-3 font-normal tracking-wide">{tr.sections.bsTitle}</h2>
-          <p className="text-sm md:text-base text-[#9A8B82] max-w-2xl lg:mx-0 mx-auto font-normal leading-relaxed">
+        <div className="text-center mb-10 lg:mb-14 lg:text-left reveal">
+          <p className="overline-accent text-[11px] tracking-[0.3em] uppercase text-[#BCA590] mb-3 font-normal">{tr.sections.bsOverline}</p>
+          <h2 className="font-serif text-3xl md:text-5xl lg:text-5xl text-[#F0EAE0] mb-4 font-normal tracking-wide">{tr.sections.bsTitle}</h2>
+          <p className="text-base md:text-lg text-[#BCA590] max-w-2xl lg:mx-0 mx-auto font-light leading-relaxed">
             {tr.sections.bsDesc}
           </p>
         </div>
@@ -1569,15 +1569,15 @@ export function BeautyScriptsSection() {
           <div className="flex-1 flex flex-col gap-3 sm:gap-5">
             <div className="flex flex-col gap-2 sm:gap-4">
               {tr.sections.bsFeatures.map(({ title: t, desc: d }) => (
-                <div key={t} className="flex gap-3">
-                  <span className="w-5 h-5 border border-[#B8A99A] flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-2.5 h-2.5 text-[#B8A99A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="m4.5 12.75 6 6 9-13.5" />
+                <div key={t} className="flex gap-4 items-start pb-4 border-b border-[#4A3C35] last:border-b-0">
+                  <span className="text-[#BCA590] mt-1 flex-shrink-0">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
                   </span>
                   <div>
-                    <p className="text-sm sm:text-base md:text-lg font-light text-[#EDE7DC]">{t}</p>
-                    <p className="hidden sm:block text-sm text-[#9A8B82] font-light">{d}</p>
+                    <h4 className="font-serif text-xl sm:text-2xl text-[#EDE7DC] mb-1 font-normal tracking-wide">{t}</h4>
+                    <p className="text-sm text-[#9A8B82] font-light leading-relaxed">{d}</p>
                   </div>
                 </div>
               ))}
@@ -1586,7 +1586,7 @@ export function BeautyScriptsSection() {
             {HAS_STRIPE_KEY ? (
               <button
                 onClick={() => setShowCheckout(true)}
-                className="w-full sm:w-auto self-start px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light cursor-pointer"
+                className="w-full sm:w-auto self-start mt-4 px-10 py-3.5 bg-[#BCA590] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#8B7355] transition-colors font-light cursor-pointer shadow-sm"
               >
                 {tr.sections.bsBoton}
               </button>
@@ -1595,7 +1595,7 @@ export function BeautyScriptsSection() {
                 href={STRIPE_SCRIPTS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto self-start px-8 py-3 bg-[#B8A99A] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#9A8B7A] transition-colors font-light text-center"
+                className="w-full sm:w-auto self-start mt-4 px-10 py-3.5 bg-[#BCA590] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#8B7355] transition-colors font-light text-center shadow-sm"
               >
                 {tr.sections.bsBoton}
               </a>
