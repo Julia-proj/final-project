@@ -1541,66 +1541,79 @@ export function BeautyScriptsSection() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <section id="scripts" className="bg-[#3F342E] py-16 lg:py-24" ref={sectionRef}>
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 lg:mb-14 lg:text-left reveal">
-          <p className="overline-accent text-[11px] tracking-[0.3em] uppercase text-[#BCA590] mb-3 font-normal">{tr.sections.bsOverline}</p>
-          <h2 className="font-serif text-3xl md:text-5xl lg:text-5xl text-[#F0EAE0] mb-4 font-normal tracking-wide">{tr.sections.bsTitle}</h2>
-          <p className="text-base md:text-lg text-[#BCA590] max-w-2xl lg:mx-0 mx-auto font-light leading-relaxed">
-            {tr.sections.bsDesc}
-          </p>
+    <section id="scripts" className="bg-[#2E2420] overflow-hidden" ref={sectionRef}>
+      {/* Full-bleed editorial two-col layout, Wildsmith-style */}
+      <div className="flex flex-col lg:flex-row min-h-[560px] lg:min-h-[680px]">
+
+        {/* Left: Image — tall, full-height, no padding */}
+        <div className="relative w-full lg:w-[46%] xl:w-[44%] flex-shrink-0 min-h-[320px] lg:min-h-0 bg-[#1A1210]">
+          <img
+            src="/images/beautyscripts.jpeg"
+            alt="Beauty Scripts"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          />
+          <ImgPlaceholder label="beautyscripts.jpeg" />
+          {/* Subtle right-edge fade to blend into content */}
+          <div className="hidden lg:block absolute inset-y-0 right-0 w-16 bg-gradient-to-r from-transparent to-[#2E2420]" />
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-7 lg:gap-10 items-start">
-          <div className="w-full sm:w-[220px] lg:w-[260px] xl:w-[300px] flex-shrink-0 mx-auto lg:mx-0">
-            <div className="relative aspect-[4/5] bg-[#2A1E18] overflow-hidden shadow-sm">
-              <img
-                src="/images/beautyscripts.jpeg"
-                alt="Beauty Scripts"
-                className="w-full h-full object-cover relative z-10"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-              <ImgPlaceholder label="beautyscripts.jpeg" />
-            </div>
+        {/* Right: Content — generous padding, editorial */}
+        <div className="flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-14 xl:px-20 py-14 lg:py-20">
+
+          {/* Overline */}
+          <p className="text-[10px] tracking-[0.4em] uppercase text-[#BCA590]/70 mb-5 font-normal reveal">
+            {tr.sections.bsOverline}
+          </p>
+
+          {/* Main headline — BIG, like Wildsmith */}
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-5xl xl:text-6xl text-[#F0EAE0] mb-4 font-normal leading-[1.1] tracking-wide reveal">
+            {tr.sections.bsTitle}
+          </h2>
+
+          {/* Divider */}
+          <div className="w-10 h-px bg-[#BCA590]/50 mb-6 reveal" />
+
+          {/* Description */}
+          <p className="text-[#9A8B82] text-base md:text-lg font-light leading-relaxed max-w-md mb-10 reveal">
+            {tr.sections.bsDesc}
+          </p>
+
+          {/* Feature list — editorial, no icons, just thin dividers */}
+          <div className="flex flex-col mb-10 reveal">
+            {tr.sections.bsFeatures.map(({ title: t, desc: d }, idx) => (
+              <div key={t} className={`py-4 ${idx !== 0 ? 'border-t border-[#3D3028]' : ''}`}>
+                <h4 className="font-serif text-lg sm:text-xl text-[#EDE7DC] font-normal mb-1">{t}</h4>
+                <p className="text-sm text-[#7A6B62] font-light leading-relaxed">{d}</p>
+              </div>
+            ))}
           </div>
 
-          <div className="flex-1 flex flex-col gap-3 sm:gap-5">
-            <div className="flex flex-col gap-2 sm:gap-4">
-              {tr.sections.bsFeatures.map(({ title: t, desc: d }) => (
-                <div key={t} className="flex gap-4 items-start pb-4 border-b border-[#4A3C35] last:border-b-0">
-                  <span className="text-[#BCA590] mt-1 flex-shrink-0">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m4.5 12.75 6 6 9-13.5" />
-                    </svg>
-                  </span>
-                  <div>
-                    <h4 className="font-serif text-xl sm:text-2xl text-[#EDE7DC] mb-1 font-normal tracking-wide">{t}</h4>
-                    <p className="text-sm text-[#9A8B82] font-light leading-relaxed">{d}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* CTA — Wildsmith-style: minimal, underline link or clean button */}
+          {HAS_STRIPE_KEY ? (
+            <button
+              onClick={() => setShowCheckout(true)}
+              className="reveal self-start group flex items-center gap-4 cursor-pointer"
+            >
+              <span className="text-[12px] tracking-[0.3em] uppercase text-[#EDE7DC] font-normal border-b border-[#BCA590]/60 pb-1 group-hover:border-[#BCA590] transition-colors">
+                {tr.sections.bsBoton}
+              </span>
+              <span className="w-8 h-px bg-[#BCA590]/50 group-hover:w-14 group-hover:bg-[#BCA590] transition-all duration-500" />
+            </button>
+          ) : (
+            <a
+              href={STRIPE_SCRIPTS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="reveal self-start group flex items-center gap-4"
+            >
+              <span className="text-[12px] tracking-[0.3em] uppercase text-[#EDE7DC] font-normal border-b border-[#BCA590]/60 pb-1 group-hover:border-[#BCA590] transition-colors">
+                {tr.sections.bsBoton}
+              </span>
+              <span className="w-8 h-px bg-[#BCA590]/50 group-hover:w-14 group-hover:bg-[#BCA590] transition-all duration-500" />
+            </a>
+          )}
 
-            {HAS_STRIPE_KEY ? (
-              <button
-                onClick={() => setShowCheckout(true)}
-                className="w-full sm:w-auto self-start mt-4 px-10 py-3.5 bg-[#BCA590] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#8B7355] transition-colors font-light cursor-pointer shadow-sm"
-              >
-                {tr.sections.bsBoton}
-              </button>
-            ) : (
-              <a
-                href={STRIPE_SCRIPTS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto self-start mt-4 px-10 py-3.5 bg-[#BCA590] text-white text-[12px] tracking-[0.2em] uppercase hover:bg-[#8B7355] transition-colors font-light text-center shadow-sm"
-              >
-                {tr.sections.bsBoton}
-              </a>
-            )}
-          </div>
         </div>
       </div>
 
