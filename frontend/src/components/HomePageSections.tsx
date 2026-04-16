@@ -299,7 +299,7 @@ export function PorQueElegirSection() {
             <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-5">
               {beneficios.map((b, i) => (
                 <div key={i} className="bg-white border border-[#ede8e2] p-4 sm:p-5 lg:p-6 hover:shadow-md hover:border-[#c9bdb5] transition-all duration-300">
-                  <div className="w-9 h-9 lg:w-10 lg:h-10 bg-[#EDE8DF] flex items-center justify-center text-[#8B7355] mb-3">
+                  <div className="text-[#8B7355] mb-3 lg:mb-4 flex items-center">
                     {b.icon}
                   </div>
                   <h3 className="text-[#3d3530] text-sm sm:text-base lg:text-lg font-medium mb-1.5 leading-snug">{tr.sections.beneficios[i].titulo}</h3>
@@ -361,6 +361,14 @@ const tratamientos = [
   },
 ];
 
+// "Silent Luxury" colors for tags
+const LUXURY_COLORS = [
+  { dotColor: '#E5C398' }, // 0: Bestseller (Gold)
+  { dotColor: '#E09E7B' }, // 1: Reparador (Terracotta)
+  { dotColor: '#9AB893' }, // 2: Detox (Sage)
+  { dotColor: '#96ADBF' }, // 3: Relax (Slate)
+];
+
 export function TratamientosSection() {
   const sectionRef = useReveal();
   const { tr } = useLanguage();
@@ -378,6 +386,7 @@ export function TratamientosSection() {
         <div className="flex flex-col gap-10 lg:gap-16">
           {tratamientos.map((t, i) => {
             const td = tr.sections.tratamientos[i];
+            const colors = LUXURY_COLORS[i % LUXURY_COLORS.length];
             return (
             <div
               key={i}
@@ -394,14 +403,24 @@ export function TratamientosSection() {
                     }}
                   />
                   <ImgPlaceholder label={t.img.split('/').pop() || ''} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent z-20" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 z-30">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="h-px w-6 bg-[#C9A96E]" />
-                      <span className="text-[10px] tracking-[0.25em] uppercase font-medium text-[#C9A96E]">{td.tag}</span>
+
+                  {/* Top Premium Glass Capsule */}
+                  <div className="absolute top-4 left-4 md:top-5 md:left-5 z-30 pointer-events-none transition-transform duration-500 group-hover:-translate-y-1">
+                    <div className="flex items-center gap-2.5 rounded-full bg-[#2A2420]/30 backdrop-blur-xl border border-white/20 px-3.5 py-1.5 shadow-lg">
+                      <span 
+                        className="w-1.5 h-1.5 rounded-full relative z-10" 
+                        style={{ backgroundColor: colors.dotColor, boxShadow: `0 0 6px ${colors.dotColor}` }}
+                      />
+                      <span className="text-[9px] tracking-[0.25em] uppercase font-medium text-white/95">
+                        {td.tag}
+                      </span>
                     </div>
-                    <h3 className="font-serif text-xl md:text-2xl font-normal text-white tracking-wide leading-tight">{td.nombre}</h3>
-                    <p className="text-white/60 text-xs mt-1 font-light">{td.duracion}</p>
+                  </div>
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent z-20 pointer-events-none transition-opacity duration-500 group-hover:opacity-95" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 z-30 pointer-events-none translate-y-1 group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 className="font-serif text-xl md:text-2xl font-normal text-white tracking-wide leading-tight mb-1">{td.nombre}</h3>
+                    <p className="text-white/60 text-xs font-light">{td.duracion}</p>
                   </div>
                 </div>
               </div>
